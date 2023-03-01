@@ -1,2 +1,2 @@
 # WSC
-WebService Connector
+Web Services Connector
