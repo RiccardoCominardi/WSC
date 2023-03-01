@@ -1,0 +1,60 @@
+{
+    "name": "APP rule set",
+    "rules": [
+        {
+            "id": "PTE0001",
+            "action": "None",
+            "justification": "object outside 50000..99999 range"
+        },
+        {
+            "id": "PTE0002",
+            "action": "None",
+            "justification": "fields outside 50000..99999 range on table extensions"
+        },
+        {
+            "id": "AA0214",
+            "action": "None",
+            "justification": "the local record should be modified before saving to the database"
+        },
+        {
+            "id": "AA0218",
+            "action": "None",
+            "justification": "a Tooltip should not be neccessary"
+        },
+        {
+            "id": "AA0470",
+            "action": "None",
+            "justification": "placeholders should have a comment explaining their content"
+        },
+        {
+            "id": "AS0051",
+            "action": "None",
+            "justification": "AppSource properties like 'brief', etc. are not needed on customer projects"
+        },
+        {
+            "id": "AS0052",
+            "action": "None",
+            "justification": "AppSource property 'url' is not needed on customer projects"
+        },
+        {
+            "id": "AS0084",
+            "action":"None",
+            "justification" : "The ID range '[50000..53000]' is not valid. It must be within the range allocated to the partner for AppSource, within the range '[1000000..75999999]' allocated to AppSource applications, and outside the range '[50000..99999]' allocated to per-tenant customizations."
+        },
+        {
+            "id": "AS0053",
+            "action":"None",
+            "justification" : "The compilation target is set to 'OnPrem', but it must be set to 'Cloud' or 'Extension'."
+        },
+        {
+            "id": "PTE0005",
+            "action":"None",
+            "justification" : "App.json 'target' property must not be set to 'Internal' or 'OnPrem'"
+        },
+        {
+            "id": "AA0072",
+            "action": "None",
+            "justification": "The name of %2 is not valid. The name of variables and parameters must be suffixed with the type or object name."
+        }
+    ]
+}
