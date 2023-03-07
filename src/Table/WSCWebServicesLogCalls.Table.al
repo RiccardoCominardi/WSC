@@ -62,12 +62,18 @@ table 81004 "WSC Web Services Log Calls"
             DataClassification = CustomerContent;
             Caption = 'Body Message';
         }
-        field(11; "WSC Link To Entry No."; Integer)
+        field(11; "WSC Link to WSC Code"; Code[20])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Link to WSC Code';
+            TableRelation = "WSC Web Services Connections"."WSC Code";
+        }
+        field(12; "WSC Link To Entry No."; Integer)
         {
             DataClassification = CustomerContent;
             Caption = 'Link To Entry No';
         }
-        field(12; "WSC Allow Blank Response"; Boolean)
+        field(13; "WSC Allow Blank Response"; Boolean)
         {
             DataClassification = CustomerContent;
             Caption = 'Allow Blank Response';
@@ -142,6 +148,28 @@ table 81004 "WSC Web Services Log Calls"
                 end;
         end;
 
+    end;
+
+    /// <summary>
+    /// ViewLog.
+    /// </summary>
+    /// <param name="WSCCode">Code[20].</param>
+    procedure ViewLog(WSCCode: Code[20])
+    var
+        WSCWSServicesConnections: Record "WSC Web Services Connections";
+        WSCWSServicesLogCalls: Record "WSC Web Services Log Calls";
+    begin
+        WSCWSServicesConnections.Get(WSCCode);
+
+        WSCWSServicesLogCalls.Reset();
+        WSCWSServicesLogCalls.SetCurrentKey("WSC Execution Date-Time");
+        WSCWSServicesLogCalls.FilterGroup(2);
+        if WSCWSServicesConnections."WSC Bearer Connection Code" <> '' then
+            WSCWSServicesLogCalls.SetFilter("WSC Code", '%1|%2', WSCWSServicesConnections."WSC Code", WSCWSServicesConnections."WSC Bearer Connection Code")
+        else
+            WSCWSServicesLogCalls.SetRange("WSC Code", WSCWSServicesConnections."WSC Code");
+        WSCWSServicesLogCalls.FilterGroup(0);
+        Page.RunModal(0, WSCWSServicesLogCalls);
     end;
 
     trigger OnInsert()

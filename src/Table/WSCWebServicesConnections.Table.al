@@ -66,16 +66,15 @@ table 81001 "WSC Web Services Connections"
             DataClassification = CustomerContent;
             Caption = 'Refresh Token';
         }
-        field(10; "WSC Expire In"; DateTime)
+        field(10; "WSC Expires In"; Integer)
         {
             DataClassification = CustomerContent;
-            Caption = 'Expire In';
+            Caption = 'Expires In';
         }
         field(11; "WSC Authorization Time"; DateTime)
         {
             DataClassification = CustomerContent;
             Caption = 'Authorization Time';
-            //momento in cui chiedo il token si confronta con la scadenza del token. Da mettere nel tooltip della page
         }
         field(12; "WSC Bearer Connection"; Boolean)
         {

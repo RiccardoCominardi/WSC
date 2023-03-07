@@ -75,27 +75,24 @@ page 81002 "WSC Web Service Conn. Card"
                 {
                     ApplicationArea = All;
                 }
-                field("WSC Access Token"; Rec."WSC Access Token".HasValue)
+                field("WSC Access Token"; TokenPresent)
                 {
                     Caption = 'Access Token Active';
                     ApplicationArea = All;
                     Editable = false;
                 }
-                field("WSC Refresh Token"; Rec."WSC Refresh Token".HasValue)
+                field("WSC Authorization Time"; TokenAuth)
                 {
-                    Caption = 'Refresh Token Active';
+                    Caption = 'Authorization Time';
                     ApplicationArea = All;
                     Editable = false;
                 }
-                field("WSC Authorization Time"; Rec."WSC Authorization Time")
+                field(TokenStatus; TokenStatus)
                 {
                     ApplicationArea = All;
                     Editable = false;
-                }
-                field("WSC Expire In"; Rec."WSC Expire In")
-                {
-                    ApplicationArea = All;
-                    Editable = false;
+                    ShowCaption = false;
+                    StyleExpr = TokenColor;
                 }
             }
         }
@@ -118,11 +115,7 @@ page 81002 "WSC Web Service Conn. Card"
                 var
                     WSCWSServicesHeaders: Record "WSC Web Services Headers";
                 begin
-                    WSCWSServicesHeaders.Reset();
-                    WSCWSServicesHeaders.FilterGroup(2);
-                    WSCWSServicesHeaders.SetRange("WSC Code", Rec."WSC Code");
-                    WSCWSServicesHeaders.FilterGroup(0);
-                    Page.RunModal(0, WSCWSServicesHeaders);
+                    WSCWSServicesHeaders.ViewLog(Rec."WSC Code");
                 end;
             }
             action(Bodies)
@@ -133,17 +126,12 @@ page 81002 "WSC Web Service Conn. Card"
                 PromotedCategory = Process;
                 Promoted = true;
                 Image = SetupList;
-                Visible = BodiesVisible;
 
                 trigger OnAction()
                 var
                     WSCWSServicesBodies: Record "WSC Web Services Bodies";
                 begin
-                    WSCWSServicesBodies.Reset();
-                    WSCWSServicesBodies.FilterGroup(2);
-                    WSCWSServicesBodies.SetRange("WSC Code", Rec."WSC Code");
-                    WSCWSServicesBodies.FilterGroup(0);
-                    Page.RunModal(0, WSCWSServicesBodies);
+                    WSCWSServicesBodies.ViewLog(Rec."WSC Code");
                 end;
             }
             action(SendRequest)
@@ -175,11 +163,7 @@ page 81002 "WSC Web Service Conn. Card"
                 var
                     WSCWSServicesLogCalls: Record "WSC Web Services Log Calls";
                 begin
-                    WSCWSServicesLogCalls.Reset();
-                    WSCWSServicesLogCalls.FilterGroup(2);
-                    WSCWSServicesLogCalls.SetRange("WSC Code", Rec."WSC Code");
-                    WSCWSServicesLogCalls.FilterGroup(0);
-                    Page.RunModal(0, WSCWSServicesLogCalls);
+                    WSCWSServicesLogCalls.ViewLog(Rec."WSC Code");
                 end;
             }
         }
@@ -188,6 +172,7 @@ page 81002 "WSC Web Service Conn. Card"
     trigger OnAfterGetRecord()
     begin
         SetEditableVariables();
+        SetTokenFields();
     end;
 
     local procedure SetEditableVariables()
@@ -195,12 +180,58 @@ page 81002 "WSC Web Service Conn. Card"
         CredentialsEditable := Rec."WSC Auth. Type" = Rec."WSC Auth. Type"::Basic;
     end;
 
-    local procedure SetVisibleVariables()
+    local procedure SetTokenFields()
+    var
+        WSCConnBearer: Record "WSC Web Services Connections";
+        Text000Lbl: Label 'No Token';
+        Text001Lbl: Label 'Token Expired';
+        Text002Lbl: Label 'Token Available';
     begin
-        BodiesVisible := Rec."WSC Body Type" in [Rec."WSC Body Type"::"Form Data", Rec."WSC Body Type"::"x-www-form-urlencoded"];
+        TokenPresent := false;
+        TokenAuth := 0DT;
+        TokenColor := 'Standard';
+        TokenStatus := Text000Lbl;
+        if Rec."WSC Bearer Connection" then begin
+            TokenPresent := Rec."WSC Access Token".HasValue();
+            TokenAuth := Rec."WSC Authorization Time";
+            if IsExpiredToken(TokenAuth, Rec."WSC Expires In") then begin
+                TokenStatus := Text001Lbl;
+                TokenColor := 'Unfavorable'
+            end else begin
+                TokenStatus := Text002Lbl;
+                TokenColor := 'Favorable';
+            end;
+        end else
+            if Rec."WSC Bearer Connection Code" <> '' then
+                if WSCConnBearer."WSC Code" <> Rec."WSC Bearer Connection Code" then begin
+                    WSCConnBearer.Get(Rec."WSC Bearer Connection Code");
+                    TokenPresent := WSCConnBearer."WSC Access Token".HasValue();
+                    TokenAuth := WSCConnBearer."WSC Authorization Time";
+                    if IsExpiredToken(TokenAuth, WSCConnBearer."WSC Expires In") then begin
+                        TokenStatus := Text001Lbl;
+                        TokenColor := 'Unfavorable'
+                    end else begin
+                        TokenStatus := Text002Lbl;
+                        TokenColor := 'Favorable';
+                    end;
+                end;
+    end;
+
+    local procedure IsExpiredToken(ParTokenAuth: DateTime; ParExpireIn: Integer): Boolean
+    var
+        ElapsedSecs: Integer;
+    begin
+        ElapsedSecs := Round((CurrentDateTime() - ParTokenAuth) / 1000, 1, '>');
+        if (ElapsedSecs < ParExpireIn) and (ElapsedSecs < 3600) then
+            exit(false)
+        else
+            exit(true);
     end;
 
     var
         CredentialsEditable: Boolean;
-        BodiesVisible: Boolean;
+        TokenPresent: Boolean;
+        TokenAuth: DateTime;
+        TokenStatus: Text;
+        TokenColor: Text;
 }

@@ -37,6 +37,10 @@ page 81001 "WSC Web Services Conn. List"
                 {
                     ApplicationArea = All;
                 }
+                field("WSC Bearer Connection"; Rec."WSC Bearer Connection")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }
@@ -58,11 +62,7 @@ page 81001 "WSC Web Services Conn. List"
                 var
                     WSCWSServicesHeaders: Record "WSC Web Services Headers";
                 begin
-                    WSCWSServicesHeaders.Reset();
-                    WSCWSServicesHeaders.FilterGroup(2);
-                    WSCWSServicesHeaders.SetRange("WSC Code", Rec."WSC Code");
-                    WSCWSServicesHeaders.FilterGroup(0);
-                    Page.RunModal(0, WSCWSServicesHeaders);
+                    WSCWSServicesHeaders.ViewLog(Rec."WSC Code");
                 end;
             }
             action(Bodies)
@@ -73,17 +73,12 @@ page 81001 "WSC Web Services Conn. List"
                 PromotedCategory = Process;
                 Promoted = true;
                 Image = SetupList;
-                Visible = BodiesVisible;
 
                 trigger OnAction()
                 var
                     WSCWSServicesBodies: Record "WSC Web Services Bodies";
                 begin
-                    WSCWSServicesBodies.Reset();
-                    WSCWSServicesBodies.FilterGroup(2);
-                    WSCWSServicesBodies.SetRange("WSC Code", Rec."WSC Code");
-                    WSCWSServicesBodies.FilterGroup(0);
-                    Page.RunModal(0, WSCWSServicesBodies);
+                    WSCWSServicesBodies.ViewLog(Rec."WSC Code");
                 end;
             }
             action(SendRequest)
@@ -115,11 +110,7 @@ page 81001 "WSC Web Services Conn. List"
                 var
                     WSCWSServicesLogCalls: Record "WSC Web Services Log Calls";
                 begin
-                    WSCWSServicesLogCalls.Reset();
-                    WSCWSServicesLogCalls.FilterGroup(2);
-                    WSCWSServicesLogCalls.SetRange("WSC Code", Rec."WSC Code");
-                    WSCWSServicesLogCalls.FilterGroup(0);
-                    Page.RunModal(0, WSCWSServicesLogCalls);
+                    WSCWSServicesLogCalls.ViewLog(Rec."WSC Code");
                 end;
             }
         }
@@ -135,12 +126,7 @@ page 81001 "WSC Web Services Conn. List"
         CredentialsEditable := Rec."WSC Auth. Type" = Rec."WSC Auth. Type"::Basic;
     end;
 
-    local procedure SetVisibleVariables()
-    begin
-        BodiesVisible := Rec."WSC Body Type" in [Rec."WSC Body Type"::"Form Data", Rec."WSC Body Type"::"x-www-form-urlencoded"];
-    end;
 
     var
         CredentialsEditable: Boolean;
-        BodiesVisible: Boolean;
 }

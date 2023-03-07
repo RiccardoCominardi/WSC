@@ -50,6 +50,26 @@ table 81005 "WSC Web Services Log Headers"
         }
     }
 
+    /// <summary>
+    /// ViewLog.
+    /// </summary>
+    /// <param name="WSCCode">Code[20].</param>
+    /// <param name="EntryNo">Integer.</param>
+    procedure ViewLog(WSCCode: Code[20]; EntryNo: Integer)
+    var
+        WSCWSServicesLogCalls: Record "WSC Web Services Log Calls";
+        WSCWSServicesLogHeaders: Record "WSC Web Services Log Headers";
+    begin
+        WSCWSServicesLogCalls.Get(WSCCode, EntryNo);
+
+        WSCWSServicesLogHeaders.Reset();
+        WSCWSServicesLogHeaders.FilterGroup(2);
+        WSCWSServicesLogHeaders.SetRange("WSC Code", WSCWSServicesLogCalls."WSC Code");
+        WSCWSServicesLogHeaders.SetRange("WSC Entry No.", WSCWSServicesLogCalls."WSC Entry No.");
+        WSCWSServicesLogHeaders.FilterGroup(0);
+        Page.RunModal(0, WSCWSServicesLogHeaders);
+    end;
+
     var
         myInt: Integer;
 

@@ -93,10 +93,10 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC EndPoint - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 3742876229 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Expire In</source>
+        <trans-unit id="Table 3857118176 - Field 2068140460 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Expires In</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Expire In - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Expires In - Property Caption</note>
         </trans-unit>
         <trans-unit id="Table 3857118176 - Field 3143592708 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>HTTP Method</source>
@@ -268,6 +268,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Calls - Field WSC Link To Entry No. - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 2381047368 - Field 2382445634 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Link to WSC Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Calls - Field WSC Link to WSC Code - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 2381047368 - Field 734342747 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Message Text</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -323,30 +328,70 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Web Services Caller - Method CollectBodies - NamedType Text000Lbl</note>
         </trans-unit>
-        <trans-unit id="Codeunit 2367903848 - Method 681255651 - NamedType 724990536" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Codeunit 2367903848 - Method 681255651 - NamedType 1614022648" size-unit="char" translate="yes" xml:space="preserve">
           <source>%1:%2</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Web Services Caller - Method CreateBasicAuthHeader - NamedType LocText001Txt</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Web Services Caller - Method CreateBasicAuthHeader - NamedType Text001Txt</note>
         </trans-unit>
-        <trans-unit id="Codeunit 2367903848 - Method 681255651 - NamedType 3251718857" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Codeunit 2367903848 - Method 681255651 - NamedType 598315961" size-unit="char" translate="yes" xml:space="preserve">
           <source>Basic %1</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Web Services Caller - Method CreateBasicAuthHeader - NamedType LocText002Txt</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Web Services Caller - Method CreateBasicAuthHeader - NamedType Text002Txt</note>
         </trans-unit>
-        <trans-unit id="Codeunit 2367903848 - Method 1620781168 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Codeunit 2367903848 - Method 2818987228 - NamedType 1614022648" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bearer must have a value in this type of call</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Web Services Caller - Method CreateBearerAuthHeader - NamedType Text001Txt</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 2367903848 - Method 2818987228 - NamedType 598315961" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bearer %1</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Web Services Caller - Method CreateBearerAuthHeader - NamedType Text002Txt</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 2367903848 - Method 3526843878 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
           <source>Connection not estabilished</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Web Services Caller - Method PrepareAndExecuteRequest - NamedType Text000Err</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Web Services Caller - Method NormalRequest - NamedType Text000Err</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 2367903848 - Method 3337406174 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Connection not estabilished</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Web Services Caller - Method TokenRequest - NamedType Text000Err</note>
         </trans-unit>
         <trans-unit id="Codeunit 3971640374 - Method 1568353354 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
           <source>Key %1 must be filled for token request</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Web Services Management - Method CheckWSCHeaderForToken - NamedType Text000Err</note>
         </trans-unit>
+        <trans-unit id="Codeunit 3971640374 - Method 2664860516 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Execution Terminated. Check the log to see the result</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Web Services Management - Method ExecuteDirectWSCConnections - NamedType Text000Lbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3971640374 - Method 2345795677 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Invalid Access Token Property %1, Value:  %2</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Web Services Management - Method UpdateWSCTokenInfo - NamedType Text000Err</note>
+        </trans-unit>
         <trans-unit id="Page 807015976 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Web Service Connection Card</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 807015976 - Method 1661334556 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
+          <source>No Token</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Method SetTokenFields - NamedType Text000Lbl</note>
+        </trans-unit>
+        <trans-unit id="Page 807015976 - Method 1661334556 - NamedType 1196336482" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Token Expired</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Method SetTokenFields - NamedType Text001Lbl</note>
+        </trans-unit>
+        <trans-unit id="Page 807015976 - Method 1661334556 - NamedType 1753513791" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Token Available</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Method SetTokenFields - NamedType Text002Lbl</note>
         </trans-unit>
         <trans-unit id="Page 807015976 - Control 2445482498 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>General</source>
@@ -363,10 +408,10 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Control WSC Access Token - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 807015976 - Control 1711375403 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Refresh Token Active</source>
+        <trans-unit id="Page 807015976 - Control 2068142195 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Authorization Time</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Control WSC Refresh Token - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Control WSC Authorization Time - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 807015976 - Action 3077534250 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Set Bodies information for the Web Service call</source>

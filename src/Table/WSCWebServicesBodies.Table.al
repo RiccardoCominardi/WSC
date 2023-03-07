@@ -41,6 +41,26 @@ table 81003 "WSC Web Services Bodies"
         }
     }
 
+    /// <summary>
+    /// ViewLog.
+    /// </summary>
+    /// <param name="WSCCode">Code[20].</param>
+    procedure ViewLog(WSCCode: Code[20])
+    var
+        WSCWSServicesConnections: Record "WSC Web Services Connections";
+        WSCWSServicesBodies: Record "WSC Web Services Bodies";
+    begin
+        WSCWSServicesConnections.Get(WSCCode);
+        if not (WSCWSServicesConnections."WSC Body Type" in [WSCWSServicesConnections."WSC Body Type"::"form data", WSCWSServicesConnections."WSC Body Type"::"x-www-form-urlencoded"]) then
+            exit;
+
+        WSCWSServicesBodies.Reset();
+        WSCWSServicesBodies.FilterGroup(2);
+        WSCWSServicesBodies.SetRange("WSC Code", WSCWSServicesConnections."WSC Code");
+        WSCWSServicesBodies.FilterGroup(0);
+        Page.RunModal(0, WSCWSServicesBodies);
+    end;
+
     var
         myInt: Integer;
 

@@ -11,17 +11,6 @@ codeunit 81002 "WSC Web Services Caller"
         PrepareAndExecuteRequest();
     end;
 
-
-    local procedure ClearGlobalVariables()
-    begin
-        Clear(GlobalWSCWebServConn);
-        Clear(ResponseInStream);
-        Clear(BodyInStream);
-        Clear(CallExecution);
-        Clear(HttpStatusCode);
-        Clear(LastMessageText);
-    end;
-
     /// <summary>
     /// RetrieveGlobalVariables.
     /// </summary>
@@ -39,6 +28,16 @@ codeunit 81002 "WSC Web Services Caller"
         ParLastMessageText := LastMessageText;
     end;
 
+    local procedure ClearGlobalVariables()
+    begin
+        Clear(GlobalWSCWebServConn);
+        Clear(ResponseInStream);
+        Clear(BodyInStream);
+        Clear(CallExecution);
+        Clear(HttpStatusCode);
+        Clear(LastMessageText);
+    end;
+
     local procedure AcquireGlobalWSCConnection(WSCCode: Code[20])
     begin
         GlobalWSCWebServConn.Get(WSCCode);
@@ -47,12 +46,25 @@ codeunit 81002 "WSC Web Services Caller"
     local procedure PrepareAndExecuteRequest()
     var
         TempBlob: Codeunit "Temp Blob";
+    begin
+        //Initialize Stream Variables
+        TempBlob.CreateInStream(BodyInStream);
+        TempBlob.CreateInStream(ResponseInStream);
+
+        //Split of Calls
+        if GlobalWSCWebServConn."WSC Bearer Connection" then
+            TokenRequest()
+        else
+            NormalRequest();
+    end;
+
+    local procedure TokenRequest()
+    var
         Base64Convert: Codeunit "Base64 Convert";
         WSCWSSelBodyFile: Page "WSC Web Service Sel. Body File";
-        ResponseText: Text;
         FileInBase64: Text;
-        InStr: InStream;
         OutStr: OutStream;
+        InStr: InStream;
         Text000Err: Label 'Connection not estabilished';
         /*Web Service Connection Variables*/
         Client: HttpClient;
@@ -61,33 +73,17 @@ codeunit 81002 "WSC Web Services Caller"
         ResponseMessage: HttpResponseMessage;
         RequestMessage: HttpRequestMessage;
         ContentHeaders: HttpHeaders;
-        JsonObjectReader: JsonObject;
     begin
-        //Initialize Stream Variables
-        TempBlob.CreateInStream(BodyInStream);
-        TempBlob.CreateInStream(ResponseInStream);
-
         //Authentication
         RequestHeaders := Client.DefaultRequestHeaders();
-        case GlobalWSCWebServConn."WSC Auth. Type" of
-            "WSC Authorization Types"::basic:
-                RequestHeaders.Add('Authorization', CreateBasicAuthHeader(GlobalWSCWebServConn."WSC Username", GlobalWSCWebServConn."WSC Password"));
-        //None: Autenticazione gestita nel Body, vedi esempi di chiamata Bartolini o GLS
-        //Bearer: Autenticazione gestita con le Headers
-        end;
 
-        //Headers Values
-        case GlobalWSCWebServConn."WSC HTTP Method" of
-            "WSC HTTP Methods"::Get:
-                RequestMessage.GetHeaders(ContentHeaders);
-            "WSC HTTP Methods"::Post:
-                RequestContent.GetHeaders(ContentHeaders);
-        end;
-
-        ContentHeaders.Clear();
-        CollectHeaders(ContentHeaders);
+        if HasBodyValues() then
+            RequestContent.GetHeaders(ContentHeaders)
+        else
+            RequestMessage.GetHeaders(ContentHeaders);
 
         //Bodies Values
+        ContentHeaders.Clear();
         if GlobalWSCWebServConn."WSC Body Type" in [GlobalWSCWebServConn."WSC Body Type"::"form data", GlobalWSCWebServConn."WSC Body Type"::"x-www-form-urlencoded"] then
             CollectBodies(RequestContent)
         else begin
@@ -100,7 +96,7 @@ codeunit 81002 "WSC Web Services Caller"
                     Base64Convert.FromBase64(FileInBase64, OutStr);
                 end;
             end else
-                OnSetBodyMessage(GlobalWSCWebServConn);
+                OnSetBodyMessageTokenRequest(GlobalWSCWebServConn);
 
             GlobalWSCWebServConn.CalcFields("WSC Body Message");
             if GlobalWSCWebServConn."WSC Body Message".HasValue() then begin
@@ -110,39 +106,113 @@ codeunit 81002 "WSC Web Services Caller"
             end;
         end;
 
-        //Prepare Final Message
+        //Prepare Call
+        CollectHeaders(ContentHeaders);
         RequestMessage.Method := Format(GlobalWSCWebServConn."WSC HTTP Method");
         RequestMessage.SetRequestUri(GlobalWSCWebServConn."WSC EndPoint");
-        case GlobalWSCWebServConn."WSC HTTP Method" of
-            "WSC HTTP Methods"::Get:
-                ;
-            "WSC HTTP Methods"::Post:
-                RequestMessage.Content(RequestContent);
+        if HasBodyValues() then
+            RequestMessage.Content(RequestContent);
+
+        //Execute Call & Response Management
+        ClearLastError();
+        if Client.Send(RequestMessage, ResponseMessage) then
+            EvaluateResponse(ResponseMessage)
+        else
+            LastMessageText := Text000Err;
+    end;
+
+    local procedure NormalRequest()
+    var
+        Base64Convert: Codeunit "Base64 Convert";
+        WSCWSSelBodyFile: Page "WSC Web Service Sel. Body File";
+        FileInBase64: Text;
+        OutStr: OutStream;
+        InStr: InStream;
+        Text000Err: Label 'Connection not estabilished';
+        /*Web Service Connection Variables*/
+        Client: HttpClient;
+        RequestHeaders: HttpHeaders;
+        RequestContent: HttpContent;
+        ResponseMessage: HttpResponseMessage;
+        RequestMessage: HttpRequestMessage;
+        ContentHeaders: HttpHeaders;
+    begin
+        //Authentication
+        RequestHeaders := Client.DefaultRequestHeaders();
+        case GlobalWSCWebServConn."WSC Auth. Type" of
+            "WSC Authorization Types"::basic:
+                RequestHeaders.Add('Authorization', CreateBasicAuthHeader(GlobalWSCWebServConn."WSC Username", GlobalWSCWebServConn."WSC Password"));
+            "WSC Authorization Types"::"bearer token":
+                RequestHeaders.Add('Authorization', CreateBearerAuthHeader());
+        //None: Autenticazione gestita nel Body, vedi esempi di chiamata Bartolini o GLS
+        //Bearer: Autenticazione gestita con le Headers
         end;
 
-        //Call Execution & Response Management
-        CallExecution := false;
-        ClearLastError();
-        Clear(TempBlob);
-        if Client.Send(RequestMessage, ResponseMessage) then begin
-            ResponseMessage.Content.ReadAs(ResponseInStream); //Risposta completa sotto forma di file
-            if ResponseMessage.IsSuccessStatusCode() then begin
-                if ResponseMessage.Content.ReadAs(ResponseText) then
-                    if (ResponseText = '') and (GlobalWSCWebServConn."WSC Allow Blank Response") then
-                        CallExecution := true
-                    else begin
-                        CallExecution := JsonObjectReader.ReadFrom(ResponseText);
-                        LastMessageText := GetLastErrorText();
-                    end;
-            end else begin
-                if ResponseMessage.Content.ReadAs(ResponseText) then
-                    JsonObjectReader.ReadFrom(ResponseText);
-                LastMessageText := ResponseMessage.ReasonPhrase(); //Messaggio di errore del server
-            end;
-        end else
-            LastMessageText := Text000Err;
-        HttpStatusCode := ResponseMessage.HttpStatusCode;
+        if HasBodyValues() then
+            RequestContent.GetHeaders(ContentHeaders)
+        else
+            RequestMessage.GetHeaders(ContentHeaders);
 
+        //Bodies Values
+        ContentHeaders.Clear();
+        if GlobalWSCWebServConn."WSC Body Type" in [GlobalWSCWebServConn."WSC Body Type"::"form data", GlobalWSCWebServConn."WSC Body Type"::"x-www-form-urlencoded"] then
+            CollectBodies(RequestContent)
+        else begin
+            if GuiAllowed then begin
+                if GlobalWSCWebServConn."WSC HTTP Method" <> GlobalWSCWebServConn."WSC HTTP Method"::Get then begin //Get Method not need body
+                    Clear(WSCWSSelBodyFile);
+                    WSCWSSelBodyFile.RunModal();
+                    WSCWSSelBodyFile.GetBodyString(FileInBase64);
+                    GlobalWSCWebServConn."WSC Body Message".CreateOutStream(OutStr);
+                    Base64Convert.FromBase64(FileInBase64, OutStr);
+                end;
+            end else
+                OnSetBodyMessageTokenRequest(GlobalWSCWebServConn);
+
+            GlobalWSCWebServConn.CalcFields("WSC Body Message");
+            if GlobalWSCWebServConn."WSC Body Message".HasValue() then begin
+                GlobalWSCWebServConn."WSC Body Message".CreateInStream(InStr);
+                BodyInStream := InStr;
+                RequestContent.WriteFrom(InStr);
+            end;
+        end;
+
+        //Prepare Call
+        CollectHeaders(ContentHeaders);
+        RequestMessage.Method := Format(GlobalWSCWebServConn."WSC HTTP Method");
+        RequestMessage.SetRequestUri(GlobalWSCWebServConn."WSC EndPoint");
+        if HasBodyValues() then
+            RequestMessage.Content(RequestContent);
+
+        //Execute Call & Response Management
+        ClearLastError();
+        if Client.Send(RequestMessage, ResponseMessage) then
+            EvaluateResponse(ResponseMessage)
+        else
+            LastMessageText := Text000Err;
+    end;
+
+    local procedure EvaluateResponse(var ResponseMessage: HttpResponseMessage)
+    var
+        ResponseText: Text;
+        JsonObjectReader: JsonObject;
+    begin
+        CallExecution := false;
+        ResponseMessage.Content.ReadAs(ResponseInStream); //Risposta completa sotto forma di file
+        if ResponseMessage.IsSuccessStatusCode() then begin
+            if ResponseMessage.Content.ReadAs(ResponseText) then
+                if (ResponseText = '') and (GlobalWSCWebServConn."WSC Allow Blank Response") then
+                    CallExecution := true
+                else begin
+                    CallExecution := JsonObjectReader.ReadFrom(ResponseText);
+                    LastMessageText := GetLastErrorText();
+                end;
+        end else begin
+            if ResponseMessage.Content.ReadAs(ResponseText) then
+                JsonObjectReader.ReadFrom(ResponseText);
+            LastMessageText := ResponseMessage.ReasonPhrase(); //Messaggio di errore del server
+        end;
+        HttpStatusCode := ResponseMessage.HttpStatusCode;
     end;
 
     local procedure CreateBasicAuthHeader(UserName: Text; Password: Text): Text
@@ -151,16 +221,33 @@ codeunit 81002 "WSC Web Services Caller"
         TempBlob: Codeunit "Temp Blob";
         LocInStream: InStream;
         LocOutStream: OutStream;
-        LocText001Txt: Label '%1:%2';
-        LocText002Txt: Label 'Basic %1';
+        Text001Txt: Label '%1:%2';
+        Text002Txt: Label 'Basic %1';
     begin
         if GlobalWSCWebServConn."WSC Convert Auth. Base64" then begin
             TempBlob.CreateOutStream(LocOutStream, TextEncoding::UTF8);
-            LocOutStream.WriteText(StrSubstNo(LocText001Txt, UserName, Password));
+            LocOutStream.WriteText(StrSubstNo(Text001Txt, UserName, Password));
             TempBlob.CreateInStream(LocInStream, TextEncoding::UTF8);
-            exit(StrSubstNo(LocText002Txt, LocBase64Convert.ToBase64(LocInStream)))
+            exit(StrSubstNo(Text002Txt, LocBase64Convert.ToBase64(LocInStream)))
         end else
-            exit(StrSubstNo(LocText002Txt, StrSubstNo(LocText001Txt, UserName, Password)));
+            exit(StrSubstNo(Text002Txt, StrSubstNo(Text001Txt, UserName, Password)));
+    end;
+
+    local procedure CreateBearerAuthHeader(): Text
+    var
+        WSCConnBearer: Record "WSC Web Services Connections";
+        Bearer: Text;
+        InStr: InStream;
+        Text001Txt: Label 'Bearer must have a value in this type of call';
+        Text002Txt: Label 'Bearer %1';
+    begin
+        WSCConnBearer.Get(GlobalWSCWebServConn."WSC Bearer Connection Code");
+        WSCConnBearer.CalcFields("WSC Access Token");
+        if not WSCConnBearer."WSC Access Token".HasValue() then
+            Error(Text001Txt);
+        WSCConnBearer."WSC Access Token".CreateInStream(InStr);
+        InStr.ReadText(Bearer);
+        exit(StrSubstNo(Text002Txt, Bearer));
     end;
 
     local procedure CollectHeaders(var ParContentHeaders: HttpHeaders)
@@ -175,6 +262,8 @@ codeunit 81002 "WSC Web Services Caller"
 
         WSCWSServicesHeaders.FindSet();
         repeat
+            if ParContentHeaders.Contains(WSCWSServicesHeaders."WSC Key") then
+                ParContentHeaders.Remove(WSCWSServicesHeaders."WSC Key");
             ParContentHeaders.Add(WSCWSServicesHeaders."WSC Key", WSCWSServicesHeaders."WSC Value");
         until WSCWSServicesHeaders.Next() = 0;
     end;
@@ -199,11 +288,22 @@ codeunit 81002 "WSC Web Services Caller"
         ParRequestContent.WriteFrom(BodyToWrite);
     end;
 
+    local procedure HasBodyValues(): Boolean;
+    var
+        WSCWSServicesBodies: Record "WSC Web Services Bodies";
+    begin
+        WSCWSServicesBodies.Reset();
+        WSCWSServicesBodies.SetRange("WSC Code", GlobalWSCWebServConn."WSC Code");
+        WSCWSServicesBodies.SetFilter("WSC Key", '<> %1', '');
+        if not WSCWSServicesBodies.IsEmpty() then
+            exit(true);
+        exit(false);
+    end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnSetBodyMessage(WSCWSServicesConnections: Record "WSC Web Services Connections")
+    local procedure OnSetBodyMessageTokenRequest(WSCWSServicesConnections: Record "WSC Web Services Connections")
     begin
-        //Modidy is not needed
+        //Modify is not needed
     end;
 
     var

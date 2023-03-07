@@ -41,6 +41,24 @@ table 81002 "WSC Web Services Headers"
         }
     }
 
+    /// <summary>
+    /// ViewLog.
+    /// </summary>
+    /// <param name="WSCCode">Code[20].</param>
+    procedure ViewLog(WSCCode: Code[20])
+    var
+        WSCWSServicesConnections: Record "WSC Web Services Connections";
+        WSCWSServicesHeaders: Record "WSC Web Services Headers";
+    begin
+        WSCWSServicesConnections.Get(WSCCode);
+
+        WSCWSServicesHeaders.Reset();
+        WSCWSServicesHeaders.FilterGroup(2);
+        WSCWSServicesHeaders.SetRange("WSC Code", WSCWSServicesConnections."WSC Code");
+        WSCWSServicesHeaders.FilterGroup(0);
+        Page.RunModal(0, WSCWSServicesHeaders);
+    end;
+
     var
         myInt: Integer;
 

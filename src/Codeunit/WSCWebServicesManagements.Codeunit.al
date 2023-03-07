@@ -7,6 +7,8 @@ codeunit 81001 "WSC Web Services Management"
     begin
     end;
 
+    #region ExecutionFunctions
+
     /// <summary>
     /// ExecuteDirectWSCConnections.
     /// </summary>
@@ -16,32 +18,68 @@ codeunit 81001 "WSC Web Services Management"
         WSCWSServicesConnections: Record "WSC Web Services Connections";
         WSCConnBearer: Record "WSC Web Services Connections";
         TokenEntryNo: Integer;
+        Text000Lbl: Label 'Execution Terminated. Check the log to see the result';
     begin
         WSCWSServicesConnections.Get(WSCCode);
         CheckWSCCodeSetup(WSCWSServicesConnections);
 
         case WSCWSServicesConnections."WSC Auth. Type" of
-            WSCWSServicesConnections."WSC Auth. Type"::"bearer token":
+            WSCWSServicesConnections."WSC Auth. Type"::none,
+            WSCWSServicesConnections."WSC Auth. Type"::basic:
                 begin
-                    WSCConnBearer.Get(WSCWSServicesConnections."WSC Bearer Connection Code");
-                    //è da usare il token? Refresh o uso lo stesso?
                     Clear(WSCWebServicesCaller);
                     ClearLastError();
-                    if WSCWebServicesCaller.Run(WSCConnBearer) then; //First Web Service call to get the Token
-                    TokenEntryNo := WriteConnectionLog(WSCCode, 0);
-                    //Log da inserire in qualsiaso modo vada a finire + Bearer da salvarsi
+                    if WSCWSServicesConnections."WSC Bearer Connection" then
+                        ExecuteTokenCall(WSCWSServicesConnections."WSC Code", WSCConnBearer, TokenEntryNo)
+                    else begin
+                        if WSCWebServicesCaller.Run(WSCWSServicesConnections) then;
+                        WriteConnectionLog(WSCCode, '', 0);
+                    end;
+                end;
+            WSCWSServicesConnections."WSC Auth. Type"::"bearer token":
+                if ExecuteTokenCall(WSCWSServicesConnections."WSC Bearer Connection Code", WSCConnBearer, TokenEntryNo) then begin
+                    Commit();
+                    Clear(WSCWebServicesCaller);
+                    ClearLastError();
+                    if WSCWebServicesCaller.Run(WSCWSServicesConnections) then;
+                    WriteConnectionLog(WSCCode, WSCConnBearer."WSC Code", TokenEntryNo);
                 end;
         end;
 
-        Clear(WSCWebServicesCaller);
-        ClearLastError();
-        if WSCWebServicesCaller.Run(WSCWSServicesConnections) then; //Call to Web service
-        WriteConnectionLog(WSCCode, TokenEntryNo);
+        if GuiAllowed() then
+            if not HideMessage then
+                Message(Text000Lbl);
     end;
 
-    local procedure CheckWSCCodeSetup(WSCWSServicesConnections: Record "WSC Web Services Connections")
+    local procedure ExecuteTokenCall(WSCTokenCode: Code[20]; var WSCConnBearer: Record "WSC Web Services Connections"; var TokenEntryNo: Integer) TokenTaken: Boolean;
     var
-        WSCConnBearer: Record "WSC Web Services Connections";
+        WSCWSServicesLogCalls: Record "WSC Web Services Log Calls";
+    begin
+        TokenTaken := false;
+        WSCConnBearer.Get(WSCTokenCode);
+        CheckWSCCodeSetup(WSCConnBearer);
+        if IsTokenCallToDo(WSCConnBearer) then begin
+            Clear(WSCWebServicesCaller);
+            ClearLastError();
+            if WSCWebServicesCaller.Run(WSCConnBearer) then;
+            TokenEntryNo := WriteConnectionLog(WSCConnBearer."WSC Code", '', 0);
+            if IsSuccessStatusCode(WSCConnBearer."WSC Code", TokenEntryNo) then begin
+                TokenTaken := true;
+                UpdateWSCTokenInfo(WSCConnBearer);
+            end;
+        end else begin
+            WSCWSServicesLogCalls.Reset();
+            WSCWSServicesLogCalls.SetRange("WSC Code", WSCConnBearer."WSC Code");
+            WSCWSServicesLogCalls.FindLast();
+            TokenEntryNo := WSCWSServicesLogCalls."WSC Entry No.";
+            TokenTaken := true;
+        end;
+        exit(TokenTaken);
+    end;
+
+    #endregion ExecutionFunctions
+    #region GeneralFunctions
+    local procedure CheckWSCCodeSetup(WSCWSServicesConnections: Record "WSC Web Services Connections")
     begin
         WSCWSServicesConnections.TestField("WSC EndPoint");
         case WSCWSServicesConnections."WSC Auth. Type" of
@@ -50,34 +88,84 @@ codeunit 81001 "WSC Web Services Management"
                     WSCWSServicesConnections.TestField("WSC Username");
                     WSCWSServicesConnections.TestField("WSC Password");
                 end;
+
             WSCWSServicesConnections."WSC Auth. Type"::"bearer token":
-                begin
-                    WSCWSServicesConnections.TestField("WSC Bearer Connection Code");
-                    WSCConnBearer.Get(WSCWSServicesConnections."WSC Bearer Connection Code");
-                    WSCConnBearer.TestField("WSC Bearer Connection");
-                    CheckWSCHeaderForToken(WSCConnBearer);
+                WSCWSServicesConnections.TestField("WSC Bearer Connection Code");
+
+            WSCWSServicesConnections."WSC Auth. Type"::none:
+                if WSCWSServicesConnections."WSC Bearer Connection" then begin
+                    WSCWSServicesConnections.TestField("WSC Bearer Connection Code", '');
+                    CheckWSCHeaderForToken(WSCWSServicesConnections);
                 end;
         end;
     end;
 
+    local procedure IsSuccessStatusCode(WSCCode: Code[20]; EntryNo: Integer): Boolean
+    var
+        WSCWebServicesLogCalls: Record "WSC Web Services Log Calls";
+    begin
+        WSCWebServicesLogCalls.Get(WSCCode, EntryNo);
+        case WSCWebServicesLogCalls."WSC Result Status Code" of
+            200,
+            201,
+            202:
+                exit(true);
+        end;
+    end;
+
+    local procedure WriteBlobFields(var OutStr: OutStream; var InStr: InStream)
+    var
+        CurrText: Text;
+    begin
+        while not InStr.EOS() do begin
+            InStr.ReadText(CurrText);
+            ResponseText += CurrText;
+            OutStr.Write(CurrText);
+        end;
+    end;
+
+    /// <summary>
+    /// SetHideMessage.
+    /// </summary>
+    /// <param name="ParHideMessage">Boolean.</param>
+    procedure SetHideMessage(ParHideMessage: Boolean)
+    begin
+        HideMessage := ParHideMessage;
+    end;
+
+    local procedure ClearGlobalVariables()
+    begin
+        Clear(BodyInStream);
+        Clear(ResponseInStream);
+        Clear(CallExecution);
+        Clear(HttpStatusCode);
+        Clear(LastMessageText);
+        Clear(ResponseText);
+    end;
+
+    #endregion GeneralFunctions
+    #region TokenFunctions
     local procedure CheckWSCHeaderForToken(WSCConnBearer: Record "WSC Web Services Connections")
     var
-        WSCWebServicesHeaders: Record "WSC Web Services Headers";
+        WSCWSServicesBodies: Record "WSC Web Services Bodies";
         Text000Err: Label 'Key %1 must be filled for token request';
     begin
-        WSCWebServicesHeaders.Get(WSCConnBearer."WSC Code", 'grant_type');
-        case WSCWebServicesHeaders."WSC Value" of
+        WSCWSServicesBodies.Get(WSCConnBearer."WSC Code", 'grant_type');
+        case WSCWSServicesBodies."WSC Value" of
             'client_credentials':
                 begin
-                    WSCWebServicesHeaders.Reset();
-                    WSCWebServicesHeaders.SetRange("WSC Code", WSCConnBearer."WSC Code");
-                    WSCWebServicesHeaders.SetRange("WSC Key", 'client_id');
-                    WSCWebServicesHeaders.SetFilter("WSC Value", '<> %1', '');
-                    if WSCWebServicesHeaders.IsEmpty() then
+                    WSCWSServicesBodies.Reset();
+                    WSCWSServicesBodies.SetRange("WSC Code", WSCConnBearer."WSC Code");
+                    WSCWSServicesBodies.SetRange("WSC Key", 'client_id');
+                    WSCWSServicesBodies.SetFilter("WSC Value", '<> %1', '');
+                    if WSCWSServicesBodies.IsEmpty() then
                         Error(Text000Err, 'client_id');
-                    WSCWebServicesHeaders.SetRange("WSC Key", 'client_secret');
-                    if WSCWebServicesHeaders.IsEmpty() then
+                    WSCWSServicesBodies.SetRange("WSC Key", 'client_secret');
+                    if WSCWSServicesBodies.IsEmpty() then
                         Error(Text000Err, 'client_secret');
+                    WSCWSServicesBodies.SetRange("WSC Key", 'scope');
+                    if WSCWSServicesBodies.IsEmpty() then
+                        Error(Text000Err, 'scope');
                 end;
             'authorization_code':
                 ;
@@ -86,19 +174,69 @@ codeunit 81001 "WSC Web Services Management"
         end;
     end;
 
-    local procedure WriteConnectionLog(WSCCode: Code[20]; TokenEntryNo: Integer) CurrEntryNo: Integer;
+    local procedure UpdateWSCTokenInfo(var WSCConnBearer: Record "WSC Web Services Connections")
+    var
+        JToken: JsonToken;
+        JAccessToken: JsonObject;
+        Property: Text;
+        OuStr: OutStream;
+        Text000Err: Label 'Invalid Access Token Property %1, Value:  %2';
+    begin
+        JAccessToken.ReadFrom(ResponseText);
+        foreach Property in JAccessToken.Keys() do begin
+            JAccessToken.Get(Property, JToken);
+            case Property of
+                'token_type',
+                'scope',
+                'expires_on',
+                'not_before',
+                'resource',
+                'id_token':
+                    ;
+                'expires_in':
+                    WSCConnBearer."WSC Expires In" := JToken.AsValue().AsInteger();
+                'ext_expires_in':
+                    ;
+                'access_token':
+                    begin
+                        WSCConnBearer."WSC Access Token".CreateOutStream(OuStr, TextEncoding::UTF8);
+                        OuStr.WriteText(JToken.AsValue().AsText());
+                    end;
+                'refresh_token':
+                    ;
+                else
+                    Error(Text000Err, Property, JToken.AsValue().AsText());
+            end;
+        end;
+        WSCConnBearer."WSC Authorization Time" := CurrentDateTime();
+        WSCConnBearer.Modify();
+    end;
+
+    local procedure IsTokenCallToDo(WSCConnBearer: Record "WSC Web Services Connections"): Boolean
+    var
+        ElapsedSecs: Integer;
+    begin
+        if WSCConnBearer."WSC Authorization Time" = 0DT then
+            exit(true);
+
+        ElapsedSecs := Round((CurrentDateTime() - WSCConnBearer."WSC Authorization Time") / 1000, 1, '>');
+        if (ElapsedSecs < WSCConnBearer."WSC Expires In") and (ElapsedSecs < 3600) then
+            exit(false);
+
+        exit(true);
+    end;
+
+    #endregion TokenFunctions
+    #region LogFunctions
+    local procedure WriteConnectionLog(WSCCode: Code[20]; TokenWSCCode: Code[20]; TokenEntryNo: Integer) CurrEntryNo: Integer;
     var
         WSCWSServicesConnections: Record "WSC Web Services Connections";
         WSCWebServicesLogCalls: Record "WSC Web Services Log Calls";
         NextEntryNo: Integer;
-        BodyInStream: InStream;
-        ResponseInStream: InStream;
-        CallExecution: Boolean;
-        HttpStatusCode: Integer;
-        LastMessageText: Text;
         OutStr: OutStream;
     begin
         WSCWSServicesConnections.Get(WSCCode);
+        ClearGlobalVariables();
         WSCWebServicesCaller.RetrieveGlobalVariables(BodyInStream, ResponseInStream, CallExecution, HttpStatusCode, LastMessageText);
 
         WSCWebServicesLogCalls.Reset();
@@ -128,6 +266,7 @@ codeunit 81001 "WSC Web Services Management"
         WSCWebServicesLogCalls."WSC Response Message".CreateOutStream(OutStr);
         WriteBlobFields(OutStr, ResponseInStream);
         WSCWebServicesLogCalls."WSC Message Text" := CopyStr(LastMessageText, 1, MaxStrLen(WSCWebServicesLogCalls."WSC Message Text"));
+        WSCWebServicesLogCalls."WSC Link to WSC Code" := TokenWSCCode;
         WSCWebServicesLogCalls."WSC Link To Entry No." := TokenEntryNo;
         WSCWebServicesLogCalls."WSC Result Status Code" := HttpStatusCode;
         WSCWebServicesLogCalls."WSC Execution Date-Time" := CurrentDateTime();
@@ -205,17 +344,14 @@ codeunit 81001 "WSC Web Services Management"
             WSCWSServicesLogBodies.Insert();
         until WSCWSServicesBodies.Next() = 0;
     end;
-
-    local procedure WriteBlobFields(var OutStr: OutStream; var InStr: InStream)
-    var
-        CurrText: Text;
-    begin
-        while not InStr.EOS() do begin
-            InStr.ReadText(CurrText);
-            OutStr.Write(CurrText);
-        end;
-    end;
-
+    #endregion LogFunctions
     var
         WSCWebServicesCaller: Codeunit "WSC Web Services Caller";
+        BodyInStream: InStream;
+        ResponseInStream: InStream;
+        ResponseText: Text;
+        CallExecution: Boolean;
+        HideMessage: Boolean;
+        HttpStatusCode: Integer;
+        LastMessageText: Text;
 }

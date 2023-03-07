@@ -114,7 +114,6 @@ page 81005 "WSC Web Services Log Calls"
             action(Headers)
             {
                 Caption = 'Headers';
-                ToolTip = 'Set Header information for the Web Service call';
                 ApplicationArea = All;
                 PromotedCategory = Process;
                 Promoted = true;
@@ -124,18 +123,12 @@ page 81005 "WSC Web Services Log Calls"
                 var
                     WSCWSServicesLogHeaders: Record "WSC Web Services Log Headers";
                 begin
-                    WSCWSServicesLogHeaders.Reset();
-                    WSCWSServicesLogHeaders.FilterGroup(2);
-                    WSCWSServicesLogHeaders.SetRange("WSC Code", Rec."WSC Code");
-                    WSCWSServicesLogHeaders.SetRange("WSC Entry No.", Rec."WSC Entry No.");
-                    WSCWSServicesLogHeaders.FilterGroup(0);
-                    Page.RunModal(0, WSCWSServicesLogHeaders);
+                    WSCWSServicesLogHeaders.ViewLog(Rec."WSC Code", Rec."WSC Entry No.");
                 end;
             }
             action(Bodies)
             {
                 Caption = 'Bodies';
-                ToolTip = 'Set Bodies information for the Web Service call';
                 ApplicationArea = All;
                 PromotedCategory = Process;
                 Promoted = true;
@@ -145,12 +138,7 @@ page 81005 "WSC Web Services Log Calls"
                 var
                     WSCWSServicesLogBodies: Record "WSC Web Services Log Bodies";
                 begin
-                    WSCWSServicesLogBodies.Reset();
-                    WSCWSServicesLogBodies.FilterGroup(2);
-                    WSCWSServicesLogBodies.SetRange("WSC Code", Rec."WSC Code");
-                    WSCWSServicesLogBodies.SetRange("WSC Entry No.", Rec."WSC Entry No.");
-                    WSCWSServicesLogBodies.FilterGroup(0);
-                    Page.RunModal(0, WSCWSServicesLogBodies);
+                    WSCWSServicesLogBodies.ViewLog(Rec."WSC Code", Rec."WSC Entry No.");
                 end;
             }
         }
