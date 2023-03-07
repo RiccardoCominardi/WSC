@@ -56,11 +56,37 @@ page 81005 "WSC Web Services Log Calls"
                 {
                     ApplicationArea = All;
                 }
+                field("WSC Allow Blank Response"; Rec."WSC Allow Blank Response")
+                {
+                    ApplicationArea = All;
+                }
                 field("WSC Body Type"; Rec."WSC Body Type")
                 {
                     ApplicationArea = All;
                 }
-                field("WSC Body Message"; Rec."WSC Body Message")
+                field("WSC Body Message"; Rec."WSC Body Message".HasValue())
+                {
+                    Caption = 'Body Message Present';
+                    ApplicationArea = All;
+                    Editable = false;
+                    trigger OnDrillDown()
+                    begin
+                        Rec.ExportAttachment(Rec.FieldNo("WSC Body Message"));
+                        CurrPage.SaveRecord();
+                    end;
+                }
+                field("WSC Response Message"; Rec."WSC Response Message".HasValue())
+                {
+                    Caption = 'Response Message Present';
+                    ApplicationArea = All;
+                    Editable = false;
+                    trigger OnDrillDown()
+                    begin
+                        Rec.ExportAttachment(Rec.FieldNo("WSC Response Message"));
+                        CurrPage.SaveRecord();
+                    end;
+                }
+                field("WSC Message Text"; Rec."WSC Message Text")
                 {
                     ApplicationArea = All;
                 }
@@ -69,10 +95,6 @@ page 81005 "WSC Web Services Log Calls"
                     ApplicationArea = All;
                 }
                 field("WSC Result Status Code"; Rec."WSC Result Status Code")
-                {
-                    ApplicationArea = All;
-                }
-                field("WSC Response Message"; Rec."WSC Response Message")
                 {
                     ApplicationArea = All;
                 }
@@ -89,13 +111,46 @@ page 81005 "WSC Web Services Log Calls"
     {
         area(Processing)
         {
-            action(ActionName)
+            action(Headers)
             {
+                Caption = 'Headers';
+                ToolTip = 'Set Header information for the Web Service call';
                 ApplicationArea = All;
+                PromotedCategory = Process;
+                Promoted = true;
+                Image = SetupList;
 
                 trigger OnAction()
+                var
+                    WSCWSServicesLogHeaders: Record "WSC Web Services Log Headers";
                 begin
+                    WSCWSServicesLogHeaders.Reset();
+                    WSCWSServicesLogHeaders.FilterGroup(2);
+                    WSCWSServicesLogHeaders.SetRange("WSC Code", Rec."WSC Code");
+                    WSCWSServicesLogHeaders.SetRange("WSC Entry No.", Rec."WSC Entry No.");
+                    WSCWSServicesLogHeaders.FilterGroup(0);
+                    Page.RunModal(0, WSCWSServicesLogHeaders);
+                end;
+            }
+            action(Bodies)
+            {
+                Caption = 'Bodies';
+                ToolTip = 'Set Bodies information for the Web Service call';
+                ApplicationArea = All;
+                PromotedCategory = Process;
+                Promoted = true;
+                Image = SetupList;
 
+                trigger OnAction()
+                var
+                    WSCWSServicesLogBodies: Record "WSC Web Services Log Bodies";
+                begin
+                    WSCWSServicesLogBodies.Reset();
+                    WSCWSServicesLogBodies.FilterGroup(2);
+                    WSCWSServicesLogBodies.SetRange("WSC Code", Rec."WSC Code");
+                    WSCWSServicesLogBodies.SetRange("WSC Entry No.", Rec."WSC Entry No.");
+                    WSCWSServicesLogBodies.FilterGroup(0);
+                    Page.RunModal(0, WSCWSServicesLogBodies);
                 end;
             }
         }

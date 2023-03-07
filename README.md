@@ -11,6 +11,12 @@ PER CONTROLLO DEL CORE
 Invio Chiamata Manuale:
 - Impostare una chiamata manuale del servizio. Se la chiamata deve aver un file nel body allora permettere di importare un file (se possibiel drag and drop con Javascript) e alla fine di scaricare la risposta (se possibile con Bottone Javascript)
 
+Controllare il sito Microsoft:
+https://learn.microsoft.com/en-us/dynamics365/release-plan/2023wave1/smb/dynamics365-business-central/drag-drop-files-onto-file-upload-dialog
+Forse viene implementata di standard
+Sito che usa js
+https://vld-nav.com/drag-and-drop-factbox
+
 
 DOPO LO SVILUPPO DEL CORE
 
@@ -22,3 +28,14 @@ https://www.bc-journal.com/post/work-with-installing-and-upgrading-codeunits-in-
 
 Visualizzazione ad albero:
 - Aprire una pagina temporanea in cui verrà mostrata una visualizzazione ad albero per i Token bearer e per i Gruppi. Essendo che i token posso appartenere a più chiamata non sarà possibile farlo con dati fisici ma partiamo da una temp in modo da "Sdoppiare" il Token solo per una migliore visualizzazione dell'utente.
+
+Chiamate API provate e funzionanti:
+
+Prokuria:
+- GET VENDORS
+- GET Send Order From BC To Prok
+- POST CHANGE_STATUS
+- POST INSERT_HEADER
+- POST UPDATE_HEADER
+- POST INSERT_LINE
+- POST UPDATE_LINE

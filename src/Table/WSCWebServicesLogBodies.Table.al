@@ -5,8 +5,8 @@ table 81006 "WSC Web Services Log Bodies"
 {
     Caption = 'Web Services - Log Bodies';
     DataClassification = CustomerContent;
-    DrillDownPageId = "WSC Web Services Bodies";
-    LookupPageId = "WSC Web Services Bodies";
+    DrillDownPageId = "WSC Web Services Log Bodies";
+    LookupPageId = "WSC Web Services Log Bodies";
 
     fields
     {
@@ -14,49 +14,38 @@ table 81006 "WSC Web Services Log Bodies"
         {
             DataClassification = CustomerContent;
             Caption = 'Log Entry No.';
-            Editable = false;
         }
         field(2; "WSC Entry No."; Integer)
         {
             DataClassification = CustomerContent;
             Caption = 'Entry No.';
-            Editable = false;
         }
         field(3; "WSC Code"; Code[20])
         {
             DataClassification = CustomerContent;
             Caption = 'Code';
-            Editable = false;
+            TableRelation = "WSC Web Services Connections"."WSC Code";
         }
-        field(4; "WSC Body Type"; Enum "WSC Body Types")
+        field(4; "WSC Key"; Text[20])
         {
             DataClassification = CustomerContent;
             Caption = 'Key';
-            Editable = false;
         }
-        field(5; "WSC Key"; Text[20])
-        {
-            DataClassification = CustomerContent;
-            Caption = 'Key';
-            Editable = false;
-        }
-        field(6; "WSC Value"; Text[100])
+        field(5; "WSC Value"; Text[100])
         {
             DataClassification = CustomerContent;
             Caption = 'Value';
-            Editable = false;
         }
-        field(7; "WSC Description"; Text[100])
+        field(6; "WSC Description"; Text[100])
         {
             DataClassification = CustomerContent;
             Caption = 'Description';
-            Editable = false;
         }
     }
 
     keys
     {
-        key(Key1; "WSC Log Entry No.", "WSC Entry No.")
+        key(Key1; "WSC Code", "WSC Log Entry No.", "WSC Entry No.")
         {
             Clustered = true;
         }

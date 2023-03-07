@@ -31,6 +31,10 @@ page 81002 "WSC Web Service Conn. Card"
                 {
                     ApplicationArea = All;
                 }
+                field("WSC Allow Blank Response"; Rec."WSC Allow Blank Response")
+                {
+                    ApplicationArea = All;
+                }
                 field("WSC Auth. Type"; Rec."WSC Auth. Type")
                 {
                     ApplicationArea = All;
@@ -43,15 +47,20 @@ page 81002 "WSC Web Service Conn. Card"
                 {
                     ApplicationArea = All;
                 }
-                field("WSC Password"; Rec."WSC Password")
-                {
-                    ApplicationArea = All;
-                    Editable = CredentialsEditable;
-                }
                 field("WSC Username"; Rec."WSC Username")
                 {
                     ApplicationArea = All;
                     Editable = CredentialsEditable;
+                }
+                field("WSC Password"; Rec."WSC Password")
+                {
+                    ApplicationArea = All;
+                    Editable = CredentialsEditable;
+                    ExtendedDatatype = Masked;
+                }
+                field("WSC Convert Auth. Base64"; Rec."WSC Convert Auth. Base64")
+                {
+                    ApplicationArea = All;
                 }
             }
             group(Token)
@@ -133,7 +142,6 @@ page 81002 "WSC Web Service Conn. Card"
                     WSCWSServicesBodies.Reset();
                     WSCWSServicesBodies.FilterGroup(2);
                     WSCWSServicesBodies.SetRange("WSC Code", Rec."WSC Code");
-                    WSCWSServicesBodies.SetRange("WSC Body Type", Rec."WSC Body Type");
                     WSCWSServicesBodies.FilterGroup(0);
                     Page.RunModal(0, WSCWSServicesBodies);
                 end;

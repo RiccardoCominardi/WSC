@@ -26,14 +26,17 @@ codeunit 81001 "WSC Web Services Management"
                     WSCConnBearer.Get(WSCWSServicesConnections."WSC Bearer Connection Code");
                     //è da usare il token? Refresh o uso lo stesso?
                     Clear(WSCWebServicesCaller);
+                    ClearLastError();
                     if WSCWebServicesCaller.Run(WSCConnBearer) then; //First Web Service call to get the Token
                     TokenEntryNo := WriteConnectionLog(WSCCode, 0);
                     //Log da inserire in qualsiaso modo vada a finire + Bearer da salvarsi
                 end;
         end;
+
         Clear(WSCWebServicesCaller);
-        if WSCWebServicesCaller.Run(WSCConnBearer) then; //Call to Web service
-        WriteConnectionLog(WSCCode, TokenEntryNo);       //Log da inserire in qualsiaso modo vada a finire
+        ClearLastError();
+        if WSCWebServicesCaller.Run(WSCWSServicesConnections) then; //Call to Web service
+        WriteConnectionLog(WSCCode, TokenEntryNo);
     end;
 
     local procedure CheckWSCCodeSetup(WSCWSServicesConnections: Record "WSC Web Services Connections")
@@ -88,17 +91,18 @@ codeunit 81001 "WSC Web Services Management"
         WSCWSServicesConnections: Record "WSC Web Services Connections";
         WSCWebServicesLogCalls: Record "WSC Web Services Log Calls";
         NextEntryNo: Integer;
-        ResponseText: Text;
         BodyInStream: InStream;
         ResponseInStream: InStream;
         CallExecution: Boolean;
         HttpStatusCode: Integer;
+        LastMessageText: Text;
         OutStr: OutStream;
     begin
         WSCWSServicesConnections.Get(WSCCode);
-        WSCWebServicesCaller.RetrieveGlobalVariables(ResponseText, BodyInStream, ResponseInStream, CallExecution, HttpStatusCode);
+        WSCWebServicesCaller.RetrieveGlobalVariables(BodyInStream, ResponseInStream, CallExecution, HttpStatusCode, LastMessageText);
 
         WSCWebServicesLogCalls.Reset();
+        WSCWebServicesLogCalls.SetRange("WSC Code", WSCCode);
         if WSCWebServicesLogCalls.FindLast() then
             NextEntryNo := WSCWebServicesLogCalls."WSC Entry No." + 1
         else
@@ -107,6 +111,7 @@ codeunit 81001 "WSC Web Services Management"
         CurrEntryNo := NextEntryNo;
 
         WSCWebServicesLogCalls.Init();
+        WSCWebServicesLogCalls."WSC Entry No." := CurrEntryNo;
         WSCWebServicesLogCalls."WSC Code" := WSCWSServicesConnections."WSC Code";
         WSCWebServicesLogCalls."WSC Description" := WSCWSServicesConnections."WSC Description";
         WSCWebServicesLogCalls."WSC HTTP Method" := WSCWSServicesConnections."WSC HTTP Method";
@@ -115,12 +120,14 @@ codeunit 81001 "WSC Web Services Management"
         WSCWebServicesLogCalls."WSC Bearer Connection" := WSCWSServicesConnections."WSC Bearer Connection";
         WSCWebServicesLogCalls."WSC Bearer Connection Code" := WSCWSServicesConnections."WSC Bearer Connection Code";
         WSCWebServicesLogCalls."WSC Body Type" := WSCWSServicesConnections."WSC Body Type";
+        WSCWebServicesLogCalls."WSC Allow Blank Response" := WSCWSServicesConnections."WSC Allow Blank Response";
         Clear(OutStr);
         WSCWebServicesLogCalls."WSC Body Message".CreateOutStream(OutStr);
         WriteBlobFields(OutStr, BodyInStream);
         Clear(OutStr);
         WSCWebServicesLogCalls."WSC Response Message".CreateOutStream(OutStr);
         WriteBlobFields(OutStr, ResponseInStream);
+        WSCWebServicesLogCalls."WSC Message Text" := CopyStr(LastMessageText, 1, MaxStrLen(WSCWebServicesLogCalls."WSC Message Text"));
         WSCWebServicesLogCalls."WSC Link To Entry No." := TokenEntryNo;
         WSCWebServicesLogCalls."WSC Result Status Code" := HttpStatusCode;
         WSCWebServicesLogCalls."WSC Execution Date-Time" := CurrentDateTime();
@@ -142,7 +149,14 @@ codeunit 81001 "WSC Web Services Management"
         if WSCWSServicesHeaders.IsEmpty() then
             exit;
 
-        NextEntryNo := 0;
+        WSCWSServicesLogHeaders.Reset();
+        WSCWSServicesLogHeaders.SetRange("WSC Code", WSCCode);
+        WSCWSServicesLogHeaders.SetRange("WSC Log Entry No.", LogEntryNo);
+        if WSCWSServicesLogHeaders.FindLast() then
+            NextEntryNo := WSCWSServicesLogHeaders."WSC Entry No."
+        else
+            NextEntryNo := 0;
+
         WSCWSServicesHeaders.FindSet();
         repeat
             NextEntryNo += 1;
@@ -167,17 +181,22 @@ codeunit 81001 "WSC Web Services Management"
         WSCWSServicesConnections.Get(WSCCode);
         WSCWSServicesBodies.Reset();
         WSCWSServicesBodies.SetRange("WSC Code", WSCCode);
-        WSCWSServicesBodies.SetRange("WSC Body Type", WSCWSServicesConnections."WSC Body Type");
         if WSCWSServicesBodies.IsEmpty() then
             exit;
 
-        NextEntryNo := 0;
+        WSCWSServicesLogBodies.Reset();
+        WSCWSServicesLogBodies.SetRange("WSC Code", WSCCode);
+        WSCWSServicesLogBodies.SetRange("WSC Log Entry No.", LogEntryNo);
+        if WSCWSServicesLogBodies.FindLast() then
+            NextEntryNo := WSCWSServicesLogBodies."WSC Entry No."
+        else
+            NextEntryNo := 0;
+
         WSCWSServicesBodies.FindSet();
         repeat
             NextEntryNo += 1;
             WSCWSServicesLogBodies.Init();
             WSCWSServicesLogBodies."WSC Log Entry No." := LogEntryNo;
-            WSCWSServicesLogBodies."WSC Body Type" := WSCWSServicesBodies."WSC Body Type";
             WSCWSServicesLogBodies."WSC Entry No." := NextEntryNo;
             WSCWSServicesLogBodies."WSC Code" := WSCWSServicesBodies."WSC Code";
             WSCWSServicesLogBodies."WSC Key" := WSCWSServicesBodies."WSC Key";
@@ -187,7 +206,7 @@ codeunit 81001 "WSC Web Services Management"
         until WSCWSServicesBodies.Next() = 0;
     end;
 
-    local procedure WriteBlobFields(var OutStr: OutStream; InStr: InStream)
+    local procedure WriteBlobFields(var OutStr: OutStream; var InStr: InStream)
     var
         CurrText: Text;
     begin

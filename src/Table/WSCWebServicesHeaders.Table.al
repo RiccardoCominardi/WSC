@@ -14,6 +14,7 @@ table 81002 "WSC Web Services Headers"
         {
             DataClassification = CustomerContent;
             Caption = 'Code';
+            TableRelation = "WSC Web Services Connections"."WSC Code";
         }
         field(2; "WSC Key"; Text[20])
         {

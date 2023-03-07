@@ -19,6 +19,7 @@ table 81004 "WSC Web Services Log Calls"
         {
             DataClassification = CustomerContent;
             Caption = 'Code';
+            TableRelation = "WSC Web Services Connections"."WSC Code";
         }
         field(3; "WSC Description"; Text[100])
         {
@@ -66,22 +67,32 @@ table 81004 "WSC Web Services Log Calls"
             DataClassification = CustomerContent;
             Caption = 'Link To Entry No';
         }
+        field(12; "WSC Allow Blank Response"; Boolean)
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Allow Blank Response';
+        }
         field(200; "WSC Response Message"; Blob)
         {
             DataClassification = CustomerContent;
             Caption = 'Response Message';
         }
-        field(201; "WSC Result Status Code"; Integer)
+        field(201; "WSC Message Text"; Text[250])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Message Text';
+        }
+        field(202; "WSC Result Status Code"; Integer)
         {
             DataClassification = CustomerContent;
             Caption = 'Result Status Code';
         }
-        field(202; "WSC Execution Date-Time"; DateTime)
+        field(203; "WSC Execution Date-Time"; DateTime)
         {
             DataClassification = CustomerContent;
             Caption = 'Execution Date-Time';
         }
-        field(203; "WSC Execution UserID"; Code[50])
+        field(204; "WSC Execution UserID"; Code[50])
         {
             DataClassification = CustomerContent;
             Caption = 'Execution UserID';
@@ -92,12 +103,46 @@ table 81004 "WSC Web Services Log Calls"
 
     keys
     {
-        key(Key1; "WSC Entry No.")
+        key(Key1; "WSC Code", "WSC Entry No.")
         {
             Clustered = true;
         }
     }
 
+    /// <summary>
+    /// ExportAttachment.
+    /// </summary>
+    /// <param name="FieldNo">Integer.</param>
+    procedure ExportAttachment(FieldNo: Integer);
+    var
+        InStr: InStream;
+        FileName: Text;
+        Text000Lbl: Label 'BodyMessage.json';
+        Text001Lbl: Label 'ResponseMessage.json';
+        JsonFilterLbl: Label '';
+    begin
+        case FieldNo of
+            Rec.FieldNo("WSC Body Message"):
+                begin
+                    FileName := Text000Lbl;
+                    Rec.CalcFields("WSC Body Message");
+                    if Rec."WSC Body Message".HasValue() then begin
+                        Rec."WSC Body Message".CreateInStream(InStr);
+                        DownloadFromStream(InStr, '', '', '*.json', FileName);
+                    end;
+                end;
+            Rec.FieldNo("WSC Response Message"):
+                begin
+                    FileName := Text001Lbl;
+                    Rec.CalcFields("WSC Response Message");
+                    if Rec."WSC Response Message".HasValue() then begin
+                        Rec."WSC Response Message".CreateInStream(InStr);
+                        DownloadFromStream(InStr, '', '', '*.json', FileName);
+                    end;
+                end;
+        end;
+
+    end;
 
     trigger OnInsert()
     begin
@@ -110,8 +155,17 @@ table 81004 "WSC Web Services Log Calls"
     end;
 
     trigger OnDelete()
+    var
+        WSCWSServicesLogHeaders: Record "WSC Web Services Log Headers";
+        WSCWSServicesLogBodies: Record "WSC Web Services Log Bodies";
     begin
+        WSCWSServicesLogHeaders.Reset();
+        WSCWSServicesLogHeaders.SetRange("WSC Code", Rec."WSC Code");
+        WSCWSServicesLogHeaders.DeleteAll();
 
+        WSCWSServicesLogBodies.Reset();
+        WSCWSServicesLogBodies.SetRange("WSC Code", Rec."WSC Code");
+        WSCWSServicesLogBodies.DeleteAll();
     end;
 
     trigger OnRename()

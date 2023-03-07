@@ -14,6 +14,7 @@ table 81001 "WSC Web Services Connections"
         {
             DataClassification = CustomerContent;
             Caption = 'Code';
+            NotBlank = true;
         }
         field(2; "WSC Description"; Text[100])
         {
@@ -112,6 +113,11 @@ table 81001 "WSC Web Services Connections"
             DataClassification = CustomerContent;
             Caption = 'Convert Auth. Base64';
         }
+        field(17; "WSC Allow Blank Response"; Boolean)
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Allow Blank Response';
+        }
     }
 
     keys
@@ -136,8 +142,22 @@ table 81001 "WSC Web Services Connections"
     end;
 
     trigger OnDelete()
+    var
+        WSCWSServicesHeaders: Record "WSC Web Services Headers";
+        WSCWSServicesBodies: Record "WSC Web Services Bodies";
+        WSCWSServicesLogCalls: Record "WSC Web Services Log Calls";
     begin
+        WSCWSServicesHeaders.Reset();
+        WSCWSServicesHeaders.SetRange("WSC Code", Rec."WSC Code");
+        WSCWSServicesHeaders.DeleteAll();
 
+        WSCWSServicesBodies.Reset();
+        WSCWSServicesBodies.SetRange("WSC Code", Rec."WSC Code");
+        WSCWSServicesBodies.DeleteAll();
+
+        WSCWSServicesLogCalls.Reset();
+        WSCWSServicesLogCalls.SetRange("WSC Code", Rec."WSC Code");
+        WSCWSServicesLogCalls.DeleteAll(true);
     end;
 
     trigger OnRename()

@@ -14,23 +14,19 @@ table 81003 "WSC Web Services Bodies"
         {
             DataClassification = CustomerContent;
             Caption = 'Code';
+            TableRelation = "WSC Web Services Connections"."WSC Code";
         }
-        field(2; "WSC Body Type"; Enum "WSC Body Types")
+        field(2; "WSC Key"; Text[20])
         {
             DataClassification = CustomerContent;
             Caption = 'Key';
         }
-        field(3; "WSC Key"; Text[20])
-        {
-            DataClassification = CustomerContent;
-            Caption = 'Key';
-        }
-        field(4; "WSC Value"; Text[100])
+        field(3; "WSC Value"; Text[100])
         {
             DataClassification = CustomerContent;
             Caption = 'Value';
         }
-        field(5; "WSC Description"; Text[100])
+        field(4; "WSC Description"; Text[100])
         {
             DataClassification = CustomerContent;
             Caption = 'Description';
@@ -39,7 +35,7 @@ table 81003 "WSC Web Services Bodies"
 
     keys
     {
-        key(Key1; "WSC Code", "WSC Body Type", "WSC Key")
+        key(Key1; "WSC Code", "WSC Key")
         {
             Clustered = true;
         }
