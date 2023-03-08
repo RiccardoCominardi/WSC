@@ -28,5 +28,6 @@
     "allowDownloadingSource": true,
     "includeSourceInSymbolFile": true
   },
-  "runtime": "9.0"
+  "runtime": "9.0",
+  "target": "Cloud"
 }

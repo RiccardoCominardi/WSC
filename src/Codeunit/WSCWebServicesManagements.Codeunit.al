@@ -101,7 +101,7 @@ codeunit 81001 "WSC Web Services Management"
             WSCWSServicesConnections."WSC Auth. Type"::none:
                 if WSCWSServicesConnections."WSC Bearer Connection" then begin
                     WSCWSServicesConnections.TestField("WSC Bearer Connection Code", '');
-                    CheckWSCHeaderForToken(WSCWSServicesConnections);
+                    CheckWSBodiesForToken(WSCWSServicesConnections);
                 end;
         end;
         OnAfterCheckWSCCodeSetup(WSCWSServicesConnections);
@@ -150,15 +150,221 @@ codeunit 81001 "WSC Web Services Management"
         Clear(ResponseText);
     end;
 
+    /// <summary>
+    /// ShowWSCAsTree.
+    /// </summary>
+    procedure ShowWSCAsTree()
+    var
+        WCSWSServicesTreeVisual: Page "WCS Web Services Tree Visual";
+    begin
+        Clear(WCSWSServicesTreeVisual);
+        WCSWSServicesTreeVisual.BuildPage();
+        WCSWSServicesTreeVisual.RunModal();
+    end;
+
+    /// <summary>
+    /// LoadWCSTreeVisualTable.
+    /// </summary>
+    /// <param name="WCSWSServicesTreeVisual">VAR Record "WCS Web Services Tree Visual".</param>
+    procedure LoadWCSTreeVisualTable(var WCSWSServicesTreeVisual: Record "WCS Web Services Tree Visual")
+    var
+        WSCWebServicesGroupCodes: Record "WSC Web Services Group Codes";
+        WSCWSServicesConnections: Record "WSC Web Services Connections";
+    begin
+        WSCWebServicesGroupCodes.Reset();
+        if not WSCWebServicesGroupCodes.IsEmpty then begin
+            WSCWebServicesGroupCodes.FindSet();
+            repeat
+                WSCWSServicesConnections.Reset();
+                WSCWSServicesConnections.SetRange("WSC Group Code", WSCWebServicesGroupCodes."WSC Code");
+                if not WSCWSServicesConnections.IsEmpty() then begin
+                    InsertGroupRecord(WSCWebServicesGroupCodes, WCSWSServicesTreeVisual); //First Record only for group
+                    WSCWSServicesConnections.SetRange("WSC Bearer Connection", true);
+                    if not WSCWSServicesConnections.IsEmpty() then begin
+                        WSCWSServicesConnections.FindSet();
+                        repeat
+                            CollectRecordWithTokenFromGroup(WSCWSServicesConnections, WCSWSServicesTreeVisual); //Collect Token + Call Lik to Token With Group
+                        until WSCWSServicesConnections.Next() = 0;
+                    end;
+                    CollectRecordWithoutTokenFromGroup(WSCWebServicesGroupCodes."WSC Code", WCSWSServicesTreeVisual); //Collect Call without linked Token With Group
+                end;
+            until WSCWebServicesGroupCodes.Next() = 0;
+        end;
+
+        WSCWSServicesConnections.Reset();
+        WSCWSServicesConnections.SetRange("WSC Group Code", '');
+        WSCWSServicesConnections.SetRange("WSC Bearer Connection", true);
+        if not WSCWSServicesConnections.IsEmpty() then begin
+            WSCWSServicesConnections.FindSet();
+            repeat
+                CollectRecordWithTokenNoGroup(WSCWSServicesConnections, WCSWSServicesTreeVisual); //Collect Token + Call Lik to Token No Group
+            until WSCWSServicesConnections.Next() = 0;
+        end;
+        CollectRecordWithoutTokenNoGroup('', WCSWSServicesTreeVisual); //Collect Call without linked Token No Group 
+        WCSWSServicesTreeVisual.Reset();
+    end;
+
+    local procedure InsertGroupRecord(WSCWebServicesGroupCodes: Record "WSC Web Services Group Codes"; var WCSWSServicesTreeVisual: Record "WCS Web Services Tree Visual")
+    begin
+        WCSWSServicesTreeVisual.Init();
+        WCSWSServicesTreeVisual.Validate("WSC Group Code", WSCWebServicesGroupCodes."WSC Code");
+        WCSWSServicesTreeVisual.Validate("WSC Entry No.", 1);
+        WCSWSServicesTreeVisual.Validate("WSC Indentation", 0);
+        WCSWSServicesTreeVisual.Validate("WSC Code", WSCWebServicesGroupCodes."WSC Code");
+        WCSWSServicesTreeVisual.Validate("WSC Description", WSCWebServicesGroupCodes."WSC Description");
+        WCSWSServicesTreeVisual.Insert();
+    end;
+
+    local procedure CollectRecordWithTokenFromGroup(WSCConnBearer: Record "WSC Web Services Connections"; var WCSWSServicesTreeVisual: Record "WCS Web Services Tree Visual")
+    var
+        WSCWSServicesConnections: Record "WSC Web Services Connections";
+        NextEntryNo: Integer;
+    begin
+        WCSWSServicesTreeVisual.Reset();
+        WCSWSServicesTreeVisual.SetRange("WSC Group Code", WSCConnBearer."WSC Group Code");
+        if WCSWSServicesTreeVisual.FindLast() then
+            NextEntryNo := WCSWSServicesTreeVisual."WSC Entry No." + 1
+        else
+            NextEntryNo := 1;
+
+        WCSWSServicesTreeVisual.Init();
+        WCSWSServicesTreeVisual.Validate("WSC Group Code", WSCConnBearer."WSC Group Code");
+        WCSWSServicesTreeVisual.Validate("WSC Entry No.", NextEntryNo);
+        WCSWSServicesTreeVisual.Validate("WSC Indentation", 1);
+        WCSWSServicesTreeVisual.Validate("WSC Code", WSCConnBearer."WSC Code");
+        WCSWSServicesTreeVisual.Validate("WSC Description", WSCConnBearer."WSC Description");
+        WCSWSServicesTreeVisual.Insert();
+
+        WSCWSServicesConnections.Reset();
+        WSCWSServicesConnections.SetRange("WSC Group Code", WSCConnBearer."WSC Group Code");
+        WSCWSServicesConnections.SetRange("WSC Bearer Connection", false);
+        WSCWSServicesConnections.SetRange("WSC Bearer Connection Code", WSCConnBearer."WSC Code");
+        if not WSCWSServicesConnections.IsEmpty() then begin
+            WSCWSServicesConnections.FindSet();
+            repeat
+                NextEntryNo += 1;
+                WCSWSServicesTreeVisual.Init();
+                WCSWSServicesTreeVisual.Validate("WSC Group Code", WSCWSServicesConnections."WSC Group Code");
+                WCSWSServicesTreeVisual.Validate("WSC Entry No.", NextEntryNo);
+                WCSWSServicesTreeVisual.Validate("WSC Indentation", 2);
+                WCSWSServicesTreeVisual.Validate("WSC Code", WSCWSServicesConnections."WSC Code");
+                WCSWSServicesTreeVisual.Validate("WSC Description", WSCWSServicesConnections."WSC Description");
+                WCSWSServicesTreeVisual.Insert();
+            until WSCWSServicesConnections.Next() = 0;
+        end;
+    end;
+
+    local procedure CollectRecordWithTokenNoGroup(WSCConnBearer: Record "WSC Web Services Connections"; var WCSWSServicesTreeVisual: Record "WCS Web Services Tree Visual")
+    var
+        WSCWSServicesConnections: Record "WSC Web Services Connections";
+        NextEntryNo: Integer;
+    begin
+        WCSWSServicesTreeVisual.Reset();
+        WCSWSServicesTreeVisual.SetRange("WSC Group Code", WSCConnBearer."WSC Group Code");
+        if WCSWSServicesTreeVisual.FindLast() then
+            NextEntryNo := WCSWSServicesTreeVisual."WSC Entry No." + 1
+        else
+            NextEntryNo := 1;
+
+        WCSWSServicesTreeVisual.Init();
+        WCSWSServicesTreeVisual.Validate("WSC Group Code", WSCConnBearer."WSC Group Code");
+        WCSWSServicesTreeVisual.Validate("WSC Entry No.", NextEntryNo);
+        WCSWSServicesTreeVisual.Validate("WSC Indentation", 0);
+        WCSWSServicesTreeVisual.Validate("WSC Code", WSCConnBearer."WSC Code");
+        WCSWSServicesTreeVisual.Validate("WSC Description", WSCConnBearer."WSC Description");
+        WCSWSServicesTreeVisual.Insert();
+
+        WSCWSServicesConnections.Reset();
+        WSCWSServicesConnections.SetRange("WSC Group Code", WSCConnBearer."WSC Group Code");
+        WSCWSServicesConnections.SetRange("WSC Bearer Connection", false);
+        WSCWSServicesConnections.SetRange("WSC Bearer Connection Code", WSCConnBearer."WSC Code");
+        if not WSCWSServicesConnections.IsEmpty() then begin
+            WSCWSServicesConnections.FindSet();
+            repeat
+                NextEntryNo += 1;
+                WCSWSServicesTreeVisual.Init();
+                WCSWSServicesTreeVisual.Validate("WSC Group Code", WSCWSServicesConnections."WSC Group Code");
+                WCSWSServicesTreeVisual.Validate("WSC Entry No.", NextEntryNo);
+                WCSWSServicesTreeVisual.Validate("WSC Indentation", 1);
+                WCSWSServicesTreeVisual.Validate("WSC Code", WSCWSServicesConnections."WSC Code");
+                WCSWSServicesTreeVisual.Validate("WSC Description", WSCWSServicesConnections."WSC Description");
+                WCSWSServicesTreeVisual.Insert();
+            until WSCWSServicesConnections.Next() = 0;
+        end;
+    end;
+
+    local procedure CollectRecordWithoutTokenFromGroup(WSCGroupCode: Code[20]; var WCSWSServicesTreeVisual: Record "WCS Web Services Tree Visual")
+    var
+        WSCWSServicesConnections: Record "WSC Web Services Connections";
+        NextEntryNo: Integer;
+    begin
+        WCSWSServicesTreeVisual.Reset();
+        WCSWSServicesTreeVisual.SetRange("WSC Group Code", WSCGroupCode);
+        if WCSWSServicesTreeVisual.FindLast() then
+            NextEntryNo := WCSWSServicesTreeVisual."WSC Entry No."
+        else
+            NextEntryNo := 0;
+
+        WSCWSServicesConnections.Reset();
+        WSCWSServicesConnections.SetRange("WSC Group Code", WSCGroupCode);
+        WSCWSServicesConnections.SetRange("WSC Bearer Connection", false);
+        WSCWSServicesConnections.SetRange("WSC Bearer Connection Code", '');
+        if not WSCWSServicesConnections.IsEmpty() then begin
+            WSCWSServicesConnections.FindSet();
+            repeat
+                NextEntryNo += 1;
+                WCSWSServicesTreeVisual.Init();
+                WCSWSServicesTreeVisual.Validate("WSC Group Code", WSCWSServicesConnections."WSC Group Code");
+                WCSWSServicesTreeVisual.Validate("WSC Entry No.", NextEntryNo);
+                WCSWSServicesTreeVisual.Validate("WSC Indentation", 1);
+                WCSWSServicesTreeVisual.Validate("WSC Code", WSCWSServicesConnections."WSC Code");
+                WCSWSServicesTreeVisual.Validate("WSC Description", WSCWSServicesConnections."WSC Description");
+                WCSWSServicesTreeVisual.Insert();
+            until WSCWSServicesConnections.Next() = 0;
+        end;
+    end;
+
+    local procedure CollectRecordWithoutTokenNoGroup(WSCGroupCode: Code[20]; var WCSWSServicesTreeVisual: Record "WCS Web Services Tree Visual")
+    var
+        WSCWSServicesConnections: Record "WSC Web Services Connections";
+        NextEntryNo: Integer;
+    begin
+        WCSWSServicesTreeVisual.Reset();
+        WCSWSServicesTreeVisual.SetRange("WSC Group Code", WSCGroupCode);
+        if WCSWSServicesTreeVisual.FindLast() then
+            NextEntryNo := WCSWSServicesTreeVisual."WSC Entry No."
+        else
+            NextEntryNo := 0;
+
+        WSCWSServicesConnections.Reset();
+        WSCWSServicesConnections.SetRange("WSC Group Code", WSCGroupCode);
+        WSCWSServicesConnections.SetRange("WSC Bearer Connection", false);
+        WSCWSServicesConnections.SetRange("WSC Bearer Connection Code", '');
+        if not WSCWSServicesConnections.IsEmpty() then begin
+            WSCWSServicesConnections.FindSet();
+            repeat
+                NextEntryNo += 1;
+                WCSWSServicesTreeVisual.Init();
+                WCSWSServicesTreeVisual.Validate("WSC Group Code", WSCWSServicesConnections."WSC Group Code");
+                WCSWSServicesTreeVisual.Validate("WSC Entry No.", NextEntryNo);
+                WCSWSServicesTreeVisual.Validate("WSC Indentation", 0);
+                WCSWSServicesTreeVisual.Validate("WSC Code", WSCWSServicesConnections."WSC Code");
+                WCSWSServicesTreeVisual.Validate("WSC Description", WSCWSServicesConnections."WSC Description");
+                WCSWSServicesTreeVisual.Insert();
+            until WSCWSServicesConnections.Next() = 0;
+        end;
+    end;
+
     #endregion GeneralFunctions
     #region TokenFunctions
-    local procedure CheckWSCHeaderForToken(WSCConnBearer: Record "WSC Web Services Connections")
+    local procedure CheckWSBodiesForToken(WSCConnBearer: Record "WSC Web Services Connections")
     var
         WSCWSServicesBodies: Record "WSC Web Services Bodies";
+        v: Record "Sales Header" temporary;
         Text000Err: Label 'Key %1 must be filled for token request';
         IsHandled: Boolean;
     begin
-        OnBeforeCheckWSCHeaderForToken(IsHandled, WSCConnBearer);
+        OnBeforeCheckWSCBodiesForToken(IsHandled, WSCConnBearer);
         if IsHandled then
             exit;
 
@@ -184,7 +390,7 @@ codeunit 81001 "WSC Web Services Management"
             'password':
                 ;
         end;
-        OnAfterCheckWSCHeaderForToken(WSCConnBearer);
+        OnAfterCheckWSCBodiesForToken(WSCConnBearer);
     end;
 
     local procedure UpdateWSCTokenInfo(var WSCConnBearer: Record "WSC Web Services Connections")
@@ -278,6 +484,7 @@ codeunit 81001 "WSC Web Services Management"
         WSCWebServicesLogCalls."WSC Bearer Connection Code" := WSCWSServicesConnections."WSC Bearer Connection Code";
         WSCWebServicesLogCalls."WSC Body Type" := WSCWSServicesConnections."WSC Body Type";
         WSCWebServicesLogCalls."WSC Allow Blank Response" := WSCWSServicesConnections."WSC Allow Blank Response";
+        WSCWebServicesLogCalls."WSC Group Code" := WSCWSServicesConnections."WSC Group Code";
         Clear(OutStr);
         WSCWebServicesLogCalls."WSC Body Message".CreateOutStream(OutStr);
         WriteBlobFields(OutStr, BodyInStream);
@@ -379,12 +586,12 @@ codeunit 81001 "WSC Web Services Management"
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnBeforeCheckWSCHeaderForToken(IsHanlded: Boolean; WSCConnBearer: Record "WSC Web Services Connections")
+    local procedure OnBeforeCheckWSCBodiesForToken(IsHanlded: Boolean; WSCConnBearer: Record "WSC Web Services Connections")
     begin
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnAfterCheckWSCHeaderForToken(WSCConnBearer: Record "WSC Web Services Connections")
+    local procedure OnAfterCheckWSCBodiesForToken(WSCConnBearer: Record "WSC Web Services Connections")
     begin
     end;
 

@@ -21,6 +21,10 @@ page 81001 "WSC Web Services Conn. List"
                 {
                     ApplicationArea = All;
                 }
+                field("WSC Group Code"; Rec."WSC Group Code")
+                {
+                    ApplicationArea = All;
+                }
                 field("WSC Description"; Rec."WSC Description")
                 {
                     ApplicationArea = All;
@@ -41,6 +45,7 @@ page 81001 "WSC Web Services Conn. List"
                 {
                     ApplicationArea = All;
                 }
+
             }
         }
     }
@@ -111,6 +116,22 @@ page 81001 "WSC Web Services Conn. List"
                     WSCWSServicesLogCalls: Record "WSC Web Services Log Calls";
                 begin
                     WSCWSServicesLogCalls.ViewLog(Rec."WSC Code");
+                end;
+            }
+            action(ViewAsTree)
+            {
+                Caption = 'View As Tree';
+                ToolTip = 'View Web Service Calls with tree visualization';
+                ApplicationArea = All;
+                PromotedCategory = Process;
+                Promoted = true;
+                Image = BOMLevel;
+
+                trigger OnAction()
+                var
+                    WSCWSServicesMgt: Codeunit "WSC Web Services Management";
+                begin
+                    WSCWSServicesMgt.ShowWSCAsTree();
                 end;
             }
         }

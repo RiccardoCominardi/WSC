@@ -33,7 +33,6 @@ codeunit 81002 "WSC Web Services Caller"
     var
         Base64Convert: Codeunit "Base64 Convert";
         TempBlob: Codeunit "Temp Blob";
-        WSCWSSelBodyFile: Page "WSC Web Service Sel. Body File";
         FileInBase64: Text;
         OutStr: OutStream;
         InStr: InStream;

@@ -119,6 +119,28 @@ table 81001 "WSC Web Services Connections"
             DataClassification = CustomerContent;
             Caption = 'Allow Blank Response';
         }
+        field(18; "WSC Group Code"; Code[20])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Group Code';
+            TableRelation = "WSC Web Services Group Codes"."WSC Code";
+            trigger OnValidate()
+            var
+                WSCWSServicesConnections: Record "WSC Web Services Connections";
+                Text000Err: Label 'Is not possible to change Group Code if there is a linked Token. Clear first the linked Token value';
+            begin
+                if Rec."WSC Bearer Connection" then begin
+                    WSCWSServicesConnections.Reset();
+                    WSCWSServicesConnections.SetRange("WSC Bearer Connection Code", Rec."WSC Code");
+                    WSCWSServicesConnections.ModifyAll("WSC Group Code", Rec."WSC Group Code");
+                end else
+                    if Rec."WSC Bearer Connection Code" <> '' then
+                        if WSCWSServicesConnections.Get(Rec."WSC Bearer Connection Code") then
+                            if WSCWSServicesConnections."WSC Group Code" <> Rec."WSC Group Code" then
+                                Error(Text000Err);
+
+            end;
+        }
     }
 
     keys

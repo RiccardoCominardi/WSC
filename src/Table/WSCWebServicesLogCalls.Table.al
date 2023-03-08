@@ -78,6 +78,12 @@ table 81004 "WSC Web Services Log Calls"
             DataClassification = CustomerContent;
             Caption = 'Allow Blank Response';
         }
+        field(14; "WSC Group Code"; Code[20])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Group Code';
+            TableRelation = "WSC Web Services Group Codes"."WSC Code";
+        }
         field(200; "WSC Response Message"; Blob)
         {
             DataClassification = CustomerContent;

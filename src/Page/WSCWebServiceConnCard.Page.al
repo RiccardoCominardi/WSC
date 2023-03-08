@@ -19,6 +19,10 @@ page 81002 "WSC Web Service Conn. Card"
                 {
                     ApplicationArea = All;
                 }
+                field("WSC Group Code"; Rec."WSC Group Code")
+                {
+                    ApplicationArea = All;
+                }
                 field("WSC Description"; Rec."WSC Description")
                 {
                     ApplicationArea = All;
