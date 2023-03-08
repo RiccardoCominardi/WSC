@@ -49,6 +49,7 @@ table 81003 "WSC Web Services Bodies"
     var
         WSCWSServicesConnections: Record "WSC Web Services Connections";
         WSCWSServicesBodies: Record "WSC Web Services Bodies";
+        v: Page "Document Attachment Details";
     begin
         WSCWSServicesConnections.Get(WSCCode);
         if not (WSCWSServicesConnections."WSC Body Type" in [WSCWSServicesConnections."WSC Body Type"::"form data", WSCWSServicesConnections."WSC Body Type"::"x-www-form-urlencoded"]) then

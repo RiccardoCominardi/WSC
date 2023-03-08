@@ -193,11 +193,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Calls - Method ExportAttachment - NamedType Text001Lbl</note>
         </trans-unit>
-        <trans-unit id="Table 2381047368 - Method 2546799871 - NamedType 3696310182" size-unit="char" translate="yes" xml:space="preserve">
-          <source></source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Calls - Method ExportAttachment - NamedType JsonFilterLbl</note>
-        </trans-unit>
         <trans-unit id="Table 2381047368 - Field 4210624961 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Allow Blank Response</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -348,10 +343,20 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Web Services Caller - Method CreateBearerAuthHeader - NamedType Text002Txt</note>
         </trans-unit>
-        <trans-unit id="Codeunit 2367903848 - Method 3526843878 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Codeunit 2367903848 - Method 2544903138 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
           <source>Connection not estabilished</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Web Services Caller - Method NormalRequest - NamedType Text000Err</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Web Services Caller - Method ExecuteRequest - NamedType Text000Err</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 2367903848 - Method 1988189561 - NamedType 3865442186" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Attachments (%1)|%1</source>
+          <note from="Developer" annotates="general" priority="2">%1=file types, such as *.txt or *.docx</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Web Services Caller - Method ImportWithFilter - NamedType FileDialogTxt</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 2367903848 - Method 1988189561 - NamedType 3777830815" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Attach a document.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Web Services Caller - Method ImportWithFilter - NamedType ImportTxt</note>
         </trans-unit>
         <trans-unit id="Codeunit 2367903848 - Method 3337406174 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
           <source>Connection not estabilished</source>
@@ -538,20 +543,10 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Log Calls - Control WSC Response Message - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 2381047368 - Action 3077534250 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Set Bodies information for the Web Service call</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Log Calls - Action Bodies - Property ToolTip</note>
-        </trans-unit>
         <trans-unit id="Page 2381047368 - Action 3077534250 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Bodies</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Log Calls - Action Bodies - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 2381047368 - Action 161065432 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Set Header information for the Web Service call</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Log Calls - Action Headers - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 2381047368 - Action 161065432 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Headers</source>
