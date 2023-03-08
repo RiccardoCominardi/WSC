@@ -125,7 +125,6 @@ table 81004 "WSC Web Services Log Calls"
         FileName: Text;
         Text000Lbl: Label 'BodyMessage.json';
         Text001Lbl: Label 'ResponseMessage.json';
-        JsonFilterLbl: Label '';
     begin
         case FieldNo of
             Rec.FieldNo("WSC Body Message"):

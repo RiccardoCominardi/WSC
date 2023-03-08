@@ -115,18 +115,4 @@ page 81001 "WSC Web Services Conn. List"
             }
         }
     }
-
-    trigger OnAfterGetRecord()
-    begin
-        SetEditableVariables();
-    end;
-
-    local procedure SetEditableVariables()
-    begin
-        CredentialsEditable := Rec."WSC Auth. Type" = Rec."WSC Auth. Type"::Basic;
-    end;
-
-
-    var
-        CredentialsEditable: Boolean;
 }

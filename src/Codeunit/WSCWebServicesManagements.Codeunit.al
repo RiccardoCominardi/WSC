@@ -19,9 +19,14 @@ codeunit 81001 "WSC Web Services Management"
         WSCConnBearer: Record "WSC Web Services Connections";
         TokenEntryNo: Integer;
         Text000Lbl: Label 'Execution Terminated. Check the log to see the result';
+        IsHandled: Boolean;
     begin
         WSCWSServicesConnections.Get(WSCCode);
         CheckWSCCodeSetup(WSCWSServicesConnections);
+
+        OnBeforeExecuteDirectWSCConnections(IsHandled, WSCWSServicesConnections);
+        if IsHandled then
+            exit;
 
         case WSCWSServicesConnections."WSC Auth. Type" of
             WSCWSServicesConnections."WSC Auth. Type"::none,
@@ -45,6 +50,7 @@ codeunit 81001 "WSC Web Services Management"
                     WriteConnectionLog(WSCCode, WSCConnBearer."WSC Code", TokenEntryNo);
                 end;
         end;
+        OnAfterExecuteDirectWSCConnections(WSCWSServicesConnections);
 
         if GuiAllowed() then
             if not HideMessage then
@@ -98,6 +104,7 @@ codeunit 81001 "WSC Web Services Management"
                     CheckWSCHeaderForToken(WSCWSServicesConnections);
                 end;
         end;
+        OnAfterCheckWSCCodeSetup(WSCWSServicesConnections);
     end;
 
     local procedure IsSuccessStatusCode(WSCCode: Code[20]; EntryNo: Integer): Boolean
@@ -149,7 +156,12 @@ codeunit 81001 "WSC Web Services Management"
     var
         WSCWSServicesBodies: Record "WSC Web Services Bodies";
         Text000Err: Label 'Key %1 must be filled for token request';
+        IsHandled: Boolean;
     begin
+        OnBeforeCheckWSCHeaderForToken(IsHandled, WSCConnBearer);
+        if IsHandled then
+            exit;
+
         WSCWSServicesBodies.Get(WSCConnBearer."WSC Code", 'grant_type');
         case WSCWSServicesBodies."WSC Value" of
             'client_credentials':
@@ -172,6 +184,7 @@ codeunit 81001 "WSC Web Services Management"
             'password':
                 ;
         end;
+        OnAfterCheckWSCHeaderForToken(WSCConnBearer);
     end;
 
     local procedure UpdateWSCTokenInfo(var WSCConnBearer: Record "WSC Web Services Connections")
@@ -181,8 +194,13 @@ codeunit 81001 "WSC Web Services Management"
         Property: Text;
         OuStr: OutStream;
         Text000Err: Label 'Invalid Access Token Property %1, Value:  %2';
+        IsHandled: Boolean;
     begin
         JAccessToken.ReadFrom(ResponseText);
+        OnBeforeReadJsonTokenResponse(IsHandled, JAccessToken, WSCConnBearer);
+        if IsHandled then
+            exit;
+
         foreach Property in JAccessToken.Keys() do begin
             JAccessToken.Get(Property, JToken);
             case Property of
@@ -208,6 +226,7 @@ codeunit 81001 "WSC Web Services Management"
                     Error(Text000Err, Property, JToken.AsValue().AsText());
             end;
         end;
+        OnAfterReadJsonTokenResponse(JAccessToken, WSCConnBearer);
         WSCConnBearer."WSC Authorization Time" := CurrentDateTime();
         WSCConnBearer.Modify();
     end;
@@ -271,6 +290,7 @@ codeunit 81001 "WSC Web Services Management"
         WSCWebServicesLogCalls."WSC Result Status Code" := HttpStatusCode;
         WSCWebServicesLogCalls."WSC Execution Date-Time" := CurrentDateTime();
         WSCWebServicesLogCalls."WSC Execution UserID" := UserId();
+        OnBeforeInsertWSCWebServicesLogCalls(WSCWebServicesLogCalls, WSCWSServicesConnections);
         WSCWebServicesLogCalls.Insert();
 
         WriteHeaderLog(WSCCode, CurrEntryNo);
@@ -306,6 +326,7 @@ codeunit 81001 "WSC Web Services Management"
             WSCWSServicesLogHeaders."WSC Key" := WSCWSServicesHeaders."WSC Key";
             WSCWSServicesLogHeaders."WSC Value" := WSCWSServicesHeaders."WSC Value";
             WSCWSServicesLogHeaders."WSC Description" := WSCWSServicesHeaders."WSC Description";
+            OnBeforeInsertWSCWSServicesLogHeaders(WSCWSServicesLogHeaders, WSCWSServicesHeaders);
             WSCWSServicesLogHeaders.Insert();
         until WSCWSServicesHeaders.Next() = 0;
     end;
@@ -341,10 +362,63 @@ codeunit 81001 "WSC Web Services Management"
             WSCWSServicesLogBodies."WSC Key" := WSCWSServicesBodies."WSC Key";
             WSCWSServicesLogBodies."WSC Value" := WSCWSServicesBodies."WSC Value";
             WSCWSServicesLogBodies."WSC Description" := WSCWSServicesBodies."WSC Description";
+            OnBeforeInsertWSCWSServicesLogBodies(WSCWSServicesLogBodies, WSCWSServicesBodies);
             WSCWSServicesLogBodies.Insert();
         until WSCWSServicesBodies.Next() = 0;
     end;
     #endregion LogFunctions
+    #region IntegrationEvents
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeExecuteDirectWSCConnections(IsHanlded: Boolean; WSCWebServicesConnections: Record "WSC Web Services Connections")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterExecuteDirectWSCConnections(WSCWebServicesConnections: Record "WSC Web Services Connections")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeCheckWSCHeaderForToken(IsHanlded: Boolean; WSCConnBearer: Record "WSC Web Services Connections")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterCheckWSCHeaderForToken(WSCConnBearer: Record "WSC Web Services Connections")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterCheckWSCCodeSetup(WSCWebServicesConnections: Record "WSC Web Services Connections")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeReadJsonTokenResponse(IsHanlded: Boolean; JAccessToken: JsonObject; var WSCConnBearer: Record "WSC Web Services Connections")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterReadJsonTokenResponse(JAccessToken: JsonObject; var WSCConnBearer: Record "WSC Web Services Connections")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeInsertWSCWebServicesLogCalls(var WSCWebServicesLogCalls: Record "WSC Web Services Log Calls"; WSCWSServicesConnections: Record "WSC Web Services Connections")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeInsertWSCWSServicesLogHeaders(var WSCWSServicesLogHeaders: Record "WSC Web Services Log Headers"; WSCWSServicesHeaders: Record "WSC Web Services Headers")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeInsertWSCWSServicesLogBodies(var WSCWSServicesLogBodies: Record "WSC Web Services Log Bodies"; WSCWSServicesBodies: Record "WSC Web Services Bodies")
+    begin
+    end;
+
+    #endregion IntegrationEvents
     var
         WSCWebServicesCaller: Codeunit "WSC Web Services Caller";
         BodyInStream: InStream;

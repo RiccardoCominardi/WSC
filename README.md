@@ -27,7 +27,7 @@ Creare codeunit di migrazione per gestire l'inserimento delle header;
 https://www.bc-journal.com/post/work-with-installing-and-upgrading-codeunits-in-dynamics-365-business-central
 
 Visualizzazione ad albero:
-- Aprire una pagina temporanea in cui verrà mostrata una visualizzazione ad albero per i Token bearer e per i Gruppi. Essendo che i token posso appartenere a più chiamata non sarà possibile farlo con dati fisici ma partiamo da una temp in modo da "Sdoppiare" il Token solo per una migliore visualizzazione dell'utente.
+- Aprire una pagina temporanea in cui verrà mostrata una visualizzazione ad albero per i Token bearer e per i Gruppi. Essendo che i token possono appartenere a più chiamata non sarà possibile farlo con dati fisici ma partiamo da una temp in modo da "Sdoppiare" il Token solo per una migliore visualizzazione dell'utente.
 
 Chiamate API provate e funzionanti:
 

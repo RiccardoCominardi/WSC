@@ -43,6 +43,8 @@ table 81001 "WSC Web Services Connections"
                             Rec."WSC Username" := '';
                             Rec."WSC Password" := '';
                         end;
+                    "WSC Authorization Types"::basic:
+                        Rec."WSC Convert Auth. Base64" := true;
                 end;
             end;
         }

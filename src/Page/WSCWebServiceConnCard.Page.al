@@ -61,6 +61,7 @@ page 81002 "WSC Web Service Conn. Card"
                 field("WSC Convert Auth. Base64"; Rec."WSC Convert Auth. Base64")
                 {
                     ApplicationArea = All;
+                    Editable = CredentialsEditable;
                 }
             }
             group(Token)

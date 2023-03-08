@@ -16,6 +16,7 @@ page 81006 "WSC Web Service Sel. Body File"
         {
             group(GroupName)
             {
+                ShowCaption = false;
                 field(GlobalBase64String; GlobalBase64String)
                 {
                     Caption = 'File In Base64 String';
