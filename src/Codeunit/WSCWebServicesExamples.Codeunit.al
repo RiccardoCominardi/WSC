@@ -60,6 +60,19 @@ codeunit 82000 "WSC Web Services Examples"
         RequestHeaders.Add('Authorization', CreateBasicAuthHeader('TestUser', 'TestPassword'));
     end;
 
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"WSC Web Services Caller", 'OnParseEndpoint', '', false, false)]
+    local procedure OnParseEndpoint(OldEndPointString: Text; var NewEndPointString: Text; WSCWebServicesEndPointVar: Record "WSC Web Services EndPoint Var."; WSCWSServicesConnections: Record "WSC Web Services Connections");
+    begin
+        //This piece of code is required for WS calls to work properly. Your custom body must not have affect the body of other call
+        if WSCWSServicesConnections."WSC Code" <> 'TEST' then
+            exit;
+
+        case WSCWebServicesEndPointVar."WSC Variable Name" of
+            '[@TestSubstitution]':
+                NewEndPointString := OldEndPointString + 'v2';
+        end;
+    end;
+
     local procedure IsSuccessStatusCode(WSCWebServicesLogCalls: Record "WSC Web Services Log Calls"): Boolean
     begin
         case WSCWebServicesLogCalls."WSC Result Status Code" of

@@ -105,7 +105,7 @@ codeunit 81002 "WSC Web Services Caller"
         CollectHeaders(ContentHeaders);
         OnAfterSetContentHeaders(ContentHeaders, GlobalWSCWebServConn);
         RequestMessage.Method := Format(GlobalWSCWebServConn."WSC HTTP Method");
-        NewEndPoint := WSCWSServicesMgt.ParseEndPoint(GlobalWSCWebServConn."WSC EndPoint");
+        NewEndPoint := ParseEndPoint(GlobalWSCWebServConn."WSC EndPoint");
         RequestMessage.SetRequestUri(NewEndPoint);
 
         OnBeforeSetRequestContent(RequestContent, GlobalWSCWebServConn);
@@ -158,6 +158,38 @@ codeunit 81002 "WSC Web Services Caller"
     end;
     #endregion CallFunctions
     #region GeneralFunctions
+    local procedure ParseEndPoint(EndPointUrl: Text): Text
+    var
+        WSCWSServicesEndPointVar: Record "WSC Web Services EndPoint Var.";
+        WSCWSServicesMgt: Codeunit "WSC Web Services Management";
+        Company: Record Company;
+        NewString: Text;
+    begin
+        WSCWSServicesEndPointVar.Reset();
+        if WSCWSServicesEndPointVar.IsEmpty() then
+            exit;
+
+        NewString := EndPointUrl;
+        WSCWSServicesEndPointVar.FindSet();
+        repeat
+            case WSCWSServicesEndPointVar."WSC Variable Name" of
+                '[@CompanyName]':
+                    if StrPos(NewString, '[@CompanyName]') > 0 then
+                        NewString := WSCWSServicesMgt.ReplaceString(EndPointUrl, '[@CompanyName]', CompanyName());
+                '[@CompanyID]':
+                    if StrPos(NewString, '[@CompanyID]') > 0 then begin
+                        Company.Get(CompanyName());
+                        NewString := WSCWSServicesMgt.ReplaceString(EndPointUrl, '[@CompanyID]', DelChr(Company.Id, '=', '{}'));
+                    end;
+                '[@UserID]':
+                    if StrPos(NewString, '[@UserID]') > 0 then
+                        NewString := WSCWSServicesMgt.ReplaceString(EndPointUrl, '[@UserID]', UserId());
+            end;
+            OnParseEndpoint(EndPointUrl, NewString, WSCWSServicesEndPointVar, GlobalWSCWebServConn);
+        until WSCWSServicesEndPointVar.Next() = 0;
+        exit(NewString);
+    end;
+
     local procedure AcquireGlobalWSCConnection(WSCCode: Code[20])
     begin
         GlobalWSCWebServConn.Get(WSCCode);
@@ -342,6 +374,10 @@ codeunit 81002 "WSC Web Services Caller"
     begin
     end;
 
+    [IntegrationEvent(false, false)]
+    local procedure OnParseEndpoint(OldEndPointString: Text; var NewEndPointString: Text; WSCWebServicesEndPointVar: Record "WSC Web Services EndPoint Var."; WSCWSServicesConnections: Record "WSC Web Services Connections")
+    begin
+    end;
     #endregion IntegrationEvents
     var
         GlobalWSCWebServConn: Record "WSC Web Services Connections";

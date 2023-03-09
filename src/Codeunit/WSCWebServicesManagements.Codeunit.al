@@ -375,43 +375,13 @@ codeunit 81001 "WSC Web Services Management"
     end;
 
     /// <summary>
-    /// ParseEndPoint.
+    /// ReplaceString.
     /// </summary>
-    /// <param name="EndPointUrl">Text.</param>
-    /// <returns>Return value of type Text.</returns>
-    procedure ParseEndPoint(EndPointUrl: Text): Text
-    var
-        WSCWSServicesEndPointVar: Record "WSC Web Services EndPoint Var.";
-        Company: Record Company;
-        NewString: Text;
-    begin
-        WSCWSServicesEndPointVar.Reset();
-        if WSCWSServicesEndPointVar.IsEmpty() then
-            exit;
-
-        NewString := EndPointUrl;
-        WSCWSServicesEndPointVar.FindSet();
-        repeat
-            case WSCWSServicesEndPointVar."WSC Variable Name" of
-                '[@CompanyName]':
-                    if StrPos(NewString, '[@CompanyName]') > 0 then
-                        NewString := ReplaceString(EndPointUrl, '[@CompanyName]', CompanyName());
-                '[@CompanyID]':
-                    if StrPos(NewString, '[@CompanyID]') > 0 then begin
-                        Company.Get(CompanyName());
-                        NewString := ReplaceString(EndPointUrl, '[@CompanyID]', DelChr(Company.Id, '=', '{}'));
-                    end;
-                '[@UserID]':
-                    if StrPos(NewString, '[@UserID]') > 0 then
-                        NewString := ReplaceString(EndPointUrl, '[@UserID]', UserId());
-            end;
-        until WSCWSServicesEndPointVar.Next() = 0;
-        exit(NewString);
-    end;
-
-    local procedure ReplaceString(String: Text[250];
-FindWhat: Text[250];
-ReplaceWith: Text[250]) NewString: Text[250]
+    /// <param name="String">Text[250].</param>
+    /// <param name="FindWhat">Text[250].</param>
+    /// <param name="ReplaceWith">Text[250].</param>
+    /// <returns>Return variable NewString of type Text[250].</returns>
+    procedure ReplaceString(String: Text[250]; FindWhat: Text[250]; ReplaceWith: Text[250]) NewString: Text[250]
     var
         FindPos: Integer;
     begin
