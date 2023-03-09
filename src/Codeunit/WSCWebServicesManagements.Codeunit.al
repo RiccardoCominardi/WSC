@@ -13,11 +13,13 @@ codeunit 81001 "WSC Web Services Management"
     /// ExecuteDirectWSCConnections.
     /// </summary>
     /// <param name="WSCCode">Code[20].</param>
-    procedure ExecuteDirectWSCConnections(WSCCode: Code[20])
+    /// <returns>Return variable ResponseString of type Text.</returns>
+    procedure ExecuteDirectWSCConnections(WSCCode: Code[20]) ResponseString: Text;
     var
         WSCWSServicesConnections: Record "WSC Web Services Connections";
         WSCConnBearer: Record "WSC Web Services Connections";
         TokenEntryNo: Integer;
+        LogEntryNo: Integer;
         Text000Lbl: Label 'Execution Terminated. Check the log to see the result';
         IsHandled: Boolean;
     begin
@@ -34,12 +36,14 @@ codeunit 81001 "WSC Web Services Management"
                 begin
                     Clear(WSCWebServicesCaller);
                     ClearLastError();
-                    if WSCWSServicesConnections."WSC Bearer Connection" then
-                        ExecuteTokenCall(WSCWSServicesConnections."WSC Code", WSCConnBearer, TokenEntryNo)
-                    else begin
+                    if WSCWSServicesConnections."WSC Bearer Connection" then begin
+                        ExecuteTokenCall(WSCWSServicesConnections."WSC Code", WSCConnBearer, TokenEntryNo);
+                        LogEntryNo := TokenEntryNo;
+                    end else begin
                         if WSCWebServicesCaller.Run(WSCWSServicesConnections) then;
-                        WriteConnectionLog(WSCCode, '', 0);
+                        LogEntryNo := WriteConnectionLog(WSCCode, '', 0);
                     end;
+                    ResponseString := WSCWSServicesConnections."WSC Code" + ':' + Format(LogEntryNo);
                 end;
             WSCWSServicesConnections."WSC Auth. Type"::"bearer token":
                 if ExecuteTokenCall(WSCWSServicesConnections."WSC Bearer Connection Code", WSCConnBearer, TokenEntryNo) then begin
@@ -47,8 +51,10 @@ codeunit 81001 "WSC Web Services Management"
                     Clear(WSCWebServicesCaller);
                     ClearLastError();
                     if WSCWebServicesCaller.Run(WSCWSServicesConnections) then;
-                    WriteConnectionLog(WSCCode, WSCConnBearer."WSC Code", TokenEntryNo);
-                end;
+                    LogEntryNo := WriteConnectionLog(WSCCode, WSCConnBearer."WSC Code", TokenEntryNo);
+                    ResponseString := WSCWSServicesConnections."WSC Code" + ':' + Format(LogEntryNo);
+                end else
+                    ResponseString := WSCWSServicesConnections."WSC Bearer Connection Code" + ':' + Format(TokenEntryNo);
         end;
         OnAfterExecuteDirectWSCConnections(WSCWSServicesConnections);
 
@@ -81,6 +87,18 @@ codeunit 81001 "WSC Web Services Management"
             TokenTaken := true;
         end;
         exit(TokenTaken);
+    end;
+
+    /// <summary>
+    /// ParseResponse.
+    /// </summary>
+    /// <param name="StringToParse">Text.</param>
+    /// <param name="WSCCodeLog">VAR Code[20].</param>
+    /// <param name="WSCEntryNoLog">VAR Integer.</param>
+    procedure ParseResponse(StringToParse: Text; var WSCCodeLog: Code[20]; var WSCEntryNoLog: Integer)
+    begin
+        WSCCodeLog := CopyStr(StringToParse, 1, StrPos(StringToParse, ':') - 1);
+        Evaluate(WSCEntryNoLog, CopyStr(StringToParse, StrPos(StringToParse, ':') + 1, MaxStrLen(WSCCodeLog)));
     end;
 
     #endregion ExecutionFunctions
@@ -148,6 +166,7 @@ codeunit 81001 "WSC Web Services Management"
         Clear(HttpStatusCode);
         Clear(LastMessageText);
         Clear(ResponseText);
+        Clear(NewEndPoint);
     end;
 
     /// <summary>
@@ -355,6 +374,55 @@ codeunit 81001 "WSC Web Services Management"
         end;
     end;
 
+    /// <summary>
+    /// ParseEndPoint.
+    /// </summary>
+    /// <param name="EndPointUrl">Text.</param>
+    /// <returns>Return value of type Text.</returns>
+    procedure ParseEndPoint(EndPointUrl: Text): Text
+    var
+        WSCWSServicesEndPointVar: Record "WSC Web Services EndPoint Var.";
+        Company: Record Company;
+        NewString: Text;
+    begin
+        WSCWSServicesEndPointVar.Reset();
+        if WSCWSServicesEndPointVar.IsEmpty() then
+            exit;
+
+        NewString := EndPointUrl;
+        WSCWSServicesEndPointVar.FindSet();
+        repeat
+            case WSCWSServicesEndPointVar."WSC Variable Name" of
+                '[@CompanyName]':
+                    if StrPos(NewString, '[@CompanyName]') > 0 then
+                        NewString := ReplaceString(EndPointUrl, '[@CompanyName]', CompanyName());
+                '[@CompanyID]':
+                    if StrPos(NewString, '[@CompanyID]') > 0 then begin
+                        Company.Get(CompanyName());
+                        NewString := ReplaceString(EndPointUrl, '[@CompanyID]', DelChr(Company.Id, '=', '{}'));
+                    end;
+                '[@UserID]':
+                    if StrPos(NewString, '[@UserID]') > 0 then
+                        NewString := ReplaceString(EndPointUrl, '[@UserID]', UserId());
+            end;
+        until WSCWSServicesEndPointVar.Next() = 0;
+        exit(NewString);
+    end;
+
+    local procedure ReplaceString(String: Text[250];
+FindWhat: Text[250];
+ReplaceWith: Text[250]) NewString: Text[250]
+    var
+        FindPos: Integer;
+    begin
+        FindPos := StrPos(String, FindWhat);
+        while FindPos > 0 do begin
+            NewString += DelStr(String, FindPos) + ReplaceWith;
+            String := CopyStr(String, FindPos + StrLen(FindWhat));
+            FindPos := StrPos(String, FindWhat);
+        end;
+        NewString += String;
+    end;
     #endregion GeneralFunctions
     #region TokenFunctions
     local procedure CheckWSBodiesForToken(WSCConnBearer: Record "WSC Web Services Connections")
@@ -462,7 +530,7 @@ codeunit 81001 "WSC Web Services Management"
     begin
         WSCWSServicesConnections.Get(WSCCode);
         ClearGlobalVariables();
-        WSCWebServicesCaller.RetrieveGlobalVariables(BodyInStream, ResponseInStream, CallExecution, HttpStatusCode, LastMessageText);
+        WSCWebServicesCaller.RetrieveGlobalVariables(BodyInStream, ResponseInStream, CallExecution, HttpStatusCode, LastMessageText, NewEndPoint);
 
         WSCWebServicesLogCalls.Reset();
         WSCWebServicesLogCalls.SetRange("WSC Code", WSCCode);
@@ -478,7 +546,7 @@ codeunit 81001 "WSC Web Services Management"
         WSCWebServicesLogCalls."WSC Code" := WSCWSServicesConnections."WSC Code";
         WSCWebServicesLogCalls."WSC Description" := WSCWSServicesConnections."WSC Description";
         WSCWebServicesLogCalls."WSC HTTP Method" := WSCWSServicesConnections."WSC HTTP Method";
-        WSCWebServicesLogCalls."WSC EndPoint" := WSCWSServicesConnections."WSC EndPoint";
+        WSCWebServicesLogCalls."WSC EndPoint" := NewEndPoint;
         WSCWebServicesLogCalls."WSC Auth. Type" := WSCWSServicesConnections."WSC Auth. Type";
         WSCWebServicesLogCalls."WSC Bearer Connection" := WSCWSServicesConnections."WSC Bearer Connection";
         WSCWebServicesLogCalls."WSC Bearer Connection Code" := WSCWSServicesConnections."WSC Bearer Connection Code";
@@ -635,4 +703,5 @@ codeunit 81001 "WSC Web Services Management"
         HideMessage: Boolean;
         HttpStatusCode: Integer;
         LastMessageText: Text;
+        NewEndPoint: Text;
 }

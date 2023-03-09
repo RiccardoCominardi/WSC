@@ -34,6 +34,14 @@ page 81002 "WSC Web Service Conn. Card"
                 field("WSC EndPoint"; Rec."WSC EndPoint")
                 {
                     ApplicationArea = All;
+                    MultiLine = true;
+                }
+                field("WSC EndPointWithVar"; EndPointWithVar)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    ShowCaption = false;
+                    StyleExpr = EndPointColor;
                 }
                 field("WSC Allow Blank Response"; Rec."WSC Allow Blank Response")
                 {
@@ -92,13 +100,30 @@ page 81002 "WSC Web Service Conn. Card"
                     ApplicationArea = All;
                     Editable = false;
                 }
-                field(TokenStatus; TokenStatus)
+                field("WSC TokenStatus"; TokenStatus)
                 {
                     ApplicationArea = All;
                     Editable = false;
                     ShowCaption = false;
                     StyleExpr = TokenColor;
                 }
+            }
+        }
+        area(factboxes)
+        {
+            part(WSCWebServicesEndPointVar; "WSC Web Services EndPoint Var.")
+            {
+                ApplicationArea = All;
+                Caption = 'EndPoint Variables';
+            }
+            systempart(Control1900383207; Links)
+            {
+                ApplicationArea = RecordLinks;
+                Visible = false;
+            }
+            systempart(Control1905767507; Notes)
+            {
+                ApplicationArea = Notes;
             }
         }
     }
@@ -178,11 +203,36 @@ page 81002 "WSC Web Service Conn. Card"
     begin
         SetEditableVariables();
         SetTokenFields();
+        SetEndPointFields();
     end;
 
     local procedure SetEditableVariables()
     begin
         CredentialsEditable := Rec."WSC Auth. Type" = Rec."WSC Auth. Type"::Basic;
+    end;
+
+    local procedure SetEndPointFields()
+    var
+        WSCWSServicesEndPointVar: Record "WSC Web Services EndPoint Var.";
+        Text000Lbl: Label 'EndPoint containes variables';
+        Found: Boolean;
+    begin
+        Found := false;
+        EndPointColor := 'Standard';
+        EndPointWithVar := '';
+        WSCWSServicesEndPointVar.Reset();
+        if WSCWSServicesEndPointVar.IsEmpty() then
+            exit;
+
+        WSCWSServicesEndPointVar.FindSet();
+        repeat
+            if StrPos(Rec."WSC EndPoint", WSCWSServicesEndPointVar."WSC Variable Name") > 0 then begin
+                Found := true;
+                EndPointColor := 'Ambiguous';
+                EndPointWithVar := Text000Lbl;
+            end
+
+        until (WSCWSServicesEndPointVar.Next() = 0) or Found;
     end;
 
     local procedure SetTokenFields()
@@ -239,4 +289,6 @@ page 81002 "WSC Web Service Conn. Card"
         TokenAuth: DateTime;
         TokenStatus: Text;
         TokenColor: Text;
+        EndPointWithVar: Text;
+        EndPointColor: Text;
 }

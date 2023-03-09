@@ -108,6 +108,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Code - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 3857118176 - Field 4197677126 - Method 2126772001 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Is not possible to use char ":"</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Code - Method OnValidate - NamedType Text000Err</note>
+        </trans-unit>
         <trans-unit id="Table 3857118176 - Field 2644463003 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Convert Auth. Base64</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -157,6 +162,41 @@
           <source>Username</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Username - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1194695747 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Web Services - EndPoint Variables</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services EndPoint Var. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1194695747 - Method 19243325 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Variable Name must be prefixed by chars "[@"</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services EndPoint Var. - Method CheckVarComposition - NamedType Text000Err</note>
+        </trans-unit>
+        <trans-unit id="Table 1194695747 - Method 19243325 - NamedType 2316870939" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Variable Name must be suffixed by char "]"</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services EndPoint Var. - Method CheckVarComposition - NamedType Text001Err</note>
+        </trans-unit>
+        <trans-unit id="Table 1194695747 - Method 3152277940 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Is not possible to delete standard variables</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services EndPoint Var. - Method OnDelete - NamedType Text000Err</note>
+        </trans-unit>
+        <trans-unit id="Table 1194695747 - Field 1011487995 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Custom Variables</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services EndPoint Var. - Field WSC Custom Var - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1194695747 - Field 4286468891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Description</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services EndPoint Var. - Field WSC Description - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1194695747 - Field 548559570 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Variable Name</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services EndPoint Var. - Field WSC Variable Name - Property Caption</note>
         </trans-unit>
         <trans-unit id="Table 1733495364 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Web Services - Group Codes</source>
@@ -418,6 +458,16 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Web Services Caller - Method ImportWithFilter - NamedType ImportTxt</note>
         </trans-unit>
+        <trans-unit id="Codeunit 1951608638 - Method 681255651 - NamedType 1614022648" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%1:%2</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Web Services Examples - Method CreateBasicAuthHeader - NamedType Text001Txt</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1951608638 - Method 681255651 - NamedType 598315961" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Basic %1</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Web Services Examples - Method CreateBasicAuthHeader - NamedType Text002Txt</note>
+        </trans-unit>
         <trans-unit id="Codeunit 3971640374 - Method 1458474784 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
           <source>Key %1 must be filled for token request</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -443,10 +493,20 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WCS Web Services Tree Visual - NamedType Text000</note>
         </trans-unit>
+        <trans-unit id="Page 789333437 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>EndPoint Variables</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC EndPoint Var List - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 807015976 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Web Service Connection Card</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 807015976 - Method 3788197628 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
+          <source>EndPoint containes variables</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Method SetEndPointFields - NamedType Text000Lbl</note>
         </trans-unit>
         <trans-unit id="Page 807015976 - Method 1661334556 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
           <source>No Token</source>
@@ -482,6 +542,11 @@
           <source>Authorization Time</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Control WSC Authorization Time - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 807015976 - Control 3327296369 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>EndPoint Variables</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Control WSCWebServicesEndPointVar - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 807015976 - Action 3077534250 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Set Bodies information for the Web Service call</source>
@@ -583,6 +648,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action ViewLog - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 1194695747 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>EndPoint Variables</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services EndPoint Var. - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 1733495364 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Web Services - Group Codes</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -673,15 +743,30 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum WSC Body Types - EnumValue x-www-form-urlencoded - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Enum 2923777893 - EnumValue 2477294019 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>DELETE</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum WSC HTTP Methods - EnumValue Delete - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Enum 2923777893 - EnumValue 2304286450 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>GET</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum WSC HTTP Methods - EnumValue Get - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Enum 2923777893 - EnumValue 3715279586 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>PATCH</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum WSC HTTP Methods - EnumValue Patch - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Enum 2923777893 - EnumValue 2282416948 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>POST</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum WSC HTTP Methods - EnumValue Post - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 2923777893 - EnumValue 3838861371 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>PUT</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum WSC HTTP Methods - EnumValue Put - Property Caption</note>
         </trans-unit>
       </group>
     </body>

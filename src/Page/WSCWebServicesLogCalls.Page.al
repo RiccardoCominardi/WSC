@@ -23,6 +23,7 @@ page 81005 "WSC Web Services Log Calls"
                 field("WSC Entry No."; Rec."WSC Entry No.")
                 {
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("WSC Code"; Rec."WSC Code")
                 {

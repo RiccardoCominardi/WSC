@@ -31,6 +31,7 @@ codeunit 81002 "WSC Web Services Caller"
 
     local procedure ExecuteRequest()
     var
+        WSCWSServicesMgt: Codeunit "WSC Web Services Management";
         Base64Convert: Codeunit "Base64 Convert";
         TempBlob: Codeunit "Temp Blob";
         FileInBase64: Text;
@@ -60,12 +61,15 @@ codeunit 81002 "WSC Web Services Caller"
         OnAfterInitializeRequestHeaders(RequestHeaders, GlobalWSCWebServConn);
 
         case GlobalWSCWebServConn."WSC HTTP Method" of
-            GlobalWSCWebServConn."WSC HTTP Method"::Get:
+            GlobalWSCWebServConn."WSC HTTP Method"::Get,
+            GlobalWSCWebServConn."WSC HTTP Method"::Delete:
                 if HasBodyValues() then
                     RequestContent.GetHeaders(ContentHeaders)
                 else
                     RequestMessage.GetHeaders(ContentHeaders);
-            GlobalWSCWebServConn."WSC HTTP Method"::Post:
+            GlobalWSCWebServConn."WSC HTTP Method"::Post,
+            GlobalWSCWebServConn."WSC HTTP Method"::Put,
+            GlobalWSCWebServConn."WSC HTTP Method"::Patch:
                 RequestContent.GetHeaders(ContentHeaders);
         end;
 
@@ -101,14 +105,18 @@ codeunit 81002 "WSC Web Services Caller"
         CollectHeaders(ContentHeaders);
         OnAfterSetContentHeaders(ContentHeaders, GlobalWSCWebServConn);
         RequestMessage.Method := Format(GlobalWSCWebServConn."WSC HTTP Method");
-        RequestMessage.SetRequestUri(GlobalWSCWebServConn."WSC EndPoint");
+        NewEndPoint := WSCWSServicesMgt.ParseEndPoint(GlobalWSCWebServConn."WSC EndPoint");
+        RequestMessage.SetRequestUri(NewEndPoint);
 
         OnBeforeSetRequestContent(RequestContent, GlobalWSCWebServConn);
         case GlobalWSCWebServConn."WSC HTTP Method" of
-            GlobalWSCWebServConn."WSC HTTP Method"::Get:
+            GlobalWSCWebServConn."WSC HTTP Method"::Get,
+            GlobalWSCWebServConn."WSC HTTP Method"::Delete:
                 if HasBodyValues() then
                     RequestMessage.Content(RequestContent);
-            GlobalWSCWebServConn."WSC HTTP Method"::Post:
+            GlobalWSCWebServConn."WSC HTTP Method"::Post,
+            GlobalWSCWebServConn."WSC HTTP Method"::Put,
+            GlobalWSCWebServConn."WSC HTTP Method"::Patch:
                 RequestMessage.Content(RequestContent);
         end;
 
@@ -163,13 +171,15 @@ codeunit 81002 "WSC Web Services Caller"
     /// <param name="ParCallExecution">VAR Boolean.</param>
     /// <param name="ParHttpStatusCode">VAR Integer.</param>
     /// <param name="ParLastMessageText">VAR Text.</param>
-    procedure RetrieveGlobalVariables(var ParBodyInStream: InStream; var ParResponseInStream: InStream; var ParCallExecution: Boolean; var ParHttpStatusCode: Integer; var ParLastMessageText: Text)
+    /// <param name="ParNewEndPoint">VAR Text.</param>
+    procedure RetrieveGlobalVariables(var ParBodyInStream: InStream; var ParResponseInStream: InStream; var ParCallExecution: Boolean; var ParHttpStatusCode: Integer; var ParLastMessageText: Text; var ParNewEndPoint: Text)
     begin
         ParBodyInStream := BodyInStream;
         ParResponseInStream := ResponseInStream;
         ParCallExecution := CallExecution;
         ParHttpStatusCode := HttpStatusCode;
         ParLastMessageText := LastMessageText;
+        ParNewEndPoint := NewEndPoint;
     end;
 
     local procedure ClearGlobalVariables()
@@ -180,6 +190,7 @@ codeunit 81002 "WSC Web Services Caller"
         Clear(CallExecution);
         Clear(HttpStatusCode);
         Clear(LastMessageText);
+        Clear(NewEndPoint);
     end;
 
     local procedure CreateBasicAuthHeader(UserName: Text; Password: Text): Text
@@ -334,6 +345,7 @@ codeunit 81002 "WSC Web Services Caller"
     #endregion IntegrationEvents
     var
         GlobalWSCWebServConn: Record "WSC Web Services Connections";
+        NewEndPoint: Text;
         LastMessageText: Text;
         BodyInStream: InStream;
         ResponseInStream: InStream;

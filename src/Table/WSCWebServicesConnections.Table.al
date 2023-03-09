@@ -15,6 +15,13 @@ table 81001 "WSC Web Services Connections"
             DataClassification = CustomerContent;
             Caption = 'Code';
             NotBlank = true;
+            trigger OnValidate()
+            var
+                Text000Err: Label 'Is not possible to use char ":"';
+            begin
+                if StrPos(Rec."WSC Code", ':') > 0 then
+                    Error(Text000Err);
+            end;
         }
         field(2; "WSC Description"; Text[100])
         {

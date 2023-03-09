@@ -1,3 +1,6 @@
+/// <summary>
+/// Enum WSC Authorization Types (ID 81002).
+/// </summary>
 enum 81002 "WSC Authorization Types"
 {
     Extensible = true;
