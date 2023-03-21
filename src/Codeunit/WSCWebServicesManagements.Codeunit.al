@@ -123,6 +123,13 @@ codeunit 81001 "WSC Web Services Management"
                     CheckWSBodiesForToken(WSCWSServicesConnections);
                 end;
         end;
+
+        case WSCWSServicesConnections."WSC Body Type" of
+            "WSC Body Types"::raw,
+            "WSC Body Types"::binary:
+                WSCWSServicesConnections.TestField("WSC Body Method");
+        end;
+
         OnAfterCheckWSCCodeSetup(WSCWSServicesConnections);
     end;
 
