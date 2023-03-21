@@ -148,6 +148,11 @@ table 81001 "WSC Web Services Connections"
 
             end;
         }
+        field(19; "WSC Body Method"; Enum "WSC Body Methods")
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Body Method';
+        }
     }
 
     keys

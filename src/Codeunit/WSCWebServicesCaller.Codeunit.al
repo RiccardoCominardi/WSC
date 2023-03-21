@@ -82,15 +82,21 @@ codeunit 81002 "WSC Web Services Caller"
             "WSC Body Types"::binary,
             "WSC Body Types"::raw:
                 begin
-                    if GuiAllowed then begin
-                        ImportWithFilter(TempBlob, FileName);
-                        if FileName <> '' then begin
-                            GlobalWSCWebServConn."WSC Body Message".CreateOutStream(OutStr);
-                            TempBlob.CreateInStream(FileInStream);
-                            CopyStream(OutStr, FileInStream);
-                        end;
-                    end else
-                        OnSetBodyMessage(GlobalWSCWebServConn);
+                    case GlobalWSCWebServConn."WSC Body Method" of
+                        "WSC Body Methods"::"custom file":
+                            ;
+                        "WSC Body Methods"::"fixed file":
+                            OnSetFixBodyMessage(GlobalWSCWebServConn);
+                        "WSC Body Methods"::"request file":
+                            begin
+                                ImportWithFilter(TempBlob, FileName);
+                                if FileName <> '' then begin
+                                    GlobalWSCWebServConn."WSC Body Message".CreateOutStream(OutStr);
+                                    TempBlob.CreateInStream(FileInStream);
+                                    CopyStream(OutStr, FileInStream);
+                                end;
+                            end;
+                    end;
 
                     GlobalWSCWebServConn.CalcFields("WSC Body Message");
                     if GlobalWSCWebServConn."WSC Body Message".HasValue() then begin
@@ -343,7 +349,7 @@ codeunit 81002 "WSC Web Services Caller"
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnSetBodyMessage(var WSCWSServicesConnections: Record "WSC Web Services Connections")
+    local procedure OnSetFixBodyMessage(var WSCWSServicesConnections: Record "WSC Web Services Connections")
     begin
         //Modify is not needed
     end;

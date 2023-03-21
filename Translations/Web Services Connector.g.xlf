@@ -98,6 +98,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Body Message - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 3857118176 - Field 992929052 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Body Method</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Body Method - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 3857118176 - Field 2613519857 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Body Type</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -493,11 +498,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WCS Web Services Tree Visual - NamedType Text000</note>
         </trans-unit>
-        <trans-unit id="Page 789333437 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>EndPoint Variables</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC EndPoint Var List - Property Caption</note>
-        </trans-unit>
         <trans-unit id="Page 807015976 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Web Service Connection Card</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -628,6 +628,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action SendRequest - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 1308428035 - Action 1139653482 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>TEST</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action TEST - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 1308428035 - Action 3652164187 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>View Web Service Calls with tree visualization</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -647,6 +652,11 @@
           <source>View Log</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action ViewLog - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3980770037 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Web Services - EndPoint Variables</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services EndPntVarList - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1194695747 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>EndPoint Variables</source>
@@ -712,6 +722,26 @@
           <source>None</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum WSC Authorization Types - EnumValue none - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 3194914333 - EnumValue 1371923692 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source> </source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum WSC Body Methods - EnumValue   - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 3194914333 - EnumValue 363624479 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Custom file</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum WSC Body Methods - EnumValue custom file - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 3194914333 - EnumValue 2219069924 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Fixed file</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum WSC Body Methods - EnumValue fixed file - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 3194914333 - EnumValue 4131788921 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Request file from user</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum WSC Body Methods - EnumValue request file - Property Caption</note>
         </trans-unit>
         <trans-unit id="Enum 1032838120 - EnumValue 629389329 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Binary</source>

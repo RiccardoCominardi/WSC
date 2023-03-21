@@ -58,6 +58,22 @@ page 81002 "WSC Web Service Conn. Card"
                 field("WSC Body Type"; Rec."WSC Body Type")
                 {
                     ApplicationArea = All;
+                    trigger OnValidate()
+                    begin
+                        case Rec."WSC Body Type" of
+                            Rec."WSC Body Type"::"form data",
+                            Rec."WSC Body Type"::GraphQL,
+                            Rec."WSC Body Type"::"x-www-form-urlencoded":
+                                Rec."WSC Body Method" := Rec."WSC Body Method"::" ";
+                        end;
+
+                        CurrPage.Update(true);
+                    end;
+                }
+                field("WSC Body Method"; Rec."WSC Body Method")
+                {
+                    ApplicationArea = All;
+                    Editable = BodyMethodEditable;
                 }
                 field("WSC Username"; Rec."WSC Username")
                 {
@@ -209,6 +225,7 @@ page 81002 "WSC Web Service Conn. Card"
     local procedure SetEditableVariables()
     begin
         CredentialsEditable := Rec."WSC Auth. Type" = Rec."WSC Auth. Type"::Basic;
+        BodyMethodEditable := Rec."WSC Body Type" = Rec."WSC Body Type"::raw;
     end;
 
     local procedure SetEndPointFields()
@@ -285,6 +302,7 @@ page 81002 "WSC Web Service Conn. Card"
 
     var
         CredentialsEditable: Boolean;
+        BodyMethodEditable: Boolean;
         TokenPresent: Boolean;
         TokenAuth: DateTime;
         TokenStatus: Text;

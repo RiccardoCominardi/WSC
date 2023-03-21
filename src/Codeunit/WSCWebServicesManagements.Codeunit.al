@@ -25,6 +25,7 @@ codeunit 81001 "WSC Web Services Management"
     begin
         WSCWSServicesConnections.Get(WSCCode);
         CheckWSCCodeSetup(WSCWSServicesConnections);
+        WriteCustomBodyOnWSCRec(WSCWSServicesConnections);
 
         OnBeforeExecuteDirectWSCConnections(IsHandled, WSCWSServicesConnections);
         if IsHandled then
@@ -125,6 +126,37 @@ codeunit 81001 "WSC Web Services Management"
         OnAfterCheckWSCCodeSetup(WSCWSServicesConnections);
     end;
 
+    /// <summary>
+    /// SetCustomBody.
+    /// </summary>
+    /// <param name="InStr">VAR InStream.</param>
+    procedure SetCustomBody(var InStr: InStream)
+    begin
+        CustomBodyInStream := InStr;
+        CustomBodyIsSet := true;
+    end;
+
+    local procedure WriteCustomBodyOnWSCRec(var WSCWSServicesConnections: Record "WSC Web Services Connections")
+    var
+        OutStr: OutStream;
+    begin
+        ClearWSCBodyMessage(WSCWSServicesConnections);
+        if not CustomBodyIsSet then
+            exit;
+        WSCWSServicesConnections."WSC Body Message".CreateOutStream(OutStr);
+        CopyStream(OutStr, CustomBodyInStream);
+        WSCWSServicesConnections.Modify();
+        Commit();
+    end;
+
+    local procedure ClearWSCBodyMessage(var WSCWSServicesConnections: Record "WSC Web Services Connections")
+    begin
+        WSCWSServicesConnections.LockTable();
+        Clear(WSCWSServicesConnections."WSC Body Message");
+        WSCWSServicesConnections.Modify();
+        Commit();
+    end;
+
     local procedure IsSuccessStatusCode(WSCCode: Code[20]; EntryNo: Integer): Boolean
     var
         WSCWebServicesLogCalls: Record "WSC Web Services Log Calls";
@@ -167,6 +199,8 @@ codeunit 81001 "WSC Web Services Management"
         Clear(LastMessageText);
         Clear(ResponseText);
         Clear(NewEndPoint);
+        Clear(CustomBodyInStream);
+        Clear(CustomBodyIsSet);
     end;
 
     /// <summary>
@@ -668,9 +702,11 @@ codeunit 81001 "WSC Web Services Management"
         WSCWebServicesCaller: Codeunit "WSC Web Services Caller";
         BodyInStream: InStream;
         ResponseInStream: InStream;
+        CustomBodyInStream: InStream;
         ResponseText: Text;
         CallExecution: Boolean;
         HideMessage: Boolean;
+        CustomBodyIsSet: Boolean;
         HttpStatusCode: Integer;
         LastMessageText: Text;
         NewEndPoint: Text;

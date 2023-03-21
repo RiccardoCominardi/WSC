@@ -134,6 +134,21 @@ page 81001 "WSC Web Services Conn. List"
                     WSCWSServicesMgt.ShowWSCAsTree();
                 end;
             }
+            action(TEST)
+            {
+                Caption = 'TEST';
+                ApplicationArea = All;
+                PromotedCategory = Process;
+                Promoted = true;
+                Image = TestFile;
+
+                trigger OnAction()
+                var
+                    WSCWSServicesExamples: Codeunit "WSC Web Services Examples";
+                begin
+                    WSCWSServicesExamples.ExecuteWSCTestCodeWithCustomBody();
+                end;
+            }
         }
     }
 }

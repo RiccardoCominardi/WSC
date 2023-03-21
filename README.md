@@ -3,5 +3,7 @@ Web Services Connector
 
 DOPO LO SVILUPPO DEL CORE
 
-Visualizzazione ad albero:
-- Aprire una pagina temporanea in cui verrà mostrata una visualizzazione ad albero per i Token bearer e per i Gruppi. Essendo che i token possono appartenere a più chiamata non sarà possibile farlo con dati fisici ma partiamo da una temp in modo da "Sdoppiare" il Token solo per una migliore visualizzazione dell'utente.
+Nuova gestione Body per importazione file :
+- Nuova tabella in cui si inseriscono le funzioni che generano il body (nella page inserire una preview del file. Quindi   permettere di imporatre/esportare e fare la preview di un file. Giusto come esempio)
+- Aggiungere un campo nei WSC dove sarà possibile associare una sola funzione
+- Se il campo è popolato e si sta facendo una chiamata a mano allora chiedo se usare l'importazione da file manuale o usare la funzione associata. Se si fa una chiamata da procedura normale allora eseguo direttamente la funzione, se collegata.

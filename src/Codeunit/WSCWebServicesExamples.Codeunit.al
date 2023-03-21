@@ -31,9 +31,45 @@ codeunit 82000 "WSC Web Services Examples"
             Message('Web Service call failed. View the log to see the response');
     end;
 
-    //Add a body for a WebService call
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"WSC Web Services Caller", 'OnSetBodyMessage', '', false, false)]
-    local procedure OnSetBodyMessage(var WSCWSServicesConnections: Record "WSC Web Services Connections");
+    /// <summary>
+    /// ExecuteWSCTestCode.
+    /// </summary>
+    procedure ExecuteWSCTestCodeWithCustomBody()
+    var
+        WSCWebServicesLogCalls: Record "WSC Web Services Log Calls";
+        WSCWSServicesMgt: Codeunit "WSC Web Services Management";
+        TempBlob: Codeunit "Temp Blob";
+        InStr: InStream;
+        ResponseText: Text;
+        WSCodeLog: Code[20];
+        WSEntryLog: Integer;
+    begin
+        Clear(WSCWSServicesMgt);
+        GenerateCustomBody(TempBlob);
+        TempBlob.CreateInStream(InStr);
+        WSCWSServicesMgt.SetCustomBody(InStr);
+        WSCWSServicesMgt.SetHideMessage(true);
+        ResponseText := WSCWSServicesMgt.ExecuteDirectWSCConnections('TEST_CUSTOM_BODY');
+        WSCWSServicesMgt.ParseResponse(ResponseText, WSCodeLog, WSEntryLog);
+
+        WSCWebServicesLogCalls.Get(WSCodeLog, WSEntryLog);
+        if IsSuccessStatusCode(WSCWebServicesLogCalls) then
+            Message('Web Service call successful. View the log to see the response')
+        else
+            Message('Web Service call failed. View the log to see the response');
+    end;
+
+    local procedure GenerateCustomBody(var TempBlob: Codeunit "Temp Blob")
+    var
+        OutStr: OutStream;
+    begin
+        TempBlob.CreateOutStream(OutStr);
+        OutStr.WriteText('This is a custom body text. You can put a file, contained in an InStream, in Write function');
+    end;
+
+    //Add a fixed body for a WebService call. For complex body use the SetCustomBody procedure in Codeunit "WSC Web Services Management";
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"WSC Web Services Caller", 'OnSetFixBodyMessage', '', false, false)]
+    local procedure OnSetFixBodyMessage(var WSCWSServicesConnections: Record "WSC Web Services Connections");
     var
         OutStr: OutStream;
     begin
@@ -42,7 +78,7 @@ codeunit 82000 "WSC Web Services Examples"
             exit;
 
         WSCWSServicesConnections."WSC Body Message".CreateOutStream(OutStr);
-        OutStr.WriteText('This is a custom body text. You can put a file, contained in an InStream, in Write function');
+        OutStr.WriteText('This is a fixed body text. You can put a file, contained in an InStream, in Write function');
         //No need to modify record.
     end;
 
@@ -60,6 +96,7 @@ codeunit 82000 "WSC Web Services Examples"
         RequestHeaders.Add('Authorization', CreateBasicAuthHeader('TestUser', 'TestPassword'));
     end;
 
+    //To handle custom endpoint variables    
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"WSC Web Services Caller", 'OnParseEndpoint', '', false, false)]
     local procedure OnParseEndpoint(OldEndPointString: Text; var NewEndPointString: Text; WSCWebServicesEndPointVar: Record "WSC Web Services EndPoint Var."; WSCWSServicesConnections: Record "WSC Web Services Connections");
     begin
