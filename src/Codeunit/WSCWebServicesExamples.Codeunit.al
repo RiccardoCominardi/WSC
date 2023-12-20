@@ -21,18 +21,14 @@ codeunit 82000 "WSC Web Services Examples"
     begin
         Clear(WSCWSServicesMgt);
         WSCWSServicesMgt.SetHideMessage(true);
-        ResponseText := WSCWSServicesMgt.ExecuteDirectWSCConnections('TEST');
-        WSCWSServicesMgt.ParseResponse(ResponseText, WSCodeLog, WSEntryLog);
-
-        WSCWebServicesLogCalls.Get(WSCodeLog, WSEntryLog);
-        if IsSuccessStatusCode(WSCWebServicesLogCalls) then
+        if WSCWSServicesMgt.ExecuteWSCConnections('TEST', WSCWebServicesLogCalls) then
             Message('Web Service call successful. View the log to see the response')
         else
             Message('Web Service call failed. View the log to see the response');
     end;
 
     /// <summary>
-    /// ExecuteWSCTestCode.
+    /// ExecuteWSCTestCodeWithCustomBody.
     /// </summary>
     procedure ExecuteWSCTestCodeWithCustomBody()
     var
@@ -49,14 +45,51 @@ codeunit 82000 "WSC Web Services Examples"
         TempBlob.CreateInStream(InStr);
         WSCWSServicesMgt.SetCustomBody(InStr);
         WSCWSServicesMgt.SetHideMessage(true);
-        ResponseText := WSCWSServicesMgt.ExecuteDirectWSCConnections('TEST_CUSTOM_BODY');
-        WSCWSServicesMgt.ParseResponse(ResponseText, WSCodeLog, WSEntryLog);
-
-        WSCWebServicesLogCalls.Get(WSCodeLog, WSEntryLog);
-        if IsSuccessStatusCode(WSCWebServicesLogCalls) then
+        if WSCWSServicesMgt.ExecuteWSCConnections('TEST_CUSTOM_BODY', WSCWebServicesLogCalls) then
             Message('Web Service call successful. View the log to see the response')
         else
             Message('Web Service call failed. View the log to see the response');
+    end;
+
+    local procedure ReadZipFile(WSCWebServicesLogCalls: Record "WSC Web Services Log Calls")
+    var
+        TempBlob: Codeunit "Temp Blob";
+        FileManagement: Codeunit "File Management";
+        DataCompression: Codeunit "Data Compression";
+        EntryOutStream: OutStream;
+        EntryInStream,
+        InStr : InStream;
+        FileCount,
+        Length : Integer;
+        EntryList: List of [Text];
+        EntryListKey,
+        ZipFileName,
+        FileName,
+        FileExtension : Text;
+    begin
+        if not WSCWebServicesLogCalls."WSC Zip Response" then
+            exit;
+
+        WSCWebServicesLogCalls."WSC Response Message".CreateInStream(InStr);
+        //Extract zip file and store files to list type
+        DataCompression.OpenZipArchive(InStr, false);
+        DataCompression.GetEntryList(EntryList);
+
+        //Loop files from the list type
+        foreach EntryListKey in EntryList do begin
+            FileName := CopyStr(FileManagement.GetFileNameWithoutExtension(EntryListKey), 1, MaxStrLen(FileName));
+            FileExtension := CopyStr(FileManagement.GetExtension(EntryListKey), 1, MaxStrLen(FileExtension));
+            TempBlob.CreateOutStream(EntryOutStream);
+            DataCompression.ExtractEntry(EntryListKey, EntryOutStream, Length);
+            TempBlob.CreateInStream(EntryInStream);
+
+            //Import or do something with each file here
+            //EntryInStream contains the unzipped file. In that case contains the ResponseMessage.Json file
+            FileCount += 1;
+        end;
+
+        //Close the zip file
+        DataCompression.CloseZipArchive();
     end;
 
     local procedure GenerateCustomBody(var TempBlob: Codeunit "Temp Blob")

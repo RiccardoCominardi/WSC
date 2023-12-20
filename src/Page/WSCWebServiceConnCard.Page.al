@@ -61,12 +61,12 @@ page 81002 "WSC Web Service Conn. Card"
                     trigger OnValidate()
                     begin
                         case Rec."WSC Body Type" of
+                            Rec."WSC Body Type"::none,
                             Rec."WSC Body Type"::"form data",
                             Rec."WSC Body Type"::GraphQL,
                             Rec."WSC Body Type"::"x-www-form-urlencoded":
                                 Rec."WSC Body Method" := Rec."WSC Body Method"::" ";
                         end;
-
                         CurrPage.Update(true);
                     end;
                 }
@@ -90,6 +90,10 @@ page 81002 "WSC Web Service Conn. Card"
                 {
                     ApplicationArea = All;
                     Editable = CredentialsEditable;
+                }
+                field("WSC Zip Response"; Rec."WSC Zip Response")
+                {
+                    ApplicationArea = All;
                 }
             }
             group(Token)
@@ -191,9 +195,10 @@ page 81002 "WSC Web Service Conn. Card"
 
                 trigger OnAction()
                 var
+                    WSCWebServicesLogCalls: Record "WSC Web Services Log Calls";
                     WSCWSServicesMgt: Codeunit "WSC Web Services Management";
                 begin
-                    WSCWSServicesMgt.ExecuteDirectWSCConnections(Rec."WSC Code");
+                    WSCWSServicesMgt.ExecuteWSCConnections(Rec."WSC Code", WSCWebServicesLogCalls);
                 end;
             }
             action(ViewLog)
@@ -293,6 +298,9 @@ page 81002 "WSC Web Service Conn. Card"
     var
         ElapsedSecs: Integer;
     begin
+        if ParTokenAuth = 0DT then
+            exit(true);
+
         ElapsedSecs := Round((CurrentDateTime() - ParTokenAuth) / 1000, 1, '>');
         if (ElapsedSecs < ParExpireIn) and (ElapsedSecs < 3600) then
             exit(false)

@@ -1,7 +1,7 @@
 /// <summary>
-/// Table WCS Web Services Tree Visual (ID 81008).
+/// Table WSC Web Services Tree Visual (ID 81008).
 /// </summary>
-table 81008 "WCS Web Services Tree Visual"
+table 81008 "WSC Web Services Tree Visual"
 {
     DataClassification = CustomerContent;
     Caption = 'Web Services - Tree Visual';

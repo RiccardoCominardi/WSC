@@ -153,6 +153,21 @@ table 81001 "WSC Web Services Connections"
             DataClassification = CustomerContent;
             Caption = 'Body Method';
         }
+        field(20; "WSC Imported"; Boolean)
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Imported';
+        }
+        field(21; "WSC Previous Code"; Code[20])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Previous Code';
+        }
+        field(22; "WSC Zip Response"; Boolean)
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Zip Response';
+        }
     }
 
     keys

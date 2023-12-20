@@ -84,6 +84,11 @@ table 81004 "WSC Web Services Log Calls"
             Caption = 'Group Code';
             TableRelation = "WSC Web Services Group Codes"."WSC Code";
         }
+        field(15; "WSC Zip Response"; Boolean)
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Zip Response';
+        }
         field(200; "WSC Response Message"; Blob)
         {
             DataClassification = CustomerContent;
@@ -131,6 +136,7 @@ table 81004 "WSC Web Services Log Calls"
         FileName: Text;
         Text000Lbl: Label 'BodyMessage.json';
         Text001Lbl: Label 'ResponseMessage.json';
+        Text002Lbl: Label 'ResponseMessage.zip';
     begin
         case FieldNo of
             Rec.FieldNo("WSC Body Message"):
@@ -144,11 +150,16 @@ table 81004 "WSC Web Services Log Calls"
                 end;
             Rec.FieldNo("WSC Response Message"):
                 begin
-                    FileName := Text001Lbl;
                     Rec.CalcFields("WSC Response Message");
                     if Rec."WSC Response Message".HasValue() then begin
                         Rec."WSC Response Message".CreateInStream(InStr);
-                        DownloadFromStream(InStr, '', '', '*.json', FileName);
+                        if Rec."WSC Zip Response" then begin
+                            FileName := Text002Lbl;
+                            DownloadFromStream(InStr, '', '', '*.zip', FileName)
+                        end else begin
+                            FileName := Text001Lbl;
+                            DownloadFromStream(InStr, '', '', '*.json', FileName);
+                        end;
                     end;
                 end;
         end;

@@ -1,12 +1,12 @@
 /// <summary>
-/// Page WCS Web Services Tree Visual (ID 81009).
+/// Page WSC Web Services Tree Visual (ID 81009).
 /// </summary>
-page 81009 "WCS Web Services Tree Visual"
+page 81009 "WSC Web Services Tree Visual"
 {
     Caption = 'Web Services - Tree Visual';
     Editable = false;
     PageType = List;
-    SourceTable = "WCS Web Services Tree Visual";
+    SourceTable = "WSC Web Services Tree Visual";
     SourceTableView = sorting("WSC Group Code", "WSC Entry No.") order(ascending);
 
     layout
@@ -61,7 +61,7 @@ page 81009 "WCS Web Services Tree Visual"
     var
         WSCWSServicesMgt: Codeunit "WSC Web Services Management";
     begin
-        WSCWSServicesMgt.LoadWCSTreeVisualTable(Rec);
+        WSCWSServicesMgt.LoadWSCTreeVisualTable(Rec);
     end;
 
 

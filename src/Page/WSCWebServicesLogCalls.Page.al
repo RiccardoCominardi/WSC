@@ -87,6 +87,11 @@ page 81005 "WSC Web Services Log Calls"
                         CurrPage.SaveRecord();
                     end;
                 }
+                field("WSC Zip Response"; Rec."WSC Zip Response")
+                {
+                    ApplicationArea = All;
+                }
+
                 field("WSC Message Text"; Rec."WSC Message Text")
                 {
                     ApplicationArea = All;

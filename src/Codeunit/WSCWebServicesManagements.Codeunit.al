@@ -10,11 +10,28 @@ codeunit 81001 "WSC Web Services Management"
     #region ExecutionFunctions
 
     /// <summary>
-    /// ExecuteDirectWSCConnections.
+    /// ExecuteWSCConnections.
     /// </summary>
     /// <param name="WSCCode">Code[20].</param>
-    /// <returns>Return variable ResponseString of type Text.</returns>
-    procedure ExecuteDirectWSCConnections(WSCCode: Code[20]) ResponseString: Text;
+    /// <param name="WSCWebServicesLogCalls">Record "WSC Web Services Log Calls".</param>
+    /// <returns>Return variable Result of type Boolean.</returns>
+    procedure ExecuteWSCConnections(WSCCode: Code[20]; var WSCWebServicesLogCalls: Record "WSC Web Services Log Calls"): Boolean
+    var
+        ResponseText: Text;
+        WSCodeLog: Code[20];
+        WSEntryLog: Integer;
+    begin
+        ResponseText := ExecuteDirectWSCConnections(WSCCode);
+        ParseResponse(ResponseText, WSCodeLog, WSEntryLog);
+
+        WSCWebServicesLogCalls.Get(WSCodeLog, WSEntryLog);
+        if IsSuccessStatusCode(WSCodeLog, WSEntryLog) then
+            exit(true)
+        else
+            exit(false);
+    end;
+
+    local procedure ExecuteDirectWSCConnections(WSCCode: Code[20]) ResponseString: Text;
     var
         WSCWSServicesConnections: Record "WSC Web Services Connections";
         WSCConnBearer: Record "WSC Web Services Connections";
@@ -188,6 +205,16 @@ codeunit 81001 "WSC Web Services Management"
         end;
     end;
 
+    local procedure WriteZippedBlobFields(var OutStr: OutStream; var InStr: InStream)
+    var
+        DataCompression: Codeunit "Data Compression";
+        CurrText: Text;
+    begin
+        DataCompression.CreateZipArchive();
+        DataCompression.AddEntry(InStr, 'ResponseMessage.json');
+        DataCompression.SaveZipArchive(OutStr);
+    end;
+
     /// <summary>
     /// SetHideMessage.
     /// </summary>
@@ -215,18 +242,18 @@ codeunit 81001 "WSC Web Services Management"
     /// </summary>
     procedure ShowWSCAsTree()
     var
-        WCSWSServicesTreeVisual: Page "WCS Web Services Tree Visual";
+        WSCWSServicesTreeVisual: Page "WSC Web Services Tree Visual";
     begin
-        Clear(WCSWSServicesTreeVisual);
-        WCSWSServicesTreeVisual.BuildPage();
-        WCSWSServicesTreeVisual.RunModal();
+        Clear(WSCWSServicesTreeVisual);
+        WSCWSServicesTreeVisual.BuildPage();
+        WSCWSServicesTreeVisual.RunModal();
     end;
 
     /// <summary>
-    /// LoadWCSTreeVisualTable.
+    /// LoadWSCTreeVisualTable.
     /// </summary>
-    /// <param name="WCSWSServicesTreeVisual">VAR Record "WCS Web Services Tree Visual".</param>
-    procedure LoadWCSTreeVisualTable(var WCSWSServicesTreeVisual: Record "WCS Web Services Tree Visual")
+    /// <param name="WSCWSServicesTreeVisual">VAR Record "WSC Web Services Tree Visual".</param>
+    procedure LoadWSCTreeVisualTable(var WSCWSServicesTreeVisual: Record "WSC Web Services Tree Visual")
     var
         WSCWebServicesGroupCodes: Record "WSC Web Services Group Codes";
         WSCWSServicesConnections: Record "WSC Web Services Connections";
@@ -238,15 +265,15 @@ codeunit 81001 "WSC Web Services Management"
                 WSCWSServicesConnections.Reset();
                 WSCWSServicesConnections.SetRange("WSC Group Code", WSCWebServicesGroupCodes."WSC Code");
                 if not WSCWSServicesConnections.IsEmpty() then begin
-                    InsertGroupRecord(WSCWebServicesGroupCodes, WCSWSServicesTreeVisual); //First Record only for group
+                    InsertGroupRecord(WSCWebServicesGroupCodes, WSCWSServicesTreeVisual); //First Record only for group
                     WSCWSServicesConnections.SetRange("WSC Bearer Connection", true);
                     if not WSCWSServicesConnections.IsEmpty() then begin
                         WSCWSServicesConnections.FindSet();
                         repeat
-                            CollectRecordWithTokenFromGroup(WSCWSServicesConnections, WCSWSServicesTreeVisual); //Collect Token + Call Lik to Token With Group
+                            CollectRecordWithTokenFromGroup(WSCWSServicesConnections, WSCWSServicesTreeVisual); //Collect Token + Call Lik to Token With Group
                         until WSCWSServicesConnections.Next() = 0;
                     end;
-                    CollectRecordWithoutTokenFromGroup(WSCWebServicesGroupCodes."WSC Code", WCSWSServicesTreeVisual); //Collect Call without linked Token With Group
+                    CollectRecordWithoutTokenFromGroup(WSCWebServicesGroupCodes."WSC Code", WSCWSServicesTreeVisual); //Collect Call without linked Token With Group
                 end;
             until WSCWebServicesGroupCodes.Next() = 0;
         end;
@@ -257,43 +284,43 @@ codeunit 81001 "WSC Web Services Management"
         if not WSCWSServicesConnections.IsEmpty() then begin
             WSCWSServicesConnections.FindSet();
             repeat
-                CollectRecordWithTokenNoGroup(WSCWSServicesConnections, WCSWSServicesTreeVisual); //Collect Token + Call Lik to Token No Group
+                CollectRecordWithTokenNoGroup(WSCWSServicesConnections, WSCWSServicesTreeVisual); //Collect Token + Call Lik to Token No Group
             until WSCWSServicesConnections.Next() = 0;
         end;
-        CollectRecordWithoutTokenNoGroup('', WCSWSServicesTreeVisual); //Collect Call without linked Token No Group 
-        WCSWSServicesTreeVisual.Reset();
+        CollectRecordWithoutTokenNoGroup('', WSCWSServicesTreeVisual); //Collect Call without linked Token No Group 
+        WSCWSServicesTreeVisual.Reset();
     end;
 
-    local procedure InsertGroupRecord(WSCWebServicesGroupCodes: Record "WSC Web Services Group Codes"; var WCSWSServicesTreeVisual: Record "WCS Web Services Tree Visual")
+    local procedure InsertGroupRecord(WSCWebServicesGroupCodes: Record "WSC Web Services Group Codes"; var WSCWSServicesTreeVisual: Record "WSC Web Services Tree Visual")
     begin
-        WCSWSServicesTreeVisual.Init();
-        WCSWSServicesTreeVisual.Validate("WSC Group Code", WSCWebServicesGroupCodes."WSC Code");
-        WCSWSServicesTreeVisual.Validate("WSC Entry No.", 1);
-        WCSWSServicesTreeVisual.Validate("WSC Indentation", 0);
-        WCSWSServicesTreeVisual.Validate("WSC Code", WSCWebServicesGroupCodes."WSC Code");
-        WCSWSServicesTreeVisual.Validate("WSC Description", WSCWebServicesGroupCodes."WSC Description");
-        WCSWSServicesTreeVisual.Insert();
+        WSCWSServicesTreeVisual.Init();
+        WSCWSServicesTreeVisual.Validate("WSC Group Code", WSCWebServicesGroupCodes."WSC Code");
+        WSCWSServicesTreeVisual.Validate("WSC Entry No.", 1);
+        WSCWSServicesTreeVisual.Validate("WSC Indentation", 0);
+        WSCWSServicesTreeVisual.Validate("WSC Code", WSCWebServicesGroupCodes."WSC Code");
+        WSCWSServicesTreeVisual.Validate("WSC Description", WSCWebServicesGroupCodes."WSC Description");
+        WSCWSServicesTreeVisual.Insert();
     end;
 
-    local procedure CollectRecordWithTokenFromGroup(WSCConnBearer: Record "WSC Web Services Connections"; var WCSWSServicesTreeVisual: Record "WCS Web Services Tree Visual")
+    local procedure CollectRecordWithTokenFromGroup(WSCConnBearer: Record "WSC Web Services Connections"; var WSCWSServicesTreeVisual: Record "WSC Web Services Tree Visual")
     var
         WSCWSServicesConnections: Record "WSC Web Services Connections";
         NextEntryNo: Integer;
     begin
-        WCSWSServicesTreeVisual.Reset();
-        WCSWSServicesTreeVisual.SetRange("WSC Group Code", WSCConnBearer."WSC Group Code");
-        if WCSWSServicesTreeVisual.FindLast() then
-            NextEntryNo := WCSWSServicesTreeVisual."WSC Entry No." + 1
+        WSCWSServicesTreeVisual.Reset();
+        WSCWSServicesTreeVisual.SetRange("WSC Group Code", WSCConnBearer."WSC Group Code");
+        if WSCWSServicesTreeVisual.FindLast() then
+            NextEntryNo := WSCWSServicesTreeVisual."WSC Entry No." + 1
         else
             NextEntryNo := 1;
 
-        WCSWSServicesTreeVisual.Init();
-        WCSWSServicesTreeVisual.Validate("WSC Group Code", WSCConnBearer."WSC Group Code");
-        WCSWSServicesTreeVisual.Validate("WSC Entry No.", NextEntryNo);
-        WCSWSServicesTreeVisual.Validate("WSC Indentation", 1);
-        WCSWSServicesTreeVisual.Validate("WSC Code", WSCConnBearer."WSC Code");
-        WCSWSServicesTreeVisual.Validate("WSC Description", WSCConnBearer."WSC Description");
-        WCSWSServicesTreeVisual.Insert();
+        WSCWSServicesTreeVisual.Init();
+        WSCWSServicesTreeVisual.Validate("WSC Group Code", WSCConnBearer."WSC Group Code");
+        WSCWSServicesTreeVisual.Validate("WSC Entry No.", NextEntryNo);
+        WSCWSServicesTreeVisual.Validate("WSC Indentation", 1);
+        WSCWSServicesTreeVisual.Validate("WSC Code", WSCConnBearer."WSC Code");
+        WSCWSServicesTreeVisual.Validate("WSC Description", WSCConnBearer."WSC Description");
+        WSCWSServicesTreeVisual.Insert();
 
         WSCWSServicesConnections.Reset();
         WSCWSServicesConnections.SetRange("WSC Group Code", WSCConnBearer."WSC Group Code");
@@ -303,36 +330,36 @@ codeunit 81001 "WSC Web Services Management"
             WSCWSServicesConnections.FindSet();
             repeat
                 NextEntryNo += 1;
-                WCSWSServicesTreeVisual.Init();
-                WCSWSServicesTreeVisual.Validate("WSC Group Code", WSCWSServicesConnections."WSC Group Code");
-                WCSWSServicesTreeVisual.Validate("WSC Entry No.", NextEntryNo);
-                WCSWSServicesTreeVisual.Validate("WSC Indentation", 2);
-                WCSWSServicesTreeVisual.Validate("WSC Code", WSCWSServicesConnections."WSC Code");
-                WCSWSServicesTreeVisual.Validate("WSC Description", WSCWSServicesConnections."WSC Description");
-                WCSWSServicesTreeVisual.Insert();
+                WSCWSServicesTreeVisual.Init();
+                WSCWSServicesTreeVisual.Validate("WSC Group Code", WSCWSServicesConnections."WSC Group Code");
+                WSCWSServicesTreeVisual.Validate("WSC Entry No.", NextEntryNo);
+                WSCWSServicesTreeVisual.Validate("WSC Indentation", 2);
+                WSCWSServicesTreeVisual.Validate("WSC Code", WSCWSServicesConnections."WSC Code");
+                WSCWSServicesTreeVisual.Validate("WSC Description", WSCWSServicesConnections."WSC Description");
+                WSCWSServicesTreeVisual.Insert();
             until WSCWSServicesConnections.Next() = 0;
         end;
     end;
 
-    local procedure CollectRecordWithTokenNoGroup(WSCConnBearer: Record "WSC Web Services Connections"; var WCSWSServicesTreeVisual: Record "WCS Web Services Tree Visual")
+    local procedure CollectRecordWithTokenNoGroup(WSCConnBearer: Record "WSC Web Services Connections"; var WSCWSServicesTreeVisual: Record "WSC Web Services Tree Visual")
     var
         WSCWSServicesConnections: Record "WSC Web Services Connections";
         NextEntryNo: Integer;
     begin
-        WCSWSServicesTreeVisual.Reset();
-        WCSWSServicesTreeVisual.SetRange("WSC Group Code", WSCConnBearer."WSC Group Code");
-        if WCSWSServicesTreeVisual.FindLast() then
-            NextEntryNo := WCSWSServicesTreeVisual."WSC Entry No." + 1
+        WSCWSServicesTreeVisual.Reset();
+        WSCWSServicesTreeVisual.SetRange("WSC Group Code", WSCConnBearer."WSC Group Code");
+        if WSCWSServicesTreeVisual.FindLast() then
+            NextEntryNo := WSCWSServicesTreeVisual."WSC Entry No." + 1
         else
             NextEntryNo := 1;
 
-        WCSWSServicesTreeVisual.Init();
-        WCSWSServicesTreeVisual.Validate("WSC Group Code", WSCConnBearer."WSC Group Code");
-        WCSWSServicesTreeVisual.Validate("WSC Entry No.", NextEntryNo);
-        WCSWSServicesTreeVisual.Validate("WSC Indentation", 0);
-        WCSWSServicesTreeVisual.Validate("WSC Code", WSCConnBearer."WSC Code");
-        WCSWSServicesTreeVisual.Validate("WSC Description", WSCConnBearer."WSC Description");
-        WCSWSServicesTreeVisual.Insert();
+        WSCWSServicesTreeVisual.Init();
+        WSCWSServicesTreeVisual.Validate("WSC Group Code", WSCConnBearer."WSC Group Code");
+        WSCWSServicesTreeVisual.Validate("WSC Entry No.", NextEntryNo);
+        WSCWSServicesTreeVisual.Validate("WSC Indentation", 0);
+        WSCWSServicesTreeVisual.Validate("WSC Code", WSCConnBearer."WSC Code");
+        WSCWSServicesTreeVisual.Validate("WSC Description", WSCConnBearer."WSC Description");
+        WSCWSServicesTreeVisual.Insert();
 
         WSCWSServicesConnections.Reset();
         WSCWSServicesConnections.SetRange("WSC Group Code", WSCConnBearer."WSC Group Code");
@@ -342,26 +369,26 @@ codeunit 81001 "WSC Web Services Management"
             WSCWSServicesConnections.FindSet();
             repeat
                 NextEntryNo += 1;
-                WCSWSServicesTreeVisual.Init();
-                WCSWSServicesTreeVisual.Validate("WSC Group Code", WSCWSServicesConnections."WSC Group Code");
-                WCSWSServicesTreeVisual.Validate("WSC Entry No.", NextEntryNo);
-                WCSWSServicesTreeVisual.Validate("WSC Indentation", 1);
-                WCSWSServicesTreeVisual.Validate("WSC Code", WSCWSServicesConnections."WSC Code");
-                WCSWSServicesTreeVisual.Validate("WSC Description", WSCWSServicesConnections."WSC Description");
-                WCSWSServicesTreeVisual.Insert();
+                WSCWSServicesTreeVisual.Init();
+                WSCWSServicesTreeVisual.Validate("WSC Group Code", WSCWSServicesConnections."WSC Group Code");
+                WSCWSServicesTreeVisual.Validate("WSC Entry No.", NextEntryNo);
+                WSCWSServicesTreeVisual.Validate("WSC Indentation", 1);
+                WSCWSServicesTreeVisual.Validate("WSC Code", WSCWSServicesConnections."WSC Code");
+                WSCWSServicesTreeVisual.Validate("WSC Description", WSCWSServicesConnections."WSC Description");
+                WSCWSServicesTreeVisual.Insert();
             until WSCWSServicesConnections.Next() = 0;
         end;
     end;
 
-    local procedure CollectRecordWithoutTokenFromGroup(WSCGroupCode: Code[20]; var WCSWSServicesTreeVisual: Record "WCS Web Services Tree Visual")
+    local procedure CollectRecordWithoutTokenFromGroup(WSCGroupCode: Code[20]; var WSCWSServicesTreeVisual: Record "WSC Web Services Tree Visual")
     var
         WSCWSServicesConnections: Record "WSC Web Services Connections";
         NextEntryNo: Integer;
     begin
-        WCSWSServicesTreeVisual.Reset();
-        WCSWSServicesTreeVisual.SetRange("WSC Group Code", WSCGroupCode);
-        if WCSWSServicesTreeVisual.FindLast() then
-            NextEntryNo := WCSWSServicesTreeVisual."WSC Entry No."
+        WSCWSServicesTreeVisual.Reset();
+        WSCWSServicesTreeVisual.SetRange("WSC Group Code", WSCGroupCode);
+        if WSCWSServicesTreeVisual.FindLast() then
+            NextEntryNo := WSCWSServicesTreeVisual."WSC Entry No."
         else
             NextEntryNo := 0;
 
@@ -373,26 +400,26 @@ codeunit 81001 "WSC Web Services Management"
             WSCWSServicesConnections.FindSet();
             repeat
                 NextEntryNo += 1;
-                WCSWSServicesTreeVisual.Init();
-                WCSWSServicesTreeVisual.Validate("WSC Group Code", WSCWSServicesConnections."WSC Group Code");
-                WCSWSServicesTreeVisual.Validate("WSC Entry No.", NextEntryNo);
-                WCSWSServicesTreeVisual.Validate("WSC Indentation", 1);
-                WCSWSServicesTreeVisual.Validate("WSC Code", WSCWSServicesConnections."WSC Code");
-                WCSWSServicesTreeVisual.Validate("WSC Description", WSCWSServicesConnections."WSC Description");
-                WCSWSServicesTreeVisual.Insert();
+                WSCWSServicesTreeVisual.Init();
+                WSCWSServicesTreeVisual.Validate("WSC Group Code", WSCWSServicesConnections."WSC Group Code");
+                WSCWSServicesTreeVisual.Validate("WSC Entry No.", NextEntryNo);
+                WSCWSServicesTreeVisual.Validate("WSC Indentation", 1);
+                WSCWSServicesTreeVisual.Validate("WSC Code", WSCWSServicesConnections."WSC Code");
+                WSCWSServicesTreeVisual.Validate("WSC Description", WSCWSServicesConnections."WSC Description");
+                WSCWSServicesTreeVisual.Insert();
             until WSCWSServicesConnections.Next() = 0;
         end;
     end;
 
-    local procedure CollectRecordWithoutTokenNoGroup(WSCGroupCode: Code[20]; var WCSWSServicesTreeVisual: Record "WCS Web Services Tree Visual")
+    local procedure CollectRecordWithoutTokenNoGroup(WSCGroupCode: Code[20]; var WSCWSServicesTreeVisual: Record "WSC Web Services Tree Visual")
     var
         WSCWSServicesConnections: Record "WSC Web Services Connections";
         NextEntryNo: Integer;
     begin
-        WCSWSServicesTreeVisual.Reset();
-        WCSWSServicesTreeVisual.SetRange("WSC Group Code", WSCGroupCode);
-        if WCSWSServicesTreeVisual.FindLast() then
-            NextEntryNo := WCSWSServicesTreeVisual."WSC Entry No."
+        WSCWSServicesTreeVisual.Reset();
+        WSCWSServicesTreeVisual.SetRange("WSC Group Code", WSCGroupCode);
+        if WSCWSServicesTreeVisual.FindLast() then
+            NextEntryNo := WSCWSServicesTreeVisual."WSC Entry No."
         else
             NextEntryNo := 0;
 
@@ -404,13 +431,13 @@ codeunit 81001 "WSC Web Services Management"
             WSCWSServicesConnections.FindSet();
             repeat
                 NextEntryNo += 1;
-                WCSWSServicesTreeVisual.Init();
-                WCSWSServicesTreeVisual.Validate("WSC Group Code", WSCWSServicesConnections."WSC Group Code");
-                WCSWSServicesTreeVisual.Validate("WSC Entry No.", NextEntryNo);
-                WCSWSServicesTreeVisual.Validate("WSC Indentation", 0);
-                WCSWSServicesTreeVisual.Validate("WSC Code", WSCWSServicesConnections."WSC Code");
-                WCSWSServicesTreeVisual.Validate("WSC Description", WSCWSServicesConnections."WSC Description");
-                WCSWSServicesTreeVisual.Insert();
+                WSCWSServicesTreeVisual.Init();
+                WSCWSServicesTreeVisual.Validate("WSC Group Code", WSCWSServicesConnections."WSC Group Code");
+                WSCWSServicesTreeVisual.Validate("WSC Entry No.", NextEntryNo);
+                WSCWSServicesTreeVisual.Validate("WSC Indentation", 0);
+                WSCWSServicesTreeVisual.Validate("WSC Code", WSCWSServicesConnections."WSC Code");
+                WSCWSServicesTreeVisual.Validate("WSC Description", WSCWSServicesConnections."WSC Description");
+                WSCWSServicesTreeVisual.Insert();
             until WSCWSServicesConnections.Next() = 0;
         end;
     end;
@@ -564,12 +591,21 @@ codeunit 81001 "WSC Web Services Management"
         WSCWebServicesLogCalls."WSC Body Type" := WSCWSServicesConnections."WSC Body Type";
         WSCWebServicesLogCalls."WSC Allow Blank Response" := WSCWSServicesConnections."WSC Allow Blank Response";
         WSCWebServicesLogCalls."WSC Group Code" := WSCWSServicesConnections."WSC Group Code";
+
+        //Body Request
         Clear(OutStr);
         WSCWebServicesLogCalls."WSC Body Message".CreateOutStream(OutStr);
         WriteBlobFields(OutStr, BodyInStream);
         Clear(OutStr);
+
+        //Response
+        WSCWebServicesLogCalls."WSC Zip Response" := WSCWSServicesConnections."WSC Zip Response";
         WSCWebServicesLogCalls."WSC Response Message".CreateOutStream(OutStr);
-        WriteBlobFields(OutStr, ResponseInStream);
+        if WSCWebServicesLogCalls."WSC Zip Response" then
+            WriteZippedBlobFields(OutStr, ResponseInStream)
+        else
+            WriteBlobFields(OutStr, ResponseInStream);
+
         WSCWebServicesLogCalls."WSC Message Text" := CopyStr(LastMessageText, 1, MaxStrLen(WSCWebServicesLogCalls."WSC Message Text"));
         WSCWebServicesLogCalls."WSC Link to WSC Code" := TokenWSCCode;
         WSCWebServicesLogCalls."WSC Link To Entry No." := TokenEntryNo;

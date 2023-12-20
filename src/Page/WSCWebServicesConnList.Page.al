@@ -97,9 +97,10 @@ page 81001 "WSC Web Services Conn. List"
 
                 trigger OnAction()
                 var
+                    WSCWebServicesLogCalls: Record "WSC Web Services Log Calls";
                     WSCWSServicesMgt: Codeunit "WSC Web Services Management";
                 begin
-                    WSCWSServicesMgt.ExecuteDirectWSCConnections(Rec."WSC Code");
+                    WSCWSServicesMgt.ExecuteWSCConnections(Rec."WSC Code", WSCWebServicesLogCalls);
                 end;
             }
             action(ViewLog)
@@ -141,12 +142,41 @@ page 81001 "WSC Web Services Conn. List"
                 PromotedCategory = Process;
                 Promoted = true;
                 Image = TestFile;
+                Visible = false;
 
                 trigger OnAction()
                 var
                     WSCWSServicesExamples: Codeunit "WSC Web Services Examples";
                 begin
                     WSCWSServicesExamples.ExecuteWSCTestCodeWithCustomBody();
+                end;
+            }
+            action(ImportWSConfiguration)
+            {
+                Caption = 'Import WS Configuration';
+                ApplicationArea = All;
+                PromotedCategory = Process;
+                Promoted = true;
+                Image = Import;
+                trigger OnAction()
+                var
+                    ImportExportConfig: Codeunit "WSC Import Export Config.";
+                begin
+                    ImportExportConfig.ImportWSCFromJson();
+                end;
+            }
+            action(DownloadWSConfiguration)
+            {
+                Caption = 'Download WS Configuration';
+                ApplicationArea = All;
+                PromotedCategory = Process;
+                Promoted = true;
+                Image = Download;
+                trigger OnAction()
+                var
+                    ImportExportConfig: Codeunit "WSC Import Export Config.";
+                begin
+                    ImportExportConfig.ExportWSCJson(Rec."WSC Code");
                 end;
             }
         }
