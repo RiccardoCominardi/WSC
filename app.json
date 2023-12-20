@@ -1,15 +1,15 @@
 {
-  "id": "89288db5-c1b4-4e01-b76f-b54488a65266",
-  "name": "Interfaces Handler",
-  "publisher": "EOS Solutions",
+  "id": "5a36ac6d-38de-4908-a047-7f924c74ec11",
+  "name": "Web Services Connector",
+  "publisher": "RC",
   "version": "20.0.0.0",
-  "brief": "Interfaces Handler",
-  "description": "Interfaces Handler",
-  "privacyStatement": "https://www.eos-solutions.it/en/privacy.html",
-  "EULA": "https://www.eos-solutions.it/en/eula.html",
-  "help": "https://www.eos-solutions.it/en/manufacturing-data-layer.html",
-  "url": "https://www.eos-solutions.it/",
-  "logo": "Images/logo-432.png",
+  "brief": "Web Services Connector",
+  "description": "Web Services Connector",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "",
   "features": [
     "TranslationFile"
   ],
@@ -20,8 +20,8 @@
   "application": "20.0.0.0",
   "idRanges": [
     {
-      "from": 51000,
-      "to": 51999
+      "from": 81001,
+      "to": 82000
     }
   ],
   "resourceExposurePolicy": {
