@@ -75,7 +75,7 @@ codeunit 82000 "WSC Web Services Examples"
         DataCompression.OpenZipArchive(InStr, false);
         DataCompression.GetEntryList(EntryList);
 
-        //Loop files from the list type
+        //Loop files from the list type 
         foreach EntryListKey in EntryList do begin
             FileName := CopyStr(FileManagement.GetFileNameWithoutExtension(EntryListKey), 1, MaxStrLen(FileName));
             FileExtension := CopyStr(FileManagement.GetExtension(EntryListKey), 1, MaxStrLen(FileExtension));
