@@ -14,6 +14,7 @@ codeunit 81003 "WSC Import Export Config."
         TempWebServicesBodies: Record "WSC Web Services Bodies" temporary;
         TableType: Option Default,Header,Body;
         GroupCode: Code[20];
+        CurrWSCode: Code[20];
 
 
     #region Import
@@ -185,8 +186,10 @@ codeunit 81003 "WSC Import Export Config."
         case TableType of
             TableType::Default:
                 begin
-                    if TempWebServicesConnections."WSC Code" <> '' then
+                    if TempWebServicesConnections."WSC Code" <> '' then begin
+                        CurrWSCode := TempWebServicesConnections."WSC Code";
                         if TempWebServicesConnections.Insert() then;
+                    end;
                     TempWebServicesConnections.Init();
                     TempWebServicesConnections."WSC Code" := '';
                 end;
@@ -195,7 +198,7 @@ codeunit 81003 "WSC Import Export Config."
                     if TempWebServicesHeaders."WSC Key" <> '' then
                         if TempWebServicesHeaders.Insert() then;
                     TempWebServicesHeaders.Init();
-                    TempWebServicesHeaders."WSC Code" := TempWebServicesConnections."WSC Code";
+                    TempWebServicesHeaders."WSC Code" := CurrWSCode;
                     TempWebServicesHeaders."WSC Key" := '';
                 end;
             TableType::Body:
@@ -203,7 +206,7 @@ codeunit 81003 "WSC Import Export Config."
                     if TempWebServicesBodies."WSC Key" <> '' then
                         if TempWebServicesBodies.Insert() then;
                     TempWebServicesBodies.Init();
-                    TempWebServicesBodies."WSC Code" := TempWebServicesConnections."WSC Code";
+                    TempWebServicesBodies."WSC Code" := CurrWSCode;
                     TempWebServicesBodies."WSC Key" := '';
                 end;
         end;

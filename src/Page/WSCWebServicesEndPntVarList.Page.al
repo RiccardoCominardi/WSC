@@ -8,7 +8,9 @@ page 81011 "WSC Web Services EndPntVarList"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "WSC Web Services EndPoint Var.";
-
+    Editable = false;
+    InsertAllowed = false;
+    DeleteAllowed = false;
     layout
     {
         area(Content)

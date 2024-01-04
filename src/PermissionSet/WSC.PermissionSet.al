@@ -11,6 +11,7 @@ permissionset 81001 "WSC Permissions"
          codeunit "WSC Web Services Examples" = X,
          codeunit "WSC Web Services Management" = X,
          codeunit "WSC Import Export Config." = X,
+         codeunit "WSC Install" = X,
          page "WSC Web Services Tree Visual" = X,
          page "WSC Web Service Conn. Card" = X,
          page "WSC Web Services Bodies" = X,

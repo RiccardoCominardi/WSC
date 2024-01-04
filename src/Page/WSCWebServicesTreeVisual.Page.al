@@ -67,9 +67,7 @@ page 81009 "WSC Web Services Tree Visual"
 
     var
         Text000: Label 'Shortcut Dimension %1';
-        [InDataSet]
         Emphasize: Boolean;
-        [InDataSet]
         NameIndent: Integer;
 
     local procedure FormatLines()

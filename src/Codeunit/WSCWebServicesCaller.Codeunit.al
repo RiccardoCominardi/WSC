@@ -173,7 +173,7 @@ codeunit 81002 "WSC Web Services Caller"
     begin
         WSCWSServicesEndPointVar.Reset();
         if WSCWSServicesEndPointVar.IsEmpty() then
-            exit;
+            exit(EndPointUrl);
 
         NewString := EndPointUrl;
         WSCWSServicesEndPointVar.FindSet();
@@ -181,15 +181,15 @@ codeunit 81002 "WSC Web Services Caller"
             case WSCWSServicesEndPointVar."WSC Variable Name" of
                 '[@CompanyName]':
                     if StrPos(NewString, '[@CompanyName]') > 0 then
-                        NewString := WSCWSServicesMgt.ReplaceString(EndPointUrl, '[@CompanyName]', CompanyName());
+                        NewString := EndPointUrl.Replace('[@CompanyName]', CompanyName());
                 '[@CompanyID]':
                     if StrPos(NewString, '[@CompanyID]') > 0 then begin
                         Company.Get(CompanyName());
-                        NewString := WSCWSServicesMgt.ReplaceString(EndPointUrl, '[@CompanyID]', DelChr(Company.Id, '=', '{}'));
+                        NewString := EndPointUrl.Replace('[@CompanyID]', DelChr(Company.Id, '=', '{}'));
                     end;
                 '[@UserID]':
                     if StrPos(NewString, '[@UserID]') > 0 then
-                        NewString := WSCWSServicesMgt.ReplaceString(EndPointUrl, '[@UserID]', UserId());
+                        NewString := EndPointUrl.Replace('[@UserID]', UserId());
             end;
             OnParseEndpoint(EndPointUrl, NewString, WSCWSServicesEndPointVar, GlobalWSCWebServConn);
         until WSCWSServicesEndPointVar.Next() = 0;

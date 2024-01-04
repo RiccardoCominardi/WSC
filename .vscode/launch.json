@@ -6,7 +6,7 @@
             "request": "launch",
             "type": "al",
             "environmentType": "OnPrem",
-            "server": "http://bc20W1Restore",
+            "server": "http://bc23W1",
             "serverInstance": "BC",
             "authentication": "UserPassword",
             "startupObjectId": 81001,

@@ -442,31 +442,11 @@ codeunit 81001 "WSC Web Services Management"
         end;
     end;
 
-    /// <summary>
-    /// ReplaceString.
-    /// </summary>
-    /// <param name="String">Text[250].</param>
-    /// <param name="FindWhat">Text[250].</param>
-    /// <param name="ReplaceWith">Text[250].</param>
-    /// <returns>Return variable NewString of type Text[250].</returns>
-    procedure ReplaceString(String: Text[250]; FindWhat: Text[250]; ReplaceWith: Text[250]) NewString: Text[250]
-    var
-        FindPos: Integer;
-    begin
-        FindPos := StrPos(String, FindWhat);
-        while FindPos > 0 do begin
-            NewString += DelStr(String, FindPos) + ReplaceWith;
-            String := CopyStr(String, FindPos + StrLen(FindWhat));
-            FindPos := StrPos(String, FindWhat);
-        end;
-        NewString += String;
-    end;
     #endregion GeneralFunctions
     #region TokenFunctions
     local procedure CheckWSBodiesForToken(WSCConnBearer: Record "WSC Web Services Connections")
     var
         WSCWSServicesBodies: Record "WSC Web Services Bodies";
-        v: Record "Sales Header" temporary;
         Text000Err: Label 'Key %1 must be filled for token request';
         IsHandled: Boolean;
     begin

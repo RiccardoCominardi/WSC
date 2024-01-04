@@ -59,8 +59,7 @@ codeunit 82000 "WSC Web Services Examples"
         EntryOutStream: OutStream;
         EntryInStream,
         InStr : InStream;
-        FileCount,
-        Length : Integer;
+        FileCount: Integer;
         EntryList: List of [Text];
         EntryListKey,
         ZipFileName,
@@ -80,7 +79,7 @@ codeunit 82000 "WSC Web Services Examples"
             FileName := CopyStr(FileManagement.GetFileNameWithoutExtension(EntryListKey), 1, MaxStrLen(FileName));
             FileExtension := CopyStr(FileManagement.GetExtension(EntryListKey), 1, MaxStrLen(FileExtension));
             TempBlob.CreateOutStream(EntryOutStream);
-            DataCompression.ExtractEntry(EntryListKey, EntryOutStream, Length);
+            DataCompression.ExtractEntry(EntryListKey, EntryOutStream);
             TempBlob.CreateInStream(EntryInStream);
 
             //Import or do something with each file here

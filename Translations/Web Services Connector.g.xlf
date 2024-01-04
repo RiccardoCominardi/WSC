@@ -478,6 +478,21 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Import Export Config. - Method TransferRecordFromTemp - NamedType Text000Lbl</note>
         </trans-unit>
+        <trans-unit id="Codeunit 1549917762 - Method 362095208 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Set Current Company ID</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Install - Method SetEndpointVariables - NamedType Text000Lbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1549917762 - Method 362095208 - NamedType 1196336482" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Set Current Company Name</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Install - Method SetEndpointVariables - NamedType Text001Lbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1549917762 - Method 362095208 - NamedType 1753513791" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Set Current User ID</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Install - Method SetEndpointVariables - NamedType Text002Lbl</note>
+        </trans-unit>
         <trans-unit id="Codeunit 2367903848 - Method 3154018284 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
           <source>%1=%2</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -688,6 +703,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 1308428035 - Action 3956219133 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Request Details</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action RequestDetails - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 1308428035 - Action 3077534250 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Set Bodies information for the Web Service call</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -698,11 +718,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action Bodies - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 1308428035 - Action 2627756060 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Download WS Configuration</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action DownloadWSConfiguration - Property Caption</note>
-        </trans-unit>
         <trans-unit id="Page 1308428035 - Action 161065432 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Set Header information for the Web Service call</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -712,6 +727,31 @@
           <source>Headers</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action Headers - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1308428035 - Action 3652164187 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>View Web Service Calls with tree visualization</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action ViewAsTree - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1308428035 - Action 3652164187 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>View As Tree</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action ViewAsTree - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1308428035 - Action 4000661843 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>View Web Service log for this Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action ViewLog - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1308428035 - Action 4000661843 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>View Log</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action ViewLog - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1308428035 - Action 2627756060 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Download WS Configuration</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action DownloadWSConfiguration - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1308428035 - Action 2801979787 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Import WS Configuration</source>
@@ -733,25 +773,25 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action TEST - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 1308428035 - Action 3652164187 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>View Web Service Calls with tree visualization</source>
+        <trans-unit id="Page 1308428035 - Action 2030691464 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Navigate</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action ViewAsTree - Property ToolTip</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action Category_Category12 - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 1308428035 - Action 3652164187 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>View As Tree</source>
+        <trans-unit id="Page 1308428035 - Action 2224783030 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Request Details</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action ViewAsTree - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action Category_Category5 - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 1308428035 - Action 4000661843 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>View Web Service log for this Code</source>
+        <trans-unit id="Page 1308428035 - Action 3383493608 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Process</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action ViewLog - Property ToolTip</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action Category_Process - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 1308428035 - Action 4000661843 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>View Log</source>
+        <trans-unit id="Page 1308428035 - Action 311693179 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Configuration</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action ViewLog - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action Category_Category6 - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 3980770037 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Web Services - EndPoint Variables</source>

@@ -52,64 +52,45 @@ page 81001 "WSC Web Services Conn. List"
 
     actions
     {
-        area(Processing)
+        area(Navigation)
         {
-            action(Headers)
+            group(RequestDetails)
             {
-                Caption = 'Headers';
-                ToolTip = 'Set Header information for the Web Service call';
-                ApplicationArea = All;
-                PromotedCategory = Process;
-                Promoted = true;
-                Image = SetupList;
+                Caption = 'Request Details';
+                Image = SetupLines;
+                action(Headers)
+                {
+                    ApplicationArea = All;
+                    Image = SetupList;
+                    Caption = 'Headers';
+                    ToolTip = 'Set Header information for the Web Service call';
+                    trigger OnAction()
+                    var
+                        WSCWSServicesHeaders: Record "WSC Web Services Headers";
+                    begin
+                        WSCWSServicesHeaders.ViewLog(Rec."WSC Code");
+                    end;
+                }
+                action(Bodies)
+                {
+                    Caption = 'Bodies';
+                    ToolTip = 'Set Bodies information for the Web Service call';
+                    ApplicationArea = All;
+                    Image = SetupList;
 
-                trigger OnAction()
-                var
-                    WSCWSServicesHeaders: Record "WSC Web Services Headers";
-                begin
-                    WSCWSServicesHeaders.ViewLog(Rec."WSC Code");
-                end;
-            }
-            action(Bodies)
-            {
-                Caption = 'Bodies';
-                ToolTip = 'Set Bodies information for the Web Service call';
-                ApplicationArea = All;
-                PromotedCategory = Process;
-                Promoted = true;
-                Image = SetupList;
-
-                trigger OnAction()
-                var
-                    WSCWSServicesBodies: Record "WSC Web Services Bodies";
-                begin
-                    WSCWSServicesBodies.ViewLog(Rec."WSC Code");
-                end;
-            }
-            action(SendRequest)
-            {
-                Caption = 'Send Request';
-                ToolTip = 'Send the Web Service request';
-                ApplicationArea = All;
-                PromotedCategory = Process;
-                Promoted = true;
-                Image = "Invoicing-MDL-Send";
-
-                trigger OnAction()
-                var
-                    WSCWebServicesLogCalls: Record "WSC Web Services Log Calls";
-                    WSCWSServicesMgt: Codeunit "WSC Web Services Management";
-                begin
-                    WSCWSServicesMgt.ExecuteWSCConnections(Rec."WSC Code", WSCWebServicesLogCalls);
-                end;
+                    trigger OnAction()
+                    var
+                        WSCWSServicesBodies: Record "WSC Web Services Bodies";
+                    begin
+                        WSCWSServicesBodies.ViewLog(Rec."WSC Code");
+                    end;
+                }
             }
             action(ViewLog)
             {
                 Caption = 'View Log';
                 ToolTip = 'View Web Service log for this Code';
                 ApplicationArea = All;
-                PromotedCategory = Process;
-                Promoted = true;
                 Image = Log;
 
                 trigger OnAction()
@@ -124,8 +105,6 @@ page 81001 "WSC Web Services Conn. List"
                 Caption = 'View As Tree';
                 ToolTip = 'View Web Service Calls with tree visualization';
                 ApplicationArea = All;
-                PromotedCategory = Process;
-                Promoted = true;
                 Image = BOMLevel;
 
                 trigger OnAction()
@@ -135,14 +114,32 @@ page 81001 "WSC Web Services Conn. List"
                     WSCWSServicesMgt.ShowWSCAsTree();
                 end;
             }
+        }
+
+        area(Processing)
+        {
+            action(SendRequest)
+            {
+                Caption = 'Send Request';
+                ToolTip = 'Send the Web Service request';
+                ApplicationArea = All;
+                Image = "Invoicing-MDL-Send";
+
+                trigger OnAction()
+                var
+                    WSCWebServicesLogCalls: Record "WSC Web Services Log Calls";
+                    WSCWSServicesMgt: Codeunit "WSC Web Services Management";
+                begin
+                    WSCWSServicesMgt.ExecuteWSCConnections(Rec."WSC Code", WSCWebServicesLogCalls);
+                end;
+            }
             action(TEST)
             {
                 Caption = 'TEST';
                 ApplicationArea = All;
-                PromotedCategory = Process;
-                Promoted = true;
                 Image = TestFile;
                 Visible = false;
+                Enabled = false;
 
                 trigger OnAction()
                 var
@@ -155,8 +152,6 @@ page 81001 "WSC Web Services Conn. List"
             {
                 Caption = 'Import WS Configuration';
                 ApplicationArea = All;
-                PromotedCategory = Process;
-                Promoted = true;
                 Image = Import;
                 trigger OnAction()
                 var
@@ -169,8 +164,6 @@ page 81001 "WSC Web Services Conn. List"
             {
                 Caption = 'Download WS Configuration';
                 ApplicationArea = All;
-                PromotedCategory = Process;
-                Promoted = true;
                 Image = Download;
                 trigger OnAction()
                 var
@@ -178,6 +171,36 @@ page 81001 "WSC Web Services Conn. List"
                 begin
                     ImportExportConfig.ExportWSCJson(Rec."WSC Code");
                 end;
+            }
+        }
+
+        area(Promoted)
+        {
+            group(Category_Process)
+            {
+                Caption = 'Process';
+                actionref(SendRequest_Promoted; SendRequest) { }
+                group(Category_Category6)
+                {
+                    Caption = 'Configuration';
+                    Image = Setup;
+                    actionref(DownloadWSConfiguration_Promoted; DownloadWSConfiguration) { }
+                    actionref(ImportWSConfiguration_Promoted; ImportWSConfiguration) { }
+                }
+            }
+            group(Category_Category5)
+            {
+                Caption = 'Request Details';
+
+                actionref(Headers_Promoted; Headers) { }
+                actionref(Bodies_Promoted; Bodies) { }
+            }
+            group(Category_Category12)
+            {
+                Caption = 'Navigate';
+
+                actionref(ViewLog_Promoted; ViewLog) { }
+                actionref(ViewAsTree_Promoted; ViewAsTree) { }
             }
         }
     }

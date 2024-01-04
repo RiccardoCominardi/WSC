@@ -26,6 +26,7 @@ table 81009 "WSC Web Services EndPoint Var."
         {
             DataClassification = CustomerContent;
             Caption = 'Custom Variables';
+            Editable = false;
         }
     }
 
@@ -70,7 +71,7 @@ table 81009 "WSC Web Services EndPoint Var."
     begin
         if CopyStr(VarName, 1, 2) <> '[@' then
             Error(Text000Err);
-        if CopyStr(VarName, StrLen(VarName) - 1, StrLen(VarName)) <> ']' then
+        if CopyStr(VarName, StrLen(VarName), 1) <> ']' then
             Error(Text001Err);
     end;
 
