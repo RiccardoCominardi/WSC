@@ -17,8 +17,4 @@ enum 81004 "WSC Body Methods"
     {
         Caption = 'Fixed file';
     }
-    value(3; "custom file")
-    {
-        Caption = 'Custom file';
-    }
 }

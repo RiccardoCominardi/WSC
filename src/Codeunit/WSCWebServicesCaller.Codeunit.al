@@ -82,8 +82,6 @@ codeunit 81002 "WSC Web Services Caller"
             "WSC Body Types"::raw:
                 begin
                     case GlobalWebServConn."WSC Body Method" of
-                        "WSC Body Methods"::"custom file":
-                            ;
                         "WSC Body Methods"::"fixed file":
                             OnSetFixBodyMessage(GlobalWebServConn);
                         "WSC Body Methods"::"request file":
@@ -95,6 +93,8 @@ codeunit 81002 "WSC Web Services Caller"
                                     CopyStream(OutStr, FileInStream);
                                 end;
                             end;
+                        else
+                            HandleCustomBodyMethods(GlobalWebServConn);
                     end;
 
                     GlobalWebServConn.CalcFields("WSC Body Message");
@@ -104,6 +104,8 @@ codeunit 81002 "WSC Web Services Caller"
                         RequestContent.WriteFrom(InStr);
                     end;
                 end;
+            else
+                HandleCustomBodyTypes(GlobalWebServConn, RequestContent);
         end;
 
         //Prepare Call
@@ -354,6 +356,18 @@ codeunit 81002 "WSC Web Services Caller"
     local procedure OnSetFixBodyMessage(var WebServicesConnections: Record "WSC Web Services Connections")
     begin
         //Modify is not needed
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure HandleCustomBodyMethods(var WebServicesConnections: Record "WSC Web Services Connections")
+    begin
+
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure HandleCustomBodyTypes(var WebServicesConnections: Record "WSC Web Services Connections"; var RequestContent: HttpContent)
+    begin
+
     end;
 
     [IntegrationEvent(false, false)]
