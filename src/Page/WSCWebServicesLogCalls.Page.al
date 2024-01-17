@@ -127,9 +127,9 @@ page 81005 "WSC Web Services Log Calls"
 
                 trigger OnAction()
                 var
-                    WSCWSServicesLogHeaders: Record "WSC Web Services Log Headers";
+                    WebServicesLogHeaders: Record "WSC Web Services Log Headers";
                 begin
-                    WSCWSServicesLogHeaders.ViewLog(Rec."WSC Code", Rec."WSC Entry No.");
+                    WebServicesLogHeaders.ViewLog(Rec."WSC Code", Rec."WSC Entry No.");
                 end;
             }
             action(Bodies)
@@ -142,9 +142,9 @@ page 81005 "WSC Web Services Log Calls"
 
                 trigger OnAction()
                 var
-                    WSCWSServicesLogBodies: Record "WSC Web Services Log Bodies";
+                    WebServicesLogBodies: Record "WSC Web Services Log Bodies";
                 begin
-                    WSCWSServicesLogBodies.ViewLog(Rec."WSC Code", Rec."WSC Entry No.");
+                    WebServicesLogBodies.ViewLog(Rec."WSC Code", Rec."WSC Entry No.");
                 end;
             }
         }

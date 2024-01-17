@@ -47,7 +47,8 @@ codeunit 81003 "WSC Import Export Config."
 
         ReadWSCJson(TempBlob);
 
-        Message(ImportResultLbl);
+        if GuiAllowed() then
+            Message(ImportResultLbl);
     end;
 
     local procedure ReadWSCJson(var TempBlob: Codeunit "Temp Blob")
@@ -58,6 +59,7 @@ codeunit 81003 "WSC Import Export Config."
         InitializeTempVar();
         JObject.ReadFrom(TempBlob.CreateInStream());
         AnalyzeJson(JObject);
+        Commit();
         if GuiAllowed() then begin
             ImportConfiguration.SetConfiguration(TempWebServicesConnections);
             ImportConfiguration.LookupMode(true);
@@ -102,6 +104,8 @@ codeunit 81003 "WSC Import Export Config."
     end;
 
     local procedure ApplyJsonValueToField(JsonKeyValue: JsonValue; JsonFieldName: Text[50])
+    var
+        SecurityManagements: Codeunit "WSC Security Managements";
     begin
         case TableType of
             TableType::Default:
@@ -129,12 +133,12 @@ codeunit 81003 "WSC Import Export Config."
                         Evaluate(TempWebServicesConnections."WSC Body Type", JsonKeyValue.AsText());
                     'bodyMethod':
                         Evaluate(TempWebServicesConnections."WSC Body Method", JsonKeyValue.AsText());
+                    'tokenDataScope':
+                        Evaluate(TempWebServicesConnections."WSC Token DataScope", JsonKeyValue.AsText());
                     'username':
                         TempWebServicesConnections."WSC Username" := JsonKeyValue.AsText();
                     'password':
-                        TempWebServicesConnections."WSC Password" := JsonKeyValue.AsText();
-                    'convertAuthBase64':
-                        TempWebServicesConnections."WSC Convert Auth. Base64" := JsonKeyValue.AsBoolean();
+                        SecurityManagements.SetToken(TempWebServicesConnections."WSC Password", JsonKeyValue.AsText(), TempWebServicesConnections.GetTokenDataScope());
                     'bearerToken':
                         TempWebServicesConnections."WSC Bearer Connection" := JsonKeyValue.AsBoolean();
                     'bearerConnCode':
@@ -161,8 +165,10 @@ codeunit 81003 "WSC Import Export Config."
                             SetNewRecordToInsert(TableType);
                             TempWebServicesBodies."WSC Key" := JsonKeyValue.AsText();
                         end;
+                    'isSecret':
+                        TempWebServicesBodies."WSC Is Secret" := JsonKeyValue.AsBoolean();
                     'value':
-                        TempWebServicesBodies."WSC Value" := JsonKeyValue.AsText();
+                        TempWebServicesBodies.SetValue(JsonKeyValue.AsText());
                     'description':
                         TempWebServicesBodies."WSC Description" := JsonKeyValue.AsText();
                 end;
@@ -271,30 +277,39 @@ codeunit 81003 "WSC Import Export Config."
 
     local procedure UpdateRelatedTableKey()
     var
-        TempLocalWebServicesHeaders: Record "WSC Web Services Headers" temporary;
-        TempLocalWebServicesBodies: Record "WSC Web Services Bodies" temporary;
+        HeaderParameters,
+        BodyParameters : List of [Text];
+        Parameters: Text;
     begin
-        TempLocalWebServicesHeaders.Copy(TempWebServicesHeaders, true);
-        TempLocalWebServicesBodies.Copy(TempWebServicesBodies, true);
-
-        TempLocalWebServicesHeaders.Reset();
-        TempLocalWebServicesHeaders.SetRange("WSC Code", TempWebServicesConnections."WSC Previous Code");
-        if not TempLocalWebServicesHeaders.IsEmpty() then begin
-            TempLocalWebServicesHeaders.FindSet();
+        //Store Paramters Into List
+        TempWebServicesHeaders.Reset();
+        TempWebServicesHeaders.SetRange("WSC Code", TempWebServicesConnections."WSC Previous Code");
+        if not TempWebServicesHeaders.IsEmpty() then begin
+            TempWebServicesHeaders.FindSet();
             repeat
-                TempWebServicesHeaders.Get(TempLocalWebServicesHeaders."WSC Code", TempLocalWebServicesHeaders."WSC Key");
-                TempWebServicesHeaders.Rename(TempWebServicesConnections."WSC Code", TempWebServicesHeaders."WSC Key");
-            until TempLocalWebServicesHeaders.Next() = 0;
+                HeaderParameters.Add(TempWebServicesHeaders."WSC Key");
+            until TempWebServicesHeaders.Next() = 0;
         end;
 
-        TempLocalWebServicesBodies.Reset();
-        TempLocalWebServicesBodies.SetRange("WSC Code", TempWebServicesConnections."WSC Previous Code");
-        if not TempLocalWebServicesBodies.IsEmpty() then begin
-            TempLocalWebServicesBodies.FindSet();
+        TempWebServicesBodies.Reset();
+        TempWebServicesBodies.SetRange("WSC Code", TempWebServicesConnections."WSC Previous Code");
+        if not TempWebServicesBodies.IsEmpty() then begin
+            TempWebServicesBodies.FindSet();
             repeat
-                TempWebServicesBodies.Get(TempLocalWebServicesBodies."WSC Code", TempLocalWebServicesBodies."WSC Key");
-                TempWebServicesBodies.Rename(TempWebServicesConnections."WSC Code", TempWebServicesBodies."WSC Key");
-            until TempLocalWebServicesBodies.Next() = 0;
+                BodyParameters.Add(TempWebServicesBodies."WSC Key");
+            until TempWebServicesBodies.Next() = 0;
+        end;
+
+        //Update Headers
+        foreach Parameters in HeaderParameters do begin
+            if TempWebServicesHeaders.Get(TempWebServicesConnections."WSC Previous Code", Parameters) then
+                TempWebServicesHeaders.Rename(TempWebServicesConnections."WSC Code", Parameters);
+        end;
+
+        //Update Bodies
+        foreach Parameters in BodyParameters do begin
+            if TempWebServicesBodies.Get(TempWebServicesConnections."WSC Previous Code", Parameters) then
+                TempWebServicesBodies.Rename(TempWebServicesConnections."WSC Code", Parameters);
         end;
     end;
 
@@ -307,28 +322,33 @@ codeunit 81003 "WSC Import Export Config."
     /// <param name="WSCode">Code[20].</param>
     procedure ExportWSCJson(WSCode: Code[20])
     var
-        WSCWebServicesConnections: Record "WSC Web Services Connections";
+        WebServicesConnections: Record "WSC Web Services Connections";
         TempBlob: Codeunit "Temp Blob";
         InStr: InStream;
         OutStr: OutStream;
         Text000Qst: Label 'This connection is part of a group. Do you want to export the entire group ?';
         Text000Lbl: Label '%1_%2.json';
-        ExportGroup: Boolean;
+        IsHandled,
+        ExportGroup : Boolean;
         FileJson: JsonObject;
         LocalFileName,
         Result : Text;
     begin
-        WSCWebServicesConnections.Get(WSCode);
-        if WSCWebServicesConnections."WSC Group Code" <> '' then
+        OnBeforeExportWSCJson(IsHandled, WSCode);
+        if IsHandled then
+            exit;
+
+        WebServicesConnections.Get(WSCode);
+        if WebServicesConnections."WSC Group Code" <> '' then
             if Confirm(Text000Qst) then
                 ExportGroup := true;
 
         if ExportGroup then begin
-            LocalFileName := StrSubstNo(Text000Lbl, 'GROUP', WSCWebServicesConnections."WSC Group Code");
-            FileJson := ExportWSCGroupJson(WSCWebServicesConnections)
+            LocalFileName := StrSubstNo(Text000Lbl, 'GROUP', WebServicesConnections."WSC Group Code");
+            FileJson := ExportWSCGroupJson(WebServicesConnections)
         end else begin
-            LocalFileName := StrSubstNo(Text000Lbl, 'SINGLE', WSCWebServicesConnections."WSC Code");
-            FileJson := ExportWSCSingleJson(WSCWebServicesConnections);
+            LocalFileName := StrSubstNo(Text000Lbl, 'SINGLE', WebServicesConnections."WSC Code");
+            FileJson := ExportWSCSingleJson(WebServicesConnections);
         end;
 
         TempBlob.CreateInStream(InStr);
@@ -341,112 +361,120 @@ codeunit 81003 "WSC Import Export Config."
         DownloadFromStream(InStr, '', '', '', LocalFileName);
     end;
 
-    local procedure ExportWSCSingleJson(WSCWebServicesConnections: Record "WSC Web Services Connections") envelope: JsonObject
+    local procedure ExportWSCSingleJson(WebServicesConnections: Record "WSC Web Services Connections") envelope: JsonObject
     var
-        WSCWebServicesConnections2: Record "WSC Web Services Connections";
+        WebServicesConnections2: Record "WSC Web Services Connections";
     begin
-        WSCWebServicesConnections2.Reset();
-        WSCWebServicesConnections2.SetCurrentKey("WSC Bearer Connection");
-        WSCWebServicesConnections2.Ascending(false);
-        if WSCWebServicesConnections."WSC Bearer Connection Code" <> '' then
-            WSCWebServicesConnections2.SetFilter("WSC Code", '%1|%2', WSCWebServicesConnections."WSC Code", WSCWebServicesConnections."WSC Bearer Connection Code")
+        WebServicesConnections2.Reset();
+        WebServicesConnections2.SetCurrentKey("WSC Bearer Connection");
+        WebServicesConnections2.Ascending(false);
+        if WebServicesConnections."WSC Bearer Connection Code" <> '' then
+            WebServicesConnections2.SetFilter("WSC Code", '%1|%2', WebServicesConnections."WSC Code", WebServicesConnections."WSC Bearer Connection Code")
         else
-            WSCWebServicesConnections2.SetRange("WSC Code", WSCWebServicesConnections."WSC Code");
+            WebServicesConnections2.SetRange("WSC Code", WebServicesConnections."WSC Code");
 
-        if WSCWebServicesConnections2.IsEmpty() then
+        if WebServicesConnections2.IsEmpty() then
             Error('');
 
         Clear(envelope);
-        WSCWebServicesConnections2.FindSet();
-        envelope.Add('groupCode', WSCWebServicesConnections2."WSC Group Code");
-        AddArray(envelope, 'codes', WSCWebServicesConnections2);
+        WebServicesConnections2.FindSet();
+        envelope.Add('groupCode', WebServicesConnections2."WSC Group Code");
+        AddArray(envelope, 'codes', WebServicesConnections2);
     end;
 
-    local procedure ExportWSCGroupJson(WSCWebServicesConnections: Record "WSC Web Services Connections") envelope: JsonObject
+    local procedure ExportWSCGroupJson(WebServicesConnections: Record "WSC Web Services Connections") envelope: JsonObject
     var
-        WSCWebServicesConnections2: Record "WSC Web Services Connections";
+        WebServicesConnections2: Record "WSC Web Services Connections";
     begin
-        WSCWebServicesConnections2.Reset();
-        WSCWebServicesConnections2.SetCurrentKey("WSC Bearer Connection");
-        WSCWebServicesConnections2.Ascending(false);
-        WSCWebServicesConnections2.SetRange("WSC Group Code", WSCWebServicesConnections."WSC Group Code");
-        if WSCWebServicesConnections2.IsEmpty() then
+        WebServicesConnections2.Reset();
+        WebServicesConnections2.SetCurrentKey("WSC Bearer Connection");
+        WebServicesConnections2.Ascending(false);
+        WebServicesConnections2.SetRange("WSC Group Code", WebServicesConnections."WSC Group Code");
+        if WebServicesConnections2.IsEmpty() then
             Error('');
 
         Clear(envelope);
-        WSCWebServicesConnections2.FindSet();
-        envelope.Add('groupCode', WSCWebServicesConnections2."WSC Group Code");
-        AddArray(envelope, 'codes', WSCWebServicesConnections2);
+        WebServicesConnections2.FindSet();
+        envelope.Add('groupCode', WebServicesConnections2."WSC Group Code");
+        AddArray(envelope, 'codes', WebServicesConnections2);
     end;
 
-    local procedure AddArray(var JObjectFatherName: JsonObject; ArrayName: Text; var WSCWebServicesConnections: Record "WSC Web Services Connections")
+    local procedure AddArray(var JObjectFatherName: JsonObject; ArrayName: Text; var WebServicesConnections: Record "WSC Web Services Connections")
     var
         i: Integer;
         JObjectName: JsonObject;
         JArrayName: JsonArray;
+        IsHandled: Boolean;
     begin
+        OnBeforeAddArray(IsHandled, JObjectFatherName, ArrayName, WebServicesConnections);
+        if IsHandled then
+            exit;
+
         case ArrayName of
             'codes':
-                codesContent(JObjectFatherName, ArrayName, WSCWebServicesConnections);
+                codesContent(JObjectFatherName, ArrayName, WebServicesConnections);
             'generalInfo':
-                generalInfoContent(JObjectFatherName, ArrayName, WSCWebServicesConnections);
+                generalInfoContent(JObjectFatherName, ArrayName, WebServicesConnections);
             'header':
-                headerContent(JObjectFatherName, ArrayName, WSCWebServicesConnections);
+                headerContent(JObjectFatherName, ArrayName, WebServicesConnections);
             'body':
-                bodyContent(JObjectFatherName, ArrayName, WSCWebServicesConnections);
+                bodyContent(JObjectFatherName, ArrayName, WebServicesConnections);
         end;
     end;
 
-    local procedure codesContent(var JObjectFatherName: JsonObject; ArrayName: Text; var WSCWebServicesConnections: Record "WSC Web Services Connections")
+    local procedure codesContent(var JObjectFatherName: JsonObject; ArrayName: Text; var WebServicesConnections: Record "WSC Web Services Connections")
     var
         JObjectName: JsonObject;
         JArrayName: JsonArray;
     begin
         repeat
             Clear(JObjectName);
-            JObjectName.Add('code', WSCWebServicesConnections."WSC Code");
-            AddArray(JObjectName, 'generalInfo', WSCWebServicesConnections);
-            AddArray(JObjectName, 'header', WSCWebServicesConnections);
-            AddArray(JObjectName, 'body', WSCWebServicesConnections);
+            JObjectName.Add('code', WebServicesConnections."WSC Code");
+            AddArray(JObjectName, 'generalInfo', WebServicesConnections);
+            AddArray(JObjectName, 'header', WebServicesConnections);
+            AddArray(JObjectName, 'body', WebServicesConnections);
+            OnBeforeAddArrayCodesContent(JObjectName, WebServicesConnections);
             JArrayName.Add(JObjectName);
-        until WSCWebServicesConnections.Next() = 0;
+        until WebServicesConnections.Next() = 0;
         JObjectFatherName.Add(ArrayName, JArrayName);
     end;
 
-    local procedure generalInfoContent(var JObjectFatherName: JsonObject; ArrayName: Text; WSCWebServicesConnections: Record "WSC Web Services Connections")
+    local procedure generalInfoContent(var JObjectFatherName: JsonObject; ArrayName: Text; WebServicesConnections: Record "WSC Web Services Connections")
     var
+        SecurityManagements: Codeunit "WSC Security Managements";
         JObjectName: JsonObject;
         JArrayName: JsonArray;
     begin
         Clear(JObjectName);
 
-        //JObjectName.Add('code', WSCWebServicesConnections."WSC Code");
-        JObjectName.Add('description', WSCWebServicesConnections."WSC Description");
-        JObjectName.Add('httpMethod', Format(WSCWebServicesConnections."WSC HTTP Method"));
-        JObjectName.Add('endpoint', WSCWebServicesConnections."WSC EndPoint");
-        JObjectName.Add('allowBlankResponse', WSCWebServicesConnections."WSC Allow Blank Response");
-        JObjectName.Add('authType', Format(WSCWebServicesConnections."WSC Auth. Type"));
-        JObjectName.Add('bodyType', Format(WSCWebServicesConnections."WSC Body Type"));
-        JObjectName.Add('bodyMethod', Format(WSCWebServicesConnections."WSC Body Method"));
-        JObjectName.Add('username', WSCWebServicesConnections."WSC Username");
-        JObjectName.Add('password', WSCWebServicesConnections."WSC Password");
-        JObjectName.Add('convertAuthBase64', WSCWebServicesConnections."WSC Convert Auth. Base64");
-        JObjectName.Add('bearerToken', WSCWebServicesConnections."WSC Bearer Connection");
-        JObjectName.Add('bearerConnCode', WSCWebServicesConnections."WSC Bearer Connection Code");
-        JObjectName.Add('zipResponse', WSCWebServicesConnections."WSC Zip Response");
+        //JObjectName.Add('code', WebServicesConnections."WSC Code");
+        JObjectName.Add('description', WebServicesConnections."WSC Description");
+        JObjectName.Add('httpMethod', Format(WebServicesConnections."WSC HTTP Method"));
+        JObjectName.Add('endpoint', WebServicesConnections."WSC EndPoint");
+        JObjectName.Add('allowBlankResponse', WebServicesConnections."WSC Allow Blank Response");
+        JObjectName.Add('authType', Format(WebServicesConnections."WSC Auth. Type"));
+        JObjectName.Add('bodyType', Format(WebServicesConnections."WSC Body Type"));
+        JObjectName.Add('bodyMethod', Format(WebServicesConnections."WSC Body Method"));
+        JObjectName.Add('tokenDataScope', format(WebServicesConnections."WSC Token DataScope"));
+        JObjectName.Add('username', WebServicesConnections."WSC Username");
+        JObjectName.Add('password', SecurityManagements.GetToken(WebServicesConnections."WSC Password", WebServicesConnections.GetTokenDataScope()));
+        JObjectName.Add('bearerToken', WebServicesConnections."WSC Bearer Connection");
+        JObjectName.Add('bearerConnCode', WebServicesConnections."WSC Bearer Connection Code");
+        JObjectName.Add('zipResponse', WebServicesConnections."WSC Zip Response");
+        OnBeforeAddArrayGeneralInfoContent(JObjectName, WebServicesConnections);
 
         JArrayName.Add(JObjectName);
         JObjectFatherName.Add(ArrayName, JArrayName);
     end;
 
-    local procedure headerContent(var JObjectFatherName: JsonObject; ArrayName: Text; WSCWebServicesConnections: Record "WSC Web Services Connections")
+    local procedure headerContent(var JObjectFatherName: JsonObject; ArrayName: Text; WebServicesConnections: Record "WSC Web Services Connections")
     var
         WSCWebServicesHeaders: Record "WSC Web Services Headers";
         JObjectName: JsonObject;
         JArrayName: JsonArray;
     begin
         WSCWebServicesHeaders.Reset();
-        WSCWebServicesHeaders.SetRange("WSC Code", WSCWebServicesConnections."WSC Code");
+        WSCWebServicesHeaders.SetRange("WSC Code", WebServicesConnections."WSC Code");
         if WSCWebServicesHeaders.IsEmpty() then
             exit;
 
@@ -456,20 +484,21 @@ codeunit 81003 "WSC Import Export Config."
             JObjectName.Add('key', WSCWebServicesHeaders."WSC Key");
             JObjectName.Add('value', WSCWebServicesHeaders."WSC Value");
             JObjectName.Add('description', WSCWebServicesHeaders."WSC Description");
+            OnBeforeAddArrayHeaderContent(JObjectName, WSCWebServicesHeaders);
 
             JArrayName.Add(JObjectName);
         until WSCWebServicesHeaders.Next() = 0;
         JObjectFatherName.Add(ArrayName, JArrayName);
     end;
 
-    local procedure bodyContent(var JObjectFatherName: JsonObject; ArrayName: Text; WSCWebServicesConnections: Record "WSC Web Services Connections")
+    local procedure bodyContent(var JObjectFatherName: JsonObject; ArrayName: Text; WebServicesConnections: Record "WSC Web Services Connections")
     var
         WSCWebServicesBodies: Record "WSC Web Services Bodies";
         JObjectName: JsonObject;
         JArrayName: JsonArray;
     begin
         WSCWebServicesBodies.Reset();
-        WSCWebServicesBodies.SetRange("WSC Code", WSCWebServicesConnections."WSC Code");
+        WSCWebServicesBodies.SetRange("WSC Code", WebServicesConnections."WSC Code");
         if WSCWebServicesBodies.IsEmpty() then
             exit;
 
@@ -477,12 +506,47 @@ codeunit 81003 "WSC Import Export Config."
         repeat
             Clear(JObjectName);
             JObjectName.Add('key', WSCWebServicesBodies."WSC Key");
-            JObjectName.Add('value', WSCWebServicesBodies."WSC Value");
+            JObjectName.Add('isSecret', WSCWebServicesBodies."WSC Is Secret");
+            JObjectName.Add('value', WSCWebServicesBodies.GetValue());
             JObjectName.Add('description', WSCWebServicesBodies."WSC Description");
+            OnBeforeAddArrayBodyContent(JObjectName, WSCWebServicesBodies);
 
             JArrayName.Add(JObjectName);
         until WSCWebServicesBodies.Next() = 0;
         JObjectFatherName.Add(ArrayName, JArrayName);
     end;
     #endregion Export
+
+    #region IntegrationEvents
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeExportWSCJson(var IsHandled: Boolean; WSCode: Code[20])
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeAddArray(var IsHandled: Boolean; var JObjectFatherName: JsonObject; ArrayName: Text; var WebServicesConnections: Record "WSC Web Services Connections")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeAddArrayCodesContent(var JObjectName: JsonObject; var WebServicesConnections: Record "WSC Web Services Connections")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeAddArrayGeneralInfoContent(var JObjectName: JsonObject; var WebServicesConnections: Record "WSC Web Services Connections")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeAddArrayHeaderContent(var JObjectName: JsonObject; var WSCWebServicesBodies: Record "WSC Web Services Headers")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeAddArrayBodyContent(var JObjectName: JsonObject; var WSCWebServicesBodies: Record "WSC Web Services Bodies")
+    begin
+    end;
+
+    #endregion IntegrationEvents
 }

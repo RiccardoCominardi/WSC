@@ -38,9 +38,6 @@ table 81009 "WSC Web Services EndPoint Var."
         }
     }
 
-    var
-        myInt: Integer;
-
     trigger OnInsert()
     begin
 

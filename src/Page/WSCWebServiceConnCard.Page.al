@@ -75,26 +75,39 @@ page 81002 "WSC Web Service Conn. Card"
                     ApplicationArea = All;
                     Editable = BodyMethodEditable;
                 }
-                field("WSC Username"; Rec."WSC Username")
-                {
-                    ApplicationArea = All;
-                    Editable = CredentialsEditable;
-                }
-                field("WSC Password"; Rec."WSC Password")
-                {
-                    ApplicationArea = All;
-                    Editable = CredentialsEditable;
-                    ExtendedDatatype = Masked;
-                }
-                field("WSC Convert Auth. Base64"; Rec."WSC Convert Auth. Base64")
-                {
-                    ApplicationArea = All;
-                    Editable = CredentialsEditable;
-                }
                 field("WSC Zip Response"; Rec."WSC Zip Response")
                 {
                     ApplicationArea = All;
                 }
+                field("WSC Store Headers Datas"; Rec."WSC Store Headers Datas")
+                {
+                    ApplicationArea = All;
+                }
+                field("WSC Store Body Datas"; Rec."WSC Store Body Datas")
+                {
+                    ApplicationArea = All;
+                }
+
+                group(Credentials)
+                {
+                    Caption = 'Credentials';
+                    field("WSC Username"; Rec."WSC Username")
+                    {
+                        ApplicationArea = All;
+                        Editable = CredentialsEditable;
+                    }
+                    field("WSC Password"; Password)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Password';
+                        Editable = CredentialsEditable;
+                        trigger OnValidate()
+                        begin
+                            SecurityManagements.SetToken(Rec."WSC Password", Password, Rec.GetTokenDataScope());
+                        end;
+                    }
+                }
+
             }
             group(Token)
             {
@@ -163,9 +176,9 @@ page 81002 "WSC Web Service Conn. Card"
 
                 trigger OnAction()
                 var
-                    WSCWSServicesHeaders: Record "WSC Web Services Headers";
+                    WebServicesHeaders: Record "WSC Web Services Headers";
                 begin
-                    WSCWSServicesHeaders.ViewLog(Rec."WSC Code");
+                    WebServicesHeaders.ViewLog(Rec."WSC Code");
                 end;
             }
             action(Bodies)
@@ -179,9 +192,9 @@ page 81002 "WSC Web Service Conn. Card"
 
                 trigger OnAction()
                 var
-                    WSCWSServicesBodies: Record "WSC Web Services Bodies";
+                    WebServicesBodies: Record "WSC Web Services Bodies";
                 begin
-                    WSCWSServicesBodies.ViewLog(Rec."WSC Code");
+                    WebServicesBodies.ViewLog(Rec."WSC Code");
                 end;
             }
             action(SendRequest)
@@ -195,10 +208,10 @@ page 81002 "WSC Web Service Conn. Card"
 
                 trigger OnAction()
                 var
-                    WSCWebServicesLogCalls: Record "WSC Web Services Log Calls";
-                    WSCWSServicesMgt: Codeunit "WSC Web Services Management";
+                    WebServicesLogCalls: Record "WSC Web Services Log Calls";
+                    WebServicesManagement: Codeunit "WSC Web Services Management";
                 begin
-                    WSCWSServicesMgt.ExecuteWSCConnections(Rec."WSC Code", WSCWebServicesLogCalls);
+                    WebServicesManagement.ExecuteWSCConnections(Rec."WSC Code", WebServicesLogCalls);
                 end;
             }
             action(ViewLog)
@@ -212,9 +225,9 @@ page 81002 "WSC Web Service Conn. Card"
 
                 trigger OnAction()
                 var
-                    WSCWSServicesLogCalls: Record "WSC Web Services Log Calls";
+                    WebServicesLogCalls: Record "WSC Web Services Log Calls";
                 begin
-                    WSCWSServicesLogCalls.ViewLog(Rec."WSC Code");
+                    WebServicesLogCalls.ViewLog(Rec."WSC Code");
                 end;
             }
         }
@@ -227,6 +240,11 @@ page 81002 "WSC Web Service Conn. Card"
         SetEndPointFields();
     end;
 
+    trigger OnAfterGetCurrRecord()
+    begin
+        Password := SecurityManagements.GetToken(Rec."WSC Password", Rec.GetTokenDataScope());
+    end;
+
     local procedure SetEditableVariables()
     begin
         CredentialsEditable := Rec."WSC Auth. Type" = Rec."WSC Auth. Type"::Basic;
@@ -235,26 +253,26 @@ page 81002 "WSC Web Service Conn. Card"
 
     local procedure SetEndPointFields()
     var
-        WSCWSServicesEndPointVar: Record "WSC Web Services EndPoint Var.";
+        WebServicesEndPointVar: Record "WSC Web Services EndPoint Var.";
         Text000Lbl: Label 'EndPoint containes variables';
         Found: Boolean;
     begin
         Found := false;
         EndPointColor := 'Standard';
         EndPointWithVar := '';
-        WSCWSServicesEndPointVar.Reset();
-        if WSCWSServicesEndPointVar.IsEmpty() then
+        WebServicesEndPointVar.Reset();
+        if WebServicesEndPointVar.IsEmpty() then
             exit;
 
-        WSCWSServicesEndPointVar.FindSet();
+        WebServicesEndPointVar.FindSet();
         repeat
-            if StrPos(Rec."WSC EndPoint", WSCWSServicesEndPointVar."WSC Variable Name") > 0 then begin
+            if StrPos(Rec."WSC EndPoint", WebServicesEndPointVar."WSC Variable Name") > 0 then begin
                 Found := true;
                 EndPointColor := 'Ambiguous';
                 EndPointWithVar := Text000Lbl;
             end
 
-        until (WSCWSServicesEndPointVar.Next() = 0) or Found;
+        until (WebServicesEndPointVar.Next() = 0) or Found;
     end;
 
     local procedure SetTokenFields()
@@ -269,7 +287,7 @@ page 81002 "WSC Web Service Conn. Card"
         TokenColor := 'Standard';
         TokenStatus := Text000Lbl;
         if Rec."WSC Bearer Connection" then begin
-            TokenPresent := Rec."WSC Access Token".HasValue();
+            TokenPresent := SecurityManagements.HasToken(Rec."WSC Access Token", Rec.GetTokenDataScope());
             TokenAuth := Rec."WSC Authorization Time";
             if IsExpiredToken(TokenAuth, Rec."WSC Expires In") then begin
                 TokenStatus := Text001Lbl;
@@ -282,7 +300,7 @@ page 81002 "WSC Web Service Conn. Card"
             if Rec."WSC Bearer Connection Code" <> '' then
                 if WSCConnBearer."WSC Code" <> Rec."WSC Bearer Connection Code" then begin
                     WSCConnBearer.Get(Rec."WSC Bearer Connection Code");
-                    TokenPresent := WSCConnBearer."WSC Access Token".HasValue();
+                    TokenPresent := SecurityManagements.HasToken(WSCConnBearer."WSC Access Token", WSCConnBearer.GetTokenDataScope());
                     TokenAuth := WSCConnBearer."WSC Authorization Time";
                     if IsExpiredToken(TokenAuth, WSCConnBearer."WSC Expires In") then begin
                         TokenStatus := Text001Lbl;
@@ -309,12 +327,14 @@ page 81002 "WSC Web Service Conn. Card"
     end;
 
     var
-        CredentialsEditable: Boolean;
-        BodyMethodEditable: Boolean;
-        TokenPresent: Boolean;
+        SecurityManagements: Codeunit "WSC Security Managements";
+        CredentialsEditable,
+        BodyMethodEditable,
+        TokenPresent : Boolean;
         TokenAuth: DateTime;
-        TokenStatus: Text;
-        TokenColor: Text;
-        EndPointWithVar: Text;
-        EndPointColor: Text;
+        Password,
+        TokenStatus,
+        TokenColor,
+        EndPointWithVar,
+        EndPointColor : Text;
 }

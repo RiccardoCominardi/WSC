@@ -47,20 +47,17 @@ table 81002 "WSC Web Services Headers"
     /// <param name="WSCCode">Code[20].</param>
     procedure ViewLog(WSCCode: Code[20])
     var
-        WSCWSServicesConnections: Record "WSC Web Services Connections";
-        WSCWSServicesHeaders: Record "WSC Web Services Headers";
+        WebServicesConnections: Record "WSC Web Services Connections";
+        WebServicesHeaders: Record "WSC Web Services Headers";
     begin
-        WSCWSServicesConnections.Get(WSCCode);
+        WebServicesConnections.Get(WSCCode);
 
-        WSCWSServicesHeaders.Reset();
-        WSCWSServicesHeaders.FilterGroup(2);
-        WSCWSServicesHeaders.SetRange("WSC Code", WSCWSServicesConnections."WSC Code");
-        WSCWSServicesHeaders.FilterGroup(0);
-        Page.RunModal(0, WSCWSServicesHeaders);
+        WebServicesHeaders.Reset();
+        WebServicesHeaders.FilterGroup(2);
+        WebServicesHeaders.SetRange("WSC Code", WebServicesConnections."WSC Code");
+        WebServicesHeaders.FilterGroup(0);
+        Page.RunModal(0, WebServicesHeaders);
     end;
-
-    var
-        myInt: Integer;
 
     trigger OnInsert()
     begin

@@ -39,6 +39,7 @@ table 81005 "WSC Web Services Log Headers"
         field(6; "WSC Description"; Text[100])
         {
             DataClassification = CustomerContent;
+            Caption = 'Description';
         }
     }
 
@@ -57,21 +58,18 @@ table 81005 "WSC Web Services Log Headers"
     /// <param name="EntryNo">Integer.</param>
     procedure ViewLog(WSCCode: Code[20]; EntryNo: Integer)
     var
-        WSCWSServicesLogCalls: Record "WSC Web Services Log Calls";
-        WSCWSServicesLogHeaders: Record "WSC Web Services Log Headers";
+        WebServicesLogCalls: Record "WSC Web Services Log Calls";
+        WebServicesLogHeaders: Record "WSC Web Services Log Headers";
     begin
-        WSCWSServicesLogCalls.Get(WSCCode, EntryNo);
+        WebServicesLogCalls.Get(WSCCode, EntryNo);
 
-        WSCWSServicesLogHeaders.Reset();
-        WSCWSServicesLogHeaders.FilterGroup(2);
-        WSCWSServicesLogHeaders.SetRange("WSC Code", WSCWSServicesLogCalls."WSC Code");
-        WSCWSServicesLogHeaders.SetRange("WSC Entry No.", WSCWSServicesLogCalls."WSC Entry No.");
-        WSCWSServicesLogHeaders.FilterGroup(0);
-        Page.RunModal(0, WSCWSServicesLogHeaders);
+        WebServicesLogHeaders.Reset();
+        WebServicesLogHeaders.FilterGroup(2);
+        WebServicesLogHeaders.SetRange("WSC Code", WebServicesLogCalls."WSC Code");
+        WebServicesLogHeaders.SetRange("WSC Entry No.", WebServicesLogCalls."WSC Entry No.");
+        WebServicesLogHeaders.FilterGroup(0);
+        Page.RunModal(0, WebServicesLogHeaders);
     end;
-
-    var
-        myInt: Integer;
 
     trigger OnInsert()
     begin

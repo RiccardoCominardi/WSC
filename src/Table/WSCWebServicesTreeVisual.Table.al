@@ -44,8 +44,6 @@ table 81008 "WSC Web Services Tree Visual"
         }
     }
 
-    var
-        myInt: Integer;
 
     trigger OnInsert()
     begin

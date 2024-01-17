@@ -58,21 +58,18 @@ table 81006 "WSC Web Services Log Bodies"
     /// <param name="EntryNo">Integer.</param>
     procedure ViewLog(WSCCode: Code[20]; EntryNo: Integer)
     var
-        WSCWSServicesLogCalls: Record "WSC Web Services Log Calls";
-        WSCWSServicesLogBodies: Record "WSC Web Services Log Bodies";
+        WebServicesLogCalls: Record "WSC Web Services Log Calls";
+        WebServicesLogBodies: Record "WSC Web Services Log Bodies";
     begin
-        WSCWSServicesLogCalls.Get(WSCCode, EntryNo);
+        WebServicesLogCalls.Get(WSCCode, EntryNo);
 
-        WSCWSServicesLogBodies.Reset();
-        WSCWSServicesLogBodies.FilterGroup(2);
-        WSCWSServicesLogBodies.SetRange("WSC Code", WSCWSServicesLogCalls."WSC Code");
-        WSCWSServicesLogBodies.SetRange("WSC Entry No.", WSCWSServicesLogCalls."WSC Entry No.");
-        WSCWSServicesLogBodies.FilterGroup(0);
-        Page.RunModal(0, WSCWSServicesLogBodies);
+        WebServicesLogBodies.Reset();
+        WebServicesLogBodies.FilterGroup(2);
+        WebServicesLogBodies.SetRange("WSC Code", WebServicesLogCalls."WSC Code");
+        WebServicesLogBodies.SetRange("WSC Entry No.", WebServicesLogCalls."WSC Entry No.");
+        WebServicesLogBodies.FilterGroup(0);
+        Page.RunModal(0, WebServicesLogBodies);
     end;
-
-    var
-        myInt: Integer;
 
     trigger OnInsert()
     begin

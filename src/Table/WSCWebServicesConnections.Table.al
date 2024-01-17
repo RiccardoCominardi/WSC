@@ -50,8 +50,6 @@ table 81001 "WSC Web Services Connections"
                             Rec."WSC Username" := '';
                             Rec."WSC Password" := '';
                         end;
-                    "WSC Authorization Types"::basic:
-                        Rec."WSC Convert Auth. Base64" := true;
                 end;
             end;
         }
@@ -60,17 +58,17 @@ table 81001 "WSC Web Services Connections"
             DataClassification = CustomerContent;
             Caption = 'Username';
         }
-        field(7; "WSC Password"; Text[20])
+        field(7; "WSC Password"; Guid)
         {
             DataClassification = CustomerContent;
             Caption = 'Password';
         }
-        field(8; "WSC Access Token"; Blob)
+        field(8; "WSC Access Token"; Guid)
         {
             DataClassification = CustomerContent;
             Caption = 'Acces Token';
         }
-        field(9; "WSC Refresh Token"; Blob)
+        field(9; "WSC Refresh Token"; Guid)
         {
             DataClassification = CustomerContent;
             Caption = 'Refresh Token';
@@ -115,11 +113,6 @@ table 81001 "WSC Web Services Connections"
         {
             DataClassification = CustomerContent;
             Caption = 'Body Message';
-        }
-        field(16; "WSC Convert Auth. Base64"; Boolean)
-        {
-            DataClassification = CustomerContent;
-            Caption = 'Convert Auth. Base64';
         }
         field(17; "WSC Allow Blank Response"; Boolean)
         {
@@ -168,6 +161,33 @@ table 81001 "WSC Web Services Connections"
             DataClassification = CustomerContent;
             Caption = 'Zip Response';
         }
+        field(23; "WSC Token DataScope"; Enum "WSC Token DataScope")
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Token DataScope';
+        }
+        field(24; "WSC Store Headers Datas"; Boolean)
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Store Header Datas';
+            trigger OnValidate()
+            begin
+                if not xRec."WSC Store Headers Datas" and Rec."WSC Store Headers Datas" then
+                    if not Confirm(Text000Qst, false) then
+                        Error('');
+            end;
+        }
+        field(25; "WSC Store Body Datas"; Boolean)
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Store Body Datas';
+            trigger OnValidate()
+            begin
+                if not xRec."WSC Store Body Datas" and Rec."WSC Store Body Datas" then
+                    if not Confirm(Text000Qst, false) then
+                        Error('');
+            end;
+        }
     }
 
     keys
@@ -179,7 +199,7 @@ table 81001 "WSC Web Services Connections"
     }
 
     var
-        myInt: Integer;
+        Text000Qst: Label 'Are you sure you want to archive the data? This may affect performance and safety. Continue?';
 
     trigger OnInsert()
     begin
@@ -196,6 +216,7 @@ table 81001 "WSC Web Services Connections"
         WSCWSServicesHeaders: Record "WSC Web Services Headers";
         WSCWSServicesBodies: Record "WSC Web Services Bodies";
         WSCWSServicesLogCalls: Record "WSC Web Services Log Calls";
+        SecurityManagements: Codeunit "WSC Security Managements";
     begin
         WSCWSServicesHeaders.Reset();
         WSCWSServicesHeaders.SetRange("WSC Code", Rec."WSC Code");
@@ -208,6 +229,28 @@ table 81001 "WSC Web Services Connections"
         WSCWSServicesLogCalls.Reset();
         WSCWSServicesLogCalls.SetRange("WSC Code", Rec."WSC Code");
         WSCWSServicesLogCalls.DeleteAll(true);
+
+        SecurityManagements.DeleteToken(Rec."WSC Access Token", GetTokenDataScope());
+        SecurityManagements.DeleteToken(Rec."WSC Refresh Token", GetTokenDataScope());
+        SecurityManagements.DeleteToken(Rec."WSC Password", GetTokenDataScope());
+    end;
+
+    /// <summary>
+    /// GetTokenDataScope.
+    /// </summary>
+    /// <returns>Return value of type DataScope.</returns>
+    procedure GetTokenDataScope(): DataScope
+    begin
+        case Rec."WSC Token DataScope" of
+            "WSC Token DataScope"::Company:
+                exit(DataScope::Company);
+            "WSC Token DataScope"::UserAndCompany:
+                exit(DataScope::CompanyAndUser);
+            "WSC Token DataScope"::User:
+                exit(DataScope::User);
+            "WSC Token DataScope"::Module:
+                exit(DataScope::Module);
+        end;
     end;
 
     trigger OnRename()

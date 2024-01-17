@@ -30,8 +30,6 @@ table 81007 "WSC Web Services Group Codes"
         }
     }
 
-    var
-        myInt: Integer;
 
     trigger OnInsert()
     begin
@@ -45,13 +43,13 @@ table 81007 "WSC Web Services Group Codes"
 
     trigger OnDelete()
     var
-        WSCWebServicesConnections: Record "WSC Web Services Connections";
+        WebServicesConnections: Record "WSC Web Services Connections";
     begin
         if Rec."WSC Code" = '' then
             exit;
-        WSCWebServicesConnections.Reset();
-        WSCWebServicesConnections.SetRange("WSC Group Code", Rec."WSC Code");
-        WSCWebServicesConnections.ModifyAll("WSC Group Code", '');
+        WebServicesConnections.Reset();
+        WebServicesConnections.SetRange("WSC Group Code", Rec."WSC Code");
+        WebServicesConnections.ModifyAll("WSC Group Code", '');
     end;
 
     trigger OnRename()

@@ -17,15 +17,42 @@ page 81004 "WSC Web Services Bodies"
                 {
                     ApplicationArea = All;
                 }
-                field("WSC Value"; Rec."WSC Value")
+                field("WSC ValueAsText"; ValueAsText)
                 {
                     ApplicationArea = All;
+                    Caption = 'Value';
+                    trigger OnValidate()
+                    begin
+                        Rec.SetValue(ValueAsText);
+                    end;
                 }
                 field("WSC Description"; Rec."WSC Description")
                 {
                     ApplicationArea = All;
                 }
+                field("WSC Is Secret"; Rec."WSC Is Secret")
+                {
+                    ApplicationArea = All;
+                    trigger OnValidate()
+                    begin
+                        Rec.ConvertValue();
+                    end;
+                }
             }
         }
     }
+
+    trigger OnAfterGetRecord()
+    begin
+        ValueAsText := Rec.GetValue();
+    end;
+
+    trigger OnNewRecord(BelowxRec: Boolean)
+    begin
+        ValueAsText := '';
+    end;
+
+    protected var
+
+        ValueAsText: Text;
 }

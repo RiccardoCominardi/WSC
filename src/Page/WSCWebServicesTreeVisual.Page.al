@@ -59,9 +59,9 @@ page 81009 "WSC Web Services Tree Visual"
     /// </summary>
     procedure BuildPage()
     var
-        WSCWSServicesMgt: Codeunit "WSC Web Services Management";
+        WebServicesManagement: Codeunit "WSC Web Services Management";
     begin
-        WSCWSServicesMgt.LoadWSCTreeVisualTable(Rec);
+        WebServicesManagement.LoadWSCTreeVisualTable(Rec);
     end;
 
 

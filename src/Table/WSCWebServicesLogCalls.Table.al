@@ -172,20 +172,20 @@ table 81004 "WSC Web Services Log Calls"
     /// <param name="WSCCode">Code[20].</param>
     procedure ViewLog(WSCCode: Code[20])
     var
-        WSCWSServicesConnections: Record "WSC Web Services Connections";
-        WSCWSServicesLogCalls: Record "WSC Web Services Log Calls";
+        WebServicesConnections: Record "WSC Web Services Connections";
+        WebServicesLogCalls: Record "WSC Web Services Log Calls";
     begin
-        WSCWSServicesConnections.Get(WSCCode);
+        WebServicesConnections.Get(WSCCode);
 
-        WSCWSServicesLogCalls.Reset();
-        WSCWSServicesLogCalls.SetCurrentKey("WSC Execution Date-Time");
-        WSCWSServicesLogCalls.FilterGroup(2);
-        if WSCWSServicesConnections."WSC Bearer Connection Code" <> '' then
-            WSCWSServicesLogCalls.SetFilter("WSC Code", '%1|%2', WSCWSServicesConnections."WSC Code", WSCWSServicesConnections."WSC Bearer Connection Code")
+        WebServicesLogCalls.Reset();
+        WebServicesLogCalls.SetCurrentKey("WSC Execution Date-Time");
+        WebServicesLogCalls.FilterGroup(2);
+        if WebServicesConnections."WSC Bearer Connection Code" <> '' then
+            WebServicesLogCalls.SetFilter("WSC Code", '%1|%2', WebServicesConnections."WSC Code", WebServicesConnections."WSC Bearer Connection Code")
         else
-            WSCWSServicesLogCalls.SetRange("WSC Code", WSCWSServicesConnections."WSC Code");
-        WSCWSServicesLogCalls.FilterGroup(0);
-        Page.RunModal(0, WSCWSServicesLogCalls);
+            WebServicesLogCalls.SetRange("WSC Code", WebServicesConnections."WSC Code");
+        WebServicesLogCalls.FilterGroup(0);
+        Page.RunModal(0, WebServicesLogCalls);
     end;
 
     trigger OnInsert()
@@ -200,16 +200,16 @@ table 81004 "WSC Web Services Log Calls"
 
     trigger OnDelete()
     var
-        WSCWSServicesLogHeaders: Record "WSC Web Services Log Headers";
-        WSCWSServicesLogBodies: Record "WSC Web Services Log Bodies";
+        WebServicesLogHeaders: Record "WSC Web Services Log Headers";
+        WebServicesLogBodies: Record "WSC Web Services Log Bodies";
     begin
-        WSCWSServicesLogHeaders.Reset();
-        WSCWSServicesLogHeaders.SetRange("WSC Code", Rec."WSC Code");
-        WSCWSServicesLogHeaders.DeleteAll();
+        WebServicesLogHeaders.Reset();
+        WebServicesLogHeaders.SetRange("WSC Code", Rec."WSC Code");
+        WebServicesLogHeaders.DeleteAll();
 
-        WSCWSServicesLogBodies.Reset();
-        WSCWSServicesLogBodies.SetRange("WSC Code", Rec."WSC Code");
-        WSCWSServicesLogBodies.DeleteAll();
+        WebServicesLogBodies.Reset();
+        WebServicesLogBodies.SetRange("WSC Code", Rec."WSC Code");
+        WebServicesLogBodies.DeleteAll();
     end;
 
     trigger OnRename()

@@ -8,6 +8,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Bodies - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 669932537 - Method 1571334040 - NamedType 1745287229" size-unit="char" translate="yes" xml:space="preserve">
+          <source>There is already a value. Do you want to convert it?</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Bodies - Method ConvertValue - NamedType Text000Qst</note>
+        </trans-unit>
         <trans-unit id="Table 669932537 - Field 4197677126 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Code</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -18,10 +23,25 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Bodies - Field WSC Description - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 669932537 - Field 1685343061 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Secret</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Bodies - Field WSC Is Secret - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 669932537 - Field 652835980 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Key</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Bodies - Field WSC Key - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 669932537 - Field 3907231478 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Secret Value</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Bodies - Field WSC Secret Value - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 669932537 - Field 3499967850 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Token DataScope</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Bodies - Field WSC Token DataScope - Property Caption</note>
         </trans-unit>
         <trans-unit id="Table 669932537 - Field 4051864760 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Value</source>
@@ -32,6 +52,11 @@
           <source>Web Services Connections</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3857118176 - NamedType 1745287229" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Are you sure you want to archive the data? This may affect performance and safety. Continue?</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - NamedType Text000Qst</note>
         </trans-unit>
         <trans-unit id="Table 3857118176 - Field 756244660 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Acces Token</source>
@@ -88,11 +113,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Code - Method OnValidate - NamedType Text000Err</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 2644463003 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Convert Auth. Base64</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Convert Auth. Base64 - Property Caption</note>
-        </trans-unit>
         <trans-unit id="Table 3857118176 - Field 4286468891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Description</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -142,6 +162,21 @@
           <source>Refresh Token</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Refresh Token - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3857118176 - Field 4246976493 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Store Body Datas</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Store Body Datas - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3857118176 - Field 524960177 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Store Header Datas</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Store Headers Datas - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3857118176 - Field 3499967850 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Token DataScope</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Token DataScope - Property Caption</note>
         </trans-unit>
         <trans-unit id="Table 3857118176 - Field 1888880963 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Username</source>
@@ -394,7 +429,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Headers - Field WSC Code - Property Caption</note>
         </trans-unit>
         <trans-unit id="Table 1040737195 - Field 4286468891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>WSC Description</source>
+          <source>Description</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Headers - Field WSC Description - Property Caption</note>
         </trans-unit>
@@ -507,6 +542,11 @@
           <source>Basic %1</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Web Services Caller - Method CreateBasicAuthHeader - NamedType Text002Txt</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 2367903848 - Method 681255651 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Password must have a value in this type of call</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Web Services Caller - Method CreateBasicAuthHeader - NamedType Text000Err</note>
         </trans-unit>
         <trans-unit id="Codeunit 2367903848 - Method 2818987228 - NamedType 1614022648" size-unit="char" translate="yes" xml:space="preserve">
           <source>Bearer must have a value in this type of call</source>
@@ -633,6 +673,16 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Control General - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 807015976 - Control 4229622380 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Credentials</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Control Credentials - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 807015976 - Control 3838032204 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Password</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Control WSC Password - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 807015976 - Control 4146460525 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Token</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -697,6 +747,11 @@
           <source>Web Services - Bodies</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Bodies - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 669932537 - Control 1398324661 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Value</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Bodies - Control WSC ValueAsText - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1308428035 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Web Services Connections</source>
@@ -947,6 +1002,26 @@
           <source>PUT</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum WSC HTTP Methods - EnumValue Put - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 3499967850 - EnumValue 3133801257 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Company</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum WSC Token DataScope - EnumValue Company - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 3499967850 - EnumValue 520258886 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Module</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum WSC Token DataScope - EnumValue Module - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 3499967850 - EnumValue 1814464443 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>User</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum WSC Token DataScope - EnumValue User - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 3499967850 - EnumValue 3280683375 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>UserAndCompany</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum WSC Token DataScope - EnumValue UserAndCompany - Property Caption</note>
         </trans-unit>
         <trans-unit id="PermissionSet 158051057 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>WSC Permissions</source>

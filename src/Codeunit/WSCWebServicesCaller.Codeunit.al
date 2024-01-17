@@ -7,7 +7,7 @@ codeunit 81002 "WSC Web Services Caller"
     trigger OnRun()
     begin
         ClearGlobalVariables();
-        AcquireGlobalWSCConnection(Rec."WSC Code");
+        AcquireGlobalWSConnection(Rec."WSC Code");
         PrepareRequest();
     end;
 
@@ -21,7 +21,7 @@ codeunit 81002 "WSC Web Services Caller"
         TempBlob.CreateInStream(BodyInStream);
         TempBlob.CreateInStream(ResponseInStream);
 
-        OnBeforeCalls(IsHandled, GlobalWSCWebServConn);
+        OnBeforeCalls(IsHandled, GlobalWebServConn);
         if IsHandled then
             exit;
 
@@ -31,7 +31,6 @@ codeunit 81002 "WSC Web Services Caller"
 
     local procedure ExecuteRequest()
     var
-        WSCWSServicesMgt: Codeunit "WSC Web Services Management";
         Base64Convert: Codeunit "Base64 Convert";
         TempBlob: Codeunit "Temp Blob";
         FileInBase64: Text;
@@ -50,57 +49,57 @@ codeunit 81002 "WSC Web Services Caller"
     begin
         //Authentication
         RequestHeaders := Client.DefaultRequestHeaders();
-        case GlobalWSCWebServConn."WSC Auth. Type" of
+        case GlobalWebServConn."WSC Auth. Type" of
             "WSC Authorization Types"::basic:
-                RequestHeaders.Add('Authorization', CreateBasicAuthHeader(GlobalWSCWebServConn."WSC Username", GlobalWSCWebServConn."WSC Password"));
+                RequestHeaders.Add('Authorization', CreateBasicAuthHeader());
             "WSC Authorization Types"::"bearer token":
                 RequestHeaders.Add('Authorization', CreateBearerAuthHeader());
         //None: Autenticazione gestita nel Body, vedi esempi di chiamata Bartolini o GLS
         //Bearer: Autenticazione gestita con le Headers
         end;
-        OnAfterInitializeRequestHeaders(RequestHeaders, GlobalWSCWebServConn);
+        OnAfterInitializeRequestHeaders(RequestHeaders, GlobalWebServConn);
 
-        case GlobalWSCWebServConn."WSC HTTP Method" of
-            GlobalWSCWebServConn."WSC HTTP Method"::Get,
-            GlobalWSCWebServConn."WSC HTTP Method"::Delete:
+        case GlobalWebServConn."WSC HTTP Method" of
+            GlobalWebServConn."WSC HTTP Method"::Get,
+            GlobalWebServConn."WSC HTTP Method"::Delete:
                 if HasBodyValues() then
                     RequestContent.GetHeaders(ContentHeaders)
                 else
                     RequestMessage.GetHeaders(ContentHeaders);
-            GlobalWSCWebServConn."WSC HTTP Method"::Post,
-            GlobalWSCWebServConn."WSC HTTP Method"::Put,
-            GlobalWSCWebServConn."WSC HTTP Method"::Patch:
+            GlobalWebServConn."WSC HTTP Method"::Post,
+            GlobalWebServConn."WSC HTTP Method"::Put,
+            GlobalWebServConn."WSC HTTP Method"::Patch:
                 RequestContent.GetHeaders(ContentHeaders);
         end;
 
         //Bodies Values
         ContentHeaders.Clear();
-        case GlobalWSCWebServConn."WSC Body Type" of
+        case GlobalWebServConn."WSC Body Type" of
             "WSC Body Types"::"form data",
             "WSC Body Types"::"x-www-form-urlencoded":
                 CollectBodies(RequestContent);
             "WSC Body Types"::binary,
             "WSC Body Types"::raw:
                 begin
-                    case GlobalWSCWebServConn."WSC Body Method" of
+                    case GlobalWebServConn."WSC Body Method" of
                         "WSC Body Methods"::"custom file":
                             ;
                         "WSC Body Methods"::"fixed file":
-                            OnSetFixBodyMessage(GlobalWSCWebServConn);
+                            OnSetFixBodyMessage(GlobalWebServConn);
                         "WSC Body Methods"::"request file":
                             begin
                                 ImportWithFilter(TempBlob, FileName);
                                 if FileName <> '' then begin
-                                    GlobalWSCWebServConn."WSC Body Message".CreateOutStream(OutStr);
+                                    GlobalWebServConn."WSC Body Message".CreateOutStream(OutStr);
                                     TempBlob.CreateInStream(FileInStream);
                                     CopyStream(OutStr, FileInStream);
                                 end;
                             end;
                     end;
 
-                    GlobalWSCWebServConn.CalcFields("WSC Body Message");
-                    if GlobalWSCWebServConn."WSC Body Message".HasValue() then begin
-                        GlobalWSCWebServConn."WSC Body Message".CreateInStream(InStr);
+                    GlobalWebServConn.CalcFields("WSC Body Message");
+                    if GlobalWebServConn."WSC Body Message".HasValue() then begin
+                        GlobalWebServConn."WSC Body Message".CreateInStream(InStr);
                         BodyInStream := InStr;
                         RequestContent.WriteFrom(InStr);
                     end;
@@ -109,26 +108,26 @@ codeunit 81002 "WSC Web Services Caller"
 
         //Prepare Call
         CollectHeaders(ContentHeaders);
-        OnAfterSetContentHeaders(ContentHeaders, GlobalWSCWebServConn);
-        RequestMessage.Method := Format(GlobalWSCWebServConn."WSC HTTP Method");
-        NewEndPoint := ParseEndPoint(GlobalWSCWebServConn."WSC EndPoint");
+        OnAfterSetContentHeaders(ContentHeaders, GlobalWebServConn);
+        RequestMessage.Method := Format(GlobalWebServConn."WSC HTTP Method");
+        NewEndPoint := ParseEndPoint(GlobalWebServConn."WSC EndPoint");
         RequestMessage.SetRequestUri(NewEndPoint);
 
-        OnBeforeSetRequestContent(RequestContent, GlobalWSCWebServConn);
-        case GlobalWSCWebServConn."WSC HTTP Method" of
-            GlobalWSCWebServConn."WSC HTTP Method"::Get,
-            GlobalWSCWebServConn."WSC HTTP Method"::Delete:
+        OnBeforeSetRequestContent(RequestContent, GlobalWebServConn);
+        case GlobalWebServConn."WSC HTTP Method" of
+            GlobalWebServConn."WSC HTTP Method"::Get,
+            GlobalWebServConn."WSC HTTP Method"::Delete:
                 if HasBodyValues() then
                     RequestMessage.Content(RequestContent);
-            GlobalWSCWebServConn."WSC HTTP Method"::Post,
-            GlobalWSCWebServConn."WSC HTTP Method"::Put,
-            GlobalWSCWebServConn."WSC HTTP Method"::Patch:
+            GlobalWebServConn."WSC HTTP Method"::Post,
+            GlobalWebServConn."WSC HTTP Method"::Put,
+            GlobalWebServConn."WSC HTTP Method"::Patch:
                 RequestMessage.Content(RequestContent);
         end;
 
         //Execute Call & Response Management
         ClearLastError();
-        OnBeforeSendRequest(Client, GlobalWSCWebServConn);
+        OnBeforeSendRequest(Client, GlobalWebServConn);
         if Client.Send(RequestMessage, ResponseMessage) then
             EvaluateResponse(ResponseMessage)
         else
@@ -149,7 +148,7 @@ codeunit 81002 "WSC Web Services Caller"
         ResponseMessage.Content.ReadAs(ResponseInStream); //Risposta completa sotto forma di file
         if ResponseMessage.IsSuccessStatusCode() then begin
             if ResponseMessage.Content.ReadAs(ResponseText) then
-                if (ResponseText = '') and (GlobalWSCWebServConn."WSC Allow Blank Response") then
+                if (ResponseText = '') and (GlobalWebServConn."WSC Allow Blank Response") then
                     CallExecution := true
                 else begin
                     CallExecution := JsonObjectReader.ReadFrom(ResponseText);
@@ -166,19 +165,18 @@ codeunit 81002 "WSC Web Services Caller"
     #region GeneralFunctions
     local procedure ParseEndPoint(EndPointUrl: Text): Text
     var
-        WSCWSServicesEndPointVar: Record "WSC Web Services EndPoint Var.";
-        WSCWSServicesMgt: Codeunit "WSC Web Services Management";
+        WebServicesEndPointVar: Record "WSC Web Services EndPoint Var.";
         Company: Record Company;
         NewString: Text;
     begin
-        WSCWSServicesEndPointVar.Reset();
-        if WSCWSServicesEndPointVar.IsEmpty() then
+        WebServicesEndPointVar.Reset();
+        if WebServicesEndPointVar.IsEmpty() then
             exit(EndPointUrl);
 
         NewString := EndPointUrl;
-        WSCWSServicesEndPointVar.FindSet();
+        WebServicesEndPointVar.FindSet();
         repeat
-            case WSCWSServicesEndPointVar."WSC Variable Name" of
+            case WebServicesEndPointVar."WSC Variable Name" of
                 '[@CompanyName]':
                     if StrPos(NewString, '[@CompanyName]') > 0 then
                         NewString := EndPointUrl.Replace('[@CompanyName]', CompanyName());
@@ -191,14 +189,14 @@ codeunit 81002 "WSC Web Services Caller"
                     if StrPos(NewString, '[@UserID]') > 0 then
                         NewString := EndPointUrl.Replace('[@UserID]', UserId());
             end;
-            OnParseEndpoint(EndPointUrl, NewString, WSCWSServicesEndPointVar, GlobalWSCWebServConn);
-        until WSCWSServicesEndPointVar.Next() = 0;
+            OnParseEndpoint(EndPointUrl, NewString, WebServicesEndPointVar, GlobalWebServConn);
+        until WebServicesEndPointVar.Next() = 0;
         exit(NewString);
     end;
 
-    local procedure AcquireGlobalWSCConnection(WSCCode: Code[20])
+    local procedure AcquireGlobalWSConnection(WSCCode: Code[20])
     begin
-        GlobalWSCWebServConn.Get(WSCCode);
+        GlobalWebServConn.Get(WSCCode);
     end;
 
     /// <summary>
@@ -222,7 +220,7 @@ codeunit 81002 "WSC Web Services Caller"
 
     local procedure ClearGlobalVariables()
     begin
-        Clear(GlobalWSCWebServConn);
+        Clear(GlobalWebServConn);
         Clear(ResponseInStream);
         Clear(BodyInStream);
         Clear(CallExecution);
@@ -231,87 +229,91 @@ codeunit 81002 "WSC Web Services Caller"
         Clear(NewEndPoint);
     end;
 
-    local procedure CreateBasicAuthHeader(UserName: Text; Password: Text): Text
+    [NonDebuggable]
+    local procedure CreateBasicAuthHeader(): Text
     var
         LocBase64Convert: Codeunit "Base64 Convert";
+        SecurityManagements: Codeunit "WSC Security Managements";
         TempBlob: Codeunit "Temp Blob";
         LocInStream: InStream;
         LocOutStream: OutStream;
         Text001Txt: Label '%1:%2';
         Text002Txt: Label 'Basic %1';
+        Text000Err: Label 'Password must have a value in this type of call';
     begin
-        if GlobalWSCWebServConn."WSC Convert Auth. Base64" then begin
-            TempBlob.CreateOutStream(LocOutStream, TextEncoding::UTF8);
-            LocOutStream.WriteText(StrSubstNo(Text001Txt, UserName, Password));
-            TempBlob.CreateInStream(LocInStream, TextEncoding::UTF8);
-            exit(StrSubstNo(Text002Txt, LocBase64Convert.ToBase64(LocInStream)))
-        end else
-            exit(StrSubstNo(Text002Txt, StrSubstNo(Text001Txt, UserName, Password)));
+        if not SecurityManagements.HasToken(GlobalWebServConn."WSC Password", GlobalWebServConn.GetTokenDataScope()) then
+            Error(Text000Err);
+
+        TempBlob.CreateOutStream(LocOutStream, TextEncoding::UTF8);
+        LocOutStream.WriteText(StrSubstNo(Text001Txt, GlobalWebServConn."WSC Username", SecurityManagements.GetToken(GlobalWebServConn."WSC Password", GlobalWebServConn.GetTokenDataScope())));
+        TempBlob.CreateInStream(LocInStream, TextEncoding::UTF8);
+        exit(StrSubstNo(Text002Txt, LocBase64Convert.ToBase64(LocInStream)))
     end;
 
+    [NonDebuggable]
     local procedure CreateBearerAuthHeader(): Text
     var
         WSCConnBearer: Record "WSC Web Services Connections";
+        SecurityManagements: Codeunit "WSC Security Managements";
         Bearer: Text;
         InStr: InStream;
         Text001Txt: Label 'Bearer must have a value in this type of call';
         Text002Txt: Label 'Bearer %1';
     begin
-        WSCConnBearer.Get(GlobalWSCWebServConn."WSC Bearer Connection Code");
+        WSCConnBearer.Get(GlobalWebServConn."WSC Bearer Connection Code");
         WSCConnBearer.CalcFields("WSC Access Token");
-        if not WSCConnBearer."WSC Access Token".HasValue() then
+        if not SecurityManagements.HasToken(WSCConnBearer."WSC Access Token", WSCConnBearer.GetTokenDataScope()) then
             Error(Text001Txt);
-        WSCConnBearer."WSC Access Token".CreateInStream(InStr);
-        InStr.ReadText(Bearer);
-        exit(StrSubstNo(Text002Txt, Bearer));
+        exit(StrSubstNo(Text002Txt, SecurityManagements.GetToken(WSCConnBearer."WSC Access Token", WSCConnBearer.GetTokenDataScope())));
     end;
 
     local procedure CollectHeaders(var ParContentHeaders: HttpHeaders)
     var
-        WSCWSServicesHeaders: Record "WSC Web Services Headers";
+        WebServicesHeaders: Record "WSC Web Services Headers";
     begin
-        WSCWSServicesHeaders.Reset();
-        WSCWSServicesHeaders.SetRange("WSC Code", GlobalWSCWebServConn."WSC Code");
-        WSCWSServicesHeaders.SetFilter("WSC Key", '<> %1', '');
-        if WSCWSServicesHeaders.IsEmpty() then
+        WebServicesHeaders.Reset();
+        WebServicesHeaders.SetRange("WSC Code", GlobalWebServConn."WSC Code");
+        WebServicesHeaders.SetFilter("WSC Key", '<> %1', '');
+        if WebServicesHeaders.IsEmpty() then
             exit;
 
-        WSCWSServicesHeaders.FindSet();
+        WebServicesHeaders.FindSet();
         repeat
-            if ParContentHeaders.Contains(WSCWSServicesHeaders."WSC Key") then
-                ParContentHeaders.Remove(WSCWSServicesHeaders."WSC Key");
-            ParContentHeaders.Add(WSCWSServicesHeaders."WSC Key", WSCWSServicesHeaders."WSC Value");
-        until WSCWSServicesHeaders.Next() = 0;
+            if ParContentHeaders.Contains(WebServicesHeaders."WSC Key") then
+                ParContentHeaders.Remove(WebServicesHeaders."WSC Key");
+            ParContentHeaders.Add(WebServicesHeaders."WSC Key", WebServicesHeaders."WSC Value");
+        until WebServicesHeaders.Next() = 0;
     end;
 
+    [NonDebuggable]
     local procedure CollectBodies(var ParRequestContent: HttpContent)
     var
-        WSCWSServicesBodies: Record "WSC Web Services Bodies";
+        WebServicesBodies: Record "WSC Web Services Bodies";
         Text000Lbl: Label '%1=%2';
         BodyToWrite: Text;
     begin
-        WSCWSServicesBodies.Reset();
-        WSCWSServicesBodies.SetRange("WSC Code", GlobalWSCWebServConn."WSC Code");
-        WSCWSServicesBodies.SetFilter("WSC Key", '<> %1', '');
-        if WSCWSServicesBodies.IsEmpty() then
+        WebServicesBodies.Reset();
+        WebServicesBodies.SetRange("WSC Code", GlobalWebServConn."WSC Code");
+        WebServicesBodies.SetFilter("WSC Key", '<> %1', '');
+        if WebServicesBodies.IsEmpty() then
             exit;
 
-        WSCWSServicesBodies.FindSet();
+        WebServicesBodies.FindSet();
         repeat
-            BodyToWrite += StrSubstNo(Text000Lbl, WSCWSServicesBodies."WSC Key", WSCWSServicesBodies."WSC Value") + '&';
-        until WSCWSServicesBodies.Next() = 0;
+            BodyToWrite += StrSubstNo(Text000Lbl, WebServicesBodies."WSC Key", WebServicesBodies.GetValue()) + '&';
+        until WebServicesBodies.Next() = 0;
         BodyToWrite := CopyStr(BodyToWrite, 1, StrLen(BodyToWrite) - 1);
         ParRequestContent.WriteFrom(BodyToWrite);
     end;
 
     local procedure HasBodyValues(): Boolean;
     var
-        WSCWSServicesBodies: Record "WSC Web Services Bodies";
+        WebServicesBodies: Record "WSC Web Services Bodies";
     begin
-        WSCWSServicesBodies.Reset();
-        WSCWSServicesBodies.SetRange("WSC Code", GlobalWSCWebServConn."WSC Code");
-        WSCWSServicesBodies.SetFilter("WSC Key", '<> %1', '');
-        if not WSCWSServicesBodies.IsEmpty() then
+        WebServicesBodies.Reset();
+        WebServicesBodies.SetRange("WSC Code", GlobalWebServConn."WSC Code");
+        WebServicesBodies.SetFilter("WSC Key", '<> %1', '');
+        if not WebServicesBodies.IsEmpty() then
             exit(true);
         exit(false);
     end;
@@ -326,7 +328,7 @@ codeunit 81002 "WSC Web Services Caller"
         ImportTxt: Label 'Attach a document.';
     begin
         IsHandled := false;
-        FromRecRef.GetTable(GlobalWSCWebServConn);
+        FromRecRef.GetTable(GlobalWebServConn);
         OnBeforeImportWithFilter(TempBlob, FileName, IsHandled, FromRecRef);
         if IsHandled then
             exit;
@@ -339,34 +341,34 @@ codeunit 81002 "WSC Web Services Caller"
     #region IntegrationEvents
 
     [IntegrationEvent(false, false)]
-    local procedure OnBeforeCalls(var IsHandled: Boolean; WSCWSServicesConnections: Record "WSC Web Services Connections")
+    local procedure OnBeforeCalls(var IsHandled: Boolean; WebServicesConnections: Record "WSC Web Services Connections")
     begin
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnAfterInitializeRequestHeaders(var RequestHeaders: HttpHeaders; WSCWSServicesConnections: Record "WSC Web Services Connections")
+    local procedure OnAfterInitializeRequestHeaders(var RequestHeaders: HttpHeaders; WebServicesConnections: Record "WSC Web Services Connections")
     begin
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnSetFixBodyMessage(var WSCWSServicesConnections: Record "WSC Web Services Connections")
+    local procedure OnSetFixBodyMessage(var WebServicesConnections: Record "WSC Web Services Connections")
     begin
         //Modify is not needed
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnAfterSetContentHeaders(var ContentHeaders: HttpHeaders; WSCWSServicesConnections: Record "WSC Web Services Connections")
+    local procedure OnAfterSetContentHeaders(var ContentHeaders: HttpHeaders; WebServicesConnections: Record "WSC Web Services Connections")
     begin
     end;
 
 
     [IntegrationEvent(false, false)]
-    local procedure OnBeforeSetRequestContent(var RequestContent: HttpContent; WSCWSServicesConnections: Record "WSC Web Services Connections")
+    local procedure OnBeforeSetRequestContent(var RequestContent: HttpContent; WebServicesConnections: Record "WSC Web Services Connections")
     begin
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnBeforeSendRequest(var Client: HttpClient; WSCWSServicesConnections: Record "WSC Web Services Connections")
+    local procedure OnBeforeSendRequest(var Client: HttpClient; WebServicesConnections: Record "WSC Web Services Connections")
     begin
     end;
 
@@ -381,12 +383,12 @@ codeunit 81002 "WSC Web Services Caller"
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnParseEndpoint(OldEndPointString: Text; var NewEndPointString: Text; WSCWebServicesEndPointVar: Record "WSC Web Services EndPoint Var."; WSCWSServicesConnections: Record "WSC Web Services Connections")
+    local procedure OnParseEndpoint(OldEndPointString: Text; var NewEndPointString: Text; WebServicesEndPointVar: Record "WSC Web Services EndPoint Var."; WebServicesConnections: Record "WSC Web Services Connections")
     begin
     end;
     #endregion IntegrationEvents
     var
-        GlobalWSCWebServConn: Record "WSC Web Services Connections";
+        GlobalWebServConn: Record "WSC Web Services Connections";
         NewEndPoint: Text;
         LastMessageText: Text;
         BodyInStream: InStream;

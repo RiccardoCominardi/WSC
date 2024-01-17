@@ -66,9 +66,9 @@ page 81001 "WSC Web Services Conn. List"
                     ToolTip = 'Set Header information for the Web Service call';
                     trigger OnAction()
                     var
-                        WSCWSServicesHeaders: Record "WSC Web Services Headers";
+                        WebServicesHeaders: Record "WSC Web Services Headers";
                     begin
-                        WSCWSServicesHeaders.ViewLog(Rec."WSC Code");
+                        WebServicesHeaders.ViewLog(Rec."WSC Code");
                     end;
                 }
                 action(Bodies)
@@ -80,9 +80,9 @@ page 81001 "WSC Web Services Conn. List"
 
                     trigger OnAction()
                     var
-                        WSCWSServicesBodies: Record "WSC Web Services Bodies";
+                        WebServicesBodies: Record "WSC Web Services Bodies";
                     begin
-                        WSCWSServicesBodies.ViewLog(Rec."WSC Code");
+                        WebServicesBodies.ViewLog(Rec."WSC Code");
                     end;
                 }
             }
@@ -95,9 +95,9 @@ page 81001 "WSC Web Services Conn. List"
 
                 trigger OnAction()
                 var
-                    WSCWSServicesLogCalls: Record "WSC Web Services Log Calls";
+                    WebServicesLogCalls: Record "WSC Web Services Log Calls";
                 begin
-                    WSCWSServicesLogCalls.ViewLog(Rec."WSC Code");
+                    WebServicesLogCalls.ViewLog(Rec."WSC Code");
                 end;
             }
             action(ViewAsTree)
@@ -109,9 +109,9 @@ page 81001 "WSC Web Services Conn. List"
 
                 trigger OnAction()
                 var
-                    WSCWSServicesMgt: Codeunit "WSC Web Services Management";
+                    WebServicesManagement: Codeunit "WSC Web Services Management";
                 begin
-                    WSCWSServicesMgt.ShowWSCAsTree();
+                    WebServicesManagement.ShowWSCAsTree();
                 end;
             }
         }
@@ -127,10 +127,10 @@ page 81001 "WSC Web Services Conn. List"
 
                 trigger OnAction()
                 var
-                    WSCWebServicesLogCalls: Record "WSC Web Services Log Calls";
-                    WSCWSServicesMgt: Codeunit "WSC Web Services Management";
+                    WebServicesLogCalls: Record "WSC Web Services Log Calls";
+                    WebServicesManagement: Codeunit "WSC Web Services Management";
                 begin
-                    WSCWSServicesMgt.ExecuteWSCConnections(Rec."WSC Code", WSCWebServicesLogCalls);
+                    WebServicesManagement.ExecuteWSCConnections(Rec."WSC Code", WebServicesLogCalls);
                 end;
             }
             action(TEST)
@@ -143,9 +143,9 @@ page 81001 "WSC Web Services Conn. List"
 
                 trigger OnAction()
                 var
-                    WSCWSServicesExamples: Codeunit "WSC Web Services Examples";
+                    WebServicesExamples: Codeunit "WSC Web Services Examples";
                 begin
-                    WSCWSServicesExamples.ExecuteWSCTestCodeWithCustomBody();
+                    WebServicesExamples.ExecuteWSCTestCodeWithCustomBody();
                 end;
             }
             action(ImportWSConfiguration)
