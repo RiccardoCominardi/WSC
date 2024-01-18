@@ -200,9 +200,14 @@ table 81004 "WSC Web Services Log Calls"
 
     trigger OnDelete()
     var
+        WebServicesLogParam: Record "WSC Web Services Log Param.";
         WebServicesLogHeaders: Record "WSC Web Services Log Headers";
         WebServicesLogBodies: Record "WSC Web Services Log Bodies";
     begin
+        WebServicesLogParam.Reset();
+        WebServicesLogParam.SetRange("WSC Code", Rec."WSC Code");
+        WebServicesLogParam.DeleteAll();
+
         WebServicesLogHeaders.Reset();
         WebServicesLogHeaders.SetRange("WSC Code", Rec."WSC Code");
         WebServicesLogHeaders.DeleteAll();

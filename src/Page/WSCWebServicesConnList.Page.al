@@ -58,6 +58,19 @@ page 81001 "WSC Web Services Conn. List"
             {
                 Caption = 'Request Details';
                 Image = SetupLines;
+                action(Parameters)
+                {
+                    ApplicationArea = All;
+                    Image = SetupList;
+                    Caption = 'Parameters';
+                    ToolTip = 'Set Parameter information for the Web Service call';
+                    trigger OnAction()
+                    var
+                        WebServicesParameters: Record "WSC Web Services Parameters";
+                    begin
+                        WebServicesParameters.ViewLog(Rec."WSC Code");
+                    end;
+                }
                 action(Headers)
                 {
                     ApplicationArea = All;
@@ -192,6 +205,7 @@ page 81001 "WSC Web Services Conn. List"
             {
                 Caption = 'Request Details';
 
+                actionref(Parameters_Promoted; Parameters) { }
                 actionref(Headers_Promoted; Headers) { }
                 actionref(Bodies_Promoted; Bodies) { }
             }

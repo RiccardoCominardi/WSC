@@ -128,7 +128,22 @@ codeunit 82000 "WSC Web Services Examples"
         RequestHeaders.Add('Authorization', CreateBasicAuthHeader('TestUser', 'TestPassword'));
     end;
 
-    //To handle custom endpoint variables    
+    //To handle variable parameters in endpoint 
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"WSC Web Services Caller", OnParseVariableParameter, '', false, false)]
+    local procedure OnParseVariableParameter(var EndpointString: Text; WebServicesParameters: Record "WSC Web Services Parameters");
+    begin
+        //This piece of code is required for WS calls to work properly. Your parameters body must not have affect the parameters of other call
+        if WebServicesParameters."WSC Code" <> 'FIO_PROD_ORD_COMP' then
+            exit;
+
+        case WebServicesParameters."WSC Key" of
+            '$filter':
+                EndpointString := StrSubstNo(EndpointString, 'OPR21-0006799'); //I know that the parameter has only %1
+        end;
+    end;
+
+    //To handle variable in endpoint
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"WSC Web Services Caller", 'OnParseEndpoint', '', false, false)]
     local procedure OnParseEndpoint(OldEndPointString: Text; var NewEndPointString: Text; WebServicesEndPointVar: Record "WSC Web Services EndPoint Var."; WebServicesConnections: Record "WSC Web Services Connections");
     begin

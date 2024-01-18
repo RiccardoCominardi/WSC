@@ -113,6 +113,7 @@ codeunit 81002 "WSC Web Services Caller"
         OnAfterSetContentHeaders(ContentHeaders, GlobalWebServConn);
         RequestMessage.Method := Format(GlobalWebServConn."WSC HTTP Method");
         NewEndPoint := ParseEndPoint(GlobalWebServConn."WSC EndPoint");
+        NewEndPoint := AddParameters(NewEndPoint);
         RequestMessage.SetRequestUri(NewEndPoint);
 
         OnBeforeSetRequestContent(RequestContent, GlobalWebServConn);
@@ -158,13 +159,39 @@ codeunit 81002 "WSC Web Services Caller"
                 end;
         end else begin
             if ResponseMessage.Content.ReadAs(ResponseText) then
-                JsonObjectReader.ReadFrom(ResponseText);
+                if ResponseText <> '' then
+                    JsonObjectReader.ReadFrom(ResponseText);
             LastMessageText := ResponseMessage.ReasonPhrase(); //Messaggio di errore del server
         end;
         HttpStatusCode := ResponseMessage.HttpStatusCode;
     end;
     #endregion CallFunctions
     #region GeneralFunctions
+
+    local procedure AddParameters(EndPointUrl: Text) NewString: Text
+    var
+        WebServicesParameters: Record "WSC Web Services Parameters";
+        Text000Lbl: label '%1=%2';
+    begin
+        NewString := EndPointUrl;
+
+        WebServicesParameters.Reset();
+        WebServicesParameters.SetRange("WSC Code", GlobalWebServConn."WSC Code");
+        WebServicesParameters.SetFilter("WSC Key", '<> %1', '');
+        if WebServicesParameters.IsEmpty() then
+            exit;
+
+        NewString += '?';
+        WebServicesParameters.FindSet();
+        repeat
+            NewString += StrSubstNo(Text000Lbl, WebServicesParameters."WSC Key", WebServicesParameters."WSC Value") + '&';
+            //Replace %1, %2 ecc. with your custom filters
+            if WebServicesParameters.IsVariableValues() then
+                OnParseVariableParameter(NewString, WebServicesParameters);
+        until WebServicesParameters.Next() = 0;
+        NewString := NewString.TrimEnd('&');
+    end;
+
     local procedure ParseEndPoint(EndPointUrl: Text): Text
     var
         WebServicesEndPointVar: Record "WSC Web Services EndPoint Var.";
@@ -400,6 +427,12 @@ codeunit 81002 "WSC Web Services Caller"
     local procedure OnParseEndpoint(OldEndPointString: Text; var NewEndPointString: Text; WebServicesEndPointVar: Record "WSC Web Services EndPoint Var."; WebServicesConnections: Record "WSC Web Services Connections")
     begin
     end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnParseVariableParameter(var EndpointString: Text; WebServicesParameters: Record "WSC Web Services Parameters")
+    begin
+    end;
+
     #endregion IntegrationEvents
     var
         GlobalWebServConn: Record "WSC Web Services Connections";

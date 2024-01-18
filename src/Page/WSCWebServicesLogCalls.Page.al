@@ -117,12 +117,23 @@ page 81005 "WSC Web Services Log Calls"
     {
         area(Processing)
         {
+            action(Parameters)
+            {
+                ApplicationArea = All;
+                Image = SetupList;
+                Caption = 'Parameters';
+                ToolTip = 'Set Parameter information for the Web Service call';
+                trigger OnAction()
+                var
+                    WebServicesLogParam: Record "WSC Web Services Log Param.";
+                begin
+                    WebServicesLogParam.ViewLog(Rec."WSC Code", Rec."WSC Entry No.");
+                end;
+            }
             action(Headers)
             {
                 Caption = 'Headers';
                 ApplicationArea = All;
-                PromotedCategory = Process;
-                Promoted = true;
                 Image = SetupList;
 
                 trigger OnAction()
@@ -136,8 +147,6 @@ page 81005 "WSC Web Services Log Calls"
             {
                 Caption = 'Bodies';
                 ApplicationArea = All;
-                PromotedCategory = Process;
-                Promoted = true;
                 Image = SetupList;
 
                 trigger OnAction()
@@ -147,6 +156,14 @@ page 81005 "WSC Web Services Log Calls"
                     WebServicesLogBodies.ViewLog(Rec."WSC Code", Rec."WSC Entry No.");
                 end;
             }
+        }
+
+        area(Promoted)
+        {
+            actionref(Parameters_Promoted; Parameters) { }
+            actionref(Headers_Promoted; Headers) { }
+            actionref(Bodies_Promoted; Bodies) { }
+
         }
     }
 }

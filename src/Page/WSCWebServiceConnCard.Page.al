@@ -79,6 +79,11 @@ page 81002 "WSC Web Service Conn. Card"
                 {
                     ApplicationArea = All;
                 }
+                field("WSC Store Parameters Datas"; Rec."WSC Store Parameters Datas")
+                {
+                    ApplicationArea = All;
+                }
+
                 field("WSC Store Headers Datas"; Rec."WSC Store Headers Datas")
                 {
                     ApplicationArea = All;
@@ -144,10 +149,16 @@ page 81002 "WSC Web Service Conn. Card"
         }
         area(factboxes)
         {
-            part(WSCWebServicesEndPointVar; "WSC Web Services EndPoint Var.")
+            part(WebServicesEndPointVar; "WSC Web Services EndPoint Var.")
             {
                 ApplicationArea = All;
                 Caption = 'EndPoint Variables';
+            }
+            part(WebServicesParamFactbox; "WSC Web Services Param Factbox")
+            {
+                ApplicationArea = All;
+                Caption = 'Parameters';
+                SubPageLink = "WSC Code" = field("WSC Code");
             }
             systempart(Control1900383207; Links)
             {
@@ -165,13 +176,24 @@ page 81002 "WSC Web Service Conn. Card"
     {
         area(Processing)
         {
+            action(Parameters)
+            {
+                ToolTip = 'Set Parameter information for the Web Service call';
+                Caption = 'Parameters';
+                ApplicationArea = All;
+                Image = SetupList;
+                trigger OnAction()
+                var
+                    WebServicesParameters: Record "WSC Web Services Parameters";
+                begin
+                    WebServicesParameters.ViewLog(Rec."WSC Code");
+                end;
+            }
             action(Headers)
             {
                 Caption = 'Headers';
                 ToolTip = 'Set Header information for the Web Service call';
                 ApplicationArea = All;
-                PromotedCategory = Process;
-                Promoted = true;
                 Image = SetupList;
 
                 trigger OnAction()
@@ -186,8 +208,6 @@ page 81002 "WSC Web Service Conn. Card"
                 Caption = 'Bodies';
                 ToolTip = 'Set Bodies information for the Web Service call';
                 ApplicationArea = All;
-                PromotedCategory = Process;
-                Promoted = true;
                 Image = SetupList;
 
                 trigger OnAction()
@@ -202,8 +222,6 @@ page 81002 "WSC Web Service Conn. Card"
                 Caption = 'Send Request';
                 ToolTip = 'Send the Web Service request';
                 ApplicationArea = All;
-                PromotedCategory = Process;
-                Promoted = true;
                 Image = "Invoicing-MDL-Send";
 
                 trigger OnAction()
@@ -219,8 +237,6 @@ page 81002 "WSC Web Service Conn. Card"
                 Caption = 'View Log';
                 ToolTip = 'View Web Service log for this Code';
                 ApplicationArea = All;
-                PromotedCategory = Process;
-                Promoted = true;
                 Image = Log;
 
                 trigger OnAction()
@@ -230,6 +246,15 @@ page 81002 "WSC Web Service Conn. Card"
                     WebServicesLogCalls.ViewLog(Rec."WSC Code");
                 end;
             }
+        }
+
+        area(Promoted)
+        {
+            actionref(Parameters_Promoted; Parameters) { }
+            actionref(Headers_Promoted; Headers) { }
+            actionref(Bodies_Promoted; Bodies) { }
+            actionref(SendRequest_Promoted; SendRequest) { }
+            actionref(ViewLog_Promoted; ViewLog) { }
         }
     }
 

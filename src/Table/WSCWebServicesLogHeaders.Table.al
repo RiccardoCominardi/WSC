@@ -66,7 +66,7 @@ table 81005 "WSC Web Services Log Headers"
         WebServicesLogHeaders.Reset();
         WebServicesLogHeaders.FilterGroup(2);
         WebServicesLogHeaders.SetRange("WSC Code", WebServicesLogCalls."WSC Code");
-        WebServicesLogHeaders.SetRange("WSC Entry No.", WebServicesLogCalls."WSC Entry No.");
+        WebServicesLogHeaders.SetRange("WSC Log Entry No.", WebServicesLogCalls."WSC Entry No.");
         WebServicesLogHeaders.FilterGroup(0);
         Page.RunModal(0, WebServicesLogHeaders);
     end;

@@ -1,10 +1,10 @@
 /// <summary>
-/// Codeunit WSC Install (ID 81004).
+/// Codeunit WSC Upgrade (ID 81004).
 /// </summary>
-codeunit 81004 "WSC Install"
+codeunit 81004 "WSC Upgrade"
 {
-    Subtype = Install;
-    trigger OnInstallAppPerCompany()
+    Subtype = Upgrade;
+    trigger OnUpgradePerCompany()
     var
         myAppInfo: ModuleInfo;
     begin
@@ -15,7 +15,7 @@ codeunit 81004 "WSC Install"
             HandleReinstall();
     end;
 
-    trigger OnInstallAppPerDatabase()
+    trigger OnValidateUpgradePerDatabase()
     begin
 
     end;

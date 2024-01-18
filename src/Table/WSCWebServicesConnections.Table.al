@@ -188,6 +188,17 @@ table 81001 "WSC Web Services Connections"
                         Error('');
             end;
         }
+        field(26; "WSC Store Parameters Datas"; Boolean)
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Store Parameters Datas';
+            trigger OnValidate()
+            begin
+                if not xRec."WSC Store Parameters Datas" and Rec."WSC Store Parameters Datas" then
+                    if not Confirm(Text000Qst, false) then
+                        Error('');
+            end;
+        }
     }
 
     keys
@@ -213,22 +224,27 @@ table 81001 "WSC Web Services Connections"
 
     trigger OnDelete()
     var
-        WSCWSServicesHeaders: Record "WSC Web Services Headers";
-        WSCWSServicesBodies: Record "WSC Web Services Bodies";
-        WSCWSServicesLogCalls: Record "WSC Web Services Log Calls";
+        WebServicesParameters: Record "WSC Web Services Parameters";
+        WebServicesHeaders: Record "WSC Web Services Headers";
+        WebServicesBodies: Record "WSC Web Services Bodies";
+        WebServicesLogCalls: Record "WSC Web Services Log Calls";
         SecurityManagements: Codeunit "WSC Security Managements";
     begin
-        WSCWSServicesHeaders.Reset();
-        WSCWSServicesHeaders.SetRange("WSC Code", Rec."WSC Code");
-        WSCWSServicesHeaders.DeleteAll();
+        WebServicesParameters.Reset();
+        WebServicesParameters.SetRange("WSC Code", Rec."WSC Code");
+        WebServicesParameters.DeleteAll();
 
-        WSCWSServicesBodies.Reset();
-        WSCWSServicesBodies.SetRange("WSC Code", Rec."WSC Code");
-        WSCWSServicesBodies.DeleteAll();
+        WebServicesHeaders.Reset();
+        WebServicesHeaders.SetRange("WSC Code", Rec."WSC Code");
+        WebServicesHeaders.DeleteAll();
 
-        WSCWSServicesLogCalls.Reset();
-        WSCWSServicesLogCalls.SetRange("WSC Code", Rec."WSC Code");
-        WSCWSServicesLogCalls.DeleteAll(true);
+        WebServicesBodies.Reset();
+        WebServicesBodies.SetRange("WSC Code", Rec."WSC Code");
+        WebServicesBodies.DeleteAll();
+
+        WebServicesLogCalls.Reset();
+        WebServicesLogCalls.SetRange("WSC Code", Rec."WSC Code");
+        WebServicesLogCalls.DeleteAll(true);
 
         SecurityManagements.DeleteToken(Rec."WSC Access Token", GetTokenDataScope());
         SecurityManagements.DeleteToken(Rec."WSC Refresh Token", GetTokenDataScope());

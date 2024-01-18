@@ -211,6 +211,9 @@ codeunit 81001 "WSC Web Services Management"
         DataCompression: Codeunit "Data Compression";
         CurrText: Text;
     begin
+        if InStr.Length = 0 then
+            exit;
+
         DataCompression.CreateZipArchive();
         DataCompression.AddEntry(InStr, 'ResponseMessage.json');
         DataCompression.SaveZipArchive(OutStr);
@@ -607,10 +610,46 @@ codeunit 81001 "WSC Web Services Management"
         OnBeforeInsertWebServicesLogCalls(WebServicesLogCalls, WebServicesConnections);
         WebServicesLogCalls.Insert();
 
+        if WebServicesConnections."WSC Store Parameters Datas" then
+            WriteParametersLog(WSCCode, CurrEntryNo);
         if WebServicesConnections."WSC Store Headers Datas" then
             WriteHeaderLog(WSCCode, CurrEntryNo);
         if WebServicesConnections."WSC Store Body Datas" then
             WriteBodyLog(WSCCode, CurrEntryNo);
+    end;
+
+    local procedure WriteParametersLog(WSCCode: Code[20]; LogEntryNo: Integer)
+    var
+        WebServicesParameters: Record "WSC Web Services Parameters";
+        WebServicesLogParam: Record "WSC Web Services Log Param.";
+        NextEntryNo: Integer;
+    begin
+        WebServicesParameters.Reset();
+        WebServicesParameters.SetRange("WSC Code", WSCCode);
+        if WebServicesParameters.IsEmpty() then
+            exit;
+
+        WebServicesLogParam.Reset();
+        WebServicesLogParam.SetRange("WSC Code", WSCCode);
+        WebServicesLogParam.SetRange("WSC Log Entry No.", LogEntryNo);
+        if WebServicesLogParam.FindLast() then
+            NextEntryNo := WebServicesLogParam."WSC Entry No."
+        else
+            NextEntryNo := 0;
+
+        WebServicesParameters.FindSet();
+        repeat
+            NextEntryNo += 1;
+            WebServicesLogParam.Init();
+            WebServicesLogParam."WSC Log Entry No." := LogEntryNo;
+            WebServicesLogParam."WSC Entry No." := NextEntryNo;
+            WebServicesLogParam."WSC Code" := WebServicesParameters."WSC Code";
+            WebServicesLogParam."WSC Key" := WebServicesParameters."WSC Key";
+            WebServicesLogParam."WSC Value" := WebServicesParameters."WSC Value"; //serve prendere il dato dei parametri????
+            WebServicesLogParam."WSC Description" := WebServicesParameters."WSC Description";
+            OnBeforeInsertWebServicesLogParam(WebServicesLogParam, WebServicesParameters);
+            WebServicesLogParam.Insert();
+        until WebServicesParameters.Next() = 0;
     end;
 
     local procedure WriteHeaderLog(WSCCode: Code[20]; LogEntryNo: Integer)
@@ -721,6 +760,11 @@ codeunit 81001 "WSC Web Services Management"
 
     [IntegrationEvent(false, false)]
     local procedure OnBeforeInsertWebServicesLogCalls(var WebServicesLogCalls: Record "WSC Web Services Log Calls"; WebServicesConnections: Record "WSC Web Services Connections")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeInsertWebServicesLogParam(var WebServicesLogParam: Record "WSC Web Services Log Param."; WebServicesParameters: Record "WSC Web Services Parameters")
     begin
     end;
 

@@ -1,12 +1,12 @@
 /// <summary>
-/// Table WSC Web Services Log Bodies (ID 81006).
+/// Table WSC Web Services Log Param. (ID 81011).
 /// </summary>
-table 81006 "WSC Web Services Log Bodies"
+table 81011 "WSC Web Services Log Param."
 {
-    Caption = 'Web Services - Log Bodies';
+    Caption = 'Web Services - Log Parameters';
     DataClassification = CustomerContent;
-    DrillDownPageId = "WSC Web Services Log Bodies";
-    LookupPageId = "WSC Web Services Log Bodies";
+    DrillDownPageId = "WSC Web Services Log Param.";
+    LookupPageId = "WSC Web Services Log Param.";
 
     fields
     {
@@ -59,16 +59,16 @@ table 81006 "WSC Web Services Log Bodies"
     procedure ViewLog(WSCCode: Code[20]; EntryNo: Integer)
     var
         WebServicesLogCalls: Record "WSC Web Services Log Calls";
-        WebServicesLogBodies: Record "WSC Web Services Log Bodies";
+        WebServicesLogParam: Record "WSC Web Services Log Param.";
     begin
         WebServicesLogCalls.Get(WSCCode, EntryNo);
 
-        WebServicesLogBodies.Reset();
-        WebServicesLogBodies.FilterGroup(2);
-        WebServicesLogBodies.SetRange("WSC Code", WebServicesLogCalls."WSC Code");
-        WebServicesLogBodies.SetRange("WSC Log Entry No.", WebServicesLogCalls."WSC Entry No.");
-        WebServicesLogBodies.FilterGroup(0);
-        Page.RunModal(0, WebServicesLogBodies);
+        WebServicesLogParam.Reset();
+        WebServicesLogParam.FilterGroup(2);
+        WebServicesLogParam.SetRange("WSC Code", WebServicesLogCalls."WSC Code");
+        WebServicesLogParam.SetRange("WSC Log Entry No.", WebServicesLogCalls."WSC Entry No.");
+        WebServicesLogParam.FilterGroup(0);
+        Page.RunModal(0, WebServicesLogParam);
     end;
 
     trigger OnInsert()
