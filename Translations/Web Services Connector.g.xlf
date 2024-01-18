@@ -768,15 +768,15 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Control WSC Authorization Time - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 807015976 - Control 3327296369 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 807015976 - Control 2718719356 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>EndPoint Variables</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Control WSCWebServicesEndPointVar - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Control WebServicesEndPointVar - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 807015976 - Control 544936901 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 807015976 - Control 2912574016 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Parameters</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Control WSCWebServicesParamFactbox - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Control WebServicesParamFactbox - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 807015976 - Action 3077534250 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Set Bodies information for the Web Service call</source>

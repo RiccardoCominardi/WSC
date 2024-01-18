@@ -510,6 +510,7 @@ codeunit 81003 "WSC Import Export Config."
             Clear(JObjectName);
             JObjectName.Add('code', WebServicesConnections."WSC Code");
             AddArray(JObjectName, 'generalInfo', WebServicesConnections);
+            AddArray(JObjectName, 'parameter', WebServicesConnections);
             AddArray(JObjectName, 'header', WebServicesConnections);
             AddArray(JObjectName, 'body', WebServicesConnections);
             OnBeforeAddArrayCodesContent(JObjectName, WebServicesConnections);
