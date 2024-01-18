@@ -12,6 +12,7 @@ codeunit 81003 "WSC Import Export Config."
         TempWebServicesConnections: Record "WSC Web Services Connections" temporary;
         TempWebServicesHeaders: Record "WSC Web Services Headers" temporary;
         TempWebServicesBodies: Record "WSC Web Services Bodies" temporary;
+        TempWebServicesGroupCodes: Record "WSC Web Services Group Codes" temporary;
         TableType: Option Default,Header,Body;
         GroupCode: Code[20];
         CurrWSCode: Code[20];
@@ -111,7 +112,16 @@ codeunit 81003 "WSC Import Export Config."
             TableType::Default:
                 case JsonFieldName of
                     'groupCode':
-                        GroupCode := JsonKeyValue.AsText();
+                        begin
+                            GroupCode := JsonKeyValue.AsText();
+                            if not TempWebServicesGroupCodes.Get(GroupCode) then
+                                if GroupCode <> '' then begin
+                                    TempWebServicesGroupCodes.Init();
+                                    TempWebServicesGroupCodes."WSC Code" := GroupCode;
+                                    TempWebServicesGroupCodes."WSC Description" := GroupCode;
+                                    TempWebServicesGroupCodes.Insert();
+                                end;
+                        end;
                     'code':
                         begin
                             SetNewRecordToInsert(TableType);
@@ -223,6 +233,7 @@ codeunit 81003 "WSC Import Export Config."
         WebServicesConnections: Record "WSC Web Services Connections";
         WebServicesHeaders: Record "WSC Web Services Headers";
         WebServicesBodies: Record "WSC Web Services Bodies";
+        WebServicesGroupCodes: Record "WSC Web Services Group Codes";
         Text000Lbl: Label 'Nothing to Import';
     begin
         TempWebServicesConnections.Reset();
@@ -262,6 +273,19 @@ codeunit 81003 "WSC Import Export Config."
             end;
         until TempWebServicesConnections.Next() = 0;
 
+        //Insert Group Codes if not exist
+        TempWebServicesGroupCodes.Reset();
+        if not TempWebServicesGroupCodes.IsEmpty() then begin
+            TempWebServicesGroupCodes.FindSet();
+            repeat
+                if not WebServicesGroupCodes.Get(TempWebServicesGroupCodes."WSC Code") then begin
+                    WebServicesGroupCodes.Init();
+                    WebServicesGroupCodes.TransferFields(TempWebServicesGroupCodes);
+                    WebServicesGroupCodes.Insert();
+                end;
+            until TempWebServicesGroupCodes.Next() = 0;
+        end;
+
         InitializeTempVar();
     end;
 
@@ -273,13 +297,15 @@ codeunit 81003 "WSC Import Export Config."
         TempWebServicesHeaders.DeleteAll();
         TempWebServicesBodies.Reset();
         TempWebServicesBodies.DeleteAll();
+        TempWebServicesGroupCodes.Reset();
+        TempWebServicesGroupCodes.DeleteAll();
     end;
 
     local procedure UpdateRelatedTableKey()
     var
-        HeaderParameters,
-        BodyParameters : List of [Text];
-        Parameters: Text;
+        HeaderDatas,
+        BodyDatas : List of [Text];
+        Datas: Text;
     begin
         //Store Paramters Into List
         TempWebServicesHeaders.Reset();
@@ -287,7 +313,7 @@ codeunit 81003 "WSC Import Export Config."
         if not TempWebServicesHeaders.IsEmpty() then begin
             TempWebServicesHeaders.FindSet();
             repeat
-                HeaderParameters.Add(TempWebServicesHeaders."WSC Key");
+                HeaderDatas.Add(TempWebServicesHeaders."WSC Key");
             until TempWebServicesHeaders.Next() = 0;
         end;
 
@@ -296,20 +322,20 @@ codeunit 81003 "WSC Import Export Config."
         if not TempWebServicesBodies.IsEmpty() then begin
             TempWebServicesBodies.FindSet();
             repeat
-                BodyParameters.Add(TempWebServicesBodies."WSC Key");
+                BodyDatas.Add(TempWebServicesBodies."WSC Key");
             until TempWebServicesBodies.Next() = 0;
         end;
 
         //Update Headers
-        foreach Parameters in HeaderParameters do begin
-            if TempWebServicesHeaders.Get(TempWebServicesConnections."WSC Previous Code", Parameters) then
-                TempWebServicesHeaders.Rename(TempWebServicesConnections."WSC Code", Parameters);
+        foreach Datas in HeaderDatas do begin
+            if TempWebServicesHeaders.Get(TempWebServicesConnections."WSC Previous Code", Datas) then
+                TempWebServicesHeaders.Rename(TempWebServicesConnections."WSC Code", Datas);
         end;
 
         //Update Bodies
-        foreach Parameters in BodyParameters do begin
-            if TempWebServicesBodies.Get(TempWebServicesConnections."WSC Previous Code", Parameters) then
-                TempWebServicesBodies.Rename(TempWebServicesConnections."WSC Code", Parameters);
+        foreach Datas in BodyDatas do begin
+            if TempWebServicesBodies.Get(TempWebServicesConnections."WSC Previous Code", Datas) then
+                TempWebServicesBodies.Rename(TempWebServicesConnections."WSC Code", Datas);
         end;
     end;
 

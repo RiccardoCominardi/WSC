@@ -933,11 +933,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum WSC Body Methods - EnumValue   - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Enum 3194914333 - EnumValue 363624479 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Custom file</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Enum WSC Body Methods - EnumValue custom file - Property Caption</note>
-        </trans-unit>
         <trans-unit id="Enum 3194914333 - EnumValue 2219069924 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Fixed file</source>
           <note from="Developer" annotates="general" priority="2"></note>
