@@ -1,12 +1,12 @@
 /// <summary>
-/// Table WSC Web Services Log Param. (ID 81011).
+/// Table WSC Log Parameters (ID 81011).
 /// </summary>
-table 81011 "WSC Web Services Log Param."
+table 81011 "WSC Log Parameters"
 {
     Caption = 'Web Services - Log Parameters';
     DataClassification = CustomerContent;
-    DrillDownPageId = "WSC Web Services Log Param.";
-    LookupPageId = "WSC Web Services Log Param.";
+    DrillDownPageId = "WSC Log Parameters";
+    LookupPageId = "WSC Log Parameters";
 
     fields
     {
@@ -24,7 +24,7 @@ table 81011 "WSC Web Services Log Param."
         {
             DataClassification = CustomerContent;
             Caption = 'Code';
-            TableRelation = "WSC Web Services Connections"."WSC Code";
+            TableRelation = "WSC Connections"."WSC Code";
         }
         field(4; "WSC Key"; Text[20])
         {
@@ -58,17 +58,17 @@ table 81011 "WSC Web Services Log Param."
     /// <param name="EntryNo">Integer.</param>
     procedure ViewLog(WSCCode: Code[20]; EntryNo: Integer)
     var
-        WebServicesLogCalls: Record "WSC Web Services Log Calls";
-        WebServicesLogParam: Record "WSC Web Services Log Param.";
+        LogCalls: Record "WSC Log Calls";
+        LogParameters: Record "WSC Log Parameters";
     begin
-        WebServicesLogCalls.Get(WSCCode, EntryNo);
+        LogCalls.Get(WSCCode, EntryNo);
 
-        WebServicesLogParam.Reset();
-        WebServicesLogParam.FilterGroup(2);
-        WebServicesLogParam.SetRange("WSC Code", WebServicesLogCalls."WSC Code");
-        WebServicesLogParam.SetRange("WSC Log Entry No.", WebServicesLogCalls."WSC Entry No.");
-        WebServicesLogParam.FilterGroup(0);
-        Page.RunModal(0, WebServicesLogParam);
+        LogParameters.Reset();
+        LogParameters.FilterGroup(2);
+        LogParameters.SetRange("WSC Code", LogCalls."WSC Code");
+        LogParameters.SetRange("WSC Log Entry No.", LogCalls."WSC Entry No.");
+        LogParameters.FilterGroup(0);
+        Page.RunModal(0, LogParameters);
     end;
 
     trigger OnInsert()

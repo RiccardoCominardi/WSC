@@ -1,11 +1,11 @@
 /// <summary>
-/// Page WSC Web Services Headers (ID 81003).
+/// Page WSC Parameters (ID 81013).
 /// </summary>
-page 81003 "WSC Web Services Headers"
+page 81013 "WSC Parameters"
 {
-    Caption = 'Web Services - Headers';
+    Caption = 'Parameters';
     PageType = List;
-    SourceTable = "WSC Web Services Headers";
+    SourceTable = "WSC Parameters";
 
     layout
     {
@@ -25,7 +25,21 @@ page 81003 "WSC Web Services Headers"
                 {
                     ApplicationArea = All;
                 }
+                field(IsVariableValue; IsVariableValue)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Variable Value';
+                    Editable = false;
+                }
             }
         }
     }
+
+    trigger OnAfterGetRecord()
+    begin
+        IsVariableValue := Rec.IsVariableValues();
+    end;
+
+    var
+        IsVariableValue: Boolean;
 }

@@ -1,15 +1,16 @@
 /// <summary>
-/// Page WSC Web Services Log Bodies (ID 81007).
+/// Page WSC Log Parameters (ID 81014).
 /// </summary>
-page 81007 "WSC Web Services Log Bodies"
+page 81014 "WSC Log Parameters"
 {
-    Caption = 'Web Services - Log Bodies';
+    Caption = 'Log Parameters';
     PageType = List;
-    SourceTable = "WSC Web Services Log Bodies";
+    SourceTable = "WSC Log Parameters";
     Editable = false;
     InsertAllowed = false;
     ModifyAllowed = false;
     DeleteAllowed = false;
+
     layout
     {
         area(Content)

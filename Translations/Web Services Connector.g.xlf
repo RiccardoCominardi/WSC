@@ -3,550 +3,565 @@
   <file datatype="xml" source-language="en-US" target-language="en-US" original="Web Services Connector">
     <body>
       <group id="body">
-        <trans-unit id="Table 669932537 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 491835267 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Web Services - Bodies</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Bodies - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Bodies - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 669932537 - Method 1571334040 - NamedType 1745287229" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 491835267 - Method 1571334040 - NamedType 1745287229" size-unit="char" translate="yes" xml:space="preserve">
           <source>There is already a value. Do you want to convert it?</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Bodies - Method ConvertValue - NamedType Text000Qst</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Bodies - Method ConvertValue - NamedType Text000Qst</note>
         </trans-unit>
-        <trans-unit id="Table 669932537 - Field 4197677126 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 491835267 - Field 4197677126 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Code</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Bodies - Field WSC Code - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Bodies - Field WSC Code - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 669932537 - Field 4286468891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 491835267 - Field 4286468891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Description</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Bodies - Field WSC Description - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Bodies - Field WSC Description - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 669932537 - Field 1685343061 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 491835267 - Field 1685343061 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Secret</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Bodies - Field WSC Is Secret - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Bodies - Field WSC Is Secret - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 669932537 - Field 652835980 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 491835267 - Field 652835980 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Key</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Bodies - Field WSC Key - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Bodies - Field WSC Key - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 669932537 - Field 3907231478 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 491835267 - Field 3907231478 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Secret Value</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Bodies - Field WSC Secret Value - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Bodies - Field WSC Secret Value - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 669932537 - Field 3499967850 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 491835267 - Field 3499967850 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Token DataScope</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Bodies - Field WSC Token DataScope - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Bodies - Field WSC Token DataScope - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 669932537 - Field 4051864760 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 491835267 - Field 4051864760 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Value</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Bodies - Field WSC Value - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Bodies - Field WSC Value - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Web Services Connections</source>
+        <trans-unit id="Table 1152871633 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Charts Setup</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Charts Setup - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - NamedType 1745287229" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1152871633 - Field 451239566 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Top Calls - Chart Type</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Charts Setup - Field WSC Top Calls Chart Types - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1152871633 - Field 4242306197 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>User ID</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Charts Setup - Field WSC User ID - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1198734174 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Web Services - Connections</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1198734174 - NamedType 1745287229" size-unit="char" translate="yes" xml:space="preserve">
           <source>Are you sure you want to archive the data? This may affect performance and safety. Continue?</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - NamedType Text000Qst</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - NamedType Text000Qst</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 756244660 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1198734174 - Field 756244660 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Acces Token</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Access Token - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC Access Token - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 4210624961 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1198734174 - Field 4210624961 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Allow Blank Response</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Allow Blank Response - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC Allow Blank Response - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 3137692971 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1198734174 - Field 3137692971 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Auth. Type</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Auth. Type - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC Auth. Type - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 2068142195 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1198734174 - Field 2068142195 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Authorization Time</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Authorization Time - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC Authorization Time - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 597113174 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1198734174 - Field 597113174 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Bearer Connection</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Bearer Connection - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC Bearer Connection - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 3587508961 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1198734174 - Field 3587508961 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Bearer Connection Code</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Bearer Connection Code - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC Bearer Connection Code - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 891226896 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1198734174 - Field 891226896 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Body Message</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Body Message - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC Body Message - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 992929052 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1198734174 - Field 992929052 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Body Method</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Body Method - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC Body Method - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 2613519857 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1198734174 - Field 2613519857 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Body Type</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Body Type - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC Body Type - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 4197677126 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1198734174 - Field 4197677126 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Code</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Code - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC Code - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 4197677126 - Method 2126772001 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1198734174 - Field 4197677126 - Method 2126772001 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
           <source>Is not possible to use char ":"</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Code - Method OnValidate - NamedType Text000Err</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC Code - Method OnValidate - NamedType Text000Err</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 4286468891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1198734174 - Field 4286468891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Description</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Description - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC Description - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 3562785792 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1198734174 - Field 3562785792 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>EndPoint</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC EndPoint - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC EndPoint - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 2068140460 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1198734174 - Field 2068140460 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Expires In</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Expires In - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC Expires In - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 1787177263 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1198734174 - Field 1787177263 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Group Code</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Group Code - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC Group Code - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 1787177263 - Method 2126772001 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1198734174 - Field 1787177263 - Method 2126772001 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
           <source>Is not possible to change Group Code if there is a linked Token. Clear first the linked Token value</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Group Code - Method OnValidate - NamedType Text000Err</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC Group Code - Method OnValidate - NamedType Text000Err</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 3143592708 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1198734174 - Field 3143592708 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>HTTP Method</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC HTTP Method - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC HTTP Method - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 1801297877 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1198734174 - Field 1801297877 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Imported</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Imported - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC Imported - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 3838032204 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1198734174 - Field 3838032204 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Password</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Password - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC Password - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 1877518829 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1198734174 - Field 1877518829 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Previous Code</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Previous Code - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC Previous Code - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 1711375403 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1198734174 - Field 1711375403 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Refresh Token</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Refresh Token - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC Refresh Token - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 4246976493 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1198734174 - Field 4246976493 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Store Body Datas</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Store Body Datas - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC Store Body Datas - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 524960177 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1198734174 - Field 524960177 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Store Header Datas</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Store Headers Datas - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC Store Headers Datas - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 3265814667 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1198734174 - Field 3265814667 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Store Parameters Datas</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Store Parameters Datas - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC Store Parameters Datas - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 3499967850 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1198734174 - Field 3499967850 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Token DataScope</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Token DataScope - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC Token DataScope - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 1888880963 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1198734174 - Field 1888880963 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Username</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Username - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC Username - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 3857118176 - Field 1046209953 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1198734174 - Field 1046209953 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Zip Response</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Connections - Field WSC Zip Response - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC Zip Response - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 1194695747 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 874092691 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Web Services - EndPoint Variables</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services EndPoint Var. - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC EndPoint Variables - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 1194695747 - Method 19243325 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 874092691 - Method 19243325 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
           <source>Variable Name must be prefixed by chars "[@"</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services EndPoint Var. - Method CheckVarComposition - NamedType Text000Err</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC EndPoint Variables - Method CheckVarComposition - NamedType Text000Err</note>
         </trans-unit>
-        <trans-unit id="Table 1194695747 - Method 19243325 - NamedType 2316870939" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 874092691 - Method 19243325 - NamedType 2316870939" size-unit="char" translate="yes" xml:space="preserve">
           <source>Variable Name must be suffixed by char "]"</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services EndPoint Var. - Method CheckVarComposition - NamedType Text001Err</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC EndPoint Variables - Method CheckVarComposition - NamedType Text001Err</note>
         </trans-unit>
-        <trans-unit id="Table 1194695747 - Method 3152277940 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 874092691 - Method 3152277940 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
           <source>Is not possible to delete standard variables</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services EndPoint Var. - Method OnDelete - NamedType Text000Err</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC EndPoint Variables - Method OnDelete - NamedType Text000Err</note>
         </trans-unit>
-        <trans-unit id="Table 1194695747 - Field 1011487995 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 874092691 - Field 1011487995 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Custom Variables</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services EndPoint Var. - Field WSC Custom Var - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC EndPoint Variables - Field WSC Custom Var - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 1194695747 - Field 4286468891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 874092691 - Field 4286468891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Description</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services EndPoint Var. - Field WSC Description - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC EndPoint Variables - Field WSC Description - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 1194695747 - Field 548559570 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 874092691 - Field 548559570 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Variable Name</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services EndPoint Var. - Field WSC Variable Name - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC EndPoint Variables - Field WSC Variable Name - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 1733495364 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 3845577338 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Web Services - Group Codes</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Group Codes - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Group Codes - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 1733495364 - Field 4197677126 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 3845577338 - Field 4197677126 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Code</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Group Codes - Field WSC Code - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Group Codes - Field WSC Code - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 1733495364 - Field 4286468891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 3845577338 - Field 4286468891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Description</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Group Codes - Field WSC Description - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Group Codes - Field WSC Description - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2514399679 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 394116813 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Web Services - Headers</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Headers - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Headers - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2514399679 - Field 4197677126 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 394116813 - Field 4197677126 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Code</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Headers - Field WSC Code - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Headers - Field WSC Code - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2514399679 - Field 4286468891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 394116813 - Field 4286468891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Description</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Headers - Field WSC Description - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Headers - Field WSC Description - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2514399679 - Field 652835980 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 394116813 - Field 652835980 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Key</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Headers - Field WSC Key - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Headers - Field WSC Key - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2514399679 - Field 4051864760 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 394116813 - Field 4051864760 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Value</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Headers - Field WSC Value - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Headers - Field WSC Value - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 1772194677 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 4005416055 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Web Services - Log Bodies</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Bodies - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Bodies - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 1772194677 - Field 4197677126 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 4005416055 - Field 4197677126 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Code</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Bodies - Field WSC Code - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Bodies - Field WSC Code - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 1772194677 - Field 4286468891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 4005416055 - Field 4286468891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Description</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Bodies - Field WSC Description - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Bodies - Field WSC Description - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 1772194677 - Field 3531787872 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 4005416055 - Field 3531787872 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Entry No.</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Bodies - Field WSC Entry No. - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Bodies - Field WSC Entry No. - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 1772194677 - Field 652835980 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 4005416055 - Field 652835980 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Key</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Bodies - Field WSC Key - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Bodies - Field WSC Key - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 1772194677 - Field 2642828428 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 4005416055 - Field 2642828428 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Log Entry No.</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Bodies - Field WSC Log Entry No. - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Bodies - Field WSC Log Entry No. - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 1772194677 - Field 4051864760 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 4005416055 - Field 4051864760 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Value</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Bodies - Field WSC Value - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Bodies - Field WSC Value - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2381047368 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Web Services Log Calls</source>
+        <trans-unit id="Table 2609865286 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Web Services - Log Calls</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Calls - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2381047368 - Method 2546799871 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2609865286 - Method 2546799871 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
           <source>BodyMessage.json</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Calls - Method ExportAttachment - NamedType Text000Lbl</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Method ExportAttachment - NamedType Text000Lbl</note>
         </trans-unit>
-        <trans-unit id="Table 2381047368 - Method 2546799871 - NamedType 1196336482" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2609865286 - Method 2546799871 - NamedType 1196336482" size-unit="char" translate="yes" xml:space="preserve">
           <source>ResponseMessage.json</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Calls - Method ExportAttachment - NamedType Text001Lbl</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Method ExportAttachment - NamedType Text001Lbl</note>
         </trans-unit>
-        <trans-unit id="Table 2381047368 - Method 2546799871 - NamedType 1753513791" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2609865286 - Method 2546799871 - NamedType 1753513791" size-unit="char" translate="yes" xml:space="preserve">
           <source>ResponseMessage.zip</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Calls - Method ExportAttachment - NamedType Text002Lbl</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Method ExportAttachment - NamedType Text002Lbl</note>
         </trans-unit>
-        <trans-unit id="Table 2381047368 - Field 4210624961 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2609865286 - Field 4210624961 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Allow Blank Response</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Calls - Field WSC Allow Blank Response - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC Allow Blank Response - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2381047368 - Field 3137692971 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2609865286 - Field 3137692971 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Auth. Type</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Calls - Field WSC Auth. Type - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC Auth. Type - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2381047368 - Field 597113174 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2609865286 - Field 597113174 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Bearer Connection</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Calls - Field WSC Bearer Connection - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC Bearer Connection - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2381047368 - Field 3587508961 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2609865286 - Field 3587508961 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Bearer Connection Code</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Calls - Field WSC Bearer Connection Code - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC Bearer Connection Code - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2381047368 - Field 891226896 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2609865286 - Field 891226896 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Body Message</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Calls - Field WSC Body Message - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC Body Message - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2381047368 - Field 2613519857 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2609865286 - Field 2613519857 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Body Type</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Calls - Field WSC Body Type - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC Body Type - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2381047368 - Field 4197677126 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2609865286 - Field 4197677126 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Code</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Calls - Field WSC Code - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC Code - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2381047368 - Field 4286468891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2609865286 - Field 4286468891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Description</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Calls - Field WSC Description - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC Description - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2381047368 - Field 3562785792 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2609865286 - Field 3562785792 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>EndPoint</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Calls - Field WSC EndPoint - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC EndPoint - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2381047368 - Field 3531787872 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2609865286 - Field 3531787872 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Entry No.</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Calls - Field WSC Entry No. - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC Entry No. - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2381047368 - Field 225586923 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2609865286 - Field 225586923 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Execution Date-Time</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Calls - Field WSC Execution Date-Time - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC Execution Date-Time - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2381047368 - Field 1851860283 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2609865286 - Field 1851860283 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Execution UserID</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Calls - Field WSC Execution UserID - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC Execution UserID - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2381047368 - Field 1787177263 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2609865286 - Field 1787177263 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Group Code</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Calls - Field WSC Group Code - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC Group Code - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2381047368 - Field 3143592708 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2609865286 - Field 3143592708 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>HTTP Method</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Calls - Field WSC HTTP Method - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC HTTP Method - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2381047368 - Field 4067311281 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2609865286 - Field 4067311281 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Link To Entry No</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Calls - Field WSC Link To Entry No. - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC Link To Entry No. - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2381047368 - Field 2382445634 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2609865286 - Field 2382445634 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Link to WSC Code</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Calls - Field WSC Link to WSC Code - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC Link to WSC Code - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2381047368 - Field 734342747 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2609865286 - Field 734342747 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Message Text</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Calls - Field WSC Message Text - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC Message Text - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2381047368 - Field 1457243569 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2609865286 - Field 1457243569 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Response Message</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Calls - Field WSC Response Message - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC Response Message - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2381047368 - Field 3022147409 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2609865286 - Field 3022147409 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Result Status Code</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Calls - Field WSC Result Status Code - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC Result Status Code - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2381047368 - Field 1046209953 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2609865286 - Field 1046209953 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Zip Response</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Calls - Field WSC Zip Response - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC Zip Response - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 1040737195 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 3815024049 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Web Services - Log Headers</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Headers - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Headers - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 1040737195 - Field 4197677126 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 3815024049 - Field 4197677126 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Code</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Headers - Field WSC Code - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Headers - Field WSC Code - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 1040737195 - Field 4286468891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 3815024049 - Field 4286468891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Description</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Headers - Field WSC Description - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Headers - Field WSC Description - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 1040737195 - Field 3531787872 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 3815024049 - Field 3531787872 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Entry No.</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Headers - Field WSC Entry No. - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Headers - Field WSC Entry No. - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 1040737195 - Field 652835980 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 3815024049 - Field 652835980 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Key</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Headers - Field WSC Key - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Headers - Field WSC Key - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 1040737195 - Field 2642828428 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 3815024049 - Field 2642828428 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Log Entry No.</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Headers - Field WSC Log Entry No. - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Headers - Field WSC Log Entry No. - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 1040737195 - Field 4051864760 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 3815024049 - Field 4051864760 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Value</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Headers - Field WSC Value - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Headers - Field WSC Value - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2857012424 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 3183617475 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Web Services - Log Parameters</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Param. - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Parameters - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2857012424 - Field 4197677126 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 3183617475 - Field 4197677126 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Code</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Param. - Field WSC Code - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Parameters - Field WSC Code - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2857012424 - Field 4286468891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 3183617475 - Field 4286468891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Description</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Param. - Field WSC Description - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Parameters - Field WSC Description - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2857012424 - Field 3531787872 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 3183617475 - Field 3531787872 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Entry No.</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Param. - Field WSC Entry No. - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Parameters - Field WSC Entry No. - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2857012424 - Field 652835980 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 3183617475 - Field 652835980 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Key</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Param. - Field WSC Key - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Parameters - Field WSC Key - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2857012424 - Field 2642828428 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 3183617475 - Field 2642828428 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Log Entry No.</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Param. - Field WSC Log Entry No. - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Parameters - Field WSC Log Entry No. - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2857012424 - Field 4051864760 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 3183617475 - Field 4051864760 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Value</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Log Param. - Field WSC Value - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Parameters - Field WSC Value - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2820329957 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 645343351 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Web Services - Parameters</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Parameters - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Parameters - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2820329957 - Field 4197677126 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 645343351 - Field 4197677126 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Code</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Parameters - Field WSC Code - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Parameters - Field WSC Code - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2820329957 - Field 4286468891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 645343351 - Field 4286468891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Description</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Parameters - Field WSC Description - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Parameters - Field WSC Description - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2820329957 - Field 652835980 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 645343351 - Field 652835980 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Key</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Parameters - Field WSC Key - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Parameters - Field WSC Key - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2820329957 - Field 4051864760 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 645343351 - Field 4051864760 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Value</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Parameters - Field WSC Value - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Parameters - Field WSC Value - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2160506109 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Web Services - Tree Visual</source>
+        <trans-unit id="Table 2548554101 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Web Services - Tree Visualization</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Tree Visual - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Tree Visualization - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2160506109 - Field 4197677126 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2548554101 - Field 4197677126 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Code</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Tree Visual - Field WSC Code - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Tree Visualization - Field WSC Code - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2160506109 - Field 4286468891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2548554101 - Field 4286468891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Descritpion</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Tree Visual - Field WSC Description - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Tree Visualization - Field WSC Description - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2160506109 - Field 3531787872 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2548554101 - Field 3531787872 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Entry No.</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Tree Visual - Field WSC Entry No. - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Tree Visualization - Field WSC Entry No. - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2160506109 - Field 1787177263 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2548554101 - Field 1787177263 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Group Code</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Tree Visual - Field WSC Group Code - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Tree Visualization - Field WSC Group Code - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2160506109 - Field 1056717922 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2548554101 - Field 1056717922 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Indentation</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Web Services Tree Visual - Field WSC Indentation - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Tree Visualization - Field WSC Indentation - Property Caption</note>
         </trans-unit>
         <trans-unit id="Codeunit 244097558 - Method 1000131093 - NamedType 1745287229" size-unit="char" translate="yes" xml:space="preserve">
           <source>This connection is part of a group. Do you want to export the entire group ?</source>
@@ -658,15 +673,275 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Web Services Management - Method CheckWSBodiesForToken - NamedType Text000Err</note>
         </trans-unit>
-        <trans-unit id="Codeunit 3971640374 - Method 2664860516 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Codeunit 3971640374 - Method 3954711601 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
           <source>Execution Terminated. Check the log to see the result</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Web Services Management - Method ExecuteDirectWSCConnections - NamedType Text000Lbl</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Web Services Management - Method ExecuteDirectConnections - NamedType Text000Lbl</note>
         </trans-unit>
         <trans-unit id="Codeunit 3971640374 - Method 2345795677 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
           <source>Invalid Access Token Property %1, Value:  %2</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Web Services Management - Method UpdateWSCTokenInfo - NamedType Text000Err</note>
+        </trans-unit>
+        <trans-unit id="Page 491835267 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bodies</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Bodies - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 491835267 - Control 1398324661 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Value</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Bodies - Control WSC ValueAsText - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1152871633 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Charts Setup</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Charts Setup - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1152871633 - Control 2445482498 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>General</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Charts Setup - Control General - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 344691303 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Connection Card</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 344691303 - Method 3788197628 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
+          <source>EndPoint containes variables</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Method SetEndPointFields - NamedType Text000Lbl</note>
+        </trans-unit>
+        <trans-unit id="Page 344691303 - Method 1661334556 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
+          <source>No Token</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Method SetTokenFields - NamedType Text000Lbl</note>
+        </trans-unit>
+        <trans-unit id="Page 344691303 - Method 1661334556 - NamedType 1196336482" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Token Expired</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Method SetTokenFields - NamedType Text001Lbl</note>
+        </trans-unit>
+        <trans-unit id="Page 344691303 - Method 1661334556 - NamedType 1753513791" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Token Available</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Method SetTokenFields - NamedType Text002Lbl</note>
+        </trans-unit>
+        <trans-unit id="Page 344691303 - Control 2445482498 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>General</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Control General - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 344691303 - Control 4229622380 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Credentials</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Control Credentials - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 344691303 - Control 3838032204 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Password</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Control WSC Password - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 344691303 - Control 4146460525 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Token</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Control Token - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 344691303 - Control 756244660 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Access Token Active</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Control WSC Access Token - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 344691303 - Control 2068142195 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Authorization Time</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Control WSC Authorization Time - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 344691303 - Control 1948770074 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>EndPoint Variables</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Control EndPointVariables - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 344691303 - Control 2912574016 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Parameters</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Control WebServicesParamFactbox - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 344691303 - Action 3077534250 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Set Bodies information for the Web Service call</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Action Bodies - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 344691303 - Action 3077534250 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bodies</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Action Bodies - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 344691303 - Action 161065432 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Set Header information for the Web Service call</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Action Headers - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 344691303 - Action 161065432 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Headers</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Action Headers - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 344691303 - Action 684242166 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Set Parameter information for the Web Service call</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Action Parameters - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 344691303 - Action 684242166 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Parameters</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Action Parameters - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 344691303 - Action 3212637975 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Send the Web Service request</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Action SendRequest - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 344691303 - Action 3212637975 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Send Request</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Action SendRequest - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 344691303 - Action 4000661843 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>View Web Service log for this Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Action ViewLog - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 344691303 - Action 4000661843 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>View Log</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Action ViewLog - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1486331676 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Connections List (WSC)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connections List - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1486331676 - Action 3956219133 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Request Details</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connections List - Action RequestDetails - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1486331676 - Action 3077534250 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Set Bodies information for the Web Service call</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connections List - Action Bodies - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1486331676 - Action 3077534250 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bodies</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connections List - Action Bodies - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1486331676 - Action 161065432 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Set Header information for the Web Service call</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connections List - Action Headers - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1486331676 - Action 161065432 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Headers</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connections List - Action Headers - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1486331676 - Action 684242166 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Set Parameter information for the Web Service call</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connections List - Action Parameters - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1486331676 - Action 684242166 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Parameters</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connections List - Action Parameters - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1486331676 - Action 3652164187 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>View Web Service Calls with tree visualization</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connections List - Action ViewAsTree - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1486331676 - Action 3652164187 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>View As Tree</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connections List - Action ViewAsTree - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1486331676 - Action 4000661843 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>View Web Service log for this Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connections List - Action ViewLog - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1486331676 - Action 4000661843 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>View Log</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connections List - Action ViewLog - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1486331676 - Action 2627756060 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Download WS Configuration</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connections List - Action DownloadWSConfiguration - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1486331676 - Action 2801979787 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Import WS Configuration</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connections List - Action ImportWSConfiguration - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1486331676 - Action 3212637975 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Send the Web Service request</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connections List - Action SendRequest - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1486331676 - Action 3212637975 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Send Request</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connections List - Action SendRequest - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1486331676 - Action 1139653482 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>TEST</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connections List - Action TEST - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1486331676 - Action 2030691464 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Navigate</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connections List - Action Category_Category12 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1486331676 - Action 2224783030 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Request Details</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connections List - Action Category_Category5 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1486331676 - Action 3383493608 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Process</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connections List - Action Category_Process - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1486331676 - Action 311693179 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Configuration</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connections List - Action Category_Category6 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1968659912 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>EndPoint Variables</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC EndPoint Variables Factbox - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1224576445 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>EndPoint Variables (WSC)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC EndPoint Variables List - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3845577338 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Group Codes (WSC)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Group Codes - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 394116813 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Headers</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Headers - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1470271598 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Import Configuration</source>
@@ -713,335 +988,110 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Import Configuration - Control WSCode - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 807015976 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Web Service Connection Card</source>
+        <trans-unit id="Page 4005416055 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Log Bodies</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Log Bodies - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 807015976 - Method 3788197628 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
-          <source>EndPoint containes variables</source>
+        <trans-unit id="Page 2609865286 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Log Calls (WSC)</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Method SetEndPointFields - NamedType Text000Lbl</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Log Calls - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 807015976 - Method 1661334556 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
-          <source>No Token</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Method SetTokenFields - NamedType Text000Lbl</note>
-        </trans-unit>
-        <trans-unit id="Page 807015976 - Method 1661334556 - NamedType 1196336482" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Token Expired</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Method SetTokenFields - NamedType Text001Lbl</note>
-        </trans-unit>
-        <trans-unit id="Page 807015976 - Method 1661334556 - NamedType 1753513791" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Token Available</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Method SetTokenFields - NamedType Text002Lbl</note>
-        </trans-unit>
-        <trans-unit id="Page 807015976 - Control 2445482498 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>General</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Control General - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 807015976 - Control 4229622380 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Credentials</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Control Credentials - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 807015976 - Control 3838032204 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Password</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Control WSC Password - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 807015976 - Control 4146460525 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Token</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Control Token - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 807015976 - Control 756244660 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Access Token Active</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Control WSC Access Token - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 807015976 - Control 2068142195 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Authorization Time</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Control WSC Authorization Time - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 807015976 - Control 2718719356 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>EndPoint Variables</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Control WebServicesEndPointVar - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 807015976 - Control 2912574016 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Parameters</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Control WebServicesParamFactbox - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 807015976 - Action 3077534250 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Set Bodies information for the Web Service call</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Action Bodies - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 807015976 - Action 3077534250 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Bodies</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Action Bodies - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 807015976 - Action 161065432 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Set Header information for the Web Service call</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Action Headers - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 807015976 - Action 161065432 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Headers</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Action Headers - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 807015976 - Action 684242166 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Set Parameter information for the Web Service call</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Action Parameters - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 807015976 - Action 684242166 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Parameters</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Action Parameters - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 807015976 - Action 3212637975 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Send the Web Service request</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Action SendRequest - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 807015976 - Action 3212637975 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Send Request</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Action SendRequest - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 807015976 - Action 4000661843 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>View Web Service log for this Code</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Action ViewLog - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 807015976 - Action 4000661843 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>View Log</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Service Conn. Card - Action ViewLog - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 669932537 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Web Services - Bodies</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Bodies - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 669932537 - Control 1398324661 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Value</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Bodies - Control WSC ValueAsText - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1308428035 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Web Services Connections</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1308428035 - Action 3956219133 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Request Details</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action RequestDetails - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1308428035 - Action 3077534250 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Set Bodies information for the Web Service call</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action Bodies - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 1308428035 - Action 3077534250 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Bodies</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action Bodies - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1308428035 - Action 161065432 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Set Header information for the Web Service call</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action Headers - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 1308428035 - Action 161065432 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Headers</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action Headers - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1308428035 - Action 684242166 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Set Parameter information for the Web Service call</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action Parameters - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 1308428035 - Action 684242166 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Parameters</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action Parameters - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1308428035 - Action 3652164187 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>View Web Service Calls with tree visualization</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action ViewAsTree - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 1308428035 - Action 3652164187 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>View As Tree</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action ViewAsTree - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1308428035 - Action 4000661843 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>View Web Service log for this Code</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action ViewLog - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 1308428035 - Action 4000661843 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>View Log</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action ViewLog - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1308428035 - Action 2627756060 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Download WS Configuration</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action DownloadWSConfiguration - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1308428035 - Action 2801979787 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Import WS Configuration</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action ImportWSConfiguration - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1308428035 - Action 3212637975 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Send the Web Service request</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action SendRequest - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 1308428035 - Action 3212637975 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Send Request</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action SendRequest - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1308428035 - Action 1139653482 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>TEST</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action TEST - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1308428035 - Action 2030691464 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Navigate</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action Category_Category12 - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1308428035 - Action 2224783030 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Request Details</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action Category_Category5 - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1308428035 - Action 3383493608 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Process</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action Category_Process - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1308428035 - Action 311693179 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Configuration</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Conn. List - Action Category_Category6 - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 3980770037 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Web Services - EndPoint Variables</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services EndPntVarList - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1194695747 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>EndPoint Variables</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services EndPoint Var. - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1733495364 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Web Services - Group Codes</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Group Codes - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 2514399679 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Web Services - Headers</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Headers - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1772194677 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Web Services - Log Bodies</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Log Bodies - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 2381047368 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Web Services Log Calls</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Log Calls - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 2381047368 - Control 891226896 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 2609865286 - Control 891226896 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Body Message Present</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Log Calls - Control WSC Body Message - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Log Calls - Control WSC Body Message - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 2381047368 - Control 1457243569 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 2609865286 - Control 1457243569 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Response Message Present</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Log Calls - Control WSC Response Message - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Log Calls - Control WSC Response Message - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 2381047368 - Action 3077534250 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 2609865286 - Action 3077534250 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Bodies</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Log Calls - Action Bodies - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Log Calls - Action Bodies - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 2381047368 - Action 161065432 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 2609865286 - Action 161065432 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Headers</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Log Calls - Action Headers - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Log Calls - Action Headers - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 2381047368 - Action 684242166 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 2609865286 - Action 684242166 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Set Parameter information for the Web Service call</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Log Calls - Action Parameters - Property ToolTip</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Log Calls - Action Parameters - Property ToolTip</note>
         </trans-unit>
-        <trans-unit id="Page 2381047368 - Action 684242166 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 2609865286 - Action 684242166 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Parameters</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Log Calls - Action Parameters - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Log Calls - Action Parameters - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 1040737195 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Web Services - Log Headers</source>
+        <trans-unit id="Page 3815024049 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Log Headers</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Log Headers - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Log Headers - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 2857012424 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Web Services - Log Parameters</source>
+        <trans-unit id="Page 3183617475 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Log Parameters</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Log Param. - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Log Parameters - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 558388509 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 645343351 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Parameters</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Param Factbox - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Parameters - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 558388509 - Control 3431497041 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 645343351 - Control 3431497041 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Variable Value</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Param Factbox - Control IsVariableValue - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Parameters - Control IsVariableValue - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 2820329957 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Web Services - Parameters</source>
+        <trans-unit id="Page 763848436 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Parameters</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Parameters - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Parameters Factbox - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 2820329957 - Control 3431497041 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 763848436 - Control 3431497041 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Variable Value</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Parameters - Control IsVariableValue - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Parameters Factbox - Control IsVariableValue - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 2160506109 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Web Services - Tree Visual</source>
+        <trans-unit id="Page 434019190 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Top Calls</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Tree Visual - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Top Calls Charts - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 2160506109 - NamedType 2476940767" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 434019190 - Action 2488372861 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Chart Setup</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Top Calls Charts - Action Chart Setup - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2548554101 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Tree Visualization</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Tree Visualization - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2548554101 - NamedType 2476940767" size-unit="char" translate="yes" xml:space="preserve">
           <source>Shortcut Dimension %1</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Web Services Tree Visual - NamedType Text000</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Tree Visualization - NamedType Text000</note>
+        </trans-unit>
+        <trans-unit id="Query 910256223 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Top 5 Web Services Calls</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Query WSC Top 5 Web Service Calls - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Query 910256223 - QueryColumn 1503362389 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Total Calls</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Query WSC Top 5 Web Service Calls - QueryColumn TotalCalls - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Query 910256223 - QueryColumn 3496607894 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>WSC Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Query WSC Top 5 Web Service Calls - QueryColumn WSCCode - Property Caption</note>
         </trans-unit>
         <trans-unit id="Enum 217652713 - EnumValue 810438470 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Basic</source>

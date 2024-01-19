@@ -1,12 +1,12 @@
 /// <summary>
-/// Page WSC Web Services Tree Visual (ID 81009).
+/// Page WSC Tree Visualization (ID 81009).
 /// </summary>
-page 81009 "WSC Web Services Tree Visual"
+page 81009 "WSC Tree Visualization"
 {
-    Caption = 'Web Services - Tree Visual';
+    Caption = 'Tree Visualization';
     Editable = false;
     PageType = List;
-    SourceTable = "WSC Web Services Tree Visual";
+    SourceTable = "WSC Tree Visualization";
     SourceTableView = sorting("WSC Group Code", "WSC Entry No.") order(ascending);
 
     layout

@@ -1,16 +1,16 @@
 /// <summary>
-/// Page WSC EndPoint Var List (ID 81011).
+/// Page WSC EndPoint Variables Factbox (ID 81010).
 /// </summary>
-page 81011 "WSC Web Services EndPntVarList"
+page 81010 "WSC EndPoint Variables Factbox"
 {
-    Caption = 'Web Services - EndPoint Variables';
-    PageType = List;
-    ApplicationArea = All;
-    UsageCategory = Lists;
-    SourceTable = "WSC Web Services EndPoint Var.";
+    Caption = 'EndPoint Variables';
+    PageType = ListPart;
+    SourceTable = "WSC EndPoint Variables";
     Editable = false;
     InsertAllowed = false;
     DeleteAllowed = false;
+    ModifyAllowed = false;
+
     layout
     {
         area(Content)

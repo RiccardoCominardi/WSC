@@ -33,33 +33,33 @@ codeunit 81004 "WSC Upgrade"
     #region InstallProcedure
     local procedure SetEndpointVariables(IsReinstall: Boolean)
     var
-        WebServicesEndPointVar: Record "WSC Web Services EndPoint Var.";
+        EndPointVariables: Record "WSC EndPoint Variables";
         Text000Lbl: Label 'Set Current Company ID';
         Text001Lbl: Label 'Set Current Company Name';
         Text002Lbl: Label 'Set Current User ID';
     begin
         if IsReinstall then begin
-            WebServicesEndPointVar.SetFilter("WSC Variable Name", '[@CompanyID]|[@CompanyName]|[@UserID]');
-            if not WebServicesEndPointVar.IsEmpty() then
-                WebServicesEndPointVar.DeleteAll();
+            EndPointVariables.SetFilter("WSC Variable Name", '[@CompanyID]|[@CompanyName]|[@UserID]');
+            if not EndPointVariables.IsEmpty() then
+                EndPointVariables.DeleteAll();
         end;
 
-        WebServicesEndPointVar.Reset();
+        EndPointVariables.Reset();
 
-        WebServicesEndPointVar.Init();
-        WebServicesEndPointVar."WSC Variable Name" := '[@CompanyID]';
-        WebServicesEndPointVar."WSC Description" := Text000Lbl;
-        WebServicesEndPointVar.Insert();
+        EndPointVariables.Init();
+        EndPointVariables."WSC Variable Name" := '[@CompanyID]';
+        EndPointVariables."WSC Description" := Text000Lbl;
+        EndPointVariables.Insert();
 
-        WebServicesEndPointVar.Init();
-        WebServicesEndPointVar."WSC Variable Name" := '[@CompanyName]';
-        WebServicesEndPointVar."WSC Description" := Text001Lbl;
-        WebServicesEndPointVar.Insert();
+        EndPointVariables.Init();
+        EndPointVariables."WSC Variable Name" := '[@CompanyName]';
+        EndPointVariables."WSC Description" := Text001Lbl;
+        EndPointVariables.Insert();
 
-        WebServicesEndPointVar.Init();
-        WebServicesEndPointVar."WSC Variable Name" := '[@UserID]';
-        WebServicesEndPointVar."WSC Description" := Text002Lbl;
-        WebServicesEndPointVar.Insert();
+        EndPointVariables.Init();
+        EndPointVariables."WSC Variable Name" := '[@UserID]';
+        EndPointVariables."WSC Description" := Text002Lbl;
+        EndPointVariables.Insert();
     end;
     #endregion InstallProcedure
 }

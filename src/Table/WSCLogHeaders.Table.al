@@ -1,12 +1,12 @@
 /// <summary>
-/// Table WSC Web Services Log Headers (ID 81005).
+/// Table WSC Log Headers (ID 81005).
 /// </summary>
-table 81005 "WSC Web Services Log Headers"
+table 81005 "WSC Log Headers"
 {
     Caption = 'Web Services - Log Headers';
     DataClassification = CustomerContent;
-    DrillDownPageId = "WSC Web Services Log Headers";
-    LookupPageId = "WSC Web Services Log Headers";
+    DrillDownPageId = "WSC Log Headers";
+    LookupPageId = "WSC Log Headers";
 
     fields
     {
@@ -24,7 +24,7 @@ table 81005 "WSC Web Services Log Headers"
         {
             DataClassification = CustomerContent;
             Caption = 'Code';
-            TableRelation = "WSC Web Services Connections"."WSC Code";
+            TableRelation = "WSC Connections"."WSC Code";
         }
         field(4; "WSC Key"; Text[20])
         {
@@ -58,17 +58,17 @@ table 81005 "WSC Web Services Log Headers"
     /// <param name="EntryNo">Integer.</param>
     procedure ViewLog(WSCCode: Code[20]; EntryNo: Integer)
     var
-        WebServicesLogCalls: Record "WSC Web Services Log Calls";
-        WebServicesLogHeaders: Record "WSC Web Services Log Headers";
+        LogCalls: Record "WSC Log Calls";
+        LogHeaders: Record "WSC Log Headers";
     begin
-        WebServicesLogCalls.Get(WSCCode, EntryNo);
+        LogCalls.Get(WSCCode, EntryNo);
 
-        WebServicesLogHeaders.Reset();
-        WebServicesLogHeaders.FilterGroup(2);
-        WebServicesLogHeaders.SetRange("WSC Code", WebServicesLogCalls."WSC Code");
-        WebServicesLogHeaders.SetRange("WSC Log Entry No.", WebServicesLogCalls."WSC Entry No.");
-        WebServicesLogHeaders.FilterGroup(0);
-        Page.RunModal(0, WebServicesLogHeaders);
+        LogHeaders.Reset();
+        LogHeaders.FilterGroup(2);
+        LogHeaders.SetRange("WSC Code", LogCalls."WSC Code");
+        LogHeaders.SetRange("WSC Log Entry No.", LogCalls."WSC Entry No.");
+        LogHeaders.FilterGroup(0);
+        Page.RunModal(0, LogHeaders);
     end;
 
     trigger OnInsert()

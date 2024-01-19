@@ -1,12 +1,12 @@
 /// <summary>
-/// Table WSC Web Services Parameters (ID 81010).
+/// Table WSC Headers (ID 81002).
 /// </summary>
-table 81010 "WSC Web Services Parameters"
+table 81002 "WSC Headers"
 {
-    Caption = 'Web Services - Parameters';
+    Caption = 'Web Services - Headers';
     DataClassification = CustomerContent;
-    DrillDownPageId = "WSC Web Services Parameters";
-    LookupPageId = "WSC Web Services Parameters";
+    DrillDownPageId = "WSC Headers";
+    LookupPageId = "WSC Headers";
 
     fields
     {
@@ -14,7 +14,7 @@ table 81010 "WSC Web Services Parameters"
         {
             DataClassification = CustomerContent;
             Caption = 'Code';
-            TableRelation = "WSC Web Services Connections"."WSC Code";
+            TableRelation = "WSC Connections"."WSC Code";
         }
         field(2; "WSC Key"; Text[20])
         {
@@ -47,27 +47,16 @@ table 81010 "WSC Web Services Parameters"
     /// <param name="WSCCode">Code[20].</param>
     procedure ViewLog(WSCCode: Code[20])
     var
-        WebServicesConnections: Record "WSC Web Services Connections";
-        WebServicesParameters: Record "WSC Web Services Parameters";
+        Connections: Record "WSC Connections";
+        Headers: Record "WSC Headers";
     begin
-        WebServicesConnections.Get(WSCCode);
+        Connections.Get(WSCCode);
 
-        WebServicesParameters.Reset();
-        WebServicesParameters.FilterGroup(2);
-        WebServicesParameters.SetRange("WSC Code", WebServicesConnections."WSC Code");
-        WebServicesParameters.FilterGroup(0);
-        Page.RunModal(0, WebServicesParameters);
-    end;
-
-    /// <summary>
-    /// IsVariableValues.
-    /// </summary>
-    /// <returns>Return value of type Boolean.</returns>
-    procedure IsVariableValues(): Boolean
-    begin
-        if StrPos(Rec."WSC Value", '%') > 0 then
-            exit(true);
-        exit(false);
+        Headers.Reset();
+        Headers.FilterGroup(2);
+        Headers.SetRange("WSC Code", Connections."WSC Code");
+        Headers.FilterGroup(0);
+        Page.RunModal(0, Headers);
     end;
 
     trigger OnInsert()

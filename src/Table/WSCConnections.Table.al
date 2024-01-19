@@ -1,12 +1,12 @@
 /// <summary>
-/// Table WSC Web Services Connections (ID 81001).
+/// Table WSC Connections (ID 81001).
 /// </summary>
-table 81001 "WSC Web Services Connections"
+table 81001 "WSC Connections"
 {
-    Caption = 'Web Services Connections';
+    Caption = 'Web Services - Connections';
     DataClassification = CustomerContent;
-    DrillDownPageId = "WSC Web Services Conn. List";
-    LookupPageId = "WSC Web Services Conn. List";
+    DrillDownPageId = "WSC Connections List";
+    LookupPageId = "WSC Connections List";
 
     fields
     {
@@ -97,7 +97,7 @@ table 81001 "WSC Web Services Connections"
         {
             DataClassification = CustomerContent;
             Caption = 'Bearer Connection Code';
-            TableRelation = "WSC Web Services Connections"."WSC Code" where("WSC Bearer Connection" = const(true));
+            TableRelation = "WSC Connections"."WSC Code" where("WSC Bearer Connection" = const(true));
             trigger OnValidate()
             begin
                 if "WSC Bearer Connection" then
@@ -123,20 +123,20 @@ table 81001 "WSC Web Services Connections"
         {
             DataClassification = CustomerContent;
             Caption = 'Group Code';
-            TableRelation = "WSC Web Services Group Codes"."WSC Code";
+            TableRelation = "WSC Group Codes"."WSC Code";
             trigger OnValidate()
             var
-                WSCWSServicesConnections: Record "WSC Web Services Connections";
+                Connections: Record "WSC Connections";
                 Text000Err: Label 'Is not possible to change Group Code if there is a linked Token. Clear first the linked Token value';
             begin
                 if Rec."WSC Bearer Connection" then begin
-                    WSCWSServicesConnections.Reset();
-                    WSCWSServicesConnections.SetRange("WSC Bearer Connection Code", Rec."WSC Code");
-                    WSCWSServicesConnections.ModifyAll("WSC Group Code", Rec."WSC Group Code");
+                    Connections.Reset();
+                    Connections.SetRange("WSC Bearer Connection Code", Rec."WSC Code");
+                    Connections.ModifyAll("WSC Group Code", Rec."WSC Group Code");
                 end else
                     if Rec."WSC Bearer Connection Code" <> '' then
-                        if WSCWSServicesConnections.Get(Rec."WSC Bearer Connection Code") then
-                            if WSCWSServicesConnections."WSC Group Code" <> Rec."WSC Group Code" then
+                        if Connections.Get(Rec."WSC Bearer Connection Code") then
+                            if Connections."WSC Group Code" <> Rec."WSC Group Code" then
                                 Error(Text000Err);
 
             end;
@@ -224,27 +224,27 @@ table 81001 "WSC Web Services Connections"
 
     trigger OnDelete()
     var
-        WebServicesParameters: Record "WSC Web Services Parameters";
-        WebServicesHeaders: Record "WSC Web Services Headers";
-        WebServicesBodies: Record "WSC Web Services Bodies";
-        WebServicesLogCalls: Record "WSC Web Services Log Calls";
+        Parameters: Record "WSC Parameters";
+        Headers: Record "WSC Headers";
+        Bodies: Record "WSC Bodies";
+        LogCalls: Record "WSC Log Calls";
         SecurityManagements: Codeunit "WSC Security Managements";
     begin
-        WebServicesParameters.Reset();
-        WebServicesParameters.SetRange("WSC Code", Rec."WSC Code");
-        WebServicesParameters.DeleteAll();
+        Parameters.Reset();
+        Parameters.SetRange("WSC Code", Rec."WSC Code");
+        Parameters.DeleteAll();
 
-        WebServicesHeaders.Reset();
-        WebServicesHeaders.SetRange("WSC Code", Rec."WSC Code");
-        WebServicesHeaders.DeleteAll();
+        Headers.Reset();
+        Headers.SetRange("WSC Code", Rec."WSC Code");
+        Headers.DeleteAll();
 
-        WebServicesBodies.Reset();
-        WebServicesBodies.SetRange("WSC Code", Rec."WSC Code");
-        WebServicesBodies.DeleteAll();
+        Bodies.Reset();
+        Bodies.SetRange("WSC Code", Rec."WSC Code");
+        Bodies.DeleteAll();
 
-        WebServicesLogCalls.Reset();
-        WebServicesLogCalls.SetRange("WSC Code", Rec."WSC Code");
-        WebServicesLogCalls.DeleteAll(true);
+        LogCalls.Reset();
+        LogCalls.SetRange("WSC Code", Rec."WSC Code");
+        LogCalls.DeleteAll(true);
 
         SecurityManagements.DeleteToken(Rec."WSC Access Token", GetTokenDataScope());
         SecurityManagements.DeleteToken(Rec."WSC Refresh Token", GetTokenDataScope());

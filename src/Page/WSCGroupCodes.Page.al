@@ -1,11 +1,11 @@
 /// <summary>
-/// Page WSC Web Services Group Codes (ID 81006).
+/// Page WSC Group Codes (ID 81006).
 /// </summary>
-page 81006 "WSC Web Services Group Codes"
+page 81006 "WSC Group Codes"
 {
-    Caption = 'Web Services - Group Codes';
+    Caption = 'Group Codes (WSC)';
     PageType = List;
-    SourceTable = "WSC Web Services Group Codes";
+    SourceTable = "WSC Group Codes";
 
     layout
     {

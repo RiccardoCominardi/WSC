@@ -1,10 +1,10 @@
 /// <summary>
-/// Table WSC Web Services Tree Visual (ID 81008).
+/// Table WSC Tree Visualization (ID 81008).
 /// </summary>
-table 81008 "WSC Web Services Tree Visual"
+table 81008 "WSC Tree Visualization"
 {
     DataClassification = CustomerContent;
-    Caption = 'Web Services - Tree Visual';
+    Caption = 'Web Services - Tree Visualization';
     TableType = Temporary;
 
     fields

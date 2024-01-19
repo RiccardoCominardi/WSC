@@ -1,13 +1,13 @@
 /// <summary>
-/// Page WSC Web Services Log Calls (ID 81005).
+/// Page WSC Log Calls (ID 81005).
 /// </summary>
-page 81005 "WSC Web Services Log Calls"
+page 81005 "WSC Log Calls"
 {
-    Caption = 'Web Services Log Calls';
+    Caption = 'Log Calls (WSC)';
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
-    SourceTable = "WSC Web Services Log Calls";
+    SourceTable = "WSC Log Calls";
     Editable = false;
     InsertAllowed = false;
     ModifyAllowed = false;
@@ -125,9 +125,9 @@ page 81005 "WSC Web Services Log Calls"
                 ToolTip = 'Set Parameter information for the Web Service call';
                 trigger OnAction()
                 var
-                    WebServicesLogParam: Record "WSC Web Services Log Param.";
+                    LogParameters: Record "WSC Log Parameters";
                 begin
-                    WebServicesLogParam.ViewLog(Rec."WSC Code", Rec."WSC Entry No.");
+                    LogParameters.ViewLog(Rec."WSC Code", Rec."WSC Entry No.");
                 end;
             }
             action(Headers)
@@ -138,9 +138,9 @@ page 81005 "WSC Web Services Log Calls"
 
                 trigger OnAction()
                 var
-                    WebServicesLogHeaders: Record "WSC Web Services Log Headers";
+                    LogHeaders: Record "WSC Log Headers";
                 begin
-                    WebServicesLogHeaders.ViewLog(Rec."WSC Code", Rec."WSC Entry No.");
+                    LogHeaders.ViewLog(Rec."WSC Code", Rec."WSC Entry No.");
                 end;
             }
             action(Bodies)
@@ -151,9 +151,9 @@ page 81005 "WSC Web Services Log Calls"
 
                 trigger OnAction()
                 var
-                    WebServicesLogBodies: Record "WSC Web Services Log Bodies";
+                    LogBodies: Record "WSC Log Bodies";
                 begin
-                    WebServicesLogBodies.ViewLog(Rec."WSC Code", Rec."WSC Entry No.");
+                    LogBodies.ViewLog(Rec."WSC Code", Rec."WSC Entry No.");
                 end;
             }
         }

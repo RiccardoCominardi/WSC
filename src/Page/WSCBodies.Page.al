@@ -1,11 +1,11 @@
 /// <summary>
-/// Page WSC Web Services Bodies (ID 81004).
+/// Page WSC Bodies (ID 81004).
 /// </summary>
-page 81004 "WSC Web Services Bodies"
+page 81004 "WSC Bodies"
 {
-    Caption = 'Web Services - Bodies';
+    Caption = 'Bodies';
     PageType = List;
-    SourceTable = "WSC Web Services Bodies";
+    SourceTable = "WSC Bodies";
 
     layout
     {

@@ -1,11 +1,11 @@
 /// <summary>
-/// Page WSC Web Services Param Factbox (ID 81015).
+/// Page WSC Parameters Factbox (ID 81015).
 /// </summary>
-page 81015 "WSC Web Services Param Factbox"
+page 81015 "WSC Parameters Factbox"
 {
     Caption = 'Parameters';
     PageType = ListPart;
-    SourceTable = "WSC Web Services Parameters";
+    SourceTable = "WSC Parameters";
     Editable = false;
     InsertAllowed = false;
     DeleteAllowed = false;

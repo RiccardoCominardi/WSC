@@ -1,11 +1,11 @@
 /// <summary>
-/// Page WSC Web Services Log Param. (ID 81014).
+/// Page WSC Log Headers (ID 81008).
 /// </summary>
-page 81014 "WSC Web Services Log Param."
+page 81008 "WSC Log Headers"
 {
-    Caption = 'Web Services - Log Parameters';
+    Caption = 'Log Headers';
     PageType = List;
-    SourceTable = "WSC Web Services Log Param.";
+    SourceTable = "WSC Log Headers";
     Editable = false;
     InsertAllowed = false;
     ModifyAllowed = false;

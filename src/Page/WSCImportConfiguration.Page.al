@@ -5,9 +5,7 @@ page 81012 "WSC Import Configuration"
 {
     Caption = 'Import Configuration';
     PageType = List;
-    ApplicationArea = All;
-    UsageCategory = Administration;
-    SourceTable = "WSC Web Services Connections";
+    SourceTable = "WSC Connections";
     SourceTableTemporary = true;
     DeleteAllowed = false;
     InsertAllowed = false;
@@ -79,7 +77,7 @@ page 81012 "WSC Import Configuration"
 
     local procedure IsCorrectConnession(): Boolean
     var
-        WebServicesConnections: Record "WSC Web Services Connections";
+        Connections: Record "WSC Connections";
         Text000Err: Label 'Web Service Connection with code %1 already exist. Change the code to continue';
         Text000Lbl: Label 'Web Service Connection is importable';
     begin
@@ -88,7 +86,7 @@ page 81012 "WSC Import Configuration"
         CurrMessage := Text000Lbl;
         LineColor := 'Favorable';
 
-        if WebServicesConnections.Get(Rec."WSC Code") then begin
+        if Connections.Get(Rec."WSC Code") then begin
             CurrStatus := CurrStatus::Error;
             CurrMessage := StrSubstNo(Text000Err, Rec."WSC Code");
             LineColor := 'Unfavorable';
@@ -101,29 +99,29 @@ page 81012 "WSC Import Configuration"
     /// <summary>
     /// SetConfiguration.
     /// </summary>
-    /// <param name="TempWebServicesConnections">Temporary VAR Record "WSC Web Services Connections".</param>
-    procedure SetConfiguration(var TempWebServicesConnections: Record "WSC Web Services Connections" temporary)
+    /// <param name="TempConnections">Temporary VAR Record "WSC Connections".</param>
+    procedure SetConfiguration(var TempConnections: Record "WSC Connections" temporary)
     var
         Text000Lbl: Label 'Nothing to Import';
     begin
-        TempWebServicesConnections.Reset();
-        if TempWebServicesConnections.IsEmpty() then
+        TempConnections.Reset();
+        if TempConnections.IsEmpty() then
             Error(Text000Lbl);
-        TempWebServicesConnections.FindSet();
+        TempConnections.FindSet();
         repeat
             Rec.Init();
-            Rec.TransferFields(TempWebServicesConnections);
+            Rec.TransferFields(TempConnections);
             if IsCorrectConnession() then
                 Rec."WSC Imported" := true;
             Rec.Insert();
-        until TempWebServicesConnections.Next() = 0;
+        until TempConnections.Next() = 0;
     end;
 
     /// <summary>
     /// GetConfiguration.
     /// </summary>
-    /// <param name="TempWebServicesConnections">Temporary VAR Record "WSC Web Services Connections".</param>
-    procedure GetConfiguration(var TempWebServicesConnections: Record "WSC Web Services Connections" temporary)
+    /// <param name="TempConnections">Temporary VAR Record "WSC Connections".</param>
+    procedure GetConfiguration(var TempConnections: Record "WSC Connections" temporary)
     var
         Text000Lbl: Label 'Nothing to Import';
     begin
@@ -133,12 +131,12 @@ page 81012 "WSC Import Configuration"
             Error(Text000Lbl);
 
         Rec.FindSet();
-        TempWebServicesConnections.Reset();
-        TempWebServicesConnections.DeleteAll();
+        TempConnections.Reset();
+        TempConnections.DeleteAll();
         repeat
-            TempWebServicesConnections.Init();
-            TempWebServicesConnections.TransferFields(Rec);
-            TempWebServicesConnections.Insert();
+            TempConnections.Init();
+            TempConnections.TransferFields(Rec);
+            TempConnections.Insert();
         until Rec.Next() = 0;
     end;
 

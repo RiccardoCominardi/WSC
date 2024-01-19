@@ -1,7 +1,7 @@
 /// <summary>
-/// Table WSC Web Services EndPoint Var. (ID 81009).
+/// Table WSC EndPoint Variables (ID 81009).
 /// </summary>
-table 81009 "WSC Web Services EndPoint Var."
+table 81009 "WSC EndPoint Variables"
 {
     DataClassification = CustomerContent;
     Caption = 'Web Services - EndPoint Variables';

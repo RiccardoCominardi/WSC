@@ -1,12 +1,12 @@
 /// <summary>
-/// Table WSC Web Services Headers (ID 81002).
+/// Table WSC Parameters (ID 81010).
 /// </summary>
-table 81002 "WSC Web Services Headers"
+table 81010 "WSC Parameters"
 {
-    Caption = 'Web Services - Headers';
+    Caption = 'Web Services - Parameters';
     DataClassification = CustomerContent;
-    DrillDownPageId = "WSC Web Services Headers";
-    LookupPageId = "WSC Web Services Headers";
+    DrillDownPageId = "WSC Parameters";
+    LookupPageId = "WSC Parameters";
 
     fields
     {
@@ -14,7 +14,7 @@ table 81002 "WSC Web Services Headers"
         {
             DataClassification = CustomerContent;
             Caption = 'Code';
-            TableRelation = "WSC Web Services Connections"."WSC Code";
+            TableRelation = "WSC Connections"."WSC Code";
         }
         field(2; "WSC Key"; Text[20])
         {
@@ -47,16 +47,27 @@ table 81002 "WSC Web Services Headers"
     /// <param name="WSCCode">Code[20].</param>
     procedure ViewLog(WSCCode: Code[20])
     var
-        WebServicesConnections: Record "WSC Web Services Connections";
-        WebServicesHeaders: Record "WSC Web Services Headers";
+        Connections: Record "WSC Connections";
+        Parameters: Record "WSC Parameters";
     begin
-        WebServicesConnections.Get(WSCCode);
+        Connections.Get(WSCCode);
 
-        WebServicesHeaders.Reset();
-        WebServicesHeaders.FilterGroup(2);
-        WebServicesHeaders.SetRange("WSC Code", WebServicesConnections."WSC Code");
-        WebServicesHeaders.FilterGroup(0);
-        Page.RunModal(0, WebServicesHeaders);
+        Parameters.Reset();
+        Parameters.FilterGroup(2);
+        Parameters.SetRange("WSC Code", Connections."WSC Code");
+        Parameters.FilterGroup(0);
+        Page.RunModal(0, Parameters);
+    end;
+
+    /// <summary>
+    /// IsVariableValues.
+    /// </summary>
+    /// <returns>Return value of type Boolean.</returns>
+    procedure IsVariableValues(): Boolean
+    begin
+        if StrPos(Rec."WSC Value", '%') > 0 then
+            exit(true);
+        exit(false);
     end;
 
     trigger OnInsert()

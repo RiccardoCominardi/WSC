@@ -1,12 +1,12 @@
 /// <summary>
-/// Page WSC Web Service Conn. Card (ID 81002).
+/// Page WSC Connection Card (ID 81002).
 /// </summary>
-page 81002 "WSC Web Service Conn. Card"
+page 81002 "WSC Connection Card"
 {
-    Caption = 'Web Service Connection Card';
+    Caption = 'Connection Card';
     PageType = Document;
     RefreshOnActivate = true;
-    SourceTable = "WSC Web Services Connections";
+    SourceTable = "WSC Connections";
 
     layout
     {
@@ -149,16 +149,20 @@ page 81002 "WSC Web Service Conn. Card"
         }
         area(factboxes)
         {
-            part(WebServicesEndPointVar; "WSC Web Services EndPoint Var.")
+            part(EndPointVariables; "WSC EndPoint Variables Factbox")
             {
                 ApplicationArea = All;
                 Caption = 'EndPoint Variables';
             }
-            part(WebServicesParamFactbox; "WSC Web Services Param Factbox")
+            part(WebServicesParamFactbox; "WSC Parameters Factbox")
             {
                 ApplicationArea = All;
                 Caption = 'Parameters';
                 SubPageLink = "WSC Code" = field("WSC Code");
+            }
+            part("WSC Top Calls Charts"; "WSC Top Calls Charts")
+            {
+                ApplicationArea = All;
             }
             systempart(Control1900383207; Links)
             {
@@ -184,9 +188,9 @@ page 81002 "WSC Web Service Conn. Card"
                 Image = SetupList;
                 trigger OnAction()
                 var
-                    WebServicesParameters: Record "WSC Web Services Parameters";
+                    Parameters: Record "WSC Parameters";
                 begin
-                    WebServicesParameters.ViewLog(Rec."WSC Code");
+                    Parameters.ViewLog(Rec."WSC Code");
                 end;
             }
             action(Headers)
@@ -198,9 +202,9 @@ page 81002 "WSC Web Service Conn. Card"
 
                 trigger OnAction()
                 var
-                    WebServicesHeaders: Record "WSC Web Services Headers";
+                    Headers: Record "WSC Headers";
                 begin
-                    WebServicesHeaders.ViewLog(Rec."WSC Code");
+                    Headers.ViewLog(Rec."WSC Code");
                 end;
             }
             action(Bodies)
@@ -212,9 +216,9 @@ page 81002 "WSC Web Service Conn. Card"
 
                 trigger OnAction()
                 var
-                    WebServicesBodies: Record "WSC Web Services Bodies";
+                    Bodies: Record "WSC Bodies";
                 begin
-                    WebServicesBodies.ViewLog(Rec."WSC Code");
+                    Bodies.ViewLog(Rec."WSC Code");
                 end;
             }
             action(SendRequest)
@@ -226,10 +230,11 @@ page 81002 "WSC Web Service Conn. Card"
 
                 trigger OnAction()
                 var
-                    WebServicesLogCalls: Record "WSC Web Services Log Calls";
+                    LogCalls: Record "WSC Log Calls";
                     WebServicesManagement: Codeunit "WSC Web Services Management";
                 begin
-                    WebServicesManagement.ExecuteWSCConnections(Rec."WSC Code", WebServicesLogCalls);
+                    WebServicesManagement.ExecuteConnections(Rec."WSC Code", LogCalls);
+                    CurrPage."WSC Top Calls Charts".Page.UpdateChart();
                 end;
             }
             action(ViewLog)
@@ -241,9 +246,9 @@ page 81002 "WSC Web Service Conn. Card"
 
                 trigger OnAction()
                 var
-                    WebServicesLogCalls: Record "WSC Web Services Log Calls";
+                    LogCalls: Record "WSC Log Calls";
                 begin
-                    WebServicesLogCalls.ViewLog(Rec."WSC Code");
+                    LogCalls.ViewLog(Rec."WSC Code");
                 end;
             }
         }
@@ -278,31 +283,31 @@ page 81002 "WSC Web Service Conn. Card"
 
     local procedure SetEndPointFields()
     var
-        WebServicesEndPointVar: Record "WSC Web Services EndPoint Var.";
+        EndPointVariables: Record "WSC EndPoint Variables";
         Text000Lbl: Label 'EndPoint containes variables';
         Found: Boolean;
     begin
         Found := false;
         EndPointColor := 'Standard';
         EndPointWithVar := '';
-        WebServicesEndPointVar.Reset();
-        if WebServicesEndPointVar.IsEmpty() then
+        EndPointVariables.Reset();
+        if EndPointVariables.IsEmpty() then
             exit;
 
-        WebServicesEndPointVar.FindSet();
+        EndPointVariables.FindSet();
         repeat
-            if StrPos(Rec."WSC EndPoint", WebServicesEndPointVar."WSC Variable Name") > 0 then begin
+            if StrPos(Rec."WSC EndPoint", EndPointVariables."WSC Variable Name") > 0 then begin
                 Found := true;
                 EndPointColor := 'Ambiguous';
                 EndPointWithVar := Text000Lbl;
             end
 
-        until (WebServicesEndPointVar.Next() = 0) or Found;
+        until (EndPointVariables.Next() = 0) or Found;
     end;
 
     local procedure SetTokenFields()
     var
-        WSCConnBearer: Record "WSC Web Services Connections";
+        ConnectionBearer: Record "WSC Connections";
         Text000Lbl: Label 'No Token';
         Text001Lbl: Label 'Token Expired';
         Text002Lbl: Label 'Token Available';
@@ -323,11 +328,11 @@ page 81002 "WSC Web Service Conn. Card"
             end;
         end else
             if Rec."WSC Bearer Connection Code" <> '' then
-                if WSCConnBearer."WSC Code" <> Rec."WSC Bearer Connection Code" then begin
-                    WSCConnBearer.Get(Rec."WSC Bearer Connection Code");
-                    TokenPresent := SecurityManagements.HasToken(WSCConnBearer."WSC Access Token", WSCConnBearer.GetTokenDataScope());
-                    TokenAuth := WSCConnBearer."WSC Authorization Time";
-                    if IsExpiredToken(TokenAuth, WSCConnBearer."WSC Expires In") then begin
+                if ConnectionBearer."WSC Code" <> Rec."WSC Bearer Connection Code" then begin
+                    ConnectionBearer.Get(Rec."WSC Bearer Connection Code");
+                    TokenPresent := SecurityManagements.HasToken(ConnectionBearer."WSC Access Token", ConnectionBearer.GetTokenDataScope());
+                    TokenAuth := ConnectionBearer."WSC Authorization Time";
+                    if IsExpiredToken(TokenAuth, ConnectionBearer."WSC Expires In") then begin
                         TokenStatus := Text001Lbl;
                         TokenColor := 'Unfavorable'
                     end else begin

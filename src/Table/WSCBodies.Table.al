@@ -1,12 +1,12 @@
 /// <summary>
-/// Table WSC Web Services Bodies (ID 81003).
+/// Table WSC Bodies (ID 81003).
 /// </summary>
-table 81003 "WSC Web Services Bodies"
+table 81003 "WSC Bodies"
 {
     Caption = 'Web Services - Bodies';
     DataClassification = CustomerContent;
-    DrillDownPageId = "WSC Web Services Bodies";
-    LookupPageId = "WSC Web Services Bodies";
+    DrillDownPageId = "WSC Bodies";
+    LookupPageId = "WSC Bodies";
 
     fields
     {
@@ -14,7 +14,7 @@ table 81003 "WSC Web Services Bodies"
         {
             DataClassification = CustomerContent;
             Caption = 'Code';
-            TableRelation = "WSC Web Services Connections"."WSC Code";
+            TableRelation = "WSC Connections"."WSC Code";
         }
         field(2; "WSC Key"; Text[20])
         {
@@ -63,18 +63,18 @@ table 81003 "WSC Web Services Bodies"
     /// <param name="WSCCode">Code[20].</param>
     procedure ViewLog(WSCCode: Code[20])
     var
-        WebServicesConnections: Record "WSC Web Services Connections";
-        WebServicesBodies: Record "WSC Web Services Bodies";
+        Connections: Record "WSC Connections";
+        Bodies: Record "WSC Bodies";
     begin
-        WebServicesConnections.Get(WSCCode);
-        if not (WebServicesConnections."WSC Body Type" in [WebServicesConnections."WSC Body Type"::"form data", WebServicesConnections."WSC Body Type"::"x-www-form-urlencoded"]) then
+        Connections.Get(WSCCode);
+        if not (Connections."WSC Body Type" in [Connections."WSC Body Type"::"form data", Connections."WSC Body Type"::"x-www-form-urlencoded"]) then
             exit;
 
-        WebServicesBodies.Reset();
-        WebServicesBodies.FilterGroup(2);
-        WebServicesBodies.SetRange("WSC Code", WebServicesConnections."WSC Code");
-        WebServicesBodies.FilterGroup(0);
-        Page.RunModal(0, WebServicesBodies);
+        Bodies.Reset();
+        Bodies.FilterGroup(2);
+        Bodies.SetRange("WSC Code", Connections."WSC Code");
+        Bodies.FilterGroup(0);
+        Page.RunModal(0, Bodies);
     end;
 
     /// <summary>

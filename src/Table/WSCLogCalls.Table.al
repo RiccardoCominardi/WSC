@@ -1,12 +1,12 @@
 /// <summary>
-/// Table WSC Web Services Log Calls (ID 81004).
+/// Table WSC Log Calls (ID 81004).
 /// </summary>
-table 81004 "WSC Web Services Log Calls"
+table 81004 "WSC Log Calls"
 {
-    Caption = 'Web Services Log Calls';
+    Caption = 'Web Services - Log Calls';
     DataClassification = CustomerContent;
-    DrillDownPageId = "WSC Web Services Log Calls";
-    LookupPageId = "WSC Web Services Log Calls";
+    DrillDownPageId = "WSC Log Calls";
+    LookupPageId = "WSC Log Calls";
 
     fields
     {
@@ -19,7 +19,7 @@ table 81004 "WSC Web Services Log Calls"
         {
             DataClassification = CustomerContent;
             Caption = 'Code';
-            TableRelation = "WSC Web Services Connections"."WSC Code";
+            TableRelation = "WSC Connections"."WSC Code";
         }
         field(3; "WSC Description"; Text[100])
         {
@@ -50,7 +50,7 @@ table 81004 "WSC Web Services Log Calls"
         {
             DataClassification = CustomerContent;
             Caption = 'Bearer Connection Code';
-            TableRelation = "WSC Web Services Connections"."WSC Code" where("WSC Bearer Connection" = const(true));
+            TableRelation = "WSC Connections"."WSC Code" where("WSC Bearer Connection" = const(true));
         }
         field(9; "WSC Body Type"; Enum "WSC Body Types")
         {
@@ -66,7 +66,7 @@ table 81004 "WSC Web Services Log Calls"
         {
             DataClassification = CustomerContent;
             Caption = 'Link to WSC Code';
-            TableRelation = "WSC Web Services Connections"."WSC Code";
+            TableRelation = "WSC Connections"."WSC Code";
         }
         field(12; "WSC Link To Entry No."; Integer)
         {
@@ -82,7 +82,7 @@ table 81004 "WSC Web Services Log Calls"
         {
             DataClassification = CustomerContent;
             Caption = 'Group Code';
-            TableRelation = "WSC Web Services Group Codes"."WSC Code";
+            TableRelation = "WSC Group Codes"."WSC Code";
         }
         field(15; "WSC Zip Response"; Boolean)
         {
@@ -172,20 +172,20 @@ table 81004 "WSC Web Services Log Calls"
     /// <param name="WSCCode">Code[20].</param>
     procedure ViewLog(WSCCode: Code[20])
     var
-        WebServicesConnections: Record "WSC Web Services Connections";
-        WebServicesLogCalls: Record "WSC Web Services Log Calls";
+        Connections: Record "WSC Connections";
+        LogCalls: Record "WSC Log Calls";
     begin
-        WebServicesConnections.Get(WSCCode);
+        Connections.Get(WSCCode);
 
-        WebServicesLogCalls.Reset();
-        WebServicesLogCalls.SetCurrentKey("WSC Execution Date-Time");
-        WebServicesLogCalls.FilterGroup(2);
-        if WebServicesConnections."WSC Bearer Connection Code" <> '' then
-            WebServicesLogCalls.SetFilter("WSC Code", '%1|%2', WebServicesConnections."WSC Code", WebServicesConnections."WSC Bearer Connection Code")
+        LogCalls.Reset();
+        LogCalls.SetCurrentKey("WSC Execution Date-Time");
+        LogCalls.FilterGroup(2);
+        if Connections."WSC Bearer Connection Code" <> '' then
+            LogCalls.SetFilter("WSC Code", '%1|%2', Connections."WSC Code", Connections."WSC Bearer Connection Code")
         else
-            WebServicesLogCalls.SetRange("WSC Code", WebServicesConnections."WSC Code");
-        WebServicesLogCalls.FilterGroup(0);
-        Page.RunModal(0, WebServicesLogCalls);
+            LogCalls.SetRange("WSC Code", Connections."WSC Code");
+        LogCalls.FilterGroup(0);
+        Page.RunModal(0, LogCalls);
     end;
 
     trigger OnInsert()
@@ -200,21 +200,21 @@ table 81004 "WSC Web Services Log Calls"
 
     trigger OnDelete()
     var
-        WebServicesLogParam: Record "WSC Web Services Log Param.";
-        WebServicesLogHeaders: Record "WSC Web Services Log Headers";
-        WebServicesLogBodies: Record "WSC Web Services Log Bodies";
+        LogParameters: Record "WSC Log Parameters";
+        LogHeaders: Record "WSC Log Headers";
+        LogBodies: Record "WSC Log Bodies";
     begin
-        WebServicesLogParam.Reset();
-        WebServicesLogParam.SetRange("WSC Code", Rec."WSC Code");
-        WebServicesLogParam.DeleteAll();
+        LogParameters.Reset();
+        LogParameters.SetRange("WSC Code", Rec."WSC Code");
+        LogParameters.DeleteAll();
 
-        WebServicesLogHeaders.Reset();
-        WebServicesLogHeaders.SetRange("WSC Code", Rec."WSC Code");
-        WebServicesLogHeaders.DeleteAll();
+        LogHeaders.Reset();
+        LogHeaders.SetRange("WSC Code", Rec."WSC Code");
+        LogHeaders.DeleteAll();
 
-        WebServicesLogBodies.Reset();
-        WebServicesLogBodies.SetRange("WSC Code", Rec."WSC Code");
-        WebServicesLogBodies.DeleteAll();
+        LogBodies.Reset();
+        LogBodies.SetRange("WSC Code", Rec."WSC Code");
+        LogBodies.DeleteAll();
     end;
 
     trigger OnRename()
