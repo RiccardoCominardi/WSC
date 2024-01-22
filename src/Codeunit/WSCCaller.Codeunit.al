@@ -1,7 +1,7 @@
 /// <summary>
-/// Codeunit WSC Web Services Caller (ID 81002).
+/// Codeunit WSC Caller (ID 81002).
 /// </summary>
-codeunit 81002 "WSC Web Services Caller"
+codeunit 81002 "WSC Caller"
 {
     TableNo = "WSC Connections";
     trigger OnRun()

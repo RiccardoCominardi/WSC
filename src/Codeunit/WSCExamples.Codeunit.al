@@ -1,7 +1,7 @@
 /// <summary>
-/// Codeunit WSC Web Services Examples (ID 82000).
+/// Codeunit WSC Examples (ID 82000).
 /// </summary>
-codeunit 82000 "WSC Web Services Examples"
+codeunit 82000 "WSC Examples"
 {
     trigger OnRun()
     begin
@@ -14,14 +14,14 @@ codeunit 82000 "WSC Web Services Examples"
     procedure ExecuteWSCTestCode()
     var
         LogCalls: Record "WSC Log Calls";
-        WebServicesManagement: Codeunit "WSC Web Services Management";
+        WSCManagements: Codeunit "WSC Managements";
         ResponseText: Text;
         WSCodeLog: Code[20];
         WSEntryLog: Integer;
     begin
-        Clear(WebServicesManagement);
-        WebServicesManagement.SetHideMessage(true);
-        if WebServicesManagement.ExecuteConnections('TEST', LogCalls) then
+        Clear(WSCManagements);
+        WSCManagements.SetHideMessage(true);
+        if WSCManagements.ExecuteConnections('TEST', LogCalls) then
             Message('Web Service call successful. View the log to see the response')
         else
             Message('Web Service call failed. View the log to see the response');
@@ -33,19 +33,19 @@ codeunit 82000 "WSC Web Services Examples"
     procedure ExecuteWSCTestCodeWithCustomBody()
     var
         LogCalls: Record "WSC Log Calls";
-        WebServicesManagement: Codeunit "WSC Web Services Management";
+        WSCManagements: Codeunit "WSC Managements";
         TempBlob: Codeunit "Temp Blob";
         InStr: InStream;
         ResponseText: Text;
         WSCodeLog: Code[20];
         WSEntryLog: Integer;
     begin
-        Clear(WebServicesManagement);
+        Clear(WSCManagements);
         GenerateCustomBody(TempBlob);
         TempBlob.CreateInStream(InStr);
-        WebServicesManagement.SetCustomBody(InStr);
-        WebServicesManagement.SetHideMessage(true);
-        if WebServicesManagement.ExecuteConnections('TEST_CUSTOM_BODY', LogCalls) then
+        WSCManagements.SetCustomBody(InStr);
+        WSCManagements.SetHideMessage(true);
+        if WSCManagements.ExecuteConnections('TEST_CUSTOM_BODY', LogCalls) then
             Message('Web Service call successful. View the log to see the response')
         else
             Message('Web Service call failed. View the log to see the response');
@@ -99,8 +99,8 @@ codeunit 82000 "WSC Web Services Examples"
         OutStr.WriteText('This is a custom body text. You can put a file, contained in an InStream, in Write function');
     end;
 
-    //Add a fixed body for a WebService call. For complex body use the SetCustomBody procedure in Codeunit "WSC Web Services Management";
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"WSC Web Services Caller", 'OnSetFixBodyMessage', '', false, false)]
+    //Add a fixed body for a WebService call. For complex body use the SetCustomBody procedure in Codeunit "WSC WSCManagements";
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"WSC Caller", 'OnSetFixBodyMessage', '', false, false)]
     local procedure OnSetFixBodyMessage(var Connections: Record "WSC Connections");
     var
         OutStr: OutStream;
@@ -115,7 +115,7 @@ codeunit 82000 "WSC Web Services Examples"
     end;
 
     //Change the authentication for a WebService call
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"WSC Web Services Caller", 'OnAfterInitializeRequestHeaders', '', false, false)]
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"WSC Caller", 'OnAfterInitializeRequestHeaders', '', false, false)]
     local procedure OnAfterInitializeRequestHeaders(var RequestHeaders: HttpHeaders; Connections: Record "WSC Connections");
     begin
         //This piece of code is required for WS calls to work properly. Your custom body must not have affect the body of other call
@@ -130,7 +130,7 @@ codeunit 82000 "WSC Web Services Examples"
 
     //To handle variable parameters in endpoint 
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"WSC Web Services Caller", OnParseVariableParameter, '', false, false)]
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"WSC Caller", OnParseVariableParameter, '', false, false)]
     local procedure OnParseVariableParameter(var EndpointString: Text; Parameters: Record "WSC Parameters");
     begin
         //This piece of code is required for WS calls to work properly. Your parameters body must not have affect the parameters of other call
@@ -144,7 +144,7 @@ codeunit 82000 "WSC Web Services Examples"
     end;
 
     //To handle variable in endpoint
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"WSC Web Services Caller", 'OnParseEndpoint', '', false, false)]
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"WSC Caller", 'OnParseEndpoint', '', false, false)]
     local procedure OnParseEndpoint(OldEndPointString: Text; var NewEndPointString: Text; EndPointVariables: Record "WSC EndPoint Variables"; Connections: Record "WSC Connections");
     begin
         //This piece of code is required for WS calls to work properly. Your custom body must not have affect the body of other call

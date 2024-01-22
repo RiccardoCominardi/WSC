@@ -7,9 +7,9 @@ permissionset 81001 "WSC Permissions"
     Caption = 'WSC Permissions';
 
     Permissions =
-         codeunit "WSC Web Services Caller" = X,
-         codeunit "WSC Web Services Examples" = X,
-         codeunit "WSC Web Services Management" = X,
+         codeunit "WSC Caller" = X,
+         codeunit "WSC Examples" = X,
+         codeunit "WSC Managements" = X,
          codeunit "WSC Import Export Config." = X,
          codeunit "WSC Upgrade" = X,
          codeunit "WSC Security Managements" = X,

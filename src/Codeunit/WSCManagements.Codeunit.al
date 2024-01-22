@@ -1,7 +1,7 @@
 /// <summary>
-/// Codeunit WSC Web Services Management (ID 81001).
+/// Codeunit WSC Managements (ID 81001).
 /// </summary>
-codeunit 81001 "WSC Web Services Management"
+codeunit 81001 "WSC Managements"
 {
     trigger OnRun()
     begin
@@ -780,7 +780,7 @@ codeunit 81001 "WSC Web Services Management"
 
     #endregion IntegrationEvents
     var
-        WebServicesCaller: Codeunit "WSC Web Services Caller";
+        WebServicesCaller: Codeunit "WSC Caller";
         BodyInStream: InStream;
         ResponseInStream: InStream;
         CustomBodyInStream: InStream;

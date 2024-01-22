@@ -122,7 +122,7 @@ page 81001 "WSC Connections List"
 
                 trigger OnAction()
                 var
-                    WebServicesManagement: Codeunit "WSC Web Services Management";
+                    WebServicesManagement: Codeunit "WSC Managements";
                 begin
                     WebServicesManagement.ShowWSCAsTree();
                 end;
@@ -141,7 +141,7 @@ page 81001 "WSC Connections List"
                 trigger OnAction()
                 var
                     LogCalls: Record "WSC Log Calls";
-                    WebServicesManagement: Codeunit "WSC Web Services Management";
+                    WebServicesManagement: Codeunit "WSC Managements";
                 begin
                     WebServicesManagement.ExecuteConnections(Rec."WSC Code", LogCalls);
                 end;
@@ -156,9 +156,9 @@ page 81001 "WSC Connections List"
 
                 trigger OnAction()
                 var
-                    WebServicesExamples: Codeunit "WSC Web Services Examples";
+                    Examples: Codeunit "WSC Examples";
                 begin
-                    WebServicesExamples.ExecuteWSCTestCodeWithCustomBody();
+                    Examples.ExecuteWSCTestCodeWithCustomBody();
                 end;
             }
             action(ImportWSConfiguration)

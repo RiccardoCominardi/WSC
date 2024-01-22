@@ -231,7 +231,7 @@ page 81002 "WSC Connection Card"
                 trigger OnAction()
                 var
                     LogCalls: Record "WSC Log Calls";
-                    WebServicesManagement: Codeunit "WSC Web Services Management";
+                    WebServicesManagement: Codeunit "WSC Managements";
                 begin
                     WebServicesManagement.ExecuteConnections(Rec."WSC Code", LogCalls);
                     CurrPage."WSC Top Calls Charts".Page.UpdateChart();
