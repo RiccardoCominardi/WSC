@@ -47,6 +47,11 @@ table 81003 "WSC Bodies"
             DataClassification = CustomerContent;
             Caption = 'Secret';
         }
+        field(8; "WSC Enabled"; Boolean)
+        {
+            Caption = 'Enabled';
+            DataClassification = CustomerContent;
+        }
     }
 
     keys
@@ -177,7 +182,7 @@ table 81003 "WSC Bodies"
 
     trigger OnInsert()
     begin
-
+        Rec."WSC Enabled" := true;
     end;
 
     trigger OnModify()
@@ -197,5 +202,4 @@ table 81003 "WSC Bodies"
     begin
 
     end;
-
 }

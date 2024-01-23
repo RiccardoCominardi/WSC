@@ -464,6 +464,7 @@ codeunit 81001 "WSC Managements"
                 begin
                     Bodies.Reset();
                     Bodies.SetRange("WSC Code", BearerConnection."WSC Code");
+                    Bodies.SetRange("WSC Enabled", true);
                     Bodies.SetRange("WSC Key", 'client_id');
                     Bodies.FindFirst();
                     if not Bodies.HasValue() then
@@ -626,6 +627,7 @@ codeunit 81001 "WSC Managements"
     begin
         Parameters.Reset();
         Parameters.SetRange("WSC Code", WSCCode);
+        Parameters.SetRange("WSC Enabled", true);
         if Parameters.IsEmpty() then
             exit;
 
@@ -660,6 +662,7 @@ codeunit 81001 "WSC Managements"
     begin
         Headers.Reset();
         Headers.SetRange("WSC Code", WSCCode);
+        Headers.SetRange("WSC Enabled", true);
         if Headers.IsEmpty() then
             exit;
 
@@ -695,6 +698,7 @@ codeunit 81001 "WSC Managements"
     begin
         Connections.Get(WSCCode);
         Bodies.Reset();
+        Bodies.SetRange("WSC Enabled", true);
         Bodies.SetRange("WSC Code", WSCCode);
         if Bodies.IsEmpty() then
             exit;

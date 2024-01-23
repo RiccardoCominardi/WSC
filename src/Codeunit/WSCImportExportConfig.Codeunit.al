@@ -168,6 +168,8 @@ codeunit 81003 "WSC Import Export Config."
                         TempParameters."WSC Value" := JsonKeyValue.AsText();
                     'description':
                         TempParameters."WSC Description" := JsonKeyValue.AsText();
+                    'isEnabled':
+                        TempParameters."WSC Enabled" := JsonKeyValue.AsBoolean();
                 end;
             TableType::Header:
                 case JsonFieldName of
@@ -180,6 +182,8 @@ codeunit 81003 "WSC Import Export Config."
                         TempHeaders."WSC Value" := JsonKeyValue.AsText();
                     'description':
                         TempHeaders."WSC Description" := JsonKeyValue.AsText();
+                    'isEnabled':
+                        TempHeaders."WSC Enabled" := JsonKeyValue.AsBoolean();
                 end;
             TableType::Body:
                 case JsonFieldName of
@@ -194,6 +198,8 @@ codeunit 81003 "WSC Import Export Config."
                         TempBodies.SetValue(JsonKeyValue.AsText());
                     'description':
                         TempBodies."WSC Description" := JsonKeyValue.AsText();
+                    'isEnabled':
+                        TempBodies."WSC Enabled" := JsonKeyValue.AsBoolean();
                 end;
         end;
     end;
@@ -564,6 +570,7 @@ codeunit 81003 "WSC Import Export Config."
             JObjectName.Add('key', Parameters."WSC Key");
             JObjectName.Add('value', Parameters."WSC Value");
             JObjectName.Add('description', Parameters."WSC Description");
+            JObjectName.Add('isEnabled', Parameters."WSC Enabled");
             OnBeforeAddArrayParameterContent(JObjectName, Parameters);
 
             JArrayName.Add(JObjectName);
@@ -588,6 +595,7 @@ codeunit 81003 "WSC Import Export Config."
             JObjectName.Add('key', Headers."WSC Key");
             JObjectName.Add('value', Headers."WSC Value");
             JObjectName.Add('description', Headers."WSC Description");
+            JObjectName.Add('isEnabled', Headers."WSC Enabled");
             OnBeforeAddArrayHeaderContent(JObjectName, Headers);
 
             JArrayName.Add(JObjectName);
@@ -613,6 +621,7 @@ codeunit 81003 "WSC Import Export Config."
             JObjectName.Add('isSecret', Bodies."WSC Is Secret");
             JObjectName.Add('value', Bodies.GetValue());
             JObjectName.Add('description', Bodies."WSC Description");
+            JObjectName.Add('isEnabled', Bodies."WSC Enabled");
             OnBeforeAddArrayBodyContent(JObjectName, Bodies);
 
             JArrayName.Add(JObjectName);

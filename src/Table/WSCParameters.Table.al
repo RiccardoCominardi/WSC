@@ -31,6 +31,11 @@ table 81010 "WSC Parameters"
             DataClassification = CustomerContent;
             Caption = 'Description';
         }
+        field(5; "WSC Enabled"; Boolean)
+        {
+            Caption = 'Enabled';
+            DataClassification = CustomerContent;
+        }
     }
 
     keys
@@ -72,7 +77,7 @@ table 81010 "WSC Parameters"
 
     trigger OnInsert()
     begin
-
+        Rec."WSC Enabled" := true;
     end;
 
     trigger OnModify()

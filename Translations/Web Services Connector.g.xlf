@@ -3,6 +3,86 @@
   <file datatype="xml" source-language="en-US" target-language="en-US" original="Web Services Connector">
     <body>
       <group id="body">
+        <trans-unit id="Table 53061298 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>OnPrem Printer</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EOI OnPrem Printer - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 53061298 - Field 4126130292 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Configuration</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EOI OnPrem Printer - Field Configuration - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 53061298 - Field 3461834954 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Description</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EOI OnPrem Printer - Field Description - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 53061298 - Field 2891538263 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Enabled</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EOI OnPrem Printer - Field Enabled - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 53061298 - Field 2588065392 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Network Share Name</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EOI OnPrem Printer - Field Network Share Name - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 53061298 - Field 975863445 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Paper Size</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EOI OnPrem Printer - Field Paper Size - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 53061298 - Field 2628728933 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Printer ID</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EOI OnPrem Printer - Field Printer ID - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 53061298 - Field 996298347 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Printer Name</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EOI OnPrem Printer - Field Printer Name - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3855746691 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Service Host Setup</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EOI Service Host Setup - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3855746691 - Field 2807669192 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Azure Relay Uri</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EOI Service Host Setup - Field Azure Relay URI - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3855746691 - Field 4007842782 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Azure Token</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EOI Service Host Setup - Field Azure Token - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3855746691 - Field 2891538263 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Enabled</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EOI Service Host Setup - Field Enabled - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3855746691 - Field 2333076789 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>PrimaryKey</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EOI Service Host Setup - Field PrimaryKey - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3855746691 - Field 2919601789 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Service Host URI</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EOI Service Host Setup - Field Service Host URI - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3855746691 - Field 1878130204 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Type</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EOI Service Host Setup - Field Type - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3855746691 - Field 1878130204 - Property 62802879" size-unit="char" translate="yes" xml:space="preserve">
+          <source>OnPrem,Azure Relay</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EOI Service Host Setup - Field Type - Property OptionCaption</note>
+        </trans-unit>
         <trans-unit id="Table 491835267 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Web Services - Bodies</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -22,6 +102,11 @@
           <source>Description</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC Bodies - Field WSC Description - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 491835267 - Field 3046479166 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Enabled</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Bodies - Field WSC Enabled - Property Caption</note>
         </trans-unit>
         <trans-unit id="Table 491835267 - Field 1685343061 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Secret</source>
@@ -273,6 +358,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC Headers - Field WSC Description - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 394116813 - Field 3046479166 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Enabled</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Headers - Field WSC Enabled - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 394116813 - Field 652835980 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Key</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -523,6 +613,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC Parameters - Field WSC Description - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 645343351 - Field 3046479166 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Enabled</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Parameters - Field WSC Enabled - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 645343351 - Field 652835980 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Key</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -563,6 +658,71 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC Tree Visualization - Field WSC Indentation - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Codeunit 2374375807 - NamedType 3713306452" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Service Host is not set-up.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit EOI Service Host Management - NamedType ServiceHostNotEnabledErr</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3335752950 - Method 2539241493 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%1=%2</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Caller - Method AddParameters - NamedType Text000Lbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3335752950 - Method 3154018284 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%1=%2</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Caller - Method CollectBodies - NamedType Text000Lbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3335752950 - Method 681255651 - NamedType 1614022648" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%1:%2</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Caller - Method CreateBasicAuthHeader - NamedType Text001Txt</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3335752950 - Method 681255651 - NamedType 598315961" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Basic %1</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Caller - Method CreateBasicAuthHeader - NamedType Text002Txt</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3335752950 - Method 681255651 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Password must have a value in this type of call</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Caller - Method CreateBasicAuthHeader - NamedType Text000Err</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3335752950 - Method 2818987228 - NamedType 1614022648" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bearer must have a value in this type of call</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Caller - Method CreateBearerAuthHeader - NamedType Text001Txt</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3335752950 - Method 2818987228 - NamedType 598315961" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bearer %1</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Caller - Method CreateBearerAuthHeader - NamedType Text002Txt</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3335752950 - Method 2544903138 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Connection not estabilished</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Caller - Method ExecuteRequest - NamedType Text000Err</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3335752950 - Method 1988189561 - NamedType 3865442186" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Attachments (%1)|%1</source>
+          <note from="Developer" annotates="general" priority="2">%1=file types, such as *.txt or *.docx</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Caller - Method ImportWithFilter - NamedType FileDialogTxt</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3335752950 - Method 1988189561 - NamedType 3777830815" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Attach a document.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Caller - Method ImportWithFilter - NamedType ImportTxt</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1147027056 - Method 681255651 - NamedType 1614022648" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%1:%2</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Examples - Method CreateBasicAuthHeader - NamedType Text001Txt</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1147027056 - Method 681255651 - NamedType 598315961" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Basic %1</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Examples - Method CreateBasicAuthHeader - NamedType Text002Txt</note>
+        </trans-unit>
         <trans-unit id="Codeunit 244097558 - Method 1000131093 - NamedType 1745287229" size-unit="char" translate="yes" xml:space="preserve">
           <source>This connection is part of a group. Do you want to export the entire group ?</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -593,6 +753,21 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Import Export Config. - Method TransferRecordFromTemp - NamedType Text000Lbl</note>
         </trans-unit>
+        <trans-unit id="Codeunit 3364231641 - Method 1458474784 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Key %1 must be filled for token request</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Managements - Method CheckWSBodiesForToken - NamedType Text000Err</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3364231641 - Method 3954711601 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Execution Terminated. Check the log to see the result</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Managements - Method ExecuteDirectConnections - NamedType Text000Lbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3364231641 - Method 2345795677 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Invalid Access Token Property %1, Value:  %2</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Managements - Method UpdateWSCTokenInfo - NamedType Text000Err</note>
+        </trans-unit>
         <trans-unit id="Codeunit 2537133001 - Method 362095208 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
           <source>Set Current Company ID</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -608,80 +783,70 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Upgrade - Method SetEndpointVariables - NamedType Text002Lbl</note>
         </trans-unit>
-        <trans-unit id="Codeunit 2367903848 - Method 2539241493 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
-          <source>%1=%2</source>
+        <trans-unit id="Page 4077708479 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>OnPrem Printers</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Caller - Method AddParameters - NamedType Text000Lbl</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EOI OnPrem Printers - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Codeunit 2367903848 - Method 3154018284 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
-          <source>%1=%2</source>
+        <trans-unit id="Page 4077708479 - Control 3876557106 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Configuration Payload</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Caller - Method CollectBodies - NamedType Text000Lbl</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EOI OnPrem Printers - Control ConfigurationPayload - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Codeunit 2367903848 - Method 681255651 - NamedType 1614022648" size-unit="char" translate="yes" xml:space="preserve">
-          <source>%1:%2</source>
+        <trans-unit id="Page 4077708479 - Control 975863445 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Paper Size</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Caller - Method CreateBasicAuthHeader - NamedType Text001Txt</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EOI OnPrem Printers - Control Paper Size - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Codeunit 2367903848 - Method 681255651 - NamedType 598315961" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Basic %1</source>
+        <trans-unit id="Page 4077708479 - Action 3490589974 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Test Direct IO</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Caller - Method CreateBasicAuthHeader - NamedType Text002Txt</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EOI OnPrem Printers - Action Test_DirectIO - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Codeunit 2367903848 - Method 681255651 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Password must have a value in this type of call</source>
+        <trans-unit id="Page 3855746691 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Service Host Setup</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Caller - Method CreateBasicAuthHeader - NamedType Text000Err</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EOI Service Host Setup - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Codeunit 2367903848 - Method 2818987228 - NamedType 1614022648" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Bearer must have a value in this type of call</source>
+        <trans-unit id="Page 3855746691 - NamedType 942982381" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The connection was tested successfully.</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Caller - Method CreateBearerAuthHeader - NamedType Text001Txt</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EOI Service Host Setup - NamedType ConnectionSuccessfulMsg</note>
         </trans-unit>
-        <trans-unit id="Codeunit 2367903848 - Method 2818987228 - NamedType 598315961" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Bearer %1</source>
+        <trans-unit id="Page 3855746691 - NamedType 618990077" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%1 printers loaded.</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Caller - Method CreateBearerAuthHeader - NamedType Text002Txt</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EOI Service Host Setup - NamedType PrintersLoadedMsg</note>
         </trans-unit>
-        <trans-unit id="Codeunit 2367903848 - Method 2544903138 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Connection not estabilished</source>
+        <trans-unit id="Page 3855746691 - Control 3989197254 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Azure Relay</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Caller - Method ExecuteRequest - NamedType Text000Err</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EOI Service Host Setup - Control AzureRelay - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Codeunit 2367903848 - Method 1988189561 - NamedType 3865442186" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Attachments (%1)|%1</source>
-          <note from="Developer" annotates="general" priority="2">%1=file types, such as *.txt or *.docx</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Caller - Method ImportWithFilter - NamedType FileDialogTxt</note>
-        </trans-unit>
-        <trans-unit id="Codeunit 2367903848 - Method 1988189561 - NamedType 3777830815" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Attach a document.</source>
+        <trans-unit id="Page 3855746691 - Control 2445482498 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>General</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Caller - Method ImportWithFilter - NamedType ImportTxt</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EOI Service Host Setup - Control General - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Codeunit 1951608638 - Method 681255651 - NamedType 1614022648" size-unit="char" translate="yes" xml:space="preserve">
-          <source>%1:%2</source>
+        <trans-unit id="Page 3855746691 - Control 60569701 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>OnPrem</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Examples - Method CreateBasicAuthHeader - NamedType Text001Txt</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EOI Service Host Setup - Control OnPrem - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Codeunit 1951608638 - Method 681255651 - NamedType 598315961" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Basic %1</source>
+        <trans-unit id="Page 3855746691 - Action 754966559 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Printers</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Examples - Method CreateBasicAuthHeader - NamedType Text002Txt</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EOI Service Host Setup - Action Printers - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Codeunit 3971640374 - Method 1458474784 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Key %1 must be filled for token request</source>
+        <trans-unit id="Page 3855746691 - Action 3733798781 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Load Printers</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Managements - Method CheckWSBodiesForToken - NamedType Text000Err</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EOI Service Host Setup - Action LoadPrinters - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Codeunit 3971640374 - Method 3954711601 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Execution Terminated. Check the log to see the result</source>
+        <trans-unit id="Page 3855746691 - Action 4263468516 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Test Connection</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Managements - Method ExecuteDirectConnections - NamedType Text000Lbl</note>
-        </trans-unit>
-        <trans-unit id="Codeunit 3971640374 - Method 2345795677 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Invalid Access Token Property %1, Value:  %2</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Managements - Method UpdateWSCTokenInfo - NamedType Text000Err</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EOI Service Host Setup - Action TestConnection - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 491835267 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Bodies</source>
@@ -1197,6 +1362,11 @@
           <source>UserAndCompany</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum WSC Token DataScope - EnumValue UserAndCompany - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PermissionSet 1519729782 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>EOI Service Host Integration</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PermissionSet EOI.SRVHOST - Property Caption</note>
         </trans-unit>
         <trans-unit id="PermissionSet 158051057 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>WSC Permissions</source>

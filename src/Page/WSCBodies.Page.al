@@ -13,14 +13,27 @@ page 81004 "WSC Bodies"
         {
             repeater(Control1)
             {
+                field("WSC Enabled"; Rec."WSC Enabled")
+                {
+                    ApplicationArea = All;
+                    ShowCaption = false;
+                    StyleExpr = not Rec."WSC Enabled";
+                    Style = Unfavorable;
+                }
                 field("WSC Key"; Rec."WSC Key")
                 {
                     ApplicationArea = All;
+                    Editable = Rec."WSC Enabled";
+                    StyleExpr = not Rec."WSC Enabled";
+                    Style = Unfavorable;
                 }
                 field("WSC ValueAsText"; ValueAsText)
                 {
                     ApplicationArea = All;
                     Caption = 'Value';
+                    Editable = Rec."WSC Enabled";
+                    StyleExpr = not Rec."WSC Enabled";
+                    Style = Unfavorable;
                     trigger OnValidate()
                     begin
                         Rec.SetValue(ValueAsText);
@@ -29,10 +42,16 @@ page 81004 "WSC Bodies"
                 field("WSC Description"; Rec."WSC Description")
                 {
                     ApplicationArea = All;
+                    Editable = Rec."WSC Enabled";
+                    StyleExpr = not Rec."WSC Enabled";
+                    Style = Unfavorable;
                 }
                 field("WSC Is Secret"; Rec."WSC Is Secret")
                 {
                     ApplicationArea = All;
+                    Editable = Rec."WSC Enabled";
+                    StyleExpr = not Rec."WSC Enabled";
+                    Style = Unfavorable;
                     trigger OnValidate()
                     begin
                         Rec.ConvertValue();
@@ -42,14 +61,15 @@ page 81004 "WSC Bodies"
         }
     }
 
+    trigger OnNewRecord(BelowxRec: Boolean)
+    begin
+        Rec."WSC Enabled" := true;
+        ValueAsText := '';
+    end;
+
     trigger OnAfterGetRecord()
     begin
         ValueAsText := Rec.GetValue();
-    end;
-
-    trigger OnNewRecord(BelowxRec: Boolean)
-    begin
-        ValueAsText := '';
     end;
 
     protected var

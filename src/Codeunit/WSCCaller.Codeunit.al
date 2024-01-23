@@ -177,6 +177,7 @@ codeunit 81002 "WSC Caller"
 
         Parameters.Reset();
         Parameters.SetRange("WSC Code", GlobalConnection."WSC Code");
+        Parameters.SetRange("WSC Enabled", true);
         Parameters.SetFilter("WSC Key", '<> %1', '');
         if Parameters.IsEmpty() then
             exit;
@@ -302,6 +303,7 @@ codeunit 81002 "WSC Caller"
     begin
         Headers.Reset();
         Headers.SetRange("WSC Code", GlobalConnection."WSC Code");
+        Headers.SetRange("WSC Enabled", true);
         Headers.SetFilter("WSC Key", '<> %1', '');
         if Headers.IsEmpty() then
             exit;
@@ -323,6 +325,7 @@ codeunit 81002 "WSC Caller"
     begin
         Bodies.Reset();
         Bodies.SetRange("WSC Code", GlobalConnection."WSC Code");
+        Bodies.SetRange("WSC Enabled", true);
         Bodies.SetFilter("WSC Key", '<> %1', '');
         if Bodies.IsEmpty() then
             exit;
@@ -341,6 +344,7 @@ codeunit 81002 "WSC Caller"
     begin
         Bodies.Reset();
         Bodies.SetRange("WSC Code", GlobalConnection."WSC Code");
+        Bodies.SetRange("WSC Enabled", true);
         Bodies.SetFilter("WSC Key", '<> %1', '');
         if not Bodies.IsEmpty() then
             exit(true);

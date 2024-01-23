@@ -31,6 +31,11 @@ table 81002 "WSC Headers"
             DataClassification = CustomerContent;
             Caption = 'Description';
         }
+        field(5; "WSC Enabled"; Boolean)
+        {
+            Caption = 'Enabled';
+            DataClassification = CustomerContent;
+        }
     }
 
     keys
@@ -61,7 +66,7 @@ table 81002 "WSC Headers"
 
     trigger OnInsert()
     begin
-
+        Rec."WSC Enabled" := true;
     end;
 
     trigger OnModify()
