@@ -39,6 +39,8 @@ codeunit 81002 "WSC Caller"
         FileInStream: InStream;
         Text000Err: Label 'Connection not estabilished';
         FileName: Text;
+        StartingDateTime,
+        EndingDateTime : DateTime;
         /*Web Service Connection Variables*/
         Client: HttpClient;
         RequestHeaders: HttpHeaders;
@@ -131,12 +133,22 @@ codeunit 81002 "WSC Caller"
         end;
 
         //Execute Call & Response Management
+        StartingDateTime := CurrentDateTime();
         ClearLastError();
         OnBeforeSendRequest(Client, GlobalConnection);
         if Client.Send(RequestMessage, ResponseMessage) then
             EvaluateResponse(ResponseMessage)
         else
             LastMessageText := Text000Err;
+
+        EndingDateTime := CurrentDateTime();
+        ExecutionTime := EndingDateTime - StartingDateTime;
+
+        //milliseconds = Duration / 1
+        //seconds = Duration / 1000
+        //minutes = Duration / 60000
+        //hours = Duration / 3600000
+        //days = Duration / 86400000
     end;
 
     local procedure EvaluateResponse(var ResponseMessage: HttpResponseMessage)
@@ -302,7 +314,8 @@ codeunit 81002 "WSC Caller"
     /// <param name="ParNewEndPoint">VAR Text.</param>
     /// <param name="ParBodyFileTypes">VAR Enum "WSC File Types".</param>
     /// <param name="ParResponseFileTypes">VAR Enum "WSC Response File Types".</param>
-    procedure RetrieveGlobalVariables(var ParBodyInStream: InStream; var ParResponseInStream: InStream; var ParCallExecution: Boolean; var ParHttpStatusCode: Integer; var ParLastMessageText: Text; var ParNewEndPoint: Text; var ParBodyFileTypes: Enum "WSC File Types"; var ParResponseFileTypes: Enum "WSC File Types")
+    /// <param name="ParExecutionTime">VAR Duration.</param>
+    procedure RetrieveGlobalVariables(var ParBodyInStream: InStream; var ParResponseInStream: InStream; var ParCallExecution: Boolean; var ParHttpStatusCode: Integer; var ParLastMessageText: Text; var ParNewEndPoint: Text; var ParBodyFileTypes: Enum "WSC File Types"; var ParResponseFileTypes: Enum "WSC File Types"; var ParExecutionTime: Duration)
     begin
         ParBodyInStream := BodyInStream;
         ParResponseInStream := ResponseInStream;
@@ -312,6 +325,7 @@ codeunit 81002 "WSC Caller"
         ParNewEndPoint := NewEndPoint;
         ParBodyFileTypes := BodyFileType;
         ParResponseFileTypes := ResponseFileType;
+        ParExecutionTime := ExecutionTime;
     end;
 
     local procedure ClearGlobalVariables()
@@ -325,6 +339,7 @@ codeunit 81002 "WSC Caller"
         Clear(NewEndPoint);
         Clear(BodyFileType);
         Clear(ResponseFileType);
+        Clear(ExecutionTime);
     end;
 
     [NonDebuggable]
@@ -525,4 +540,5 @@ codeunit 81002 "WSC Caller"
         HttpStatusCode: Integer;
         BodyFileType: Enum "WSC File Types";
         ResponseFileType: Enum "WSC File Types";
+        ExecutionTime: Duration;
 }

@@ -408,6 +408,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC Execution Date-Time - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 2609865286 - Field 2463642393 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Execution Time (ms)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC Execution Time (ms) - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 2609865286 - Field 1851860283 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Execution UserID</source>
           <note from="Developer" annotates="general" priority="2"></note>

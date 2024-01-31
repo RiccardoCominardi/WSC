@@ -126,6 +126,11 @@ table 81004 "WSC Log Calls"
             DataClassification = CustomerContent;
             Caption = 'Response File Type';
         }
+        field(207; "WSC Execution Time (ms)"; Duration)
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Execution Time (ms)';
+        }
     }
 
     keys

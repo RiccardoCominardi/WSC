@@ -580,7 +580,7 @@ codeunit 81001 "WSC Managements"
     begin
         Connections.Get(WSCCode);
         ClearGlobalVariables();
-        WebServicesCaller.RetrieveGlobalVariables(BodyInStream, ResponseInStream, CallExecution, HttpStatusCode, LastMessageText, NewEndPoint, BodyFileType, ResponseFileType);
+        WebServicesCaller.RetrieveGlobalVariables(BodyInStream, ResponseInStream, CallExecution, HttpStatusCode, LastMessageText, NewEndPoint, BodyFileType, ResponseFileType, ExecutionTime);
 
         LogCalls.Reset();
         LogCalls.SetRange("WSC Code", WSCCode);
@@ -630,6 +630,7 @@ codeunit 81001 "WSC Managements"
         LogCalls."WSC Result Status Code" := HttpStatusCode;
         LogCalls."WSC Execution Date-Time" := CurrentDateTime();
         LogCalls."WSC Execution UserID" := UserId();
+        LogCalls."WSC Execution Time (ms)" := ExecutionTime;
         OnBeforeInsertLogCalls(LogCalls, Connections);
         LogCalls.Insert();
 
@@ -824,4 +825,5 @@ codeunit 81001 "WSC Managements"
         NewEndPoint: Text;
         BodyFileType,
         ResponseFileType : Enum "WSC File Types";
+        ExecutionTime: Duration;
 }

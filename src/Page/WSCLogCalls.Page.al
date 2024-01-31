@@ -91,12 +91,15 @@ page 81005 "WSC Log Calls"
                 {
                     ApplicationArea = All;
                 }
-
                 field("WSC Message Text"; Rec."WSC Message Text")
                 {
                     ApplicationArea = All;
                 }
                 field("WSC Execution Date-Time"; Rec."WSC Execution Date-Time")
+                {
+                    ApplicationArea = All;
+                }
+                field("WSC Execution Time (ms)"; Rec."WSC Execution Time (ms)")
                 {
                     ApplicationArea = All;
                 }
