@@ -21,7 +21,7 @@ table 81002 "WSC Headers"
             DataClassification = CustomerContent;
             Caption = 'Key';
         }
-        field(3; "WSC Value"; Text[100])
+        field(3; "WSC Value"; Text[250])
         {
             DataClassification = CustomerContent;
             Caption = 'Value';

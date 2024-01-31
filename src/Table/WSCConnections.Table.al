@@ -48,7 +48,7 @@ table 81001 "WSC Connections"
                     "WSC Authorization Types"::none, "WSC Authorization Types"::"bearer token":
                         begin
                             Rec."WSC Username" := '';
-                            Rec."WSC Password" := '';
+                            Clear(Rec."WSC Password");
                         end;
                 end;
             end;
@@ -224,12 +224,19 @@ table 81001 "WSC Connections"
 
     trigger OnDelete()
     var
+        Connections: Record "WSC Connections";
         Parameters: Record "WSC Parameters";
         Headers: Record "WSC Headers";
         Bodies: Record "WSC Bodies";
         LogCalls: Record "WSC Log Calls";
         SecurityManagements: Codeunit "WSC Security Managements";
     begin
+        if Rec."WSC Bearer Connection" then begin
+            Connections.Reset();
+            Connections.SetRange("WSC Bearer Connection Code", Rec."WSC Code");
+            Connections.ModifyAll("WSC Bearer Connection Code", '');
+        end;
+
         Parameters.Reset();
         Parameters.SetRange("WSC Code", Rec."WSC Code");
         Parameters.DeleteAll();

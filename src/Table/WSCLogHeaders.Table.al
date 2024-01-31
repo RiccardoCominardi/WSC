@@ -31,7 +31,7 @@ table 81005 "WSC Log Headers"
             DataClassification = CustomerContent;
             Caption = 'Key';
         }
-        field(5; "WSC Value"; Text[100])
+        field(5; "WSC Value"; Text[250])
         {
             DataClassification = CustomerContent;
             Caption = 'Value';

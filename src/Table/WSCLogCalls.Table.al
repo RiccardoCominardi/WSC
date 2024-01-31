@@ -116,6 +116,16 @@ table 81004 "WSC Log Calls"
             TableRelation = User."User Name";
             ValidateTableRelation = false;
         }
+        field(205; "WSC Body File Type"; Enum "WSC File Types")
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Body File Type';
+        }
+        field(206; "WSC Response File Type"; Enum "WSC File Types")
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Response File Type';
+        }
     }
 
     keys
@@ -134,18 +144,18 @@ table 81004 "WSC Log Calls"
     var
         InStr: InStream;
         FileName: Text;
-        Text000Lbl: Label 'BodyMessage.json';
-        Text001Lbl: Label 'ResponseMessage.json';
+        Text000Lbl: Label 'BodyMessage';
+        Text001Lbl: Label 'ResponseMessage';
         Text002Lbl: Label 'ResponseMessage.zip';
     begin
         case FieldNo of
             Rec.FieldNo("WSC Body Message"):
                 begin
-                    FileName := Text000Lbl;
+                    FileName := Text000Lbl + RetrieveBodyFileExtension(false);
                     Rec.CalcFields("WSC Body Message");
                     if Rec."WSC Body Message".HasValue() then begin
                         Rec."WSC Body Message".CreateInStream(InStr);
-                        DownloadFromStream(InStr, '', '', '*.json', FileName);
+                        DownloadFromStream(InStr, '', '', RetrieveBodyFileExtension(true), FileName);
                     end;
                 end;
             Rec.FieldNo("WSC Response Message"):
@@ -157,13 +167,49 @@ table 81004 "WSC Log Calls"
                             FileName := Text002Lbl;
                             DownloadFromStream(InStr, '', '', '*.zip', FileName)
                         end else begin
-                            FileName := Text001Lbl;
-                            DownloadFromStream(InStr, '', '', '*.json', FileName);
+                            FileName := Text001Lbl + RetrieveResponseFileExtension(false);
+                            DownloadFromStream(InStr, '', '', RetrieveResponseFileExtension(true), FileName);
                         end;
                     end;
                 end;
         end;
 
+    end;
+
+    local procedure RetrieveBodyFileExtension(AsFilter: Boolean) RetText: Text
+    begin
+        if AsFilter then
+            RetText := '*';
+
+        case Rec."WSC Body File Type" of
+            "WSC File Types"::" ",
+            "WSC File Types"::Json:
+                RetText += '.json';
+            "WSC File Types"::Xml:
+                RetText += '.xml';
+            "WSC File Types"::Txt:
+                RetText += '.txt';
+        end;
+
+        exit(RetText);
+    end;
+
+    local procedure RetrieveResponseFileExtension(AsFilter: Boolean) RetText: Text
+    begin
+        if AsFilter then
+            RetText := '*';
+
+        case Rec."WSC Response File Type" of
+            "WSC File Types"::" ",
+            "WSC File Types"::Json:
+                RetText += '.json';
+            "WSC File Types"::Xml:
+                RetText += '.xml';
+            "WSC File Types"::Txt:
+                RetText += '.txt';
+        end;
+
+        exit(RetText);
     end;
 
     /// <summary>

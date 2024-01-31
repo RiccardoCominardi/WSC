@@ -79,12 +79,20 @@ page 81012 "WSC Import Configuration"
     var
         Connections: Record "WSC Connections";
         Text000Err: Label 'Web Service Connection with code %1 already exist. Change the code to continue';
+        Text001Err: Label 'Is not possible to use char ":"';
         Text000Lbl: Label 'Web Service Connection is importable';
     begin
         WSCode := Rec."WSC Code";
         CurrStatus := CurrStatus::Correct;
         CurrMessage := Text000Lbl;
         LineColor := 'Favorable';
+
+        if StrPos(Rec."WSC Code", ':') > 0 then begin
+            CurrStatus := CurrStatus::Error;
+            CurrMessage := StrSubstNo(Text001Err);
+            LineColor := 'Unfavorable';
+            exit(false);
+        end;
 
         if Connections.Get(Rec."WSC Code") then begin
             CurrStatus := CurrStatus::Error;

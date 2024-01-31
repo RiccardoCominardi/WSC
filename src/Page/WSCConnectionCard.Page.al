@@ -251,6 +251,20 @@ page 81002 "WSC Connection Card"
                     LogCalls.ViewLog(Rec."WSC Code");
                 end;
             }
+            action(ViewAccessToken)
+            {
+                Caption = 'View Access Token';
+                ToolTip = 'View last Access Token saved';
+                ApplicationArea = All;
+                Image = View;
+
+                trigger OnAction()
+                var
+                    SecurityManagements: Codeunit "WSC Security Managements";
+                begin
+                    Message(SecurityManagements.GetToken(Rec."WSC Access Token", Rec.GetTokenDataScope()));
+                end;
+            }
         }
 
         area(Promoted)
@@ -260,6 +274,7 @@ page 81002 "WSC Connection Card"
             actionref(Bodies_Promoted; Bodies) { }
             actionref(SendRequest_Promoted; SendRequest) { }
             actionref(ViewLog_Promoted; ViewLog) { }
+            actionref(ViewAccessToken_Promoted; ViewAccessToken) { }
         }
     }
 
@@ -329,15 +344,16 @@ page 81002 "WSC Connection Card"
         end else
             if Rec."WSC Bearer Connection Code" <> '' then
                 if ConnectionBearer."WSC Code" <> Rec."WSC Bearer Connection Code" then begin
-                    ConnectionBearer.Get(Rec."WSC Bearer Connection Code");
-                    TokenPresent := SecurityManagements.HasToken(ConnectionBearer."WSC Access Token", ConnectionBearer.GetTokenDataScope());
-                    TokenAuth := ConnectionBearer."WSC Authorization Time";
-                    if IsExpiredToken(TokenAuth, ConnectionBearer."WSC Expires In") then begin
-                        TokenStatus := Text001Lbl;
-                        TokenColor := 'Unfavorable'
-                    end else begin
-                        TokenStatus := Text002Lbl;
-                        TokenColor := 'Favorable';
+                    if ConnectionBearer.Get(Rec."WSC Bearer Connection Code") then begin
+                        TokenPresent := SecurityManagements.HasToken(ConnectionBearer."WSC Access Token", ConnectionBearer.GetTokenDataScope());
+                        TokenAuth := ConnectionBearer."WSC Authorization Time";
+                        if IsExpiredToken(TokenAuth, ConnectionBearer."WSC Expires In") then begin
+                            TokenStatus := Text001Lbl;
+                            TokenColor := 'Unfavorable'
+                        end else begin
+                            TokenStatus := Text002Lbl;
+                            TokenColor := 'Favorable';
+                        end;
                     end;
                 end;
     end;

@@ -108,6 +108,8 @@ codeunit 81002 "WSC Caller"
                 HandleCustomBodyTypes(GlobalConnection, RequestContent);
         end;
 
+        EvaluateBodyFileType();
+
         //Prepare Call
         CollectHeaders(ContentHeaders);
         OnAfterSetContentHeaders(ContentHeaders, GlobalConnection);
@@ -148,23 +150,83 @@ codeunit 81002 "WSC Caller"
             exit;
 
         CallExecution := false;
-        ResponseMessage.Content.ReadAs(ResponseInStream); //Risposta completa sotto forma di file
-        if ResponseMessage.IsSuccessStatusCode() then begin
-            if ResponseMessage.Content.ReadAs(ResponseText) then
-                if (ResponseText = '') and (GlobalConnection."WSC Allow Blank Response") then
-                    CallExecution := true
-                else begin
-                    CallExecution := JsonObjectReader.ReadFrom(ResponseText);
-                    LastMessageText := GetLastErrorText();
-                end;
-        end else begin
-            if ResponseMessage.Content.ReadAs(ResponseText) then
-                if ResponseText <> '' then
-                    JsonObjectReader.ReadFrom(ResponseText);
-            LastMessageText := ResponseMessage.ReasonPhrase(); //Messaggio di errore del server
-        end;
-        HttpStatusCode := ResponseMessage.HttpStatusCode;
+        ResponseMessage.Content.ReadAs(ResponseInStream); //Response Complete as File
+        ResponseMessage.Content.ReadAs(ResponseText); //Response Complete as Text Variable
+        EvaluateResponseFileType(ResponseText);
+        if ResponseMessage.IsSuccessStatusCode() then
+            CallExecution := true
+        else
+            LastMessageText := ResponseMessage.ReasonPhrase();
+        HttpStatusCode := ResponseMessage.HttpStatusCode();
     end;
+
+    local procedure EvaluateBodyFileType()
+    var
+        InStr: InStream;
+        BodyAsText: Text;
+        IsHandled: Boolean;
+        JsonObjectReader: JsonObject;
+        LocOptions: XmlReadOptions;
+        LocXmlDocument: XmlDocument;
+    begin
+        GlobalConnection.CalcFields("WSC Body Message");
+        if not GlobalConnection."WSC Body Message".HasValue() then
+            exit;
+
+        GlobalConnection."WSC Body Message".CreateInStream(InStr);
+        InStr.ReadText(BodyAsText);
+
+        OnBeforeEvaluateBodyFileType(BodyAsText, BodyFileType, IsHandled);
+        if IsHandled then
+            exit;
+
+        BodyFileType := BodyFileType::" ";
+        if BodyAsText = '' then
+            exit;
+
+        LocOptions.PreserveWhitespace := true;
+        if XmlDocument.ReadFrom(BodyAsText, LocOptions, LocXmlDocument) then begin
+            BodyFileType := BodyFileType::Xml;
+            exit;
+        end;
+
+        if JsonObjectReader.ReadFrom(BodyAsText) then begin
+            BodyFileType := BodyFileType::Json;
+            exit;
+        end;
+
+        BodyFileType := BodyFileType::Txt;
+    end;
+
+    local procedure EvaluateResponseFileType(ResponseText: Text)
+    var
+        IsHandled: Boolean;
+        JsonObjectReader: JsonObject;
+        LocOptions: XmlReadOptions;
+        LocXmlDocument: XmlDocument;
+    begin
+        OnBeforeEvaluateResponseFileType(ResponseText, ResponseFileType, IsHandled);
+        if IsHandled then
+            exit;
+
+        ResponseFileType := ResponseFileType::" ";
+        if (ResponseText = '') and (GlobalConnection."WSC Allow Blank Response") then
+            exit;
+
+        LocOptions.PreserveWhitespace := true;
+        if XmlDocument.ReadFrom(ResponseText, LocOptions, LocXmlDocument) then begin
+            ResponseFileType := ResponseFileType::Xml;
+            exit;
+        end;
+
+        if JsonObjectReader.ReadFrom(ResponseText) then begin
+            ResponseFileType := ResponseFileType::Json;
+            exit;
+        end;
+
+        ResponseFileType := ResponseFileType::Txt;
+    end;
+
     #endregion CallFunctions
     #region GeneralFunctions
 
@@ -208,15 +270,15 @@ codeunit 81002 "WSC Caller"
         repeat
             case EndPointVariables."WSC Variable Name" of
                 '[@CompanyName]':
-                    if StrPos(NewString, '[@CompanyName]') > 0 then
+                    if NewString.Contains('[@CompanyName]') then
                         NewString := EndPointUrl.Replace('[@CompanyName]', CompanyName());
                 '[@CompanyID]':
-                    if StrPos(NewString, '[@CompanyID]') > 0 then begin
+                    if NewString.Contains('[@CompanyID]') then begin
                         Company.Get(CompanyName());
                         NewString := EndPointUrl.Replace('[@CompanyID]', DelChr(Company.Id, '=', '{}'));
                     end;
                 '[@UserID]':
-                    if StrPos(NewString, '[@UserID]') > 0 then
+                    if NewString.Contains('[@UserID]') then
                         NewString := EndPointUrl.Replace('[@UserID]', UserId());
             end;
             OnParseEndpoint(EndPointUrl, NewString, EndPointVariables, GlobalConnection);
@@ -238,7 +300,9 @@ codeunit 81002 "WSC Caller"
     /// <param name="ParHttpStatusCode">VAR Integer.</param>
     /// <param name="ParLastMessageText">VAR Text.</param>
     /// <param name="ParNewEndPoint">VAR Text.</param>
-    procedure RetrieveGlobalVariables(var ParBodyInStream: InStream; var ParResponseInStream: InStream; var ParCallExecution: Boolean; var ParHttpStatusCode: Integer; var ParLastMessageText: Text; var ParNewEndPoint: Text)
+    /// <param name="ParBodyFileTypes">VAR Enum "WSC File Types".</param>
+    /// <param name="ParResponseFileTypes">VAR Enum "WSC Response File Types".</param>
+    procedure RetrieveGlobalVariables(var ParBodyInStream: InStream; var ParResponseInStream: InStream; var ParCallExecution: Boolean; var ParHttpStatusCode: Integer; var ParLastMessageText: Text; var ParNewEndPoint: Text; var ParBodyFileTypes: Enum "WSC File Types"; var ParResponseFileTypes: Enum "WSC File Types")
     begin
         ParBodyInStream := BodyInStream;
         ParResponseInStream := ResponseInStream;
@@ -246,6 +310,8 @@ codeunit 81002 "WSC Caller"
         ParHttpStatusCode := HttpStatusCode;
         ParLastMessageText := LastMessageText;
         ParNewEndPoint := NewEndPoint;
+        ParBodyFileTypes := BodyFileType;
+        ParResponseFileTypes := ResponseFileType;
     end;
 
     local procedure ClearGlobalVariables()
@@ -257,6 +323,8 @@ codeunit 81002 "WSC Caller"
         Clear(HttpStatusCode);
         Clear(LastMessageText);
         Clear(NewEndPoint);
+        Clear(BodyFileType);
+        Clear(ResponseFileType);
     end;
 
     [NonDebuggable]
@@ -291,7 +359,6 @@ codeunit 81002 "WSC Caller"
         Text002Txt: Label 'Bearer %1';
     begin
         BearerConnection.Get(GlobalConnection."WSC Bearer Connection Code");
-        BearerConnection.CalcFields("WSC Access Token");
         if not SecurityManagements.HasToken(BearerConnection."WSC Access Token", BearerConnection.GetTokenDataScope()) then
             Error(Text001Txt);
         exit(StrSubstNo(Text002Txt, SecurityManagements.GetToken(BearerConnection."WSC Access Token", BearerConnection.GetTokenDataScope())));
@@ -437,6 +504,16 @@ codeunit 81002 "WSC Caller"
     begin
     end;
 
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeEvaluateBodyFileType(BodyAsText: Text; var BodyFileType: Enum "WSC File Types"; var IsHandled: Boolean)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeEvaluateResponseFileType(ResponseText: Text; var ResponseFileType: Enum "WSC File Types"; var IsHandled: Boolean)
+    begin
+    end;
+
     #endregion IntegrationEvents
     var
         GlobalConnection: Record "WSC Connections";
@@ -446,4 +523,6 @@ codeunit 81002 "WSC Caller"
         ResponseInStream: InStream;
         CallExecution: Boolean;
         HttpStatusCode: Integer;
+        BodyFileType: Enum "WSC File Types";
+        ResponseFileType: Enum "WSC File Types";
 }

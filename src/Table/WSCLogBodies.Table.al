@@ -31,7 +31,7 @@ table 81006 "WSC Log Bodies"
             DataClassification = CustomerContent;
             Caption = 'Key';
         }
-        field(5; "WSC Value"; Text[100])
+        field(5; "WSC Value"; Text[250])
         {
             DataClassification = CustomerContent;
             Caption = 'Value';

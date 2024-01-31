@@ -3,86 +3,6 @@
   <file datatype="xml" source-language="en-US" target-language="en-US" original="Web Services Connector">
     <body>
       <group id="body">
-        <trans-unit id="Table 53061298 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>OnPrem Printer</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table EOI OnPrem Printer - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Table 53061298 - Field 4126130292 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Configuration</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table EOI OnPrem Printer - Field Configuration - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Table 53061298 - Field 3461834954 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Description</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table EOI OnPrem Printer - Field Description - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Table 53061298 - Field 2891538263 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Enabled</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table EOI OnPrem Printer - Field Enabled - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Table 53061298 - Field 2588065392 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Network Share Name</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table EOI OnPrem Printer - Field Network Share Name - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Table 53061298 - Field 975863445 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Paper Size</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table EOI OnPrem Printer - Field Paper Size - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Table 53061298 - Field 2628728933 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Printer ID</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table EOI OnPrem Printer - Field Printer ID - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Table 53061298 - Field 996298347 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Printer Name</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table EOI OnPrem Printer - Field Printer Name - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Table 3855746691 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Service Host Setup</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table EOI Service Host Setup - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Table 3855746691 - Field 2807669192 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Azure Relay Uri</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table EOI Service Host Setup - Field Azure Relay URI - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Table 3855746691 - Field 4007842782 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Azure Token</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table EOI Service Host Setup - Field Azure Token - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Table 3855746691 - Field 2891538263 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Enabled</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table EOI Service Host Setup - Field Enabled - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Table 3855746691 - Field 2333076789 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>PrimaryKey</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table EOI Service Host Setup - Field PrimaryKey - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Table 3855746691 - Field 2919601789 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Service Host URI</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table EOI Service Host Setup - Field Service Host URI - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Table 3855746691 - Field 1878130204 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Type</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table EOI Service Host Setup - Field Type - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Table 3855746691 - Field 1878130204 - Property 62802879" size-unit="char" translate="yes" xml:space="preserve">
-          <source>OnPrem,Azure Relay</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table EOI Service Host Setup - Field Type - Property OptionCaption</note>
-        </trans-unit>
         <trans-unit id="Table 491835267 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Web Services - Bodies</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -414,12 +334,12 @@
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Property Caption</note>
         </trans-unit>
         <trans-unit id="Table 2609865286 - Method 2546799871 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
-          <source>BodyMessage.json</source>
+          <source>BodyMessage</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Method ExportAttachment - NamedType Text000Lbl</note>
         </trans-unit>
         <trans-unit id="Table 2609865286 - Method 2546799871 - NamedType 1196336482" size-unit="char" translate="yes" xml:space="preserve">
-          <source>ResponseMessage.json</source>
+          <source>ResponseMessage</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Method ExportAttachment - NamedType Text001Lbl</note>
         </trans-unit>
@@ -447,6 +367,11 @@
           <source>Bearer Connection Code</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC Bearer Connection Code - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2609865286 - Field 2582461843 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Body File Type</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC Body File Type - Property Caption</note>
         </trans-unit>
         <trans-unit id="Table 2609865286 - Field 891226896 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Body Message</source>
@@ -512,6 +437,11 @@
           <source>Message Text</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC Message Text - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2609865286 - Field 3385080310 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Response File Type</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC Response File Type - Property Caption</note>
         </trans-unit>
         <trans-unit id="Table 2609865286 - Field 1457243569 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Response Message</source>
@@ -658,11 +588,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC Tree Visualization - Field WSC Indentation - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Codeunit 2374375807 - NamedType 3713306452" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Service Host is not set-up.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit EOI Service Host Management - NamedType ServiceHostNotEnabledErr</note>
-        </trans-unit>
         <trans-unit id="Codeunit 3335752950 - Method 2539241493 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
           <source>%1=%2</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -782,71 +707,6 @@
           <source>Set Current User ID</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Upgrade - Method SetEndpointVariables - NamedType Text002Lbl</note>
-        </trans-unit>
-        <trans-unit id="Page 4077708479 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>OnPrem Printers</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page EOI OnPrem Printers - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 4077708479 - Control 3876557106 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Configuration Payload</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page EOI OnPrem Printers - Control ConfigurationPayload - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 4077708479 - Control 975863445 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Paper Size</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page EOI OnPrem Printers - Control Paper Size - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 4077708479 - Action 3490589974 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Test Direct IO</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page EOI OnPrem Printers - Action Test_DirectIO - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 3855746691 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Service Host Setup</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page EOI Service Host Setup - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 3855746691 - NamedType 942982381" size-unit="char" translate="yes" xml:space="preserve">
-          <source>The connection was tested successfully.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page EOI Service Host Setup - NamedType ConnectionSuccessfulMsg</note>
-        </trans-unit>
-        <trans-unit id="Page 3855746691 - NamedType 618990077" size-unit="char" translate="yes" xml:space="preserve">
-          <source>%1 printers loaded.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page EOI Service Host Setup - NamedType PrintersLoadedMsg</note>
-        </trans-unit>
-        <trans-unit id="Page 3855746691 - Control 3989197254 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Azure Relay</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page EOI Service Host Setup - Control AzureRelay - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 3855746691 - Control 2445482498 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>General</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page EOI Service Host Setup - Control General - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 3855746691 - Control 60569701 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>OnPrem</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page EOI Service Host Setup - Control OnPrem - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 3855746691 - Action 754966559 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Printers</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page EOI Service Host Setup - Action Printers - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 3855746691 - Action 3733798781 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Load Printers</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page EOI Service Host Setup - Action LoadPrinters - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 3855746691 - Action 4263468516 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Test Connection</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page EOI Service Host Setup - Action TestConnection - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 491835267 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Bodies</source>
@@ -972,6 +832,16 @@
           <source>Send Request</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Action SendRequest - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 344691303 - Action 2445171190 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>View last Access Token saved</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Action ViewAccessToken - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 344691303 - Action 2445171190 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>View Access Token</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Action ViewAccessToken - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 344691303 - Action 4000661843 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>View Web Service log for this Code</source>
@@ -1122,6 +992,11 @@
           <source>Web Service Connection with code %1 already exist. Change the code to continue</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Import Configuration - Method IsCorrectConnession - NamedType Text000Err</note>
+        </trans-unit>
+        <trans-unit id="Page 1470271598 - Method 243222423 - NamedType 2316870939" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Is not possible to use char ":"</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Import Configuration - Method IsCorrectConnession - NamedType Text001Err</note>
         </trans-unit>
         <trans-unit id="Page 1470271598 - Method 243222423 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
           <source>Web Service Connection is importable</source>
@@ -1318,6 +1193,26 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum WSC Body Types - EnumValue x-www-form-urlencoded - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Enum 2110802558 - EnumValue 1371923692 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source></source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum WSC File Types - EnumValue   - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 2110802558 - EnumValue 2719529412 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Json</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum WSC File Types - EnumValue Json - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 2110802558 - EnumValue 3766960612 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Txt</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum WSC File Types - EnumValue Txt - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 2110802558 - EnumValue 429697219 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Xml</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum WSC File Types - EnumValue Xml - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Enum 2923777893 - EnumValue 2477294019 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>DELETE</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -1362,11 +1257,6 @@
           <source>UserAndCompany</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum WSC Token DataScope - EnumValue UserAndCompany - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="PermissionSet 1519729782 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>EOI Service Host Integration</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PermissionSet EOI.SRVHOST - Property Caption</note>
         </trans-unit>
         <trans-unit id="PermissionSet 158051057 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>WSC Permissions</source>
