@@ -441,6 +441,7 @@ codeunit 81002 "WSC Caller"
         FileDialogTxt: Label 'Attachments (%1)|%1', Comment = '%1=file types, such as *.txt or *.docx';
         FilterTxt: Label '*.jpg;*.jpeg;*.bmp;*.png;*.gif;*.tiff;*.tif;*.pdf;*.docx;*.doc;*.xlsx;*.xls;*.pptx;*.ppt;*.msg;*.xml;*.json;*.*', Locked = true;
         ImportTxt: Label 'Attach a document.';
+        FileMissingErr: Label 'No file was selected';
     begin
         IsHandled := false;
         FromRecRef.GetTable(GlobalConnection);
@@ -450,6 +451,8 @@ codeunit 81002 "WSC Caller"
 
         FileName := FileManagement.BLOBImportWithFilter(
             TempBlob, ImportTxt, FileName, StrSubstNo(FileDialogTxt, FilterTxt), FilterTxt);
+        if FileName = '' then
+            Error(FileMissingErr);
     end;
 
     #endregion GeneralFunctions

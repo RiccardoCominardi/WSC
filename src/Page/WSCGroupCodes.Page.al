@@ -6,6 +6,8 @@ page 81006 "WSC Group Codes"
     Caption = 'Group Codes (WSC)';
     PageType = List;
     SourceTable = "WSC Group Codes";
+    ApplicationArea = All;
+    UsageCategory = Lists;
 
     layout
     {
