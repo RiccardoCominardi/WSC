@@ -155,7 +155,7 @@ page 81001 "WSC Connections List"
                     LogCalls: Record "WSC Log Calls";
                     WebServicesManagement: Codeunit "WSC Managements";
                 begin
-                    WebServicesManagement.ExecuteConnections(Rec."WSC Code", LogCalls);
+                    WebServicesManagement.ExecuteConnections(Rec."WSC Code", true, LogCalls);
                 end;
             }
             action(TEST)

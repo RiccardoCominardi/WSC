@@ -13,19 +13,25 @@ codeunit 81001 "WSC Managements"
     /// ExecuteConnections.
     /// </summary>
     /// <param name="WSCCode">Code[20].</param>
+    /// <param name="ShowNotification">Boolean.</param>
     /// <param name="LogCalls">Record "WSC Log Calls".</param>
     /// <returns>Return variable Result of type Boolean.</returns>
-    procedure ExecuteConnections(WSCCode: Code[20]; var LogCalls: Record "WSC Log Calls"): Boolean
+    procedure ExecuteConnections(WSCCode: Code[20]; ShowNotification: Boolean; var LogCalls: Record "WSC Log Calls"): Boolean
     var
         ResponseString: Text;
     begin
         ResponseString := ExecuteDirectConnections(WSCCode);
         ParseResponse(ResponseString, LogCalls);
 
+        if GuiAllowed() then
+            if ShowNotification then
+                ShowViewLogNotification(LogCalls);
+
         if IsSuccessStatusCode(LogCalls."WSC Code", LogCalls."WSC Entry No.") then
             exit(true)
         else
             exit(false);
+
     end;
 
     local procedure ExecuteDirectConnections(WSCCode: Code[20]) ResponseString: Text;
@@ -34,7 +40,6 @@ codeunit 81001 "WSC Managements"
         BearerConnection: Record "WSC Connections";
         TokenEntryNo: Integer;
         LogEntryNo: Integer;
-        Text000Lbl: Label 'Execution Terminated. Check the log to see the result';
         IsHandled: Boolean;
     begin
         Connections.Get(WSCCode);
@@ -72,11 +77,6 @@ codeunit 81001 "WSC Managements"
                     ResponseString := Connections."WSC Bearer Connection Code" + ':' + Format(TokenEntryNo);
         end;
         OnAfterExecuteDirectConnections(Connections);
-
-        if GuiAllowed() then
-            if not HideMessage then
-                Message(Text000Lbl);
-
     end;
 
     local procedure ExecuteTokenCall(WSCTokenCode: Code[20]; var BearerConnection: Record "WSC Connections"; var TokenEntryNo: Integer) TokenTaken: Boolean;
@@ -120,6 +120,20 @@ codeunit 81001 "WSC Managements"
 
     #endregion ExecutionFunctions
     #region GeneralFunctions
+
+    local procedure ShowViewLogNotification(LogCalls: Record "WSC Log Calls")
+    var
+        ViewLogNotification: Notification;
+        Text000Lbl: Label 'Execution Terminated. Check the log to see the result';
+        Text001Lbl: Label 'Open Log?';
+    begin
+        ViewLogNotification.Message(Text000Lbl);
+        ViewLogNotification.Scope := NotificationScope::LocalScope;
+        ViewLogNotification.SetData(LogCalls.FieldName("WSC Code"), LogCalls."WSC Code");
+        ViewLogNotification.AddAction('View Log', Codeunit::"WSC NotificationActionHandler", 'ViewLog', 'Click the action to open log automatically');
+        ViewLogNotification.Send();
+    end;
+
     local procedure CheckWSCodeSetup(Connections: Record "WSC Connections")
     begin
         Connections.TestField("WSC EndPoint");
@@ -238,15 +252,6 @@ codeunit 81001 "WSC Managements"
         end;
 
         exit(RetText);
-    end;
-
-    /// <summary>
-    /// SetHideMessage.
-    /// </summary>
-    /// <param name="ParHideMessage">Boolean.</param>
-    procedure SetHideMessage(ParHideMessage: Boolean)
-    begin
-        HideMessage := ParHideMessage;
     end;
 
     local procedure ClearGlobalVariables()
@@ -818,7 +823,6 @@ codeunit 81001 "WSC Managements"
         CustomBodyInStream: InStream;
         ResponseText: Text;
         CallExecution: Boolean;
-        HideMessage: Boolean;
         CustomBodyIsSet: Boolean;
         HttpStatusCode: Integer;
         LastMessageText: Text;

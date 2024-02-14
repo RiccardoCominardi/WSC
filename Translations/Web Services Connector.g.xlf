@@ -643,6 +643,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Caller - Method ImportWithFilter - NamedType ImportTxt</note>
         </trans-unit>
+        <trans-unit id="Codeunit 3335752950 - Method 1988189561 - NamedType 380039097" size-unit="char" translate="yes" xml:space="preserve">
+          <source>No file was selected</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Caller - Method ImportWithFilter - NamedType FileMissingErr</note>
+        </trans-unit>
         <trans-unit id="Codeunit 1147027056 - Method 681255651 - NamedType 1614022648" size-unit="char" translate="yes" xml:space="preserve">
           <source>%1:%2</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -688,10 +693,15 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Managements - Method CheckWSBodiesForToken - NamedType Text000Err</note>
         </trans-unit>
-        <trans-unit id="Codeunit 3364231641 - Method 3954711601 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Codeunit 3364231641 - Method 780128753 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
           <source>Execution Terminated. Check the log to see the result</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Managements - Method ExecuteDirectConnections - NamedType Text000Lbl</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Managements - Method ShowViewLogNotification - NamedType Text000Lbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3364231641 - Method 780128753 - NamedType 1196336482" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Open Log?</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Managements - Method ShowViewLogNotification - NamedType Text001Lbl</note>
         </trans-unit>
         <trans-unit id="Codeunit 3364231641 - Method 2345795677 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
           <source>Invalid Access Token Property %1, Value:  %2</source>

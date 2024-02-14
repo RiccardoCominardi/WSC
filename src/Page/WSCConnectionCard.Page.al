@@ -233,7 +233,7 @@ page 81002 "WSC Connection Card"
                     LogCalls: Record "WSC Log Calls";
                     WebServicesManagement: Codeunit "WSC Managements";
                 begin
-                    WebServicesManagement.ExecuteConnections(Rec."WSC Code", LogCalls);
+                    WebServicesManagement.ExecuteConnections(Rec."WSC Code", true, LogCalls);
                     CurrPage."WSC Top Calls Charts".Page.UpdateChart();
                 end;
             }

@@ -20,8 +20,7 @@ codeunit 82000 "WSC Examples"
         WSEntryLog: Integer;
     begin
         Clear(WSCManagements);
-        WSCManagements.SetHideMessage(true);
-        if WSCManagements.ExecuteConnections('TEST', LogCalls) then
+        if WSCManagements.ExecuteConnections('TEST', false, LogCalls) then
             Message('Web Service call successful. View the log to see the response')
         else
             Message('Web Service call failed. View the log to see the response');
@@ -44,8 +43,7 @@ codeunit 82000 "WSC Examples"
         GenerateCustomBody(TempBlob);
         TempBlob.CreateInStream(InStr);
         WSCManagements.SetCustomBody(InStr);
-        WSCManagements.SetHideMessage(true);
-        if WSCManagements.ExecuteConnections('TEST_CUSTOM_BODY', LogCalls) then
+        if WSCManagements.ExecuteConnections('TEST_CUSTOM_BODY', false, LogCalls) then
             Message('Web Service call successful. View the log to see the response')
         else
             Message('Web Service call failed. View the log to see the response');
