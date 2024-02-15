@@ -11,7 +11,7 @@ controladdin "WSC Slide Images Control"
         'https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js',
         'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js';
 
-    StartupScript = 'src/Script/SlideImages.js';
+    StartupScript = 'src/TestDevelopments/SlideImage/Script/SlideImages.js';
 
     // Bootstrap css
     StyleSheets = 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css';

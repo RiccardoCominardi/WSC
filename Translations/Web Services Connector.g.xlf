@@ -723,6 +723,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Upgrade - Method SetEndpointVariables - NamedType Text002Lbl</note>
         </trans-unit>
+        <trans-unit id="Page 2355454218 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Gantt</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Gantt Test - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 491835267 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Bodies</source>
           <note from="Developer" annotates="general" priority="2"></note>
