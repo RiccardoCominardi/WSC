@@ -39,7 +39,7 @@ codeunit 81004 "WSC Upgrade"
         Text002Lbl: Label 'Set Current User ID';
     begin
         if IsReinstall then begin
-            EndPointVariables.SetFilter("WSC Variable Name", '[@CompanyID]|[@CompanyName]|[@UserID]');
+            EndPointVariables.SetRange("WSC Custom Var", false);
             if not EndPointVariables.IsEmpty() then
                 EndPointVariables.DeleteAll();
         end;

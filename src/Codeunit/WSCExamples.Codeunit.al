@@ -128,7 +128,7 @@ codeunit 82000 "WSC Examples"
 
     //To handle variable parameters in endpoint 
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"WSC Caller", OnParseVariableParameter, '', false, false)]
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"WSC Caller", 'OnParseVariableParameter', '', false, false)]
     local procedure OnParseVariableParameter(var EndpointString: Text; Parameters: Record "WSC Parameters");
     begin
         //This piece of code is required for WS calls to work properly. Your parameters body must not have affect the parameters of other call
@@ -152,6 +152,17 @@ codeunit 82000 "WSC Examples"
         case EndPointVariables."WSC Variable Name" of
             '[@TestSubstitution]':
                 NewEndPointString := OldEndPointString + 'v2';
+        end;
+    end;
+
+    //To handle custom functions to execute after Web Service Call
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"WSC Functions Managements", 'OnExecuteLinkedFunctions', '', false, false)]
+    local procedure OnExecuteLinkedFunctions(Functions: Record "WSC Functions"; LogCalls: Record "WSC Log Calls");
+    begin
+        case Functions."WSC Code" of
+            'TEST':
+                //Do Something
+                ;
         end;
     end;
 

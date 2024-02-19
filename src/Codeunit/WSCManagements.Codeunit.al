@@ -16,22 +16,19 @@ codeunit 81001 "WSC Managements"
     /// <param name="ShowNotification">Boolean.</param>
     /// <param name="LogCalls">Record "WSC Log Calls".</param>
     /// <returns>Return variable Result of type Boolean.</returns>
-    procedure ExecuteConnections(WSCCode: Code[20]; ShowNotification: Boolean; var LogCalls: Record "WSC Log Calls"): Boolean
+    procedure ExecuteConnections(WSCCode: Code[20]; ShowNotification: Boolean; var LogCalls: Record "WSC Log Calls") SuccessCall: Boolean
     var
+        FunctionsManagements: Codeunit "WSC Functions Managements";
         ResponseString: Text;
     begin
         ResponseString := ExecuteDirectConnections(WSCCode);
         ParseResponse(ResponseString, LogCalls);
-
+        SuccessCall := IsSuccessStatusCode(LogCalls."WSC Code", LogCalls."WSC Entry No.");
+        if SuccessCall then
+            FunctionsManagements.ExecuteLinkedFunctions(LogCalls);
         if GuiAllowed() then
             if ShowNotification then
                 ShowViewLogNotification(LogCalls);
-
-        if IsSuccessStatusCode(LogCalls."WSC Code", LogCalls."WSC Entry No.") then
-            exit(true)
-        else
-            exit(false);
-
     end;
 
     local procedure ExecuteDirectConnections(WSCCode: Code[20]) ResponseString: Text;
@@ -473,7 +470,6 @@ codeunit 81001 "WSC Managements"
             until Connections.Next() = 0;
         end;
     end;
-
     #endregion GeneralFunctions
     #region TokenFunctions
     local procedure CheckWSBodiesForToken(BearerConnection: Record "WSC Connections")
@@ -814,7 +810,6 @@ codeunit 81001 "WSC Managements"
     local procedure OnBeforeRetrieveResponseFileExtension(ResponseFileType: Enum "WSC File Types"; var RetText: Text; IsHandled: Boolean)
     begin
     end;
-
     #endregion IntegrationEvents
     var
         WebServicesCaller: Codeunit "WSC Caller";

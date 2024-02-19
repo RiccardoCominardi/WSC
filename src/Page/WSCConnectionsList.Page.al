@@ -58,6 +58,21 @@ page 81001 "WSC Connections List"
             {
                 Caption = 'Request Details';
                 Image = SetupLines;
+
+                action(Functions)
+                {
+                    ToolTip = 'Set Functions to execute after the Web Service call';
+                    Caption = 'Functions';
+                    ApplicationArea = All;
+                    Image = Process;
+                    trigger OnAction()
+                    var
+                        Functions: Record "WSC Functions";
+                    begin
+                        Functions.ViewFunctions(Rec."WSC Code");
+                    end;
+                }
+
                 action(Parameters)
                 {
                     ApplicationArea = All;
@@ -204,7 +219,7 @@ page 81001 "WSC Connections List"
             group(Category_Category5)
             {
                 Caption = 'Request Details';
-
+                actionref(Functions_Promoted; Functions) { }
                 actionref(Parameters_Promoted; Parameters) { }
                 actionref(Headers_Promoted; Headers) { }
                 actionref(Bodies_Promoted; Bodies) { }

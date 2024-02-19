@@ -180,6 +180,19 @@ page 81002 "WSC Connection Card"
     {
         area(Processing)
         {
+            action(Functions)
+            {
+                ToolTip = 'Set Functions to execute after the Web Service call';
+                Caption = 'Functions';
+                ApplicationArea = All;
+                Image = Process;
+                trigger OnAction()
+                var
+                    Functions: Record "WSC Functions";
+                begin
+                    Functions.ViewFunctions(Rec."WSC Code");
+                end;
+            }
             action(Parameters)
             {
                 ToolTip = 'Set Parameter information for the Web Service call';
@@ -269,6 +282,7 @@ page 81002 "WSC Connection Card"
 
         area(Promoted)
         {
+            actionref(Functions_Promoted; Functions) { }
             actionref(Parameters_Promoted; Parameters) { }
             actionref(Headers_Promoted; Headers) { }
             actionref(Bodies_Promoted; Bodies) { }

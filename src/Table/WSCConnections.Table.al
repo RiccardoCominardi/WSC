@@ -229,6 +229,7 @@ table 81001 "WSC Connections"
         Headers: Record "WSC Headers";
         Bodies: Record "WSC Bodies";
         LogCalls: Record "WSC Log Calls";
+        Functions: Record "WSC Functions";
         SecurityManagements: Codeunit "WSC Security Managements";
     begin
         if Rec."WSC Bearer Connection" then begin
@@ -236,6 +237,10 @@ table 81001 "WSC Connections"
             Connections.SetRange("WSC Bearer Connection Code", Rec."WSC Code");
             Connections.ModifyAll("WSC Bearer Connection Code", '');
         end;
+
+        Functions.Reset();
+        Functions.SetRange("WSC Connection Code", Rec."WSC Code");
+        Functions.DeleteAll();
 
         Parameters.Reset();
         Parameters.SetRange("WSC Code", Rec."WSC Code");

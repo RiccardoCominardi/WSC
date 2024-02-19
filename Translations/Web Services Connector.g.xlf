@@ -248,6 +248,51 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC EndPoint Variables - Field WSC Variable Name - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 169009322 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Functions</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Functions - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 169009322 - Field 4197677126 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Functions - Field WSC Code - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 169009322 - Field 2971088424 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Connection Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Functions - Field WSC Connection Code - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 169009322 - Field 3033705864 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Custom Function</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Functions - Field WSC Custom - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 169009322 - Field 4286468891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Description</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Functions - Field WSC Description - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 169009322 - Field 3046479166 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Enabled</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Functions - Field WSC Enabled - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 169009322 - Field 1194351392 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>GuiAllowed</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Functions - Field WSC GuiAllowed - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 169009322 - Field 4090957132 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sequence</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Functions - Field WSC Sequence - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 169009322 - Field 4090957132 - Method 2126772001 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Cannot exits two functions with the same sequence</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Functions - Field WSC Sequence - Method OnValidate - NamedType Text000Err</note>
+        </trans-unit>
         <trans-unit id="Table 3845577338 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Web Services - Group Codes</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -658,6 +703,26 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Examples - Method CreateBasicAuthHeader - NamedType Text002Txt</note>
         </trans-unit>
+        <trans-unit id="Codeunit 4165626650 - Method 2168796792 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
+          <source>DOWNLOAD_BODY</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Functions Managements - Method LoadStandardFunctions - NamedType Text000Lbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 4165626650 - Method 2168796792 - NamedType 3616298666" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Download Web Service Call Body if present</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Functions Managements - Method LoadStandardFunctions - NamedType Text000DescLbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 4165626650 - Method 2168796792 - NamedType 1196336482" size-unit="char" translate="yes" xml:space="preserve">
+          <source>DOWNLOAD_RESPONSE</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Functions Managements - Method LoadStandardFunctions - NamedType Text001Lbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 4165626650 - Method 2168796792 - NamedType 2377900345" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Download Web Service Call Response</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Functions Managements - Method LoadStandardFunctions - NamedType Text001DescLbl</note>
+        </trans-unit>
         <trans-unit id="Codeunit 244097558 - Method 1000131093 - NamedType 1745287229" size-unit="char" translate="yes" xml:space="preserve">
           <source>This connection is part of a group. Do you want to export the entire group ?</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -823,6 +888,16 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Action Bodies - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 344691303 - Action 1929393835 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Set Functions to execute after the Web Service call</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Action Functions - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 344691303 - Action 1929393835 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Functions</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Action Functions - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 344691303 - Action 161065432 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Set Header information for the Web Service call</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -892,6 +967,16 @@
           <source>Bodies</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connections List - Action Bodies - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1486331676 - Action 1929393835 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Set Functions to execute after the Web Service call</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connections List - Action Functions - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1486331676 - Action 1929393835 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Functions</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connections List - Action Functions - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1486331676 - Action 161065432 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Set Header information for the Web Service call</source>
@@ -987,6 +1072,26 @@
           <source>EndPoint Variables (WSC)</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC EndPoint Variables List - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 169009322 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Functions (WSC)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Functions - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 169009322 - Action 2168796792 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Load Standard Functions</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Functions - Action LoadStandardFunctions - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 169009322 - Action 3069824669 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Move Down</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Functions - Action MoveDown - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 169009322 - Action 2816622752 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Move Up</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Functions - Action MoveUp - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 3845577338 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Group Codes (WSC)</source>
