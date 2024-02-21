@@ -178,8 +178,10 @@ codeunit 81003 "WSC Import Export Config."
                             SetNewRecordToInsert();
                             TempHeaders."WSC Key" := JsonKeyValue.AsText();
                         end;
+                    'isSecret':
+                        TempHeaders."WSC Is Secret" := JsonKeyValue.AsBoolean();
                     'value':
-                        TempHeaders."WSC Value" := JsonKeyValue.AsText();
+                        TempHeaders.SetValue(JsonKeyValue.AsText());
                     'description':
                         TempHeaders."WSC Description" := JsonKeyValue.AsText();
                     'isEnabled':
@@ -593,7 +595,8 @@ codeunit 81003 "WSC Import Export Config."
         repeat
             Clear(JObjectName);
             JObjectName.Add('key', Headers."WSC Key");
-            JObjectName.Add('value', Headers."WSC Value");
+            JObjectName.Add('isSecret', Headers."WSC Is Secret");
+            JObjectName.Add('value', Headers.GetValue());
             JObjectName.Add('description', Headers."WSC Description");
             JObjectName.Add('isEnabled', Headers."WSC Enabled");
             OnBeforeAddArrayHeaderContent(JObjectName, Headers);

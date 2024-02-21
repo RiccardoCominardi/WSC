@@ -16,6 +16,7 @@ permissionset 81001 "WSC Permissions"
          codeunit "WSC NotificationActionHandler" = X,
          codeunit "WSC Security Managements" = X,
          codeunit "WSC Upgrade" = X,
+         report "WSC Copy Request Details" = X,
          page "WSC Bodies" = X,
          page "WSC Charts Setup" = X,
          page "WSC Connection Card" = X,

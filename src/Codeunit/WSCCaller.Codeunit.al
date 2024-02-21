@@ -394,7 +394,7 @@ codeunit 81002 "WSC Caller"
         repeat
             if ParContentHeaders.Contains(Headers."WSC Key") then
                 ParContentHeaders.Remove(Headers."WSC Key");
-            ParContentHeaders.Add(Headers."WSC Key", Headers."WSC Value");
+            ParContentHeaders.Add(Headers."WSC Key", Headers.GetValue());
         until Headers.Next() = 0;
     end;
 

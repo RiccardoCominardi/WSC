@@ -27,12 +27,17 @@ page 81003 "WSC Headers"
                     StyleExpr = not Rec."WSC Enabled";
                     Style = Unfavorable;
                 }
-                field("WSC Value"; Rec."WSC Value")
+                field("WSC ValueAsText"; ValueAsText)
                 {
                     ApplicationArea = All;
+                    Caption = 'Value';
                     Editable = Rec."WSC Enabled";
                     StyleExpr = not Rec."WSC Enabled";
                     Style = Unfavorable;
+                    trigger OnValidate()
+                    begin
+                        Rec.SetValue(ValueAsText);
+                    end;
                 }
                 field("WSC Description"; Rec."WSC Description")
                 {
@@ -41,12 +46,32 @@ page 81003 "WSC Headers"
                     StyleExpr = not Rec."WSC Enabled";
                     Style = Unfavorable;
                 }
+                field("WSC Is Secret"; Rec."WSC Is Secret")
+                {
+                    ApplicationArea = All;
+                    Editable = Rec."WSC Enabled";
+                    StyleExpr = not Rec."WSC Enabled";
+                    Style = Unfavorable;
+                    trigger OnValidate()
+                    begin
+                        Rec.ConvertValue();
+                    end;
+                }
             }
         }
     }
-
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
         Rec."WSC Enabled" := true;
+        ValueAsText := '';
     end;
+
+    trigger OnAfterGetRecord()
+    begin
+        ValueAsText := Rec.GetValue();
+    end;
+
+    protected var
+
+        ValueAsText: Text;
 }

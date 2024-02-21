@@ -146,6 +146,22 @@ page 81001 "WSC Connections List"
 
         area(Processing)
         {
+            action(CopyRequestDetails)
+            {
+                Caption = 'Copy Request Details';
+                ToolTip = 'Copy Request Details from other Web Service Calls';
+                ApplicationArea = All;
+                Image = Copy;
+
+                trigger OnAction()
+                var
+                    CopyRequestDetails: Report "WSC Copy Request Details";
+                begin
+                    CopyRequestDetails.SetCurrentWSCode(Rec."WSC Code");
+                    CopyRequestDetails.RunModal();
+                end;
+            }
+
             action(SendRequest)
             {
                 Caption = 'Send Request';
@@ -207,6 +223,7 @@ page 81001 "WSC Connections List"
             group(Category_Process)
             {
                 Caption = 'Process';
+                actionref(CopyRequestDetails_Promoted; CopyRequestDetails) { }
                 actionref(SendRequest_Promoted; SendRequest) { }
                 group(Category_Category6)
                 {

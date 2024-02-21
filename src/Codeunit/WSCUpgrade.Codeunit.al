@@ -37,6 +37,7 @@ codeunit 81004 "WSC Upgrade"
         Text000Lbl: Label 'Set Current Company ID';
         Text001Lbl: Label 'Set Current Company Name';
         Text002Lbl: Label 'Set Current User ID';
+        Text003Lbl: Label 'Used to add text to Endpoint';
     begin
         if IsReinstall then begin
             EndPointVariables.SetRange("WSC Custom Var", false);
@@ -59,6 +60,16 @@ codeunit 81004 "WSC Upgrade"
         EndPointVariables.Init();
         EndPointVariables."WSC Variable Name" := '[@UserID]';
         EndPointVariables."WSC Description" := Text002Lbl;
+        EndPointVariables.Insert();
+
+        EndPointVariables.Init();
+        EndPointVariables."WSC Variable Name" := '[@Url_1]';
+        EndPointVariables."WSC Description" := Text003Lbl;
+        EndPointVariables.Insert();
+
+        EndPointVariables.Init();
+        EndPointVariables."WSC Variable Name" := '[@Url_2]';
+        EndPointVariables."WSC Description" := Text003Lbl;
         EndPointVariables.Insert();
     end;
     #endregion InstallProcedure

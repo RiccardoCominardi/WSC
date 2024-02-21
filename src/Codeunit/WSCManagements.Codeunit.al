@@ -706,7 +706,7 @@ codeunit 81001 "WSC Managements"
             LogHeaders."WSC Entry No." := NextEntryNo;
             LogHeaders."WSC Code" := Headers."WSC Code";
             LogHeaders."WSC Key" := Headers."WSC Key";
-            LogHeaders."WSC Value" := Headers."WSC Value";
+            LogHeaders."WSC Value" := Headers.GetValue();
             LogHeaders."WSC Description" := Headers."WSC Description";
             OnBeforeInsertLogHeaders(LogHeaders, Headers);
             LogHeaders.Insert();
@@ -715,12 +715,10 @@ codeunit 81001 "WSC Managements"
 
     local procedure WriteBodyLog(WSCCode: Code[20]; LogEntryNo: Integer)
     var
-        Connections: Record "WSC Connections";
         Bodies: Record "WSC Bodies";
         LogBodies: Record "WSC Log Bodies";
         NextEntryNo: Integer;
     begin
-        Connections.Get(WSCCode);
         Bodies.Reset();
         Bodies.SetRange("WSC Enabled", true);
         Bodies.SetRange("WSC Code", WSCCode);

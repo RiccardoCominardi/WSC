@@ -234,6 +234,22 @@ page 81002 "WSC Connection Card"
                     Bodies.ViewLog(Rec."WSC Code");
                 end;
             }
+
+            action(CopyRequestDetails)
+            {
+                Caption = 'Copy Request Details';
+                ToolTip = 'Copy Request Details from other Web Service Calls';
+                ApplicationArea = All;
+                Image = Copy;
+
+                trigger OnAction()
+                var
+                    CopyRequestDetails: Report "WSC Copy Request Details";
+                begin
+                    CopyRequestDetails.SetCurrentWSCode(Rec."WSC Code");
+                    CopyRequestDetails.RunModal();
+                end;
+            }
             action(SendRequest)
             {
                 Caption = 'Send Request';
@@ -286,6 +302,7 @@ page 81002 "WSC Connection Card"
             actionref(Parameters_Promoted; Parameters) { }
             actionref(Headers_Promoted; Headers) { }
             actionref(Bodies_Promoted; Bodies) { }
+            actionref(CopyRequestDetails_Promoted; CopyRequestDetails) { }
             actionref(SendRequest_Promoted; SendRequest) { }
             actionref(ViewLog_Promoted; ViewLog) { }
             actionref(ViewAccessToken_Promoted; ViewAccessToken) { }
