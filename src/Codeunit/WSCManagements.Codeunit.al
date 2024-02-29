@@ -1,6 +1,3 @@
-/// <summary>
-/// Codeunit WSC Managements (ID 81001).
-/// </summary>
 codeunit 81001 "WSC Managements"
 {
     trigger OnRun()
@@ -9,13 +6,6 @@ codeunit 81001 "WSC Managements"
 
     #region ExecutionFunctions
 
-    /// <summary>
-    /// ExecuteConnections.
-    /// </summary>
-    /// <param name="WSCCode">Code[20].</param>
-    /// <param name="ShowNotification">Boolean.</param>
-    /// <param name="LogCalls">Record "WSC Log Calls".</param>
-    /// <returns>Return variable Result of type Boolean.</returns>
     procedure ExecuteConnections(WSCCode: Code[20]; ShowNotification: Boolean; var LogCalls: Record "WSC Log Calls") SuccessCall: Boolean
     var
         FunctionsManagements: Codeunit "WSC Functions Managements";
@@ -40,6 +30,9 @@ codeunit 81001 "WSC Managements"
         IsHandled: Boolean;
     begin
         Connections.Get(WSCCode);
+        if not (Connections."WSC Type" in [Connections."WSC Type"::Call, Connections."WSC Type"::Token]) then
+            Error('');
+
         CheckWSCodeSetup(Connections);
         WriteCustomBodyOnWSCRec(Connections);
 
@@ -102,11 +95,6 @@ codeunit 81001 "WSC Managements"
         exit(TokenTaken);
     end;
 
-    /// <summary>
-    /// ParseResponse.
-    /// </summary>
-    /// <param name="StringToParse">Text.</param>
-    /// <param name="LogCalls">VAR Record "WSC Log Calls".</param>
     procedure ParseResponse(StringToParse: Text; var LogCalls: Record "WSC Log Calls")
     var
         SplittedString: List of [Text];
@@ -160,10 +148,6 @@ codeunit 81001 "WSC Managements"
         OnAfterCheckWSCCodeSetup(Connections);
     end;
 
-    /// <summary>
-    /// SetCustomBody.
-    /// </summary>
-    /// <param name="InStr">VAR InStream.</param>
     procedure SetCustomBody(var InStr: InStream)
     begin
         CustomBodyInStream := InStr;
@@ -266,210 +250,6 @@ codeunit 81001 "WSC Managements"
         Clear(ResponseFileType);
     end;
 
-    /// <summary>
-    /// ShowWSCAsTree.
-    /// </summary>
-    procedure ShowWSCAsTree()
-    var
-        TreeVisualization: Page "WSC Tree Visualization";
-    begin
-        Clear(TreeVisualization);
-        TreeVisualization.BuildPage();
-        TreeVisualization.RunModal();
-    end;
-
-    /// <summary>
-    /// LoadWSCTreeVisualTable.
-    /// </summary>
-    /// <param name="TreeVisualization">VAR Record "WSC Tree Visualization".</param>
-    procedure LoadWSCTreeVisualTable(var TreeVisualization: Record "WSC Tree Visualization")
-    var
-        GroupCodes: Record "WSC Group Codes";
-        Connections: Record "WSC Connections";
-    begin
-        GroupCodes.Reset();
-        if not GroupCodes.IsEmpty then begin
-            GroupCodes.FindSet();
-            repeat
-                Connections.Reset();
-                Connections.SetRange("WSC Group Code", GroupCodes."WSC Code");
-                if not Connections.IsEmpty() then begin
-                    InsertGroupRecord(GroupCodes, TreeVisualization); //First Record only for group
-                    Connections.SetRange("WSC Bearer Connection", true);
-                    if not Connections.IsEmpty() then begin
-                        Connections.FindSet();
-                        repeat
-                            CollectRecordWithTokenFromGroup(Connections, TreeVisualization); //Collect Token + Call Link to Token With Group
-                        until Connections.Next() = 0;
-                    end;
-                    CollectRecordWithoutTokenFromGroup(GroupCodes."WSC Code", TreeVisualization); //Collect Call without linked Token With Group
-                end;
-            until GroupCodes.Next() = 0;
-        end;
-
-        Connections.Reset();
-        Connections.SetRange("WSC Group Code", '');
-        Connections.SetRange("WSC Bearer Connection", true);
-        if not Connections.IsEmpty() then begin
-            Connections.FindSet();
-            repeat
-                CollectRecordWithTokenNoGroup(Connections, TreeVisualization); //Collect Token + Call Lik to Token No Group
-            until Connections.Next() = 0;
-        end;
-        CollectRecordWithoutTokenNoGroup('', TreeVisualization); //Collect Call without linked Token No Group 
-        TreeVisualization.Reset();
-    end;
-
-    local procedure InsertGroupRecord(GroupCodes: Record "WSC Group Codes"; var TreeVisualization: Record "WSC Tree Visualization")
-    begin
-        TreeVisualization.Init();
-        TreeVisualization.Validate("WSC Group Code", GroupCodes."WSC Code");
-        TreeVisualization.Validate("WSC Entry No.", 1);
-        TreeVisualization.Validate("WSC Indentation", 0);
-        TreeVisualization.Validate("WSC Code", GroupCodes."WSC Code");
-        TreeVisualization.Validate("WSC Description", GroupCodes."WSC Description");
-        TreeVisualization.Insert();
-    end;
-
-    local procedure CollectRecordWithTokenFromGroup(BearerConnection: Record "WSC Connections"; var TreeVisualization: Record "WSC Tree Visualization")
-    var
-        Connections: Record "WSC Connections";
-        NextEntryNo: Integer;
-    begin
-        TreeVisualization.Reset();
-        TreeVisualization.SetRange("WSC Group Code", BearerConnection."WSC Group Code");
-        if TreeVisualization.FindLast() then
-            NextEntryNo := TreeVisualization."WSC Entry No." + 1
-        else
-            NextEntryNo := 1;
-
-        TreeVisualization.Init();
-        TreeVisualization.Validate("WSC Group Code", BearerConnection."WSC Group Code");
-        TreeVisualization.Validate("WSC Entry No.", NextEntryNo);
-        TreeVisualization.Validate("WSC Indentation", 1);
-        TreeVisualization.Validate("WSC Code", BearerConnection."WSC Code");
-        TreeVisualization.Validate("WSC Description", BearerConnection."WSC Description");
-        TreeVisualization.Insert();
-
-        Connections.Reset();
-        Connections.SetRange("WSC Group Code", BearerConnection."WSC Group Code");
-        Connections.SetRange("WSC Bearer Connection", false);
-        Connections.SetRange("WSC Bearer Connection Code", BearerConnection."WSC Code");
-        if not Connections.IsEmpty() then begin
-            Connections.FindSet();
-            repeat
-                NextEntryNo += 1;
-                TreeVisualization.Init();
-                TreeVisualization.Validate("WSC Group Code", Connections."WSC Group Code");
-                TreeVisualization.Validate("WSC Entry No.", NextEntryNo);
-                TreeVisualization.Validate("WSC Indentation", 2);
-                TreeVisualization.Validate("WSC Code", Connections."WSC Code");
-                TreeVisualization.Validate("WSC Description", Connections."WSC Description");
-                TreeVisualization.Insert();
-            until Connections.Next() = 0;
-        end;
-    end;
-
-    local procedure CollectRecordWithTokenNoGroup(BearerConnection: Record "WSC Connections"; var TreeVisualization: Record "WSC Tree Visualization")
-    var
-        Connections: Record "WSC Connections";
-        NextEntryNo: Integer;
-    begin
-        TreeVisualization.Reset();
-        TreeVisualization.SetRange("WSC Group Code", BearerConnection."WSC Group Code");
-        if TreeVisualization.FindLast() then
-            NextEntryNo := TreeVisualization."WSC Entry No." + 1
-        else
-            NextEntryNo := 1;
-
-        TreeVisualization.Init();
-        TreeVisualization.Validate("WSC Group Code", BearerConnection."WSC Group Code");
-        TreeVisualization.Validate("WSC Entry No.", NextEntryNo);
-        TreeVisualization.Validate("WSC Indentation", 0);
-        TreeVisualization.Validate("WSC Code", BearerConnection."WSC Code");
-        TreeVisualization.Validate("WSC Description", BearerConnection."WSC Description");
-        TreeVisualization.Insert();
-
-        Connections.Reset();
-        Connections.SetRange("WSC Group Code", BearerConnection."WSC Group Code");
-        Connections.SetRange("WSC Bearer Connection", false);
-        Connections.SetRange("WSC Bearer Connection Code", BearerConnection."WSC Code");
-        if not Connections.IsEmpty() then begin
-            Connections.FindSet();
-            repeat
-                NextEntryNo += 1;
-                TreeVisualization.Init();
-                TreeVisualization.Validate("WSC Group Code", Connections."WSC Group Code");
-                TreeVisualization.Validate("WSC Entry No.", NextEntryNo);
-                TreeVisualization.Validate("WSC Indentation", 1);
-                TreeVisualization.Validate("WSC Code", Connections."WSC Code");
-                TreeVisualization.Validate("WSC Description", Connections."WSC Description");
-                TreeVisualization.Insert();
-            until Connections.Next() = 0;
-        end;
-    end;
-
-    local procedure CollectRecordWithoutTokenFromGroup(WSCGroupCode: Code[20]; var TreeVisualization: Record "WSC Tree Visualization")
-    var
-        Connections: Record "WSC Connections";
-        NextEntryNo: Integer;
-    begin
-        TreeVisualization.Reset();
-        TreeVisualization.SetRange("WSC Group Code", WSCGroupCode);
-        if TreeVisualization.FindLast() then
-            NextEntryNo := TreeVisualization."WSC Entry No."
-        else
-            NextEntryNo := 0;
-
-        Connections.Reset();
-        Connections.SetRange("WSC Group Code", WSCGroupCode);
-        Connections.SetRange("WSC Bearer Connection", false);
-        Connections.SetRange("WSC Bearer Connection Code", '');
-        if not Connections.IsEmpty() then begin
-            Connections.FindSet();
-            repeat
-                NextEntryNo += 1;
-                TreeVisualization.Init();
-                TreeVisualization.Validate("WSC Group Code", Connections."WSC Group Code");
-                TreeVisualization.Validate("WSC Entry No.", NextEntryNo);
-                TreeVisualization.Validate("WSC Indentation", 1);
-                TreeVisualization.Validate("WSC Code", Connections."WSC Code");
-                TreeVisualization.Validate("WSC Description", Connections."WSC Description");
-                TreeVisualization.Insert();
-            until Connections.Next() = 0;
-        end;
-    end;
-
-    local procedure CollectRecordWithoutTokenNoGroup(WSCGroupCode: Code[20]; var TreeVisualization: Record "WSC Tree Visualization")
-    var
-        Connections: Record "WSC Connections";
-        NextEntryNo: Integer;
-    begin
-        TreeVisualization.Reset();
-        TreeVisualization.SetRange("WSC Group Code", WSCGroupCode);
-        if TreeVisualization.FindLast() then
-            NextEntryNo := TreeVisualization."WSC Entry No."
-        else
-            NextEntryNo := 0;
-
-        Connections.Reset();
-        Connections.SetRange("WSC Group Code", WSCGroupCode);
-        Connections.SetRange("WSC Bearer Connection", false);
-        Connections.SetRange("WSC Bearer Connection Code", '');
-        if not Connections.IsEmpty() then begin
-            Connections.FindSet();
-            repeat
-                NextEntryNo += 1;
-                TreeVisualization.Init();
-                TreeVisualization.Validate("WSC Group Code", Connections."WSC Group Code");
-                TreeVisualization.Validate("WSC Entry No.", NextEntryNo);
-                TreeVisualization.Validate("WSC Indentation", 0);
-                TreeVisualization.Validate("WSC Code", Connections."WSC Code");
-                TreeVisualization.Validate("WSC Description", Connections."WSC Description");
-                TreeVisualization.Insert();
-            until Connections.Next() = 0;
-        end;
-    end;
     #endregion GeneralFunctions
     #region TokenFunctions
     local procedure CheckWSBodiesForToken(BearerConnection: Record "WSC Connections")
@@ -809,6 +589,28 @@ codeunit 81001 "WSC Managements"
     begin
     end;
     #endregion IntegrationEvents
+
+    #region SubscriberEvents
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Apply Retention Policy", 'OnApplyRetentionPolicyIndirectPermissionRequired', '', false, false)]
+    local procedure OnApplyRetentionPolicyIndirectPermissionRequired(var RecRef: RecordRef; var Handled: Boolean);
+    var
+        RetentionPolicyLog: Codeunit "Retention Policy Log";
+        LogCategory: Enum "Retention Policy Log Category";
+        LogMessageLbl: Label 'No filters applyed for table %1 %2';
+    begin
+        if Handled then
+            exit;
+
+        if not (RecRef.Number in [Database::"WSC Log Calls"]) then
+            exit;
+
+        if (RecRef.GetFilters() = '') or (not RecRef.MarkedOnly()) then
+            RetentionPolicyLog.LogError(LogCategory::"Retention Policy - Apply", StrSubstNo(LogMessageLbl, RecRef.Number, RecRef.Name));
+
+        RecRef.Delete(true);
+        Handled := true;
+    end;
+    #endregion SubscriberEvents
     var
         WebServicesCaller: Codeunit "WSC Caller";
         BodyInStream: InStream;

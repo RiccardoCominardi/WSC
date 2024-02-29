@@ -1,11 +1,9 @@
-/// <summary>
-/// Page WSC Import Configuration (ID 81012).
-/// </summary>
 page 81012 "WSC Import Configuration"
 {
     Caption = 'Import Configuration';
     PageType = List;
     SourceTable = "WSC Connections";
+    SourceTableView = sorting("WSC Group Code", "WSC Indentation", "WSC Code");
     SourceTableTemporary = true;
     DeleteAllowed = false;
     InsertAllowed = false;
@@ -17,6 +15,9 @@ page 81012 "WSC Import Configuration"
         {
             repeater(Control1)
             {
+                IndentationColumn = Rec."WSC Indentation";
+                IndentationControls = "WSC Description";
+                ShowAsTree = true;
                 field(WSCode; WSCode)
                 {
                     ApplicationArea = All;
@@ -37,6 +38,7 @@ page 81012 "WSC Import Configuration"
                     StyleExpr = LineColor;
                     Editable = false;
                 }
+                /*
                 field("WSC Imported"; Rec."WSC Imported")
                 {
                     ApplicationArea = All;
@@ -48,6 +50,7 @@ page 81012 "WSC Import Configuration"
                             Rec."WSC Imported" := false;
                     end;
                 }
+                */
                 field(CurrStatus; CurrStatus)
                 {
                     ApplicationArea = All;
@@ -78,9 +81,9 @@ page 81012 "WSC Import Configuration"
     local procedure IsCorrectConnession(): Boolean
     var
         Connections: Record "WSC Connections";
-        Text000Err: Label 'Web Service Connection with code %1 already exist. Change the code to continue';
+        Text000Err: Label 'Connection with code %1 already exist. Change the code to continue';
         Text001Err: Label 'Is not possible to use char ":"';
-        Text000Lbl: Label 'Web Service Connection is importable';
+        Text000Lbl: Label 'Connection is importable';
     begin
         WSCode := Rec."WSC Code";
         CurrStatus := CurrStatus::Correct;
@@ -104,10 +107,6 @@ page 81012 "WSC Import Configuration"
         exit(true);
     end;
 
-    /// <summary>
-    /// SetConfiguration.
-    /// </summary>
-    /// <param name="TempConnections">Temporary VAR Record "WSC Connections".</param>
     procedure SetConfiguration(var TempConnections: Record "WSC Connections" temporary)
     var
         Text000Lbl: Label 'Nothing to Import';
@@ -125,10 +124,6 @@ page 81012 "WSC Import Configuration"
         until TempConnections.Next() = 0;
     end;
 
-    /// <summary>
-    /// GetConfiguration.
-    /// </summary>
-    /// <param name="TempConnections">Temporary VAR Record "WSC Connections".</param>
     procedure GetConfiguration(var TempConnections: Record "WSC Connections" temporary)
     var
         Text000Lbl: Label 'Nothing to Import';

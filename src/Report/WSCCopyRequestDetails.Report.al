@@ -1,6 +1,3 @@
-/// <summary>
-/// Report WSC Copy Request Details (ID 81001).
-/// </summary>
 report 81001 "WSC Copy Request Details"
 {
     Caption = 'Copy Request Details';
@@ -10,7 +7,7 @@ report 81001 "WSC Copy Request Details"
     {
         dataitem(Integer; Integer)
         {
-            DataItemTableView = where(Number = const(1));
+            DataItemTableView = sorting(Number) where(Number = const(1));
         }
     }
 
@@ -23,6 +20,7 @@ report 81001 "WSC Copy Request Details"
 
                 group(GroupName)
                 {
+                    ShowCaption = false;
                     field(CopyFromWSCode; CopyFromWSCode)
                     {
                         ApplicationArea = All;
@@ -33,6 +31,16 @@ report 81001 "WSC Copy Request Details"
                 group(Options)
                 {
                     Caption = 'Copy';
+                    field(CopyFunctions; CopyFunctions)
+                    {
+                        Caption = 'Functions';
+                        ApplicationArea = All;
+                    }
+                    field(CopyCredentials; CopyCredentials)
+                    {
+                        Caption = 'Credentials';
+                        ApplicationArea = All;
+                    }
                     field(CopyParameter; CopyParameters)
                     {
                         Caption = 'Parameters';
@@ -73,40 +81,91 @@ report 81001 "WSC Copy Request Details"
         FromConnections.Get(CopyFromWSCode);
         Connections.Get(CurrWSCode);
 
-        CopyParametersFunction();
-        CopyHeadersFunction();
-        CopyBodiesFunction();
+        DoCopyCredentials();
+        DoCopyFunctions();
+        DoCopyParameters();
+        DoCopyHeaders();
+        DoCopyBodies();
     end;
 
-    /// <summary>
-    /// SetCurrentWSCode.
-    /// </summary>
-    /// <param name="WSCode">Code[20].</param>
     procedure SetCurrentWSCode(WSCode: Code[20])
     begin
         CurrWSCode := WSCode;
     end;
 
-    /// <summary>
-    /// SetParameters.
-    /// </summary>
-    /// <param name="Parameters">Boolean.</param>
-    /// <param name="Headers">Boolean.</param>
-    /// <param name="Bodies">Boolean.</param>
-    procedure SetParameters(Parameters: Boolean; Headers: Boolean; Bodies: Boolean)
+    procedure SetFromWSCode(WSCode: Code[20])
     begin
+        CopyFromWSCode := WSCode;
+    end;
+
+    procedure SetParameters(Functions: Boolean; Credentials: Boolean; Parameters: Boolean; Headers: Boolean; Bodies: Boolean)
+    begin
+        CopyFunctions := Functions;
+        CopyCredentials := Credentials;
         CopyParameters := Parameters;
         CopyHeaders := Headers;
         CopyBodies := Bodies;
     end;
 
-    local procedure CopyParametersFunction()
+    local procedure DoCopyCredentials()
+    var
+        FromConnections: Record "WSC Connections";
+        Connections: Record "WSC Connections";
+        SecurityManagements: Codeunit "WSC Security Managements";
+    begin
+        if not CopyCredentials then
+            exit;
+
+        Connections.Get(CurrWSCode);
+        FromConnections.Get(CopyFromWSCode);
+
+        Connections."WSC Auth. Type" := FromConnections."WSC Auth. Type";
+        Connections."WSC Username" := FromConnections."WSC Username";
+        Connections."WSC Password" := FromConnections."WSC Password";
+        Connections."WSC Bearer Connection Code" := FromConnections."WSC Bearer Connection Code";
+        Connections.Modify();
+    end;
+
+    local procedure DoCopyFunctions()
+    var
+        FromFunctions: Record "WSC Functions";
+        Functions: Record "WSC Functions";
+        Text000Qst: Label '%1 already exist in destination record. Do you want to delete and recreate all?';
+    begin
+        if not CopyFunctions then
+            exit;
+
+        Functions.Reset();
+        Functions.SetRange("WSC Connection Code", CurrWSCode);
+        if not Functions.IsEmpty() then
+            if not Confirm(StrSubstNo(Text000Qst, Functions.TableCaption()), false) then
+                exit;
+
+        Functions.DeleteAll();
+
+        FromFunctions.Reset();
+        FromFunctions.SetRange("WSC Connection Code", CopyFromWSCode);
+        if CopyOnlyEnabled then
+            FromFunctions.SetRange("WSC Enabled", true);
+        if FromFunctions.IsEmpty() then
+            exit;
+
+        FromFunctions.FindSet();
+        repeat
+            Functions.Init();
+            Functions.TransferFields(FromFunctions);
+            Functions."WSC Connection Code" := CurrWSCode;
+            Functions.Insert();
+        until FromFunctions.Next() = 0;
+    end;
+
+    local procedure DoCopyParameters()
     var
         FromParameters: Record "WSC Parameters";
         Parameters: Record "WSC Parameters";
         Text000Qst: Label '%1 already exist in destination record. Do you want to delete and recreate all?';
     begin
-        if not CopyHeaders then
+        if not CopyParameters then
             exit;
 
         Parameters.Reset();
@@ -133,7 +192,7 @@ report 81001 "WSC Copy Request Details"
         until FromParameters.Next() = 0;
     end;
 
-    local procedure CopyHeadersFunction()
+    local procedure DoCopyHeaders()
     var
         FromHeaders: Record "WSC Headers";
         Headers: Record "WSC Headers";
@@ -166,13 +225,13 @@ report 81001 "WSC Copy Request Details"
         until FromHeaders.Next() = 0;
     end;
 
-    local procedure CopyBodiesFunction()
+    local procedure DoCopyBodies()
     var
         FromBodies: Record "WSC Bodies";
         Bodies: Record "WSC Bodies";
         Text000Qst: Label '%1 already exist in destination record. Do you want to delete and recreate all?';
     begin
-        if not CopyHeaders then
+        if not CopyBodies then
             exit;
 
         Bodies.Reset();
@@ -200,10 +259,12 @@ report 81001 "WSC Copy Request Details"
     end;
 
     var
-        CopyParameters: Boolean;
-        CopyHeaders: Boolean;
-        CopyBodies: Boolean;
-        CopyOnlyEnabled: Boolean;
-        CopyFromWSCode: Code[20];
-        CurrWSCode: Code[20];
+        CopyCredentials,
+        CopyFunctions,
+        CopyParameters,
+        CopyHeaders,
+        CopyBodies,
+        CopyOnlyEnabled : Boolean;
+        CopyFromWSCode,
+        CurrWSCode : Code[20];
 }

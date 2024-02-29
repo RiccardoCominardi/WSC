@@ -23,11 +23,13 @@ codeunit 81004 "WSC Upgrade"
     local procedure HandleFreshInstall()
     begin
         SetEndpointVariables(false);
+        Upgrade_RetentionPolicies();
     end;
 
     local procedure HandleReinstall()
     begin
         SetEndpointVariables(true);
+        Upgrade_RetentionPolicies();
     end;
 
     #region InstallProcedure
@@ -71,6 +73,21 @@ codeunit 81004 "WSC Upgrade"
         EndPointVariables."WSC Variable Name" := '[@Url_2]';
         EndPointVariables."WSC Description" := Text003Lbl;
         EndPointVariables.Insert();
+    end;
+
+    local procedure Upgrade_RetentionPolicies()
+    var
+        LogCalls: Record "WSC Log Calls";
+        RetenPolAllowedTables: Codeunit "Reten. Pol. Allowed Tables";
+        TableFilters: JsonArray;
+        Filtering: enum "Reten. Pol. Filtering";
+        Deleting: enum "Reten. Pol. Deleting";
+        MandatoryMinimumRetentionDays: Integer;
+    begin
+        MandatoryMinimumRetentionDays := 7;
+        Filtering := Filtering::Default;
+        Deleting := Deleting::Default;
+        RetenPolAllowedTables.AddAllowedTable(Database::"WSC Log Calls", LogCalls.FieldNo(SystemCreatedAt), MandatoryMinimumRetentionDays, Filtering, Deleting, TableFilters);
     end;
     #endregion InstallProcedure
 }

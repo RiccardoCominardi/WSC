@@ -13,7 +13,6 @@ codeunit 81003 "WSC Import Export Config."
         TempParameters: Record "WSC Parameters" temporary;
         TempHeaders: Record "WSC Headers" temporary;
         TempBodies: Record "WSC Bodies" temporary;
-        TempGroupCodes: Record "WSC Group Codes" temporary;
         TableType: Option Default,Parameter,Header,Body;
         GroupCode: Code[20];
         CurrWSCode: Code[20];
@@ -27,9 +26,6 @@ codeunit 81003 "WSC Import Export Config."
         //Importazione configurazione WSC da Json di Postman
     end;
 
-    /// <summary>
-    /// ImportWSCFromJson.
-    /// </summary>
     procedure ImportWSCFromJson()
     var
         TempBlob: Codeunit "Temp Blob";
@@ -64,6 +60,7 @@ codeunit 81003 "WSC Import Export Config."
         Commit();
         if GuiAllowed() then begin
             ImportConfiguration.SetConfiguration(TempConnections);
+            ImportConfiguration.Editable(true);
             ImportConfiguration.LookupMode(true);
             if ImportConfiguration.RunModal() = Action::LookupOK then
                 ImportConfiguration.GetConfiguration(TempConnections)
@@ -113,16 +110,7 @@ codeunit 81003 "WSC Import Export Config."
             TableType::Default:
                 case JsonFieldName of
                     'groupCode':
-                        begin
-                            GroupCode := JsonKeyValue.AsText();
-                            if not TempGroupCodes.Get(GroupCode) then
-                                if GroupCode <> '' then begin
-                                    TempGroupCodes.Init();
-                                    TempGroupCodes."WSC Code" := GroupCode;
-                                    TempGroupCodes."WSC Description" := GroupCode;
-                                    TempGroupCodes.Insert();
-                                end;
-                        end;
+                        GroupCode := JsonKeyValue.AsText();
                     'code':
                         begin
                             SetNewRecordToInsert();
@@ -156,6 +144,10 @@ codeunit 81003 "WSC Import Export Config."
                         TempConnections."WSC Bearer Connection Code" := JsonKeyValue.AsText();
                     'zipResponse':
                         TempConnections."WSC Zip Response" := JsonKeyValue.AsBoolean();
+                    'type':
+                        Evaluate(TempConnections."WSC Type", JsonKeyValue.AsText());
+                    'indentation':
+                        TempConnections."WSC Indentation" := JsonKeyValue.AsInteger();
                 end;
             TableType::Parameter:
                 case JsonFieldName of
@@ -265,20 +257,25 @@ codeunit 81003 "WSC Import Export Config."
         Parameters: Record "WSC Parameters";
         Headers: Record "WSC Headers";
         Bodies: Record "WSC Bodies";
-        WebServicesGroupCodes: Record "WSC Group Codes";
         Text000Lbl: Label 'Nothing to Import';
+        NewGroupCode: Code[20];
     begin
         TempConnections.Reset();
+        TempConnections.SetCurrentKey("WSC Type");
         if TempConnections.IsEmpty() then
             Error(Text000Lbl);
 
         TempConnections.FindSet();
         repeat
-            if TempConnections."WSC Previous Code" <> TempConnections."WSC Code" then
+            if TempConnections."WSC Previous Code" <> TempConnections."WSC Code" then begin
+                if TempConnections."WSC Type" = TempConnections."WSC Type"::Group then
+                    NewGroupCode := TempConnections."WSC Code";
                 UpdateRelatedTableKey();
+            end;
 
             Connections.Init();
             Connections.TransferFields(TempConnections);
+            Connections."WSC Group Code" := NewGroupCode;
             Connections."WSC Imported" := true;
             Connections.Insert();
 
@@ -316,19 +313,6 @@ codeunit 81003 "WSC Import Export Config."
             end;
         until TempConnections.Next() = 0;
 
-        //Insert Group Codes if not exist
-        TempGroupCodes.Reset();
-        if not TempGroupCodes.IsEmpty() then begin
-            TempGroupCodes.FindSet();
-            repeat
-                if not WebServicesGroupCodes.Get(TempGroupCodes."WSC Code") then begin
-                    WebServicesGroupCodes.Init();
-                    WebServicesGroupCodes.TransferFields(TempGroupCodes);
-                    WebServicesGroupCodes.Insert();
-                end;
-            until TempGroupCodes.Next() = 0;
-        end;
-
         InitializeTempVar();
     end;
 
@@ -340,8 +324,6 @@ codeunit 81003 "WSC Import Export Config."
         TempHeaders.DeleteAll();
         TempBodies.Reset();
         TempBodies.DeleteAll();
-        TempGroupCodes.Reset();
-        TempGroupCodes.DeleteAll();
     end;
 
     local procedure UpdateRelatedTableKey()
@@ -401,17 +383,13 @@ codeunit 81003 "WSC Import Export Config."
     #endregion Import
 
     #region Export
-    /// <summary>
-    /// ExportWSCJson.
-    /// </summary>
-    /// <param name="WSCode">Code[20].</param>
+
     procedure ExportWSCJson(WSCode: Code[20])
     var
         Connections: Record "WSC Connections";
         TempBlob: Codeunit "Temp Blob";
         InStr: InStream;
         OutStr: OutStream;
-        Text000Qst: Label 'This connection is part of a group. Do you want to export the entire group ?';
         Text000Lbl: Label '%1_%2.json';
         IsHandled,
         ExportGroup : Boolean;
@@ -424,11 +402,7 @@ codeunit 81003 "WSC Import Export Config."
             exit;
 
         Connections.Get(WSCode);
-        if Connections."WSC Group Code" <> '' then
-            if Confirm(Text000Qst) then
-                ExportGroup := true;
-
-        if ExportGroup then begin
+        if Connections."WSC Type" = Connections."WSC Type"::Group then begin
             LocalFileName := StrSubstNo(Text000Lbl, 'GROUP', Connections."WSC Group Code");
             FileJson := ExportWSCGroupJson(Connections)
         end else begin
@@ -472,8 +446,7 @@ codeunit 81003 "WSC Import Export Config."
         Connections2: Record "WSC Connections";
     begin
         Connections2.Reset();
-        Connections2.SetCurrentKey("WSC Bearer Connection");
-        Connections2.Ascending(false);
+        Connections2.SetCurrentKey("WSC Type");
         Connections2.SetRange("WSC Group Code", Connections."WSC Group Code");
         if Connections2.IsEmpty() then
             Error('');
@@ -535,7 +508,6 @@ codeunit 81003 "WSC Import Export Config."
     begin
         Clear(JObjectName);
 
-        //JObjectName.Add('code', Connections."WSC Code");
         JObjectName.Add('description', Connections."WSC Description");
         JObjectName.Add('httpMethod', Format(Connections."WSC HTTP Method"));
         JObjectName.Add('endpoint', Connections."WSC EndPoint");
@@ -549,6 +521,8 @@ codeunit 81003 "WSC Import Export Config."
         JObjectName.Add('bearerToken', Connections."WSC Bearer Connection");
         JObjectName.Add('bearerConnCode', Connections."WSC Bearer Connection Code");
         JObjectName.Add('zipResponse', Connections."WSC Zip Response");
+        JObjectName.Add('type', Format(Connections."WSC Type"));
+        JObjectName.Add('indentation', Format(Connections."WSC Indentation"));
         OnBeforeAddArrayGeneralInfoContent(JObjectName, Connections);
 
         JArrayName.Add(JObjectName);

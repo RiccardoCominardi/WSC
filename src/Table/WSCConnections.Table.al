@@ -1,6 +1,3 @@
-/// <summary>
-/// Table WSC Connections (ID 81001).
-/// </summary>
 table 81001 "WSC Connections"
 {
     Caption = 'Web Services - Connections';
@@ -123,22 +120,11 @@ table 81001 "WSC Connections"
         {
             DataClassification = CustomerContent;
             Caption = 'Group Code';
-            TableRelation = "WSC Group Codes"."WSC Code";
+            TableRelation = "WSC Connections"."WSC Code" where("WSC Type" = const("WSC Types"::Group));
             trigger OnValidate()
-            var
-                Connections: Record "WSC Connections";
-                Text000Err: Label 'Is not possible to change Group Code if there is a linked Token. Clear first the linked Token value';
             begin
-                if Rec."WSC Bearer Connection" then begin
-                    Connections.Reset();
-                    Connections.SetRange("WSC Bearer Connection Code", Rec."WSC Code");
-                    Connections.ModifyAll("WSC Group Code", Rec."WSC Group Code");
-                end else
-                    if Rec."WSC Bearer Connection Code" <> '' then
-                        if Connections.Get(Rec."WSC Bearer Connection Code") then
-                            if Connections."WSC Group Code" <> Rec."WSC Group Code" then
-                                Error(Text000Err);
-
+                CheckOnChangeGrouCode();
+                SetIndentation();
             end;
         }
         field(19; "WSC Body Method"; Enum "WSC Body Methods")
@@ -199,6 +185,25 @@ table 81001 "WSC Connections"
                         Error('');
             end;
         }
+        field(27; "WSC Type"; Enum "WSC Types")
+        {
+            Caption = 'Type';
+            DataClassification = CustomerContent;
+            trigger OnValidate()
+            begin
+                if Rec."WSC Type" = Rec."WSC Type"::Token then
+                    Rec."WSC Bearer Connection" := true
+                else
+                    Rec."WSC Bearer Connection" := false;
+
+                SetIndentation();
+            end;
+        }
+        field(28; "WSC Indentation"; Integer)
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Indentation';
+        }
     }
 
     keys
@@ -206,6 +211,9 @@ table 81001 "WSC Connections"
         key(Key1; "WSC Code")
         {
             Clustered = true;
+        }
+        key(Key2; "WSC Group Code", "WSC Indentation", "WSC Code")
+        {
         }
     }
 
@@ -231,7 +239,18 @@ table 81001 "WSC Connections"
         LogCalls: Record "WSC Log Calls";
         Functions: Record "WSC Functions";
         SecurityManagements: Codeunit "WSC Security Managements";
+        Text000Qst: Label 'Deleting a Group will be delete each connections inside the group. Continue?';
     begin
+        if Rec."WSC Type" = Rec."WSC Type"::Group then begin
+            if not Confirm(Text000Qst, false) then
+                Error('');
+
+            Connections.Reset();
+            Connections.SetRange("WSC Group Code", Rec."WSC Code");
+            Connections.SetFilter("WSC Code", '<> %1', Rec."WSC Code");
+            Connections.DeleteAll(true);
+        end;
+
         if Rec."WSC Bearer Connection" then begin
             Connections.Reset();
             Connections.SetRange("WSC Bearer Connection Code", Rec."WSC Code");
@@ -263,10 +282,6 @@ table 81001 "WSC Connections"
         SecurityManagements.DeleteToken(Rec."WSC Password", GetTokenDataScope());
     end;
 
-    /// <summary>
-    /// GetTokenDataScope.
-    /// </summary>
-    /// <returns>Return value of type DataScope.</returns>
     procedure GetTokenDataScope(): DataScope
     begin
         case Rec."WSC Token DataScope" of
@@ -281,9 +296,72 @@ table 81001 "WSC Connections"
         end;
     end;
 
+    procedure CopyAndPasteDataOnSubGroup()
+    var
+        CopyRequestDetails: Report "WSC Copy Request Details";
+        Text000Qst: Label 'Do you want to copy the information (Credentials, Functions, Parameters, Header, Body) from the group %1?';
+    begin
+        if Rec."WSC Group Code" = '' then
+            exit;
+
+        if not (Rec."WSC Type" in [Rec."WSC Type"::Call, Rec."WSC Type"::Token]) then
+            exit;
+
+        if not Confirm(StrSubstNo(Text000Qst, Rec."WSC Group Code")) then
+            exit;
+
+        CopyRequestDetails.SetCurrentWSCode(Rec."WSC Code");
+        CopyRequestDetails.SetFromWSCode(Rec."WSC Group Code");
+        CopyRequestDetails.SetParameters(true, true, true, true, true);
+        CopyRequestDetails.UseRequestPage(false);
+        CopyRequestDetails.RunModal();
+    end;
+
+    local procedure SetIndentation()
+    begin
+        case Rec."WSC Type" of
+            Rec."WSC Type"::Group:
+                begin
+                    Rec."WSC Group Code" := Rec."WSC Code";
+                    Rec."WSC Indentation" := 1;
+                end;
+            Rec."WSC Type"::Token:
+                Rec."WSC Indentation" := 2;
+            Rec."WSC Type"::Call:
+                Rec."WSC Indentation" := 3;
+        end;
+
+        if Rec."WSC Type" <> Rec."WSC Type"::Group then
+            if Rec."WSC Group Code" = '' then
+                Rec."WSC Indentation" := 1;
+    end;
+
+    local procedure CheckOnChangeGrouCode()
+    var
+        Connections: Record "WSC Connections";
+        Text000Err: Label 'Is not possible to change the Group if there is a call that use this Token';
+        Text001Err: Label 'Is not possible to change Group Code if there is a linked Token. Clear first the linked Token value';
+    begin
+        case Rec."WSC Type" of
+            "WSC Type"::Token:
+                begin
+                    Connections.Reset();
+                    Connections.SetRange("WSC Bearer Connection Code", Rec."WSC Code");
+                    if not Connections.IsEmpty() then
+                        Error(Text000Err);
+                end;
+            "WSC Type"::Call:
+                begin
+                    if Rec."WSC Bearer Connection Code" <> '' then
+                        if Connections.Get(Rec."WSC Bearer Connection Code") then
+                            if Connections."WSC Group Code" <> Rec."WSC Group Code" then
+                                Error(Text001Err);
+                end;
+        end;
+    end;
+
     trigger OnRename()
     begin
 
     end;
-
 }

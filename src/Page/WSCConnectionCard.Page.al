@@ -1,6 +1,3 @@
-/// <summary>
-/// Page WSC Connection Card (ID 81002).
-/// </summary>
 page 81002 "WSC Connection Card"
 {
     Caption = 'Connection Card';
@@ -19,13 +16,32 @@ page 81002 "WSC Connection Card"
                 {
                     ApplicationArea = All;
                 }
-                field("WSC Group Code"; Rec."WSC Group Code")
+                field("WSC Type"; Rec."WSC Type")
                 {
                     ApplicationArea = All;
+                    trigger OnValidate()
+                    begin
+                        CurrPage.Update(true);
+                    end;
                 }
                 field("WSC Description"; Rec."WSC Description")
                 {
                     ApplicationArea = All;
+                }
+            }
+            group(Settings)
+            {
+                Caption = 'Settings';
+                Visible = DetailedRecVisibility;
+
+                field("WSC Group Code"; Rec."WSC Group Code")
+                {
+                    ApplicationArea = All;
+                    trigger OnValidate()
+                    begin
+                        Rec.CopyAndPasteDataOnSubGroup();
+                        CurrPage.Update(true);
+                    end;
                 }
                 field("WSC HTTP Method"; Rec."WSC HTTP Method")
                 {
@@ -43,18 +59,7 @@ page 81002 "WSC Connection Card"
                     ShowCaption = false;
                     StyleExpr = EndPointColor;
                 }
-                field("WSC Allow Blank Response"; Rec."WSC Allow Blank Response")
-                {
-                    ApplicationArea = All;
-                }
-                field("WSC Auth. Type"; Rec."WSC Auth. Type")
-                {
-                    ApplicationArea = All;
-                    trigger OnValidate()
-                    begin
-                        CurrPage.Update(true);
-                    end;
-                }
+
                 field("WSC Body Type"; Rec."WSC Body Type")
                 {
                     ApplicationArea = All;
@@ -75,6 +80,10 @@ page 81002 "WSC Connection Card"
                     ApplicationArea = All;
                     Editable = BodyMethodEditable;
                 }
+                field("WSC Allow Blank Response"; Rec."WSC Allow Blank Response")
+                {
+                    ApplicationArea = All;
+                }
                 field("WSC Zip Response"; Rec."WSC Zip Response")
                 {
                     ApplicationArea = All;
@@ -92,58 +101,69 @@ page 81002 "WSC Connection Card"
                 {
                     ApplicationArea = All;
                 }
-
-                group(Credentials)
+            }
+            group(Credentials)
+            {
+                Caption = 'Credentials';
+                field("WSC Auth. Type"; Rec."WSC Auth. Type")
                 {
-                    Caption = 'Credentials';
+                    ApplicationArea = All;
+                    trigger OnValidate()
+                    begin
+                        CurrPage.Update(true);
+                    end;
+                }
+                group(BaseCredentials)
+                {
+                    Caption = 'Base';
                     field("WSC Username"; Rec."WSC Username")
                     {
                         ApplicationArea = All;
-                        Editable = CredentialsEditable;
+                        Editable = BaseAuthEditable;
                     }
                     field("WSC Password"; Password)
                     {
                         ApplicationArea = All;
                         Caption = 'Password';
-                        Editable = CredentialsEditable;
+                        Editable = BaseAuthEditable;
                         trigger OnValidate()
                         begin
                             SecurityManagements.SetToken(Rec."WSC Password", Password, Rec.GetTokenDataScope());
                         end;
                     }
                 }
-
-            }
-            group(Token)
-            {
-                Caption = 'Token';
-
-                field("WSC Bearer Connection"; Rec."WSC Bearer Connection")
+                group(Token)
                 {
-                    ApplicationArea = All;
-                }
-                field("WSC Bearer Connection Code"; Rec."WSC Bearer Connection Code")
-                {
-                    ApplicationArea = All;
-                }
-                field("WSC Access Token"; TokenPresent)
-                {
-                    Caption = 'Access Token Active';
-                    ApplicationArea = All;
-                    Editable = false;
-                }
-                field("WSC Authorization Time"; TokenAuth)
-                {
-                    Caption = 'Authorization Time';
-                    ApplicationArea = All;
-                    Editable = false;
-                }
-                field("WSC TokenStatus"; TokenStatus)
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                    ShowCaption = false;
-                    StyleExpr = TokenColor;
+                    Caption = 'Token';
+                    field("WSC Bearer Connection"; Rec."WSC Bearer Connection")
+                    {
+                        ApplicationArea = All;
+                        Editable = false;
+                    }
+                    field("WSC Bearer Connection Code"; Rec."WSC Bearer Connection Code")
+                    {
+                        ApplicationArea = All;
+                        Editable = TokenAuthEditable;
+                    }
+                    field("WSC Access Token"; TokenPresent)
+                    {
+                        Caption = 'Access Token Active';
+                        ApplicationArea = All;
+                        Editable = false;
+                    }
+                    field("WSC Authorization Time"; TokenAuth)
+                    {
+                        Caption = 'Authorization Time';
+                        ApplicationArea = All;
+                        Editable = false;
+                    }
+                    field("WSC TokenStatus"; TokenStatus)
+                    {
+                        ApplicationArea = All;
+                        Editable = false;
+                        ShowCaption = false;
+                        StyleExpr = TokenColor;
+                    }
                 }
             }
         }
@@ -152,11 +172,13 @@ page 81002 "WSC Connection Card"
             part(EndPointVariables; "WSC EndPoint Variables Factbox")
             {
                 ApplicationArea = All;
+                Visible = DetailedRecVisibility;
                 Caption = 'EndPoint Variables';
             }
             part(WebServicesParamFactbox; "WSC Parameters Factbox")
             {
                 ApplicationArea = All;
+                Visible = DetailedRecVisibility;
                 Caption = 'Parameters';
                 SubPageLink = "WSC Code" = field("WSC Code");
             }
@@ -239,6 +261,7 @@ page 81002 "WSC Connection Card"
             {
                 Caption = 'Copy Request Details';
                 ToolTip = 'Copy Request Details from other Web Service Calls';
+                Visible = DetailedRecVisibility;
                 ApplicationArea = All;
                 Image = Copy;
 
@@ -255,6 +278,7 @@ page 81002 "WSC Connection Card"
                 Caption = 'Send Request';
                 ToolTip = 'Send the Web Service request';
                 ApplicationArea = All;
+                Visible = DetailedRecVisibility;
                 Image = "Invoicing-MDL-Send";
 
                 trigger OnAction()
@@ -264,6 +288,18 @@ page 81002 "WSC Connection Card"
                 begin
                     WebServicesManagement.ExecuteConnections(Rec."WSC Code", true, LogCalls);
                     CurrPage."WSC Top Calls Charts".Page.UpdateChart();
+                end;
+            }
+            action(DownloadWSConfiguration)
+            {
+                Caption = 'Download WS Configuration';
+                ApplicationArea = All;
+                Image = Download;
+                trigger OnAction()
+                var
+                    ImportExportConfig: Codeunit "WSC Import Export Config.";
+                begin
+                    ImportExportConfig.ExportWSCJson(Rec."WSC Code");
                 end;
             }
             action(ViewLog)
@@ -285,6 +321,7 @@ page 81002 "WSC Connection Card"
                 Caption = 'View Access Token';
                 ToolTip = 'View last Access Token saved';
                 ApplicationArea = All;
+                Visible = Rec."WSC Type" = Rec."WSC Type"::Token;
                 Image = View;
 
                 trigger OnAction()
@@ -304,6 +341,7 @@ page 81002 "WSC Connection Card"
             actionref(Bodies_Promoted; Bodies) { }
             actionref(CopyRequestDetails_Promoted; CopyRequestDetails) { }
             actionref(SendRequest_Promoted; SendRequest) { }
+            actionref(DownloadWSConfiguration_Promoted; DownloadWSConfiguration) { }
             actionref(ViewLog_Promoted; ViewLog) { }
             actionref(ViewAccessToken_Promoted; ViewAccessToken) { }
         }
@@ -312,6 +350,7 @@ page 81002 "WSC Connection Card"
     trigger OnAfterGetRecord()
     begin
         SetEditableVariables();
+        SetVisibilityVariables();
         SetTokenFields();
         SetEndPointFields();
     end;
@@ -319,12 +358,19 @@ page 81002 "WSC Connection Card"
     trigger OnAfterGetCurrRecord()
     begin
         Password := SecurityManagements.GetToken(Rec."WSC Password", Rec.GetTokenDataScope());
+        SetVisibilityVariables();
     end;
 
     local procedure SetEditableVariables()
     begin
-        CredentialsEditable := Rec."WSC Auth. Type" = Rec."WSC Auth. Type"::Basic;
+        BaseAuthEditable := (Rec."WSC Auth. Type" = Rec."WSC Auth. Type"::Basic) and (Rec."WSC Type" in [Rec."WSC Type"::Call, Rec."WSC Type"::Group]);
+        TokenAuthEditable := (Rec."WSC Auth. Type" = Rec."WSC Auth. Type"::"bearer token") and (Rec."WSC Type" in [Rec."WSC Type"::Call, Rec."WSC Type"::Group]);
         BodyMethodEditable := Rec."WSC Body Type" in [Rec."WSC Body Type"::raw, Rec."WSC Body Type"::binary];
+    end;
+
+    local procedure SetVisibilityVariables()
+    begin
+        DetailedRecVisibility := Rec."WSC Type" in [Rec."WSC Type"::Token, Rec."WSC Type"::Call];
     end;
 
     local procedure SetEndPointFields()
@@ -405,8 +451,10 @@ page 81002 "WSC Connection Card"
 
     var
         SecurityManagements: Codeunit "WSC Security Managements";
-        CredentialsEditable,
+        BaseAuthEditable,
+        TokenAuthEditable,
         BodyMethodEditable,
+        DetailedRecVisibility,
         TokenPresent : Boolean;
         TokenAuth: DateTime;
         Password,

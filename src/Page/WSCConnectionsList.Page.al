@@ -1,6 +1,3 @@
-/// <summary>
-/// Page WSC Connections List (ID 81001).
-/// </summary>
 page 81001 "WSC Connections List"
 {
     Caption = 'Connections List (WSC)';
@@ -8,7 +5,9 @@ page 81001 "WSC Connections List"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "WSC Connections";
+    SourceTableView = sorting("WSC Group Code", "WSC Indentation", "WSC Code");
     CardPageID = "WSC Connection Card";
+    RefreshOnActivate = true;
     Editable = false;
 
     layout
@@ -17,21 +16,30 @@ page 81001 "WSC Connections List"
         {
             repeater(Control1)
             {
+                IndentationColumn = Rec."WSC Indentation";
+                IndentationControls = "WSC Description";
+                ShowAsTree = true;
+
                 field("WSC Code"; Rec."WSC Code")
                 {
                     ApplicationArea = All;
-                }
-                field("WSC Group Code"; Rec."WSC Group Code")
-                {
-                    ApplicationArea = All;
+                    Style = Strong;
+                    StyleExpr = Emphasize;
                 }
                 field("WSC Description"; Rec."WSC Description")
+                {
+                    ApplicationArea = All;
+                    Style = Strong;
+                    StyleExpr = Emphasize;
+                }
+                field("WSC Type"; Rec."WSC Type")
                 {
                     ApplicationArea = All;
                 }
                 field("WSC HTTP Method"; Rec."WSC HTTP Method")
                 {
                     ApplicationArea = All;
+                    HideValue = HideValue;
                 }
                 field("WSC EndPoint"; Rec."WSC EndPoint")
                 {
@@ -40,6 +48,7 @@ page 81001 "WSC Connections List"
                 field("WSC Auth. Type"; Rec."WSC Auth. Type")
                 {
                     ApplicationArea = All;
+                    HideValue = HideValue;
                 }
                 field("WSC Bearer Connection"; Rec."WSC Bearer Connection")
                 {
@@ -49,7 +58,6 @@ page 81001 "WSC Connections List"
             }
         }
     }
-
     actions
     {
         area(Navigation)
@@ -128,40 +136,10 @@ page 81001 "WSC Connections List"
                     LogCalls.ViewLog(Rec."WSC Code");
                 end;
             }
-            action(ViewAsTree)
-            {
-                Caption = 'View As Tree';
-                ToolTip = 'View Web Service Calls with tree visualization';
-                ApplicationArea = All;
-                Image = BOMLevel;
-
-                trigger OnAction()
-                var
-                    WebServicesManagement: Codeunit "WSC Managements";
-                begin
-                    WebServicesManagement.ShowWSCAsTree();
-                end;
-            }
         }
 
         area(Processing)
         {
-            action(CopyRequestDetails)
-            {
-                Caption = 'Copy Request Details';
-                ToolTip = 'Copy Request Details from other Web Service Calls';
-                ApplicationArea = All;
-                Image = Copy;
-
-                trigger OnAction()
-                var
-                    CopyRequestDetails: Report "WSC Copy Request Details";
-                begin
-                    CopyRequestDetails.SetCurrentWSCode(Rec."WSC Code");
-                    CopyRequestDetails.RunModal();
-                end;
-            }
-
             action(SendRequest)
             {
                 Caption = 'Send Request';
@@ -177,21 +155,6 @@ page 81001 "WSC Connections List"
                     WebServicesManagement.ExecuteConnections(Rec."WSC Code", true, LogCalls);
                 end;
             }
-            action(TEST)
-            {
-                Caption = 'TEST';
-                ApplicationArea = All;
-                Image = TestFile;
-                Visible = false;
-                Enabled = false;
-
-                trigger OnAction()
-                var
-                    Examples: Codeunit "WSC Examples";
-                begin
-                    Examples.ExecuteWSCTestCodeWithCustomBody();
-                end;
-            }
             action(ImportWSConfiguration)
             {
                 Caption = 'Import WS Configuration';
@@ -202,6 +165,7 @@ page 81001 "WSC Connections List"
                     ImportExportConfig: Codeunit "WSC Import Export Config.";
                 begin
                     ImportExportConfig.ImportWSCFromJson();
+                    CurrPage.Update(true);
                 end;
             }
             action(DownloadWSConfiguration)
@@ -220,19 +184,7 @@ page 81001 "WSC Connections List"
 
         area(Promoted)
         {
-            group(Category_Process)
-            {
-                Caption = 'Process';
-                actionref(CopyRequestDetails_Promoted; CopyRequestDetails) { }
-                actionref(SendRequest_Promoted; SendRequest) { }
-                group(Category_Category6)
-                {
-                    Caption = 'Configuration';
-                    Image = Setup;
-                    actionref(DownloadWSConfiguration_Promoted; DownloadWSConfiguration) { }
-                    actionref(ImportWSConfiguration_Promoted; ImportWSConfiguration) { }
-                }
-            }
+
             group(Category_Category5)
             {
                 Caption = 'Request Details';
@@ -241,13 +193,24 @@ page 81001 "WSC Connections List"
                 actionref(Headers_Promoted; Headers) { }
                 actionref(Bodies_Promoted; Bodies) { }
             }
-            group(Category_Category12)
+            actionref(SendRequest_Promoted; SendRequest) { }
+            group(Category_Category6)
             {
-                Caption = 'Navigate';
-
-                actionref(ViewLog_Promoted; ViewLog) { }
-                actionref(ViewAsTree_Promoted; ViewAsTree) { }
+                Caption = 'Configuration';
+                Image = Setup;
+                actionref(DownloadWSConfiguration_Promoted; DownloadWSConfiguration) { }
+                actionref(ImportWSConfiguration_Promoted; ImportWSConfiguration) { }
             }
+            actionref(ViewLog_Promoted; ViewLog) { }
         }
     }
+    trigger OnAfterGetRecord()
+    begin
+        Emphasize := (Rec."WSC Indentation" in [0, 1]);
+        HideValue := not (Rec."WSC Type" in [Rec."WSC Type"::Token, Rec."WSC Type"::Call]);
+    end;
+
+    var
+        HideValue,
+        Emphasize : Boolean;
 }

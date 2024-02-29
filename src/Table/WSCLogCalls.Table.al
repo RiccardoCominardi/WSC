@@ -1,6 +1,3 @@
-/// <summary>
-/// Table WSC Log Calls (ID 81004).
-/// </summary>
 table 81004 "WSC Log Calls"
 {
     Caption = 'Web Services - Log Calls';
@@ -82,7 +79,7 @@ table 81004 "WSC Log Calls"
         {
             DataClassification = CustomerContent;
             Caption = 'Group Code';
-            TableRelation = "WSC Group Codes"."WSC Code";
+            TableRelation = "WSC Connections"."WSC Group Code" where("WSC Type" = const("WSC Types"::Group));
         }
         field(15; "WSC Zip Response"; Boolean)
         {
@@ -141,10 +138,6 @@ table 81004 "WSC Log Calls"
         }
     }
 
-    /// <summary>
-    /// ExportAttachment.
-    /// </summary>
-    /// <param name="FieldNo">Integer.</param>
     procedure ExportAttachment(FieldNo: Integer);
     var
         InStr: InStream;
@@ -217,10 +210,6 @@ table 81004 "WSC Log Calls"
         exit(RetText);
     end;
 
-    /// <summary>
-    /// ViewLog.
-    /// </summary>
-    /// <param name="WSCCode">Code[20].</param>
     procedure ViewLog(WSCCode: Code[20])
     var
         Connections: Record "WSC Connections";
@@ -235,6 +224,10 @@ table 81004 "WSC Log Calls"
             LogCalls.SetFilter("WSC Code", '%1|%2', Connections."WSC Code", Connections."WSC Bearer Connection Code")
         else
             LogCalls.SetRange("WSC Code", Connections."WSC Code");
+        if Connections."WSC Type" = Connections."WSC Type"::Group then begin
+            LogCalls.SetRange("WSC Code");
+            LogCalls.SetRange("WSC Group Code", Connections."WSC Group Code");
+        end;
         LogCalls.FilterGroup(0);
         Page.RunModal(0, LogCalls);
     end;
