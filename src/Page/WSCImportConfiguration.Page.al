@@ -38,19 +38,6 @@ page 81012 "WSC Import Configuration"
                     StyleExpr = LineColor;
                     Editable = false;
                 }
-                /*
-                field("WSC Imported"; Rec."WSC Imported")
-                {
-                    ApplicationArea = All;
-                    StyleExpr = LineColor;
-                    Caption = 'To Import';
-                    trigger OnValidate()
-                    begin
-                        if not IsCorrectConnession() then
-                            Rec."WSC Imported" := false;
-                    end;
-                }
-                */
                 field(CurrStatus; CurrStatus)
                 {
                     ApplicationArea = All;
@@ -126,13 +113,15 @@ page 81012 "WSC Import Configuration"
 
     procedure GetConfiguration(var TempConnections: Record "WSC Connections" temporary)
     var
-        Text000Lbl: Label 'Nothing to Import';
+        Text000Lbl: Label 'Nothing to Import. At least one configuration of type Token or Call must be importable';
     begin
         Rec.Reset();
         Rec.SetRange("WSC Imported", true);
+        Rec.SetRange("WSC Type", Rec."WSC Type"::Token, Rec."WSC Type"::Call);
         if Rec.IsEmpty() then
             Error(Text000Lbl);
 
+        Rec.SetRange("WSC Type");
         Rec.FindSet();
         TempConnections.Reset();
         TempConnections.DeleteAll();

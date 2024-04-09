@@ -6,7 +6,7 @@
             "request": "launch",
             "type": "al",
             "environmentType": "OnPrem",
-            "server": "http://bc23W1",
+            "server": "http://bc23w1",
             "serverInstance": "BC",
             "authentication": "UserPassword",
             "startupObjectId": 81001,

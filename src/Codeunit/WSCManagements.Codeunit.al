@@ -365,6 +365,7 @@ codeunit 81001 "WSC Managements"
 
         LogCalls.Reset();
         LogCalls.SetRange("WSC Code", WSCCode);
+        LogCalls.ReadIsolation := IsolationLevel::ReadUncommitted;
         if LogCalls.FindLast() then
             NextEntryNo := LogCalls."WSC Entry No." + 1
         else
@@ -438,6 +439,7 @@ codeunit 81001 "WSC Managements"
         LogParameters.Reset();
         LogParameters.SetRange("WSC Code", WSCCode);
         LogParameters.SetRange("WSC Log Entry No.", LogEntryNo);
+        LogParameters.ReadIsolation := IsolationLevel::ReadUncommitted;
         if LogParameters.FindLast() then
             NextEntryNo := LogParameters."WSC Entry No."
         else
@@ -481,6 +483,7 @@ codeunit 81001 "WSC Managements"
         Headers.FindSet();
         repeat
             NextEntryNo += 1;
+            LogHeaders.ReadIsolation := IsolationLevel::ReadUncommitted;
             LogHeaders.Init();
             LogHeaders."WSC Log Entry No." := LogEntryNo;
             LogHeaders."WSC Entry No." := NextEntryNo;
@@ -516,6 +519,7 @@ codeunit 81001 "WSC Managements"
         Bodies.FindSet();
         repeat
             NextEntryNo += 1;
+            LogBodies.ReadIsolation := IsolationLevel::ReadUncommitted;
             LogBodies.Init();
             LogBodies."WSC Log Entry No." := LogEntryNo;
             LogBodies."WSC Entry No." := NextEntryNo;

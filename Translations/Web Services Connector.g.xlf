@@ -753,6 +753,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Managements - Method CheckWSBodiesForToken - NamedType Text000Err</note>
         </trans-unit>
+        <trans-unit id="Codeunit 3364231641 - Method 251439163 - NamedType 2215190639" size-unit="char" translate="yes" xml:space="preserve">
+          <source>No filters applyed for table %1 %2</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Managements - Method OnApplyRetentionPolicyIndirectPermissionRequired - NamedType LogMessageLbl</note>
+        </trans-unit>
         <trans-unit id="Codeunit 3364231641 - Method 780128753 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
           <source>Execution Terminated. Check the log to see the result</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -787,6 +792,16 @@
           <source>Used to add text to Endpoint</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Upgrade - Method SetEndpointVariables - NamedType Text003Lbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 2537133001 - Method 362095208 - NamedType 3140410629" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Set Current TenantId</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Upgrade - Method SetEndpointVariables - NamedType Text004Lbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 2537133001 - Method 362095208 - NamedType 2287756966" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Used to set an external TenantId</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Upgrade - Method SetEndpointVariables - NamedType Text005Lbl</note>
         </trans-unit>
         <trans-unit id="Page 2355454218 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Gantt</source>
@@ -1114,7 +1129,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Import Configuration - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1470271598 - Method 200514578 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Nothing to Import</source>
+          <source>Nothing to Import. At least one configuration of type Token or Call must be importable</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Import Configuration - Method GetConfiguration - NamedType Text000Lbl</note>
         </trans-unit>

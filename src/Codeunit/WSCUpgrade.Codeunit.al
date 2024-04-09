@@ -36,10 +36,13 @@ codeunit 81004 "WSC Upgrade"
     local procedure SetEndpointVariables(IsReinstall: Boolean)
     var
         EndPointVariables: Record "WSC EndPoint Variables";
+        EnvironmentInformation: Codeunit "Environment Information";
         Text000Lbl: Label 'Set Current Company ID';
         Text001Lbl: Label 'Set Current Company Name';
         Text002Lbl: Label 'Set Current User ID';
         Text003Lbl: Label 'Used to add text to Endpoint';
+        Text004Lbl: Label 'Set Current TenantId';
+        Text005Lbl: Label 'Used to set an external TenantId';
     begin
         if IsReinstall then begin
             EndPointVariables.SetRange("WSC Custom Var", false);
@@ -73,6 +76,18 @@ codeunit 81004 "WSC Upgrade"
         EndPointVariables."WSC Variable Name" := '[@Url_2]';
         EndPointVariables."WSC Description" := Text003Lbl;
         EndPointVariables.Insert();
+
+        EndPointVariables.Init();
+        EndPointVariables."WSC Variable Name" := '[@TenantId]';
+        EndPointVariables."WSC Description" := Text005Lbl;
+        EndPointVariables.Insert();
+
+        if EnvironmentInformation.IsSaaSInfrastructure() then begin
+            EndPointVariables.Init();
+            EndPointVariables."WSC Variable Name" := '[@CurrTenantId]';
+            EndPointVariables."WSC Description" := Text004Lbl;
+            EndPointVariables.Insert();
+        end;
     end;
 
     local procedure Upgrade_RetentionPolicies()
@@ -89,5 +104,6 @@ codeunit 81004 "WSC Upgrade"
         Deleting := Deleting::Default;
         RetenPolAllowedTables.AddAllowedTable(Database::"WSC Log Calls", LogCalls.FieldNo(SystemCreatedAt), MandatoryMinimumRetentionDays, Filtering, Deleting, TableFilters);
     end;
+
     #endregion InstallProcedure
 }

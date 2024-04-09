@@ -212,7 +212,7 @@ table 81001 "WSC Connections"
         {
             Clustered = true;
         }
-        key(Key2; "WSC Group Code", "WSC Indentation", "WSC Code")
+        key(Key2; "WSC Group Code", "WSC Indentation", "WSC Type", "WSC Code")
         {
         }
     }
@@ -325,10 +325,9 @@ table 81001 "WSC Connections"
                     Rec."WSC Group Code" := Rec."WSC Code";
                     Rec."WSC Indentation" := 1;
                 end;
-            Rec."WSC Type"::Token:
-                Rec."WSC Indentation" := 2;
+            Rec."WSC Type"::Token,
             Rec."WSC Type"::Call:
-                Rec."WSC Indentation" := 3;
+                Rec."WSC Indentation" := 2;
         end;
 
         if Rec."WSC Type" <> Rec."WSC Type"::Group then

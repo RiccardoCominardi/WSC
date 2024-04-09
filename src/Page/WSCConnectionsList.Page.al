@@ -5,7 +5,7 @@ page 81001 "WSC Connections List"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "WSC Connections";
-    SourceTableView = sorting("WSC Group Code", "WSC Indentation", "WSC Code");
+    SourceTableView = sorting("WSC Group Code", "WSC Indentation", "WSC Type", "WSC Code");
     CardPageID = "WSC Connection Card";
     RefreshOnActivate = true;
     Editable = false;

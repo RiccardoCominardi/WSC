@@ -270,6 +270,7 @@ codeunit 81002 "WSC Caller"
     local procedure ParseEndPoint(EndPointUrl: Text): Text
     var
         EndPointVariables: Record "WSC EndPoint Variables";
+        AzureADTenant: Codeunit "Azure AD Tenant";
         Company: Record Company;
         NewString: Text;
     begin
@@ -292,6 +293,9 @@ codeunit 81002 "WSC Caller"
                 '[@UserID]':
                     if NewString.Contains('[@UserID]') then
                         NewString := EndPointUrl.Replace('[@UserID]', UserId());
+                '[@CurrTenantId]':
+                    if NewString.Contains('[@CurrTenantId]') then
+                        NewString := EndPointUrl.Replace('[@CurrTenantId]', AzureADTenant.GetAadTenantId());
             end;
             OnParseEndpoint(EndPointUrl, NewString, EndPointVariables, GlobalConnection);
         until EndPointVariables.Next() = 0;
