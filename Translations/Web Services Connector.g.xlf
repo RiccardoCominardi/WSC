@@ -273,6 +273,86 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC EndPoint Variables - Field WSC Variable Name - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 4221602122 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Flows (WSC)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Flows - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 4221602122 - Field 4197677126 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Flows - Field WSC Code - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 4221602122 - Field 1284379907 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Description</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Flows - Field WSC Descrpition - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 4221602122 - Field 3046479166 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Enabled</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Flows - Field WSC Enabled - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 4221602122 - Field 3774253467 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Date-Time</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Flows - Field WSC Last Date-Time - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 4221602122 - Field 3516423469 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Status</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Flows - Field WSC Last Flow Status - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2039152152 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Flows Details (WSC)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Flows Details - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2039152152 - Field 2303458367 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sleeping Time (ms)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Flows Details - Field WCS Sleeping Time - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2039152152 - Field 3880393383 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sleeping Time Type</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Flows Details - Field WCS Sleeping Time Type - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2039152152 - Field 2971088424 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Connection Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Flows Details - Field WSC Connection Code - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2039152152 - Field 4286468891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Description</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Flows Details - Field WSC Description - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2039152152 - Field 3905895164 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Flow Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Flows Details - Field WSC Flow Code - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2039152152 - Field 3516423469 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Last Status</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Flows Details - Field WSC Last Flow Status - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2039152152 - Field 29042902 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Last Message Status</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Flows Details - Field WSC Last Message Status - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2039152152 - Field 2442557687 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sorting</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Flows Details - Field WSC Sorting - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2039152152 - Field 1771864369 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Type</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Flows Details - Field WSC Type - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 169009322 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Functions</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -753,6 +833,16 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Managements - Method CheckWSBodiesForToken - NamedType Text000Err</note>
         </trans-unit>
+        <trans-unit id="Codeunit 3364231641 - Method 819718744 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Error: %1</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Managements - Method ExecuteFlowRequest - NamedType Text000Err</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3364231641 - Method 819718744 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Operation Completed</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Managements - Method ExecuteFlowRequest - NamedType Text000Lbl</note>
+        </trans-unit>
         <trans-unit id="Codeunit 3364231641 - Method 251439163 - NamedType 2215190639" size-unit="char" translate="yes" xml:space="preserve">
           <source>No filters applyed for table %1 %2</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -1088,6 +1178,66 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC EndPoint Variables List - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 1320143643 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Flow Card</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Flow Card - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1320143643 - Control 2445482498 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>General</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Flow Card - Control General - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1320143643 - Control 896832924 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Last Execution</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Flow Card - Control LastExecution - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1320143643 - Control 3925220378 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Call</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Flow Card - Control WSCFlowsDetailsCall - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1320143643 - Control 1329050329 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Token</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Flow Card - Control WSCFlowsDetailsToken - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1320143643 - Action 1790916663 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Execute flow manually</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Flow Card - Action ExecuteFlow - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1320143643 - Action 1790916663 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Execute Flow</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Flow Card - Action ExecuteFlow - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 4221602122 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Flows (WSC)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Flows - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2039152152 - Action 3069824669 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Move Down</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Flows Details - Action MoveDown - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2039152152 - Action 2816622752 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Move Up</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Flows Details - Action MoveUp - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2039152152 - Action 4000661843 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>View Web Service log for this connection code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Flows Details - Action ViewLog - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2039152152 - Action 4000661843 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>View Log</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Flows Details - Action ViewLog - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 169009322 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Functions (WSC)</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -1418,6 +1568,21 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum WSC File Types - EnumValue Xml - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Enum 2665212219 - EnumValue 1371923692 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source> </source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum WSC Flow Status - EnumValue   - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 2665212219 - EnumValue 2248886284 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Error</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum WSC Flow Status - EnumValue Error - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 2665212219 - EnumValue 3878926381 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Success</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum WSC Flow Status - EnumValue Success - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Enum 2923777893 - EnumValue 2477294019 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>DELETE</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -1442,6 +1607,21 @@
           <source>PUT</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum WSC HTTP Methods - EnumValue Put - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 1876016210 - EnumValue 1371923692 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source> </source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum WSC Sleeping Time Types - EnumValue   - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 1876016210 - EnumValue 3768250944 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>After</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum WSC Sleeping Time Types - EnumValue After - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 1876016210 - EnumValue 1255758483 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Before</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum WSC Sleeping Time Types - EnumValue Before - Property Caption</note>
         </trans-unit>
         <trans-unit id="Enum 3499967850 - EnumValue 3133801257 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Company</source>

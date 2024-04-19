@@ -33,6 +33,10 @@ permissionset 81001 "WSC Permissions"
          page "WSC Parameters" = X,
          page "WSC Parameters Factbox" = X,
          page "WSC Top Calls Charts" = X,
+         page "WSC Flow Card" = X,
+         page "WSC Flows" = X,
+         page "WSC Flows Details" = X,
+         page "WSC Flows Details Limited" = X,
          table "WSC Bodies" = X,
          table "WSC Charts Setup" = X,
          table "WSC Connections" = X,
@@ -44,6 +48,8 @@ permissionset 81001 "WSC Permissions"
          table "WSC Log Headers" = X,
          table "WSC Log Parameters" = X,
          table "WSC Parameters" = X,
+         table "WSC Flows" = X,
+         table "WSC Flows Details" = X,
          tabledata "WSC Bodies" = RIMD,
          tabledata "WSC Charts Setup" = RIMD,
          tabledata "WSC Connections" = RIMD,
@@ -54,5 +60,7 @@ permissionset 81001 "WSC Permissions"
          tabledata "WSC Log Calls" = RIMD,
          tabledata "WSC Log Headers" = RIMD,
          tabledata "WSC Log Parameters" = RIMD,
-         tabledata "WSC Parameters" = RIMD;
+         tabledata "WSC Parameters" = RIMD,
+         tabledata "WSC Flows" = RIMD,
+         tabledata "WSC Flows Details" = RIMD;
 }

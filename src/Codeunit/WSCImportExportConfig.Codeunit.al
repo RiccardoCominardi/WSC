@@ -79,7 +79,7 @@ codeunit 81003 "WSC Import Export Config."
         JsonKey: Text;
         i: Integer;
     begin
-        foreach JsonKey in JObject.Keys() do begin
+        foreach JsonKey in JObject.Keys() do
             if JObject.Get(JsonKey, JToken) then
                 case true of
                     JToken.IsArray():
@@ -98,7 +98,6 @@ codeunit 81003 "WSC Import Export Config."
                             ApplyJsonValueToField(JsonKeyValue, JsonKey);
                         end;
                 end;
-        end;
         SetNewRecordToInsert();
     end;
 

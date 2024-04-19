@@ -6,6 +6,64 @@ codeunit 81001 "WSC Managements"
 
     #region ExecutionFunctions
 
+    procedure ExecuteFlow(FlowCode: Code[20])
+    var
+        Flows: Record "WSC Flows";
+    begin
+        Flows.Get(FlowCode);
+        Flows.TestField("WSC Enabled", true);
+
+        ExecuteFlowRequest(Flows);
+    end;
+
+    local procedure ExecuteFlowRequest(var Flows: Record "WSC Flows")
+    var
+        FlowsDetails: Record "WSC Flows Details";
+        LogCalls: Record "WSC Log Calls";
+        IsSuccessCall: Boolean;
+        Text000Err: Label 'Error: %1';
+        Text000Lbl: Label 'Operation Completed';
+    begin
+        FlowsDetails.Reset();
+        FlowsDetails.SetRange("WSC Flow Code", Flows."WSC Code");
+        FlowsDetails.SetRange("WSC Type", FlowsDetails."WSC Type"::Call);
+        if FlowsDetails.IsEmpty() then
+            exit;
+
+        FlowsDetails.ModifyAll("WSC Last Flow Status", FlowsDetails."WSC Last Flow Status"::" ");
+        FlowsDetails.ModifyAll("WSC Last Message Status", '');
+        FlowsDetails.FindSet();
+
+        Flows."WSC Last Date-Time" := CurrentDateTime();
+        IsSuccessCall := true;
+        repeat
+            ClearLastError();
+
+            if FlowsDetails."WCS Sleeping Time Type" in [FlowsDetails."WCS Sleeping Time Type"::Before] then
+                Sleep(FlowsDetails."WCS Sleeping Time");
+
+            IsSuccessCall := ExecuteConnections(FlowsDetails."WSC Connection Code", false, LogCalls);
+            if not IsSuccessCall then begin
+                Flows."WSC Last Flow Status" := FlowsDetails."WSC Last Flow Status"::Error;
+                FlowsDetails."WSC Last Flow Status" := FlowsDetails."WSC Last Flow Status"::Error;
+                FlowsDetails."WSC Last Message Status" := StrSubstNo(Text000Err, GetLastErrorText());
+            end else begin
+                Flows."WSC Last Flow Status" := FlowsDetails."WSC Last Flow Status"::Success;
+                FlowsDetails."WSC Last Flow Status" := FlowsDetails."WSC Last Flow Status"::Success;
+                FlowsDetails."WSC Last Message Status" := Text000Lbl;
+            end;
+            FlowsDetails.Modify();
+            Commit();
+
+            if FlowsDetails."WCS Sleeping Time Type" in [FlowsDetails."WCS Sleeping Time Type"::After] then
+                Sleep(FlowsDetails."WCS Sleeping Time");
+
+        until (FlowsDetails.Next() = 0) or not IsSuccessCall;
+
+        Flows.Modify();
+        FlowsDetails.Modify();
+    end;
+
     procedure ExecuteConnections(WSCCode: Code[20]; ShowNotification: Boolean; var LogCalls: Record "WSC Log Calls") SuccessCall: Boolean
     var
         FunctionsManagements: Codeunit "WSC Functions Managements";
