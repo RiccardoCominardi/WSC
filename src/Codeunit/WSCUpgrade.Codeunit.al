@@ -46,6 +46,7 @@ codeunit 81004 "WSC Upgrade"
     begin
         if IsReinstall then begin
             EndPointVariables.SetRange("WSC Custom Var", false);
+            EndPointVariables.ReadIsolation := IsolationLevel::ReadUncommitted;
             if not EndPointVariables.IsEmpty() then
                 EndPointVariables.DeleteAll();
         end;

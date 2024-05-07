@@ -156,6 +156,7 @@ table 81008 "WSC Flows Details"
         FlowsDetails.Reset();
         FlowsDetails.SetRange("WSC Flow Code", Rec."WSC Flow Code");
         FlowsDetails.SetFilter("WSC Connection Code", '<> %1', Rec."WSC Connection Code");
+        FlowsDetails.ReadIsolation := IsolationLevel::ReadUncommitted;
         if FlowsDetails.IsEmpty() then
             exit;
 
@@ -172,6 +173,7 @@ table 81008 "WSC Flows Details"
         RelatedFlowsDetails.SetRange("WSC Flow Code", FlowsDetails."WSC Flow Code");
         RelatedFlowsDetails.SetRange("WSC Sorting", FlowsDetails."WSC Sorting");
         RelatedFlowsDetails.SetFilter("WSC Connection Code", '<> %1', FlowsDetails."WSC Connection Code");
+        RelatedFlowsDetails.ReadIsolation := IsolationLevel::ReadUncommitted;
         if RelatedFlowsDetails.IsEmpty() then
             exit;
 

@@ -1168,6 +1168,31 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connections List - Action Category_Category6 - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 456005087 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Content Drag &amp; Drop</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Drag &amp; Drop Factbox - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 456005087 - Control 3414364457 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the value of the File Extensions field.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Drag &amp; Drop Factbox - Control File Extension - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 456005087 - Control 804481195 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the value of the File Name field.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Drag &amp; Drop Factbox - Control File Name - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 456005087 - Action 2787516006 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Download File</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Drag &amp; Drop Factbox - Action DownloadFile - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 456005087 - Action 2787516006 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Download File</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Drag &amp; Drop Factbox - Action DownloadFile - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 1968659912 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>EndPoint Variables</source>
           <note from="Developer" annotates="general" priority="2"></note>

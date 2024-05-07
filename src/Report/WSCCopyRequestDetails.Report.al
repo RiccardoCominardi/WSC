@@ -137,6 +137,7 @@ report 81001 "WSC Copy Request Details"
 
         Functions.Reset();
         Functions.SetRange("WSC Connection Code", CurrWSCode);
+        Functions.ReadIsolation := IsolationLevel::ReadUncommitted;
         if not Functions.IsEmpty() then
             if not Confirm(StrSubstNo(Text000Qst, Functions.TableCaption()), false) then
                 exit;
@@ -147,6 +148,7 @@ report 81001 "WSC Copy Request Details"
         FromFunctions.SetRange("WSC Connection Code", CopyFromWSCode);
         if CopyOnlyEnabled then
             FromFunctions.SetRange("WSC Enabled", true);
+        FromFunctions.ReadIsolation := IsolationLevel::ReadUncommitted;
         if FromFunctions.IsEmpty() then
             exit;
 
@@ -170,6 +172,7 @@ report 81001 "WSC Copy Request Details"
 
         Parameters.Reset();
         Parameters.SetRange("WSC Code", CurrWSCode);
+        Parameters.ReadIsolation := IsolationLevel::ReadUncommitted;
         if not Parameters.IsEmpty() then
             if not Confirm(StrSubstNo(Text000Qst, Parameters.TableCaption()), false) then
                 exit;
@@ -180,6 +183,7 @@ report 81001 "WSC Copy Request Details"
         FromParameters.SetRange("WSC Code", CopyFromWSCode);
         if CopyOnlyEnabled then
             FromParameters.SetRange("WSC Enabled", true);
+        FromParameters.ReadIsolation := IsolationLevel::ReadUncommitted;
         if FromParameters.IsEmpty() then
             exit;
 
@@ -203,6 +207,7 @@ report 81001 "WSC Copy Request Details"
 
         Headers.Reset();
         Headers.SetRange("WSC Code", CurrWSCode);
+        Headers.ReadIsolation := IsolationLevel::ReadUncommitted;
         if not Headers.IsEmpty() then
             if not Confirm(StrSubstNo(Text000Qst, Headers.TableCaption()), false) then
                 exit;
@@ -213,6 +218,7 @@ report 81001 "WSC Copy Request Details"
         FromHeaders.SetRange("WSC Code", CopyFromWSCode);
         if CopyOnlyEnabled then
             FromHeaders.SetRange("WSC Enabled", true);
+        FromHeaders.ReadIsolation := IsolationLevel::ReadUncommitted;
         if FromHeaders.IsEmpty() then
             exit;
 
@@ -236,6 +242,7 @@ report 81001 "WSC Copy Request Details"
 
         Bodies.Reset();
         Bodies.SetRange("WSC Code", CurrWSCode);
+        Bodies.ReadIsolation := IsolationLevel::ReadUncommitted;
         if not Bodies.IsEmpty() then
             if not Confirm(StrSubstNo(Text000Qst, Bodies.TableCaption()), false) then
                 exit;
@@ -246,6 +253,7 @@ report 81001 "WSC Copy Request Details"
         FromBodies.SetRange("WSC Code", CopyFromWSCode);
         if CopyOnlyEnabled then
             FromBodies.SetRange("WSC Enabled", true);
+        FromBodies.ReadIsolation := IsolationLevel::ReadUncommitted;
         if FromBodies.IsEmpty() then
             exit;
 

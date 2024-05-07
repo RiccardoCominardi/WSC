@@ -27,6 +27,7 @@ codeunit 81008 "WSC Functions Managements"
         Functions.SetRange("WSC Enabled", true);
         if not GuiAllowed then
             Functions.SetRange("WSC GuiAllowed", false);
+        Functions.ReadIsolation := IsolationLevel::ReadUncommitted;
         if Functions.IsEmpty() then
             exit;
 

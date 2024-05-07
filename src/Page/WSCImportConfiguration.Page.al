@@ -99,6 +99,7 @@ page 81012 "WSC Import Configuration"
         Text000Lbl: Label 'Nothing to Import';
     begin
         TempConnections.Reset();
+        TempConnections.ReadIsolation := IsolationLevel::ReadUncommitted;
         if TempConnections.IsEmpty() then
             Error(Text000Lbl);
         TempConnections.FindSet();
@@ -118,6 +119,7 @@ page 81012 "WSC Import Configuration"
         Rec.Reset();
         Rec.SetRange("WSC Imported", true);
         Rec.SetRange("WSC Type", Rec."WSC Type"::Token, Rec."WSC Type"::Call);
+        Rec.ReadIsolation := IsolationLevel::ReadUncommitted;
         if Rec.IsEmpty() then
             Error(Text000Lbl);
 

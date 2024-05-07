@@ -253,10 +253,12 @@ codeunit 81002 "WSC Caller"
         Parameters.SetRange("WSC Code", GlobalConnection."WSC Code");
         Parameters.SetRange("WSC Enabled", true);
         Parameters.SetFilter("WSC Key", '<> %1', '');
+        Parameters.ReadIsolation := IsolationLevel::ReadUncommitted;
         if Parameters.IsEmpty() then
             exit;
 
         NewString += '?';
+        Parameters.ReadIsolation := IsolationLevel::ReadUncommitted;
         Parameters.FindSet();
         repeat
             NewString += StrSubstNo(Text000Lbl, Parameters."WSC Key", Parameters."WSC Value") + '&';
@@ -275,6 +277,7 @@ codeunit 81002 "WSC Caller"
         NewString: Text;
     begin
         EndPointVariables.Reset();
+        EndPointVariables.ReadIsolation := IsolationLevel::ReadUncommitted;
         if EndPointVariables.IsEmpty() then
             exit(EndPointUrl);
 
@@ -391,9 +394,11 @@ codeunit 81002 "WSC Caller"
         Headers.SetRange("WSC Code", GlobalConnection."WSC Code");
         Headers.SetRange("WSC Enabled", true);
         Headers.SetFilter("WSC Key", '<> %1', '');
+        Headers.ReadIsolation := IsolationLevel::ReadUncommitted;
         if Headers.IsEmpty() then
             exit;
 
+        Headers.ReadIsolation := IsolationLevel::ReadUncommitted;
         Headers.FindSet();
         repeat
             if ParContentHeaders.Contains(Headers."WSC Key") then
@@ -413,9 +418,11 @@ codeunit 81002 "WSC Caller"
         Bodies.SetRange("WSC Code", GlobalConnection."WSC Code");
         Bodies.SetRange("WSC Enabled", true);
         Bodies.SetFilter("WSC Key", '<> %1', '');
+        Bodies.ReadIsolation := IsolationLevel::ReadUncommitted;
         if Bodies.IsEmpty() then
             exit;
 
+        Bodies.ReadIsolation := IsolationLevel::ReadUncommitted;
         Bodies.FindSet();
         repeat
             BodyToWrite += StrSubstNo(Text000Lbl, Bodies."WSC Key", Bodies.GetValue()) + '&';
@@ -432,6 +439,7 @@ codeunit 81002 "WSC Caller"
         Bodies.SetRange("WSC Code", GlobalConnection."WSC Code");
         Bodies.SetRange("WSC Enabled", true);
         Bodies.SetFilter("WSC Key", '<> %1', '');
+        Bodies.ReadIsolation := IsolationLevel::ReadUncommitted;
         if not Bodies.IsEmpty() then
             exit(true);
         exit(false);

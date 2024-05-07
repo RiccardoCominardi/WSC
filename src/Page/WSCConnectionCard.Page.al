@@ -383,6 +383,7 @@ page 81002 "WSC Connection Card"
         EndPointColor := 'Standard';
         EndPointWithVar := '';
         EndPointVariables.Reset();
+        EndPointVariables.ReadIsolation := IsolationLevel::ReadUncommitted;
         if EndPointVariables.IsEmpty() then
             exit;
 

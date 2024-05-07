@@ -261,6 +261,7 @@ codeunit 81003 "WSC Import Export Config."
     begin
         TempConnections.Reset();
         TempConnections.SetCurrentKey("WSC Type");
+        TempConnections.ReadIsolation := IsolationLevel::ReadUncommitted;
         if TempConnections.IsEmpty() then
             Error(Text000Lbl);
 
@@ -280,6 +281,7 @@ codeunit 81003 "WSC Import Export Config."
 
             TempParameters.Reset();
             TempParameters.SetRange("WSC Code", TempConnections."WSC Code");
+            TempParameters.ReadIsolation := IsolationLevel::ReadUncommitted;
             if not TempParameters.IsEmpty() then begin
                 TempParameters.FindSet();
                 repeat
@@ -291,6 +293,7 @@ codeunit 81003 "WSC Import Export Config."
 
             TempHeaders.Reset();
             TempHeaders.SetRange("WSC Code", TempConnections."WSC Code");
+            TempHeaders.ReadIsolation := IsolationLevel::ReadUncommitted;
             if not TempHeaders.IsEmpty() then begin
                 TempHeaders.FindSet();
                 repeat
@@ -302,6 +305,7 @@ codeunit 81003 "WSC Import Export Config."
 
             TempBodies.Reset();
             TempBodies.SetRange("WSC Code", TempConnections."WSC Code");
+            TempBodies.ReadIsolation := IsolationLevel::ReadUncommitted;
             if not TempBodies.IsEmpty() then begin
                 TempBodies.FindSet();
                 repeat
@@ -335,6 +339,7 @@ codeunit 81003 "WSC Import Export Config."
         //Store Datas Into List
         TempParameters.Reset();
         TempParameters.SetRange("WSC Code", TempConnections."WSC Previous Code");
+        TempParameters.ReadIsolation := IsolationLevel::ReadUncommitted;
         if not TempParameters.IsEmpty() then begin
             TempParameters.FindSet();
             repeat
@@ -344,6 +349,7 @@ codeunit 81003 "WSC Import Export Config."
 
         TempHeaders.Reset();
         TempHeaders.SetRange("WSC Code", TempConnections."WSC Previous Code");
+        TempHeaders.ReadIsolation := IsolationLevel::ReadUncommitted;
         if not TempHeaders.IsEmpty() then begin
             TempHeaders.FindSet();
             repeat
@@ -353,6 +359,7 @@ codeunit 81003 "WSC Import Export Config."
 
         TempBodies.Reset();
         TempBodies.SetRange("WSC Code", TempConnections."WSC Previous Code");
+        TempBodies.ReadIsolation := IsolationLevel::ReadUncommitted;
         if not TempBodies.IsEmpty() then begin
             TempBodies.FindSet();
             repeat
@@ -431,6 +438,7 @@ codeunit 81003 "WSC Import Export Config."
         else
             Connections2.SetRange("WSC Code", Connections."WSC Code");
 
+        Connections2.ReadIsolation := IsolationLevel::ReadUncommitted;
         if Connections2.IsEmpty() then
             Error('');
 
@@ -447,6 +455,7 @@ codeunit 81003 "WSC Import Export Config."
         Connections2.Reset();
         Connections2.SetCurrentKey("WSC Type");
         Connections2.SetRange("WSC Group Code", Connections."WSC Group Code");
+        Connections2.ReadIsolation := IsolationLevel::ReadUncommitted;
         if Connections2.IsEmpty() then
             Error('');
 
@@ -536,6 +545,7 @@ codeunit 81003 "WSC Import Export Config."
     begin
         Parameters.Reset();
         Parameters.SetRange("WSC Code", Connections."WSC Code");
+        Parameters.ReadIsolation := IsolationLevel::ReadUncommitted;
         if Parameters.IsEmpty() then
             exit;
 
@@ -561,6 +571,7 @@ codeunit 81003 "WSC Import Export Config."
     begin
         Headers.Reset();
         Headers.SetRange("WSC Code", Connections."WSC Code");
+        Headers.ReadIsolation := IsolationLevel::ReadUncommitted;
         if Headers.IsEmpty() then
             exit;
 
@@ -587,6 +598,7 @@ codeunit 81003 "WSC Import Export Config."
     begin
         Bodies.Reset();
         Bodies.SetRange("WSC Code", Connections."WSC Code");
+        Bodies.ReadIsolation := IsolationLevel::ReadUncommitted;
         if Bodies.IsEmpty() then
             exit;
 

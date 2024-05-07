@@ -34,6 +34,7 @@ table 81013 "WSC Functions"
                 Functions.SetRange("WSC Connection Code", Rec."WSC Connection Code");
                 Functions.SetRange("WSC Sequence", Rec."WSC Sequence");
                 Functions.SetFilter("WSC Code", '<> %1', Rec."WSC Code");
+                Functions.ReadIsolation := IsolationLevel::ReadUncommitted;
                 if not Functions.IsEmpty() then
                     Error(Text000Err);
             end;
@@ -104,6 +105,7 @@ table 81013 "WSC Functions"
     begin
         Functions.Reset();
         Functions.SetRange("WSC Connection Code", Rec."WSC Connection Code");
+        Functions.ReadIsolation := IsolationLevel::ReadUncommitted;
         if Functions.IsEmpty() then
             Rec."WSC Sequence" := 0
         else begin
@@ -126,6 +128,7 @@ table 81013 "WSC Functions"
         Functions.Reset();
         Functions.SetRange("WSC Connection Code", Rec."WSC Connection Code");
         Functions.SetFilter("WSC Code", '<> %1', Rec."WSC Code");
+        Functions.ReadIsolation := IsolationLevel::ReadUncommitted;
         if Functions.IsEmpty() then
             exit;
 
@@ -142,6 +145,7 @@ table 81013 "WSC Functions"
         RelatedFunctions.SetRange("WSC Connection Code", Functions."WSC Connection Code");
         RelatedFunctions.SetRange("WSC Sequence", Functions."WSC Sequence");
         RelatedFunctions.SetFilter("WSC Code", '<> %1', Functions."WSC Code");
+        RelatedFunctions.ReadIsolation := IsolationLevel::ReadUncommitted;
         if RelatedFunctions.IsEmpty() then
             exit;
 

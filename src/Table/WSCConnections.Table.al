@@ -346,6 +346,7 @@ table 81001 "WSC Connections"
                 begin
                     Connections.Reset();
                     Connections.SetRange("WSC Bearer Connection Code", Rec."WSC Code");
+                    Connections.ReadIsolation := IsolationLevel::ReadUncommitted;
                     if not Connections.IsEmpty() then
                         Error(Text000Err);
                 end;

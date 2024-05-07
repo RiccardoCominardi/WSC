@@ -1,4 +1,7 @@
 # WSC
 Web Services Connector
 
-Preparare le configurazioni di test ed inserirle dentro l'app. Come esempio
+Interfacciare l'app con azure blob storage e sharepoint in modo da salvare e prendere i file di richieste e risposta lì sopra
+https://www.youtube.com/watch?v=iPvSN71JaMo
+https://www.linkedin.com/pulse/business-central-azure-blob-storage-bert-verbeek
+

@@ -27,9 +27,11 @@ codeunit 81001 "WSC Managements"
         FlowsDetails.Reset();
         FlowsDetails.SetRange("WSC Flow Code", Flows."WSC Code");
         FlowsDetails.SetRange("WSC Type", FlowsDetails."WSC Type"::Call);
+        FlowsDetails.ReadIsolation := IsolationLevel::ReadUncommitted;
         if FlowsDetails.IsEmpty() then
             exit;
 
+        FlowsDetails.ReadIsolation := IsolationLevel::ReadUncommitted;
         FlowsDetails.ModifyAll("WSC Last Flow Status", FlowsDetails."WSC Last Flow Status"::" ");
         FlowsDetails.ModifyAll("WSC Last Message Status", '');
         FlowsDetails.FindSet();
@@ -328,14 +330,17 @@ codeunit 81001 "WSC Managements"
                     Bodies.SetRange("WSC Code", BearerConnection."WSC Code");
                     Bodies.SetRange("WSC Enabled", true);
                     Bodies.SetRange("WSC Key", 'client_id');
+                    Bodies.ReadIsolation := IsolationLevel::ReadUncommitted;
                     Bodies.FindFirst();
                     if not Bodies.HasValue() then
                         Error(Text000Err, 'client_id');
                     Bodies.SetRange("WSC Key", 'client_secret');
+                    Bodies.ReadIsolation := IsolationLevel::ReadUncommitted;
                     Bodies.FindFirst();
                     if not Bodies.HasValue() then
                         Error(Text000Err, 'client_secret');
                     Bodies.SetRange("WSC Key", 'scope');
+                    Bodies.ReadIsolation := IsolationLevel::ReadUncommitted;
                     Bodies.FindFirst();
                     if not Bodies.HasValue() then
                         Error(Text000Err, 'scope');
@@ -491,6 +496,7 @@ codeunit 81001 "WSC Managements"
         Parameters.Reset();
         Parameters.SetRange("WSC Code", WSCCode);
         Parameters.SetRange("WSC Enabled", true);
+        Parameters.ReadIsolation := IsolationLevel::ReadUncommitted;
         if Parameters.IsEmpty() then
             exit;
 
@@ -527,6 +533,7 @@ codeunit 81001 "WSC Managements"
         Headers.Reset();
         Headers.SetRange("WSC Code", WSCCode);
         Headers.SetRange("WSC Enabled", true);
+        Headers.ReadIsolation := IsolationLevel::ReadUncommitted;
         if Headers.IsEmpty() then
             exit;
 
@@ -563,6 +570,7 @@ codeunit 81001 "WSC Managements"
         Bodies.Reset();
         Bodies.SetRange("WSC Enabled", true);
         Bodies.SetRange("WSC Code", WSCCode);
+        Bodies.ReadIsolation := IsolationLevel::ReadUncommitted;
         if Bodies.IsEmpty() then
             exit;
 
