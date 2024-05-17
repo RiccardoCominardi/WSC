@@ -204,6 +204,21 @@ table 81001 "WSC Connections"
             DataClassification = CustomerContent;
             Caption = 'Indentation';
         }
+        field(29; "WSC File Storage"; Enum "WSC File Storage")
+        {
+            DataClassification = CustomerContent;
+            Caption = 'File Storage';
+            trigger OnValidate()
+            begin
+                Rec."WSC File Storage Code" := '';
+            end;
+        }
+        field(30; "WSC File Storage Code"; Code[20])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'File Storage Code';
+            TableRelation = "WSC File Storage Setup"."WSC Code";
+        }
     }
 
     keys

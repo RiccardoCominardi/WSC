@@ -84,23 +84,42 @@ page 81002 "WSC Connection Card"
                 {
                     ApplicationArea = All;
                 }
-                field("WSC Zip Response"; Rec."WSC Zip Response")
+                group(Log)
                 {
-                    ApplicationArea = All;
-                }
-                field("WSC Store Parameters Datas"; Rec."WSC Store Parameters Datas")
-                {
-                    ApplicationArea = All;
+                    Caption = 'Log';
+
+                    field("WSC Zip Response"; Rec."WSC Zip Response")
+                    {
+                        ApplicationArea = All;
+                    }
+                    field("WSC File Storage"; Rec."WSC File Storage")
+                    {
+                        ApplicationArea = All;
+                        trigger OnValidate()
+                        begin
+                            CurrPage.Update(true);
+                        end;
+                    }
+                    field("WSC File Storage Code"; Rec."WSC File Storage Code")
+                    {
+                        ApplicationArea = All;
+                        Editable = FileStorageEditable;
+                    }
+                    field("WSC Store Parameters Datas"; Rec."WSC Store Parameters Datas")
+                    {
+                        ApplicationArea = All;
+                    }
+
+                    field("WSC Store Headers Datas"; Rec."WSC Store Headers Datas")
+                    {
+                        ApplicationArea = All;
+                    }
+                    field("WSC Store Body Datas"; Rec."WSC Store Body Datas")
+                    {
+                        ApplicationArea = All;
+                    }
                 }
 
-                field("WSC Store Headers Datas"; Rec."WSC Store Headers Datas")
-                {
-                    ApplicationArea = All;
-                }
-                field("WSC Store Body Datas"; Rec."WSC Store Body Datas")
-                {
-                    ApplicationArea = All;
-                }
             }
             group(Credentials)
             {
@@ -366,6 +385,7 @@ page 81002 "WSC Connection Card"
         BaseAuthEditable := (Rec."WSC Auth. Type" = Rec."WSC Auth. Type"::Basic) and (Rec."WSC Type" in [Rec."WSC Type"::Call, Rec."WSC Type"::Group]);
         TokenAuthEditable := (Rec."WSC Auth. Type" = Rec."WSC Auth. Type"::"bearer token") and (Rec."WSC Type" in [Rec."WSC Type"::Call, Rec."WSC Type"::Group]);
         BodyMethodEditable := Rec."WSC Body Type" in [Rec."WSC Body Type"::raw, Rec."WSC Body Type"::binary];
+        FileStorageEditable := Rec."WSC File Storage" in [Rec."WSC File Storage"::"Azure Blob", Rec."WSC File Storage"::Sharepoint];
     end;
 
     local procedure SetVisibilityVariables()
@@ -456,6 +476,7 @@ page 81002 "WSC Connection Card"
         TokenAuthEditable,
         BodyMethodEditable,
         DetailedRecVisibility,
+        FileStorageEditable,
         TokenPresent : Boolean;
         TokenAuth: DateTime;
         Password,

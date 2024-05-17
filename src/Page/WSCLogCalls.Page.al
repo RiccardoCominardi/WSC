@@ -65,7 +65,7 @@ page 81005 "WSC Log Calls"
                 {
                     ApplicationArea = All;
                 }
-                field("WSC Body Message"; Rec."WSC Body Message".HasValue())
+                field(BodyExist; BodyExist)
                 {
                     Caption = 'Body Message Present';
                     ApplicationArea = All;
@@ -76,7 +76,7 @@ page 81005 "WSC Log Calls"
                         CurrPage.SaveRecord();
                     end;
                 }
-                field("WSC Response Message"; Rec."WSC Response Message".HasValue())
+                field(ResponseExist; ResponseExist)
                 {
                     Caption = 'Response Message Present';
                     ApplicationArea = All;
@@ -169,4 +169,22 @@ page 81005 "WSC Log Calls"
 
         }
     }
+
+    trigger OnAfterGetRecord()
+    begin
+        SetFileExist();
+    end;
+
+    local procedure SetFileExist()
+    var
+        LogFilesHandler: Interface "WSC Log Files Handler";
+    begin
+        LogFilesHandler := Rec."WSC File Storage";
+        BodyExist := LogFilesHandler.FileExist(Rec, Rec.FieldNo("WSC Body Message"));
+        ResponseExist := LogFilesHandler.FileExist(Rec, Rec.FieldNo("WSC Response Message"));
+    end;
+
+    var
+        BodyExist,
+        ResponseExist : Boolean;
 }

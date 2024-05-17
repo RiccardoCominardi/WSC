@@ -168,6 +168,16 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC Expires In - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 1198734174 - Field 2900386724 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>File Storage</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC File Storage - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1198734174 - Field 3075642623 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>File Storage Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Field WSC File Storage Code - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 1198734174 - Field 1787177263 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Group Code</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -272,6 +282,36 @@
           <source>Variable Name</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC EndPoint Variables - Field WSC Variable Name - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3586947561 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>File Storage Setup</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC File Storage Setup - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3586947561 - Field 4197677126 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC File Storage Setup - Field WSC Code - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3586947561 - Field 757117761 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Configuration</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC File Storage Setup - Field WSC Configuration - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3586947561 - Field 4286468891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Description</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC File Storage Setup - Field WSC Description - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3586947561 - Field 1771864369 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Type</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC File Storage Setup - Field WSC Type - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3586947561 - Field 1771864369 - Method 2126772001 - NamedType 1745287229" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Changing field %1, all the configuration will be lost.\Continue?</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC File Storage Setup - Field WSC Type - Method OnValidate - NamedType Text000Qst</note>
         </trans-unit>
         <trans-unit id="Table 4221602122 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Flows (WSC)</source>
@@ -572,6 +612,16 @@
           <source>Execution UserID</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC Execution UserID - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2609865286 - Field 2900386724 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>File Storage</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC File Storage - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2609865286 - Field 3075642623 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>File Storage Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Log Calls - Field WSC File Storage Code - Property Caption</note>
         </trans-unit>
         <trans-unit id="Table 2609865286 - Field 1787177263 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Group Code</source>
@@ -983,6 +1033,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Control Settings - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 344691303 - Control 1979318928 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Log</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Control Log - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 344691303 - Control 1948770074 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>EndPoint Variables</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -1203,6 +1258,41 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC EndPoint Variables List - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 3586947561 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>File Storage Setup (WSC)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC File Storage Setup - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3586947561 - Control 2445482498 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>General</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC File Storage Setup - Control General - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3586947561 - Action 1139653482 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Test</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC File Storage Setup - Action TEST - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 4082088671 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>File Storage Setup (WSC)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC File Storage Setup List - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3677041620 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Details</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC File Storage Setup SubPage - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3677041620 - Control 318613646 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Details</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC File Storage Setup SubPage - Control Details - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3677041620 - Control 4051864760 - Method 2126772001 - NamedType 1745287229" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Do you want to update the configuration value?</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC File Storage Setup SubPage - Control WSC Value - Method OnValidate - NamedType Text000Qst</note>
+        </trans-unit>
         <trans-unit id="Page 1320143643 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Flow Card</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -1353,15 +1443,15 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Log Calls - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 2609865286 - Control 891226896 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 2609865286 - Control 3789635789 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Body Message Present</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Log Calls - Control WSC Body Message - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Log Calls - Control BodyExist - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 2609865286 - Control 1457243569 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 2609865286 - Control 4060897284 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Response Message Present</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Log Calls - Control WSC Response Message - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Log Calls - Control ResponseExist - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2609865286 - Action 3077534250 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Bodies</source>

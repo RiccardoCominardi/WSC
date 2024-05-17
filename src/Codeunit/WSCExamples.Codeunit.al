@@ -97,7 +97,7 @@ codeunit 82000 "WSC Examples"
         OutStr.WriteText('This is a custom body text. You can put a file, contained in an InStream, in Write function');
     end;
 
-    //Add a fixed body for a WebService call. For complex body use the SetCustomBody procedure in Codeunit "WSC WSCManagements";
+    //Add a fixed body for a WebService call. For complex body use the SetCustomBody procedure in Codeunit "WSC Managements";
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"WSC Caller", 'OnSetFixBodyMessage', '', false, false)]
     local procedure OnSetFixBodyMessage(var Connections: Record "WSC Connections");
     var

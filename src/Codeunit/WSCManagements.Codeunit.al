@@ -229,7 +229,6 @@ codeunit 81001 "WSC Managements"
 
     local procedure ClearWSCBodyMessage(var Connections: Record "WSC Connections")
     begin
-        Connections.LockTable();
         Clear(Connections."WSC Body Message");
         Connections.Modify();
         Commit();
@@ -245,18 +244,6 @@ codeunit 81001 "WSC Managements"
             201,
             202:
                 exit(true);
-        end;
-    end;
-
-    local procedure WriteBlobFields(var OutStr: OutStream; var InStr: InStream)
-    var
-        ResponseString,
-        CurrText : Text;
-    begin
-        while not InStr.EOS() do begin
-            InStr.ReadText(CurrText);
-            ResponseString += CurrText;
-            OutStr.Write(CurrText);
         end;
     end;
 
@@ -419,8 +406,11 @@ codeunit 81001 "WSC Managements"
     var
         Connections: Record "WSC Connections";
         LogCalls: Record "WSC Log Calls";
+        LogFilesHandler: Interface "WSC Log Files Handler";
+        TempBlob: Codeunit "Temp Blob";
         NextEntryNo: Integer;
         OutStr: OutStream;
+        InStr: InStream;
     begin
         Connections.Get(WSCCode);
         ClearGlobalVariables();
@@ -448,22 +438,23 @@ codeunit 81001 "WSC Managements"
         LogCalls."WSC Body Type" := Connections."WSC Body Type";
         LogCalls."WSC Allow Blank Response" := Connections."WSC Allow Blank Response";
         LogCalls."WSC Group Code" := Connections."WSC Group Code";
+        LogCalls."WSC File Storage" := Connections."WSC File Storage";
+        LogCalls."WSC File Storage Code" := Connections."WSC File Storage Code";
 
         //Body Request
-        Clear(OutStr);
-        LogCalls."WSC Body File Type" := BodyFileType;
-        LogCalls."WSC Body Message".CreateOutStream(OutStr);
-        WriteBlobFields(OutStr, BodyInStream);
-        Clear(OutStr);
+        LogFilesHandler := LogCalls."WSC File Storage";
+        LogFilesHandler.SaveFile(LogCalls, LogCalls.FieldNo("WSC Body Message"), BodyInStream);
 
         //Response
         LogCalls."WSC Response File Type" := ResponseFileType;
         LogCalls."WSC Zip Response" := Connections."WSC Zip Response";
-        LogCalls."WSC Response Message".CreateOutStream(OutStr);
-        if LogCalls."WSC Zip Response" then
-            WriteZippedBlobFields(OutStr, ResponseInStream)
-        else
-            WriteBlobFields(OutStr, ResponseInStream);
+        TempBlob.CreateOutStream(OutStr);
+        if LogCalls."WSC Zip Response" then begin
+            WriteZippedBlobFields(OutStr, ResponseInStream);
+            TempBlob.CreateInStream(InStr);
+            LogFilesHandler.SaveFile(LogCalls, LogCalls.FieldNo("WSC Response Message"), InStr);
+        end else
+            LogFilesHandler.SaveFile(LogCalls, LogCalls.FieldNo("WSC Response Message"), ResponseInStream);
 
         //Assign Response to a Globar variable to use 
         ResponseInStream.ResetPosition();

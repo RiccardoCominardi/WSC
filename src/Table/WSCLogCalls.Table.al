@@ -86,6 +86,16 @@ table 81004 "WSC Log Calls"
             DataClassification = CustomerContent;
             Caption = 'Zip Response';
         }
+        field(16; "WSC File Storage"; Enum "WSC File Storage")
+        {
+            DataClassification = CustomerContent;
+            Caption = 'File Storage';
+        }
+        field(17; "WSC File Storage Code"; Code[20])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'File Storage Code';
+        }
         field(200; "WSC Response Message"; Blob)
         {
             DataClassification = CustomerContent;
@@ -140,27 +150,31 @@ table 81004 "WSC Log Calls"
 
     procedure ExportAttachment(FieldNo: Integer);
     var
+        LogFilesHandler: Interface "WSC Log Files Handler";
+        TempBlob: Codeunit "Temp Blob";
         InStr: InStream;
         FileName: Text;
         Text000Lbl: Label 'BodyMessage';
         Text001Lbl: Label 'ResponseMessage';
         Text002Lbl: Label 'ResponseMessage.zip';
     begin
+        LogFilesHandler := Rec."WSC File Storage";
+
         case FieldNo of
             Rec.FieldNo("WSC Body Message"):
                 begin
                     FileName := Text000Lbl + RetrieveBodyFileExtension(false);
-                    Rec.CalcFields("WSC Body Message");
-                    if Rec."WSC Body Message".HasValue() then begin
-                        Rec."WSC Body Message".CreateInStream(InStr);
+                    TempBlob := LogFilesHandler.GetFile(Rec, Rec.FieldNo("WSC Body Message"));
+                    if TempBlob.HasValue() then begin
+                        TempBlob.CreateInStream(InStr);
                         DownloadFromStream(InStr, '', '', RetrieveBodyFileExtension(true), FileName);
                     end;
                 end;
             Rec.FieldNo("WSC Response Message"):
                 begin
-                    Rec.CalcFields("WSC Response Message");
-                    if Rec."WSC Response Message".HasValue() then begin
-                        Rec."WSC Response Message".CreateInStream(InStr);
+                    TempBlob := LogFilesHandler.GetFile(Rec, Rec.FieldNo("WSC Response Message"));
+                    if TempBlob.HasValue() then begin
+                        TempBlob.CreateInStream(InStr);
                         if Rec."WSC Zip Response" then begin
                             FileName := Text002Lbl;
                             DownloadFromStream(InStr, '', '', '*.zip', FileName)
@@ -192,7 +206,7 @@ table 81004 "WSC Log Calls"
         exit(RetText);
     end;
 
-    local procedure RetrieveResponseFileExtension(AsFilter: Boolean) RetText: Text
+    procedure RetrieveResponseFileExtension(AsFilter: Boolean) RetText: Text
     begin
         if AsFilter then
             RetText := '*';

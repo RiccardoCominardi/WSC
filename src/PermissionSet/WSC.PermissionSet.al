@@ -50,6 +50,7 @@ permissionset 81001 "WSC Permissions"
          table "WSC Parameters" = X,
          table "WSC Flows" = X,
          table "WSC Flows Details" = X,
+         table "WSC File Storage Setup" = X,
          tabledata "WSC Bodies" = RIMD,
          tabledata "WSC Charts Setup" = RIMD,
          tabledata "WSC Connections" = RIMD,
@@ -62,5 +63,6 @@ permissionset 81001 "WSC Permissions"
          tabledata "WSC Log Parameters" = RIMD,
          tabledata "WSC Parameters" = RIMD,
          tabledata "WSC Flows" = RIMD,
-         tabledata "WSC Flows Details" = RIMD;
+         tabledata "WSC Flows Details" = RIMD,
+         tabledata "WSC File Storage Setup" = RIMD;
 }
