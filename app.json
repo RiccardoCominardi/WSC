@@ -2,7 +2,7 @@
   "id": "5a36ac6d-38de-4908-a047-7f924c74ec11",
   "name": "Web Services Connector",
   "publisher": "Riccardo Cominardi",
-  "version": "23.0.0.1",
+  "version": "24.0.0.0",
   "brief": "Web Services Connector",
   "description": "Web Services Connector",
   "privacyStatement": "",
@@ -16,8 +16,8 @@
   "dependencies": [
   ],
   "screenshots": [],
-  "platform": "23.0.0.0",
-  "application": "23.0.0.0",
+  "platform": "24.0.0.0",
+  "application": "24.0.0.0",
   "idRanges": [
     {
       "from": 81001,
@@ -29,6 +29,6 @@
     "allowDownloadingSource": true,
     "includeSourceInSymbolFile": true
   },
-  "runtime": "12.0",
+  "runtime": "13.0",
   "target": "Cloud"
 }

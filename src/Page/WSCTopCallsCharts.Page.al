@@ -11,18 +11,18 @@ page 81017 "WSC Top Calls Charts"
     {
         area(Content)
         {
-            usercontrol(BusinessChart; "Microsoft.Dynamics.Nav.Client.BusinessChart")
+            usercontrol(BusinessChart; BusinessChart)
             {
                 ApplicationArea = All;
 
                 trigger AddInReady()
                 begin
-                    UpdateChart();
+                    UpdateAddin();
                 end;
 
                 trigger Refresh()
                 begin
-                    UpdateChart();
+                    UpdateAddin();
                 end;
 
                 trigger DataPointClicked(point: JsonObject)
@@ -52,7 +52,7 @@ page 81017 "WSC Top Calls Charts"
                 trigger OnAction()
                 begin
                     Page.RunModal(Page::"WSC Charts Setup");
-                    UpdateChart();
+                    UpdateAddin();
                 end;
             }
         }
@@ -63,15 +63,15 @@ page 81017 "WSC Top Calls Charts"
         Rec.Initialize();
     end;
 
-    var
-        ChartsManagements: Codeunit "WSC Charts Managements";
-
     /// <summary>
     /// UpdateChart.
     /// </summary>
-    procedure UpdateChart()
+    procedure UpdateAddin()
     begin
         ChartsManagements.GenerateData(Rec);
-        Rec.Update(CurrPage.BusinessChart);
+        Rec.UpdateChart(CurrPage.BusinessChart);
     end;
+
+    var
+        ChartsManagements: Codeunit "WSC Charts Managements";
 }

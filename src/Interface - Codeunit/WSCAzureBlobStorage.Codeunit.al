@@ -9,11 +9,13 @@ codeunit 81011 "WSC Azure Blob Storage" implements "WSC Log Files Handler"
         StorageServiceAuthorization: Codeunit "Storage Service Authorization";
         Authorization: Interface "Storage Service Authorization";
         InStr: InStream;
+        SecretString: SecretText;
     begin
         FileStorageSetup.Get(LogCalls."WSC File Storage Code");
         FileStorageSetup.TestField("WSC Type", FileStorageSetup."WSC Type"::"Azure Blob");
 
-        Authorization := StorageServiceAuthorization.CreateSharedKey(FileStorageSetup.GetField('sharedAccessKey'));
+        SecretString := FileStorageSetup.GetField('sharedAccessKey');
+        Authorization := StorageServiceAuthorization.CreateSharedKey(SecretString);
         ABSBlobClient.Initialize(FileStorageSetup.GetField('accountName'), FileStorageSetup.GetField('containerName'), Authorization);
         TempBlob.CreateInStream(InStr);
         ABSBlobClient.GetBlobAsStream(CreateFileName(LogCalls, FieldNo), InStr);
@@ -25,11 +27,13 @@ codeunit 81011 "WSC Azure Blob Storage" implements "WSC Log Files Handler"
         ABSBlobClient: Codeunit "ABS Blob Client";
         StorageServiceAuthorization: Codeunit "Storage Service Authorization";
         Authorization: Interface "Storage Service Authorization";
+        SecretString: SecretText;
     begin
         FileStorageSetup.Get(LogCalls."WSC File Storage Code");
         FileStorageSetup.TestField("WSC Type", FileStorageSetup."WSC Type"::"Azure Blob");
 
-        Authorization := StorageServiceAuthorization.CreateSharedKey(FileStorageSetup.GetField('sharedAccessKey'));
+        SecretString := FileStorageSetup.GetField('sharedAccessKey');
+        Authorization := StorageServiceAuthorization.CreateSharedKey(SecretString);
         ABSBlobClient.Initialize(FileStorageSetup.GetField('accountName'), FileStorageSetup.GetField('containerName'), Authorization);
         ABSBlobClient.AppendBlockStream(CreateFileName(LogCalls, FieldNo), FileToSave)
     end;
@@ -40,11 +44,13 @@ codeunit 81011 "WSC Azure Blob Storage" implements "WSC Log Files Handler"
         ABSBlobClient: Codeunit "ABS Blob Client";
         StorageServiceAuthorization: Codeunit "Storage Service Authorization";
         Authorization: Interface "Storage Service Authorization";
+        SecretString: SecretText;
     begin
         FileStorageSetup.Get(LogCalls."WSC File Storage Code");
         FileStorageSetup.TestField("WSC Type", FileStorageSetup."WSC Type"::"Azure Blob");
 
-        Authorization := StorageServiceAuthorization.CreateSharedKey(FileStorageSetup.GetField('sharedAccessKey'));
+        SecretString := FileStorageSetup.GetField('sharedAccessKey');
+        Authorization := StorageServiceAuthorization.CreateSharedKey(SecretString);
         ABSBlobClient.Initialize(FileStorageSetup.GetField('accountName'), FileStorageSetup.GetField('containerName'), Authorization);
         exit(ABSBlobClient.BlobExists(CreateFileName(LogCalls, FieldNo)))
     end;

@@ -1,4 +1,5 @@
 {
+    "groupCode": "EXAMPLES",
     "codes": [
         {
             "code": "EXAMPLES",
@@ -23,6 +24,35 @@
             ]
         },
         {
+            "code": "SAAS_TOKEN",
+            "generalInfo": [
+                {
+                    "allowBlankResponse": false,
+                    "authType": "None",
+                    "bearerConnCode": "",
+                    "bearerToken": true,
+                    "bodyMethod": " ",
+                    "bodyType": "x-www-form-urlencoded",
+                    "description": "Get SaaS Token",
+                    "endpoint": "https://login.microsoftonline.com/TenantIDToInsert/oauth2/v2.0/token",
+                    "httpMethod": "GET",
+                    "indentation": "2",
+                    "password": "",
+                    "tokenDataScope": "Module",
+                    "type": "Token",
+                    "username": "",
+                    "zipResponse": true
+                }
+            ],
+            "header": [
+                {
+                    "description": "",
+                    "isEnabled": true,
+                    "isSecret": false,
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                }
+            ],
             "body": [
                 {
                     "description": "",
@@ -51,35 +81,6 @@
                     "isSecret": false,
                     "key": "scope",
                     "value": "https://api.businesscentral.dynamics.com/.default"
-                }
-            ],
-            "code": "SAAS_TOKEN",
-            "generalInfo": [
-                {
-                    "allowBlankResponse": false,
-                    "authType": "None",
-                    "bearerConnCode": "",
-                    "bearerToken": true,
-                    "bodyMethod": " ",
-                    "bodyType": "x-www-form-urlencoded",
-                    "description": "Get SaaS Token",
-                    "endpoint": "https://login.microsoftonline.com/TenantIDToInsert/oauth2/v2.0/token",
-                    "httpMethod": "GET",
-                    "indentation": "2",
-                    "password": "",
-                    "tokenDataScope": "Module",
-                    "type": "Token",
-                    "username": "",
-                    "zipResponse": true
-                }
-            ],
-            "header": [
-                {
-                    "description": "",
-                    "isEnabled": true,
-                    "isSecret": false,
-                    "key": "Content-Type",
-                    "value": "application/x-www-form-urlencoded"
                 }
             ]
         },
@@ -127,6 +128,5 @@
                 }
             ]
         }
-    ],
-    "groupCode": "EXAMPLES"
+    ]
 }

@@ -1038,10 +1038,10 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Control Log - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 344691303 - Control 1948770074 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 344691303 - Control 1935160463 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>EndPoint Variables</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Control EndPointVariables - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Control EndPointVariable - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 344691303 - Control 2912574016 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Parameters</source>

@@ -1,4 +1,6 @@
+#pragma warning disable AW0006
 page 81002 "WSC Connection Card"
+#pragma warning restore AW0006
 {
     Caption = 'Connection Card';
     PageType = Document;
@@ -188,7 +190,7 @@ page 81002 "WSC Connection Card"
         }
         area(factboxes)
         {
-            part(EndPointVariables; "WSC EndPoint Variables Factbox")
+            part(EndPointVariable; "WSC EndPoint Variables Factbox")
             {
                 ApplicationArea = All;
                 Visible = DetailedRecVisibility;
@@ -306,7 +308,7 @@ page 81002 "WSC Connection Card"
                     WebServicesManagement: Codeunit "WSC Managements";
                 begin
                     WebServicesManagement.ExecuteConnections(Rec."WSC Code", true, LogCalls);
-                    CurrPage."WSC Top Calls Charts".Page.UpdateChart();
+                    CurrPage."WSC Top Calls Charts".Page.UpdateAddin();
                 end;
             }
             action(DownloadWSConfiguration)
@@ -441,7 +443,7 @@ page 81002 "WSC Connection Card"
             end;
         end else
             if Rec."WSC Bearer Connection Code" <> '' then
-                if ConnectionBearer."WSC Code" <> Rec."WSC Bearer Connection Code" then begin
+                if ConnectionBearer."WSC Code" <> Rec."WSC Bearer Connection Code" then
                     if ConnectionBearer.Get(Rec."WSC Bearer Connection Code") then begin
                         TokenPresent := SecurityManagements.HasToken(ConnectionBearer."WSC Access Token", ConnectionBearer.GetTokenDataScope());
                         TokenAuth := ConnectionBearer."WSC Authorization Time";
@@ -453,7 +455,6 @@ page 81002 "WSC Connection Card"
                             TokenColor := 'Favorable';
                         end;
                     end;
-                end;
     end;
 
     local procedure IsExpiredToken(ParTokenAuth: DateTime; ParExpireIn: Integer): Boolean

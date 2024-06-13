@@ -6,15 +6,17 @@ codeunit 81010 "WSC Sharepoint Storage" implements "WSC Log Files Handler"
     procedure GetFile(LogCalls: Record "WSC Log Calls"; FieldNo: Integer) TempBlob: Codeunit "Temp Blob"
     var
         FileStorageSetup: Record "WSC File Storage Setup";
-        Authorization: Interface "SharePoint Authorization";
         SharePointAuth: Codeunit "SharePoint Auth.";
         SharePointClient: Codeunit "SharePoint Client";
+        Authorization: Interface "SharePoint Authorization";
         InStr: InStream;
+        SecretString: SecretText;
     begin
         FileStorageSetup.Get(LogCalls."WSC File Storage Code");
         FileStorageSetup.TestField("WSC Type", FileStorageSetup."WSC Type"::Sharepoint);
 
-        Authorization := SharePointAuth.CreateAuthorizationCode(FileStorageSetup.GetField('entraTenantId'), FileStorageSetup.GetField('clientId'), FileStorageSetup.GetField('clientSecret'), FileStorageSetup.GetField('scope'));
+        SecretString := FileStorageSetup.GetField('clientSecret');
+        Authorization := SharePointAuth.CreateAuthorizationCode(FileStorageSetup.GetField('entraTenantId'), FileStorageSetup.GetField('clientId'), SecretString, FileStorageSetup.GetField('scope'));
         SharePointClient.Initialize(FileStorageSetup.GetField('baseUrl'), Authorization);
         TempBlob.CreateInStream(InStr);
         SharePointClient.DownloadFileContentByServerRelativeUrl(FileStorageSetup.GetField('baseUrl') + CreateFileName(LogCalls, FieldNo), InStr);
@@ -24,15 +26,16 @@ codeunit 81010 "WSC Sharepoint Storage" implements "WSC Log Files Handler"
     var
         FileStorageSetup: Record "WSC File Storage Setup";
         TempSharePointFile: Record "SharePoint File" temporary;
-        Authorization: Interface "SharePoint Authorization";
         SharePointAuth: Codeunit "SharePoint Auth.";
         SharePointClient: Codeunit "SharePoint Client";
-        InStr: InStream;
+        Authorization: Interface "SharePoint Authorization";
+        SecretString: SecretText;
     begin
         FileStorageSetup.Get(LogCalls."WSC File Storage Code");
         FileStorageSetup.TestField("WSC Type", FileStorageSetup."WSC Type"::Sharepoint);
 
-        Authorization := SharePointAuth.CreateAuthorizationCode(FileStorageSetup.GetField('entraTenantId'), FileStorageSetup.GetField('clientId'), FileStorageSetup.GetField('clientSecret'), FileStorageSetup.GetField('scope'));
+        SecretString := FileStorageSetup.GetField('clientSecret');
+        Authorization := SharePointAuth.CreateAuthorizationCode(FileStorageSetup.GetField('entraTenantId'), FileStorageSetup.GetField('clientId'), SecretString, FileStorageSetup.GetField('scope'));
         SharePointClient.Initialize(FileStorageSetup.GetField('baseUrl'), Authorization);
         SharePointClient.AddFileToFolder(FileStorageSetup.GetField('baseUrl') + CreateFileName(LogCalls, FieldNo), CreateFileName(LogCalls, FieldNo), FileToSave, TempSharePointFile);
     end;
@@ -40,15 +43,17 @@ codeunit 81010 "WSC Sharepoint Storage" implements "WSC Log Files Handler"
     procedure FileExist(var LogCalls: Record "WSC Log Calls"; FieldNo: Integer): Boolean
     var
         FileStorageSetup: Record "WSC File Storage Setup";
-        Authorization: Interface "SharePoint Authorization";
         SharePointAuth: Codeunit "SharePoint Auth.";
         SharePointClient: Codeunit "SharePoint Client";
         TempBlob: Codeunit "Temp Blob";
+        Authorization: Interface "SharePoint Authorization";
+        SecretString: SecretText;
     begin
         FileStorageSetup.Get(LogCalls."WSC File Storage Code");
         FileStorageSetup.TestField("WSC Type", FileStorageSetup."WSC Type"::Sharepoint);
 
-        Authorization := SharePointAuth.CreateAuthorizationCode(FileStorageSetup.GetField('entraTenantId'), FileStorageSetup.GetField('clientId'), FileStorageSetup.GetField('clientSecret'), FileStorageSetup.GetField('scope'));
+        SecretString := FileStorageSetup.GetField('clientSecret');
+        Authorization := SharePointAuth.CreateAuthorizationCode(FileStorageSetup.GetField('entraTenantId'), FileStorageSetup.GetField('clientId'), SecretString, FileStorageSetup.GetField('scope'));
         SharePointClient.Initialize(FileStorageSetup.GetField('baseUrl'), Authorization);
         SharePointClient.DownloadFileContentByServerRelativeUrl(FileStorageSetup.GetField('baseUrl') + CreateFileName(LogCalls, FieldNo), TempBlob);
         exit(TempBlob.HasValue());

@@ -266,6 +266,7 @@ codeunit 81003 "WSC Import Export Config."
             Error(Text000Lbl);
 
         TempConnections.FindSet();
+        NewGroupCode := TempConnections."WSC Code";
         repeat
             if TempConnections."WSC Previous Code" <> TempConnections."WSC Code" then begin
                 if TempConnections."WSC Type" = TempConnections."WSC Type"::Group then
