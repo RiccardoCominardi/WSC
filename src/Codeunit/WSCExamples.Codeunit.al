@@ -143,7 +143,7 @@ codeunit 82000 "WSC Examples"
 
     //To handle variable in endpoint
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"WSC Caller", 'OnParseEndpoint', '', false, false)]
-    local procedure OnParseEndpoint(OldEndPointString: Text; var NewEndPointString: Text; EndPointVariables: Record "WSC EndPoint Variables"; Connections: Record "WSC Connections");
+    local procedure OnParseEndpoint(OldEndPointString: Text; var NewEndPointString: Text; EndPointVariables: Record "WSC EndPoint Variables"; Connections: Record "WSC Connections"; RecRef: RecordRef);
     begin
         //This piece of code is required for WS calls to work properly. Your custom body must not have affect the body of other call
         if Connections."WSC Code" <> 'TEST' then

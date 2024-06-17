@@ -116,7 +116,7 @@ codeunit 81002 "WSC Caller"
         CollectHeaders(ContentHeaders);
         OnAfterSetContentHeaders(ContentHeaders, GlobalConnection);
         RequestMessage.Method := Format(GlobalConnection."WSC HTTP Method");
-        NewEndPoint := ParseEndPoint(GlobalConnection."WSC EndPoint");
+        NewEndPoint := ParseEndPoint(GlobalConnection."WSC EndPoint", GlobalRecRef);
         NewEndPoint := AddParameters(NewEndPoint);
         RequestMessage.SetRequestUri(NewEndPoint);
 
@@ -269,7 +269,7 @@ codeunit 81002 "WSC Caller"
         NewString := NewString.TrimEnd('&');
     end;
 
-    local procedure ParseEndPoint(EndPointUrl: Text): Text
+    local procedure ParseEndPoint(EndPointUrl: Text; RecRef: RecordRef): Text
     var
         EndPointVariables: Record "WSC EndPoint Variables";
         AzureADTenant: Codeunit "Azure AD Tenant";
@@ -300,7 +300,7 @@ codeunit 81002 "WSC Caller"
                     if NewString.Contains('[@CurrTenantId]') then
                         NewString := EndPointUrl.Replace('[@CurrTenantId]', AzureADTenant.GetAadTenantId());
             end;
-            OnParseEndpoint(EndPointUrl, NewString, EndPointVariables, GlobalConnection);
+            OnParseEndpoint(EndPointUrl, NewString, EndPointVariables, GlobalConnection, GlobalRecRef);
         until EndPointVariables.Next() = 0;
         exit(NewString);
     end;
@@ -467,6 +467,11 @@ codeunit 81002 "WSC Caller"
             Error(FileMissingErr);
     end;
 
+    procedure GetRecordReference(RecRef: RecordRef)
+    begin
+        GlobalRecRef := RecRef;
+    end;
+
     #endregion GeneralFunctions
     #region IntegrationEvents
 
@@ -525,7 +530,7 @@ codeunit 81002 "WSC Caller"
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnParseEndpoint(OldEndPointString: Text; var NewEndPointString: Text; EndPointVariables: Record "WSC EndPoint Variables"; Connections: Record "WSC Connections")
+    local procedure OnParseEndpoint(OldEndPointString: Text; var NewEndPointString: Text; EndPointVariables: Record "WSC EndPoint Variables"; Connections: Record "WSC Connections"; RecRef: RecordRef)
     begin
     end;
 
@@ -546,6 +551,7 @@ codeunit 81002 "WSC Caller"
 
     #endregion IntegrationEvents
     var
+        GlobalRecRef: RecordRef;
         GlobalConnection: Record "WSC Connections";
         NewEndPoint: Text;
         LastMessageText: Text;

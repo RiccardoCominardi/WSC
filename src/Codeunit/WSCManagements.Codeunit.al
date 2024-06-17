@@ -69,9 +69,10 @@ codeunit 81001 "WSC Managements"
     procedure ExecuteConnections(WSCCode: Code[20]; ShowNotification: Boolean; var LogCalls: Record "WSC Log Calls") SuccessCall: Boolean
     var
         FunctionsManagements: Codeunit "WSC Functions Managements";
+        RecRef: RecordRef;
         ResponseString: Text;
     begin
-        ResponseString := ExecuteDirectConnections(WSCCode);
+        ResponseString := ExecuteDirectConnections(RecRef, WSCCode);
         ParseResponse(ResponseString, LogCalls);
         SuccessCall := IsSuccessStatusCode(LogCalls."WSC Code", LogCalls."WSC Entry No.");
         if SuccessCall then
@@ -81,7 +82,22 @@ codeunit 81001 "WSC Managements"
                 ShowViewLogNotification(LogCalls);
     end;
 
-    local procedure ExecuteDirectConnections(WSCCode: Code[20]) ResponseString: Text;
+    procedure ExecuteConnections(RecRef: RecordRef; WSCCode: Code[20]; ShowNotification: Boolean; var LogCalls: Record "WSC Log Calls") SuccessCall: Boolean
+    var
+        FunctionsManagements: Codeunit "WSC Functions Managements";
+        ResponseString: Text;
+    begin
+        ResponseString := ExecuteDirectConnections(RecRef, WSCCode);
+        ParseResponse(ResponseString, LogCalls);
+        SuccessCall := IsSuccessStatusCode(LogCalls."WSC Code", LogCalls."WSC Entry No.");
+        if SuccessCall then
+            FunctionsManagements.ExecuteLinkedFunctions(LogCalls);
+        if GuiAllowed() then
+            if ShowNotification then
+                ShowViewLogNotification(LogCalls);
+    end;
+
+    local procedure ExecuteDirectConnections(RecRef: RecordRef; WSCCode: Code[20]) ResponseString: Text;
     var
         Connections: Record "WSC Connections";
         BearerConnection: Record "WSC Connections";
@@ -106,6 +122,7 @@ codeunit 81001 "WSC Managements"
                 begin
                     Clear(WebServicesCaller);
                     ClearLastError();
+                    WebServicesCaller.GetRecordReference(RecRef);
                     if Connections."WSC Bearer Connection" then begin
                         ExecuteTokenCall(Connections."WSC Code", BearerConnection, TokenEntryNo);
                         LogEntryNo := TokenEntryNo;
@@ -120,6 +137,7 @@ codeunit 81001 "WSC Managements"
                     Commit();
                     Clear(WebServicesCaller);
                     ClearLastError();
+                    WebServicesCaller.GetRecordReference(RecRef);
                     if WebServicesCaller.Run(Connections) then;
                     LogEntryNo := WriteConnectionLog(WSCCode, BearerConnection."WSC Code", TokenEntryNo);
                     ResponseString := Connections."WSC Code" + ':' + Format(LogEntryNo);
