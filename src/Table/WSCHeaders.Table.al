@@ -129,7 +129,7 @@ table 81002 "WSC Headers"
         end else begin
             if SecurityManagements.DeleteToken(Rec."WSC Secret Value", Rec.GetTokenDataScope()) then
                 Clear(Rec."WSC Secret Value");
-            Rec."WSC Value" := ValueAsText;
+            Rec."WSC Value" := CopyStr(ValueAsText, 1, MaxStrLen(Rec."WSC Value"));
         end;
     end;
 
@@ -148,16 +148,15 @@ table 81002 "WSC Headers"
                     if SecurityManagements.DeleteToken(Rec."WSC Secret Value", Rec.GetTokenDataScope()) then
                         Clear(Rec."WSC Secret Value");
                     Rec."WSC Value" := '';
-                end else begin
+                end else
                     if Rec."WSC Is Secret" then begin
                         SecurityManagements.SetToken(Rec."WSC Secret Value", Rec."WSC Value", Rec.GetTokenDataScope());
                         Rec."WSC Value" := '';
                     end else begin
-                        Rec."WSC Value" := SecurityManagements.GetToken(Rec."WSC Secret Value", Rec.GetTokenDataScope());
+                        Rec."WSC Value" := CopyStr(SecurityManagements.GetToken(Rec."WSC Secret Value", Rec.GetTokenDataScope()), 1, MaxStrLen(Rec."WSC Value"));
                         if SecurityManagements.DeleteToken(Rec."WSC Secret Value", Rec.GetTokenDataScope()) then
                             Clear(Rec."WSC Secret Value");
                     end;
-                end;
     end;
 
     /// <summary>

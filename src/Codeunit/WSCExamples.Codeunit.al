@@ -15,9 +15,6 @@ codeunit 82000 "WSC Examples"
     var
         LogCalls: Record "WSC Log Calls";
         WSCManagements: Codeunit "WSC Managements";
-        ResponseText: Text;
-        WSCodeLog: Code[20];
-        WSEntryLog: Integer;
     begin
         Clear(WSCManagements);
         if WSCManagements.ExecuteConnections('TEST', false, LogCalls) then
@@ -35,9 +32,6 @@ codeunit 82000 "WSC Examples"
         WSCManagements: Codeunit "WSC Managements";
         TempBlob: Codeunit "Temp Blob";
         InStr: InStream;
-        ResponseText: Text;
-        WSCodeLog: Code[20];
-        WSEntryLog: Integer;
     begin
         Clear(WSCManagements);
         GenerateCustomBody(TempBlob);
@@ -49,6 +43,7 @@ codeunit 82000 "WSC Examples"
             Message('Web Service call failed. View the log to see the response');
     end;
 
+    /*
     local procedure ReadZipFile(LogCalls: Record "WSC Log Calls")
     var
         TempBlob: Codeunit "Temp Blob";
@@ -88,6 +83,7 @@ codeunit 82000 "WSC Examples"
         //Close the zip file
         DataCompression.CloseZipArchive();
     end;
+    */
 
     local procedure GenerateCustomBody(var TempBlob: Codeunit "Temp Blob")
     var
@@ -141,20 +137,6 @@ codeunit 82000 "WSC Examples"
         end;
     end;
 
-    //To handle variable in endpoint
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"WSC Caller", 'OnParseEndpoint', '', false, false)]
-    local procedure OnParseEndpoint(OldEndPointString: Text; var NewEndPointString: Text; EndPointVariables: Record "WSC EndPoint Variables"; Connections: Record "WSC Connections"; RecRef: RecordRef);
-    begin
-        //This piece of code is required for WS calls to work properly. Your custom body must not have affect the body of other call
-        if Connections."WSC Code" <> 'TEST' then
-            exit;
-
-        case EndPointVariables."WSC Variable Name" of
-            '[@TestSubstitution]':
-                NewEndPointString := OldEndPointString + 'v2';
-        end;
-    end;
-
     //To handle custom functions to execute after Web Service Call
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"WSC Functions Managements", 'OnExecuteLinkedFunctions', '', false, false)]
     local procedure OnExecuteLinkedFunctions(Functions: Record "WSC Functions"; LogCalls: Record "WSC Log Calls");
@@ -166,6 +148,7 @@ codeunit 82000 "WSC Examples"
         end;
     end;
 
+    /*
     local procedure IsSuccessStatusCode(WSCLogCalls: Record "WSC Log Calls"): Boolean
     begin
         case WSCLogCalls."WSC Result Status Code" of
@@ -175,6 +158,7 @@ codeunit 82000 "WSC Examples"
                 exit(true);
         end;
     end;
+    */
 
     local procedure CreateBasicAuthHeader(UserName: Text; Password: Text): Text
     var

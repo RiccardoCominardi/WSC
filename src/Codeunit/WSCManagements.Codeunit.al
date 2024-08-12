@@ -14,14 +14,15 @@ codeunit 81001 "WSC Managements"
         Flows.TestField("WSC Enabled", true);
 
         ExecuteFlowRequest(Flows);
+        Commit();
     end;
 
     local procedure ExecuteFlowRequest(var Flows: Record "WSC Flows")
     var
         FlowsDetails: Record "WSC Flows Details";
         LogCalls: Record "WSC Log Calls";
+        VariableValues: Dictionary of [Text, Text];
         IsSuccessCall: Boolean;
-        Text000Err: Label 'Error: %1';
         Text000Lbl: Label 'Operation Completed';
     begin
         FlowsDetails.Reset();
@@ -44,11 +45,13 @@ codeunit 81001 "WSC Managements"
             if FlowsDetails."WCS Sleeping Time Type" in [FlowsDetails."WCS Sleeping Time Type"::Before] then
                 Sleep(FlowsDetails."WCS Sleeping Time");
 
+            OnBeforeExecuteSingleFlowRequest(FlowsDetails, VariableValues);
+            SetEndpointCustomVariableValues(VariableValues);
             IsSuccessCall := ExecuteConnections(FlowsDetails."WSC Connection Code", false, LogCalls);
             if not IsSuccessCall then begin
                 Flows."WSC Last Flow Status" := FlowsDetails."WSC Last Flow Status"::Error;
                 FlowsDetails."WSC Last Flow Status" := FlowsDetails."WSC Last Flow Status"::Error;
-                FlowsDetails."WSC Last Message Status" := StrSubstNo(Text000Err, GetLastErrorText());
+                FlowsDetails."WSC Last Message Status" := GetLastErrorText();
             end else begin
                 Flows."WSC Last Flow Status" := FlowsDetails."WSC Last Flow Status"::Success;
                 FlowsDetails."WSC Last Flow Status" := FlowsDetails."WSC Last Flow Status"::Success;
@@ -66,13 +69,69 @@ codeunit 81001 "WSC Managements"
         FlowsDetails.Modify();
     end;
 
+    procedure ExecuteConnectionsEncodingVariables(WSCCode: Code[20]; ShowNotification: Boolean; var LogCalls: Record "WSC Log Calls") SuccessCall: Boolean
+    var
+        FunctionsManagements: Codeunit "WSC Functions Managements";
+        WSCSetVariables: Page "WSC Set Variables";
+        Variable,
+        ResponseString : Text;
+        VariableValues: Dictionary of [Text, Text];
+        Text000Lbl: label 'No custom variables found';
+    begin
+        VariableValues := GetVariablesFromEndpoint(WSCCode);
+        if VariableValues.Count = 0 then begin
+            if GuiAllowed() then
+                Message(Text000Lbl);
+            exit;
+        end;
+
+        foreach Variable in VariableValues.Keys do
+            WSCSetVariables.SetCaption(Variable);
+
+        WSCSetVariables.SetWSCCode(WSCCode);
+        WSCSetVariables.LookupMode(true);
+        if WSCSetVariables.RunModal() <> Action::LookupOK then
+            exit;
+
+        WSCSetVariables.GetVariablesAsDictionary(VariableValues);
+        SetEndpointCustomVariableValues(VariableValues);
+
+        ResponseString := ExecuteDirectConnections(WSCCode);
+        ParseResponse(ResponseString, LogCalls);
+        SuccessCall := IsSuccessStatusCode(LogCalls."WSC Code", LogCalls."WSC Entry No.");
+        if SuccessCall then
+            FunctionsManagements.ExecuteLinkedFunctions(LogCalls);
+        if GuiAllowed() then
+            if ShowNotification then
+                ShowViewLogNotification(LogCalls);
+        Commit();
+    end;
+
+    local procedure GetVariablesFromEndpoint(WSCCode: Code[20]) VariableValues: Dictionary of [Text, Text];
+    var
+        Connections: Record "WSC Connections";
+        EndPointVariables: Record "WSC EndPoint Variables";
+    begin
+        Connections.Get(WSCCode);
+        EndPointVariables.Reset();
+        EndPointVariables.SetRange("WSC Custom Var", true);
+        EndPointVariables.ReadIsolation := IsolationLevel::ReadUncommitted;
+        if not EndPointVariables.IsEmpty() then begin
+            EndPointVariables.ReadIsolation := IsolationLevel::ReadUncommitted;
+            EndPointVariables.FindSet();
+            repeat
+                if Connections."WSC EndPoint".Contains(EndPointVariables."WSC Variable Name") then
+                    VariableValues.Add(EndPointVariables."WSC Variable Name", '');
+            until EndPointVariables.Next() = 0;
+        end;
+    end;
+
     procedure ExecuteConnections(WSCCode: Code[20]; ShowNotification: Boolean; var LogCalls: Record "WSC Log Calls") SuccessCall: Boolean
     var
         FunctionsManagements: Codeunit "WSC Functions Managements";
-        RecRef: RecordRef;
         ResponseString: Text;
     begin
-        ResponseString := ExecuteDirectConnections(RecRef, WSCCode);
+        ResponseString := ExecuteDirectConnections(WSCCode);
         ParseResponse(ResponseString, LogCalls);
         SuccessCall := IsSuccessStatusCode(LogCalls."WSC Code", LogCalls."WSC Entry No.");
         if SuccessCall then
@@ -80,24 +139,10 @@ codeunit 81001 "WSC Managements"
         if GuiAllowed() then
             if ShowNotification then
                 ShowViewLogNotification(LogCalls);
+        Commit();
     end;
 
-    procedure ExecuteConnections(RecRef: RecordRef; WSCCode: Code[20]; ShowNotification: Boolean; var LogCalls: Record "WSC Log Calls") SuccessCall: Boolean
-    var
-        FunctionsManagements: Codeunit "WSC Functions Managements";
-        ResponseString: Text;
-    begin
-        ResponseString := ExecuteDirectConnections(RecRef, WSCCode);
-        ParseResponse(ResponseString, LogCalls);
-        SuccessCall := IsSuccessStatusCode(LogCalls."WSC Code", LogCalls."WSC Entry No.");
-        if SuccessCall then
-            FunctionsManagements.ExecuteLinkedFunctions(LogCalls);
-        if GuiAllowed() then
-            if ShowNotification then
-                ShowViewLogNotification(LogCalls);
-    end;
-
-    local procedure ExecuteDirectConnections(RecRef: RecordRef; WSCCode: Code[20]) ResponseString: Text;
+    local procedure ExecuteDirectConnections(WSCCode: Code[20]) ResponseString: Text;
     var
         Connections: Record "WSC Connections";
         BearerConnection: Record "WSC Connections";
@@ -122,11 +167,11 @@ codeunit 81001 "WSC Managements"
                 begin
                     Clear(WebServicesCaller);
                     ClearLastError();
-                    WebServicesCaller.GetRecordReference(RecRef);
                     if Connections."WSC Bearer Connection" then begin
                         ExecuteTokenCall(Connections."WSC Code", BearerConnection, TokenEntryNo);
                         LogEntryNo := TokenEntryNo;
                     end else begin
+                        WebServicesCaller.GetEndpointCustomVariableValues(EndpointCustomVariableValues);
                         if WebServicesCaller.Run(Connections) then;
                         LogEntryNo := WriteConnectionLog(WSCCode, '', 0);
                     end;
@@ -137,7 +182,7 @@ codeunit 81001 "WSC Managements"
                     Commit();
                     Clear(WebServicesCaller);
                     ClearLastError();
-                    WebServicesCaller.GetRecordReference(RecRef);
+                    WebServicesCaller.GetEndpointCustomVariableValues(EndpointCustomVariableValues);
                     if WebServicesCaller.Run(Connections) then;
                     LogEntryNo := WriteConnectionLog(WSCCode, BearerConnection."WSC Code", TokenEntryNo);
                     ResponseString := Connections."WSC Code" + ':' + Format(LogEntryNo);
@@ -157,6 +202,7 @@ codeunit 81001 "WSC Managements"
         if IsTokenCallToDo(BearerConnection) then begin
             Clear(WebServicesCaller);
             ClearLastError();
+            WebServicesCaller.GetEndpointCustomVariableValues(EndpointCustomVariableValues);
             if WebServicesCaller.Run(BearerConnection) then;
             TokenEntryNo := WriteConnectionLog(BearerConnection."WSC Code", '', 0);
             if IsSuccessStatusCode(BearerConnection."WSC Code", TokenEntryNo) then begin
@@ -188,7 +234,6 @@ codeunit 81001 "WSC Managements"
     var
         ViewLogNotification: Notification;
         Text000Lbl: Label 'Execution Terminated. Check the log to see the result';
-        Text001Lbl: Label 'Open Log?';
     begin
         ViewLogNotification.Message(Text000Lbl);
         ViewLogNotification.Scope := NotificationScope::LocalScope;
@@ -268,7 +313,6 @@ codeunit 81001 "WSC Managements"
     local procedure WriteZippedBlobFields(var OutStr: OutStream; var InStr: InStream)
     var
         DataCompression: Codeunit "Data Compression";
-        CurrText: Text;
     begin
         if InStr.Length = 0 then
             exit;
@@ -313,6 +357,12 @@ codeunit 81001 "WSC Managements"
         Clear(CustomBodyIsSet);
         Clear(BodyFileType);
         Clear(ResponseFileType);
+    end;
+
+    procedure SetEndpointCustomVariableValues(VariableValues: Dictionary of [Text, Text])
+    begin
+        Clear(EndpointCustomVariableValues);
+        EndpointCustomVariableValues := VariableValues;
     end;
 
     #endregion GeneralFunctions
@@ -364,7 +414,6 @@ codeunit 81001 "WSC Managements"
         JToken: JsonToken;
         JAccessToken: JsonObject;
         Property: Text;
-        OuStr: OutStream;
         Text000Err: Label 'Invalid Access Token Property %1, Value:  %2';
         IsHandled: Boolean;
     begin
@@ -388,13 +437,9 @@ codeunit 81001 "WSC Managements"
                 'ext_expires_in':
                     ;
                 'access_token':
-                    begin
-                        SecurityManagements.SetToken(BearerConnection."WSC Access Token", JToken.AsValue().AsText(), BearerConnection.GetTokenDataScope());
-                    end;
+                    SecurityManagements.SetToken(BearerConnection."WSC Access Token", JToken.AsValue().AsText(), BearerConnection.GetTokenDataScope());
                 'refresh_token':
-                    begin
-                        SecurityManagements.SetToken(BearerConnection."WSC Refresh Token", JToken.AsValue().AsText(), BearerConnection.GetTokenDataScope());
-                    end;
+                    SecurityManagements.SetToken(BearerConnection."WSC Refresh Token", JToken.AsValue().AsText(), BearerConnection.GetTokenDataScope());
                 else
                     Error(Text000Err, Property, JToken.AsValue().AsText());
             end;
@@ -424,8 +469,8 @@ codeunit 81001 "WSC Managements"
     var
         Connections: Record "WSC Connections";
         LogCalls: Record "WSC Log Calls";
-        LogFilesHandler: Interface "WSC Log Files Handler";
         TempBlob: Codeunit "Temp Blob";
+        LogFilesHandler: Interface "WSC Log Files Handler";
         NextEntryNo: Integer;
         OutStr: OutStream;
         InStr: InStream;
@@ -449,7 +494,7 @@ codeunit 81001 "WSC Managements"
         LogCalls."WSC Code" := Connections."WSC Code";
         LogCalls."WSC Description" := Connections."WSC Description";
         LogCalls."WSC HTTP Method" := Connections."WSC HTTP Method";
-        LogCalls."WSC EndPoint" := NewEndPoint;
+        LogCalls."WSC EndPoint" := CopyStr(NewEndPoint, 1, MaxStrLen(LogCalls."WSC EndPoint"));
         LogCalls."WSC Auth. Type" := Connections."WSC Auth. Type";
         LogCalls."WSC Bearer Connection" := Connections."WSC Bearer Connection";
         LogCalls."WSC Bearer Connection Code" := Connections."WSC Bearer Connection Code";
@@ -483,7 +528,7 @@ codeunit 81001 "WSC Managements"
         LogCalls."WSC Link To Entry No." := TokenEntryNo;
         LogCalls."WSC Result Status Code" := HttpStatusCode;
         LogCalls."WSC Execution Date-Time" := CurrentDateTime();
-        LogCalls."WSC Execution UserID" := UserId();
+        LogCalls."WSC Execution UserID" := CopyStr(UserId(), 1, MaxStrLen(LogCalls."WSC Execution UserID"));
         LogCalls."WSC Execution Time (ms)" := ExecutionTime;
         OnBeforeInsertLogCalls(LogCalls, Connections);
         LogCalls.Insert();
@@ -563,7 +608,7 @@ codeunit 81001 "WSC Managements"
             LogHeaders."WSC Entry No." := NextEntryNo;
             LogHeaders."WSC Code" := Headers."WSC Code";
             LogHeaders."WSC Key" := Headers."WSC Key";
-            LogHeaders."WSC Value" := Headers.GetValue();
+            LogHeaders."WSC Value" := CopyStr(Headers.GetValue(), 1, MaxStrLen(LogHeaders."WSC Value"));
             LogHeaders."WSC Description" := Headers."WSC Description";
             OnBeforeInsertLogHeaders(LogHeaders, Headers);
             LogHeaders.Insert();
@@ -600,7 +645,7 @@ codeunit 81001 "WSC Managements"
             LogBodies."WSC Entry No." := NextEntryNo;
             LogBodies."WSC Code" := Bodies."WSC Code";
             LogBodies."WSC Key" := Bodies."WSC Key";
-            LogBodies."WSC Value" := Bodies.GetValue();
+            LogBodies."WSC Value" := CopyStr(Bodies.GetValue(), 1, MaxStrLen(LogBodies."WSC Value"));
             LogBodies."WSC Description" := Bodies."WSC Description";
             OnBeforeInsertLogBodies(LogBodies, Bodies);
             LogBodies.Insert();
@@ -667,6 +712,12 @@ codeunit 81001 "WSC Managements"
     local procedure OnBeforeRetrieveResponseFileExtension(ResponseFileType: Enum "WSC File Types"; var RetText: Text; IsHandled: Boolean)
     begin
     end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeExecuteSingleFlowRequest(FlowsDetails: Record "WSC Flows Details"; var VariableValues: Dictionary of [Text, Text])
+    begin
+    end;
+
     #endregion IntegrationEvents
 
     #region SubscriberEvents
@@ -692,6 +743,7 @@ codeunit 81001 "WSC Managements"
     #endregion SubscriberEvents
     var
         WebServicesCaller: Codeunit "WSC Caller";
+        EndpointCustomVariableValues: Dictionary of [Text, Text];
         BodyInStream: InStream;
         ResponseInStream: InStream;
         CustomBodyInStream: InStream;

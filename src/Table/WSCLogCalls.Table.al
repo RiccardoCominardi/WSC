@@ -150,8 +150,8 @@ table 81004 "WSC Log Calls"
 
     procedure ExportAttachment(FieldNo: Integer);
     var
-        LogFilesHandler: Interface "WSC Log Files Handler";
         TempBlob: Codeunit "Temp Blob";
+        LogFilesHandler: Interface "WSC Log Files Handler";
         InStr: InStream;
         FileName: Text;
         Text000Lbl: Label 'BodyMessage';

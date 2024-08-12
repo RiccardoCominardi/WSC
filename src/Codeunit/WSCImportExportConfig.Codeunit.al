@@ -19,13 +19,6 @@ codeunit 81003 "WSC Import Export Config."
 
 
     #region Import
-    local procedure ImportWSCFromPostmanJson()
-    var
-        myInt: Integer;
-    begin
-        //Importazione configurazione WSC da Json di Postman
-    end;
-
     procedure ImportWSCFromJson()
     var
         TempBlob: Codeunit "Temp Blob";
@@ -95,7 +88,7 @@ codeunit 81003 "WSC Import Export Config."
                     JToken.IsValue():
                         begin
                             JsonKeyValue := JToken.AsValue();
-                            ApplyJsonValueToField(JsonKeyValue, JsonKey);
+                            ApplyJsonValueToField(JsonKeyValue, CopyStr(JsonKey, 1, 50));
                         end;
                 end;
         SetNewRecordToInsert();
@@ -109,20 +102,20 @@ codeunit 81003 "WSC Import Export Config."
             TableType::Default:
                 case JsonFieldName of
                     'groupCode':
-                        GroupCode := JsonKeyValue.AsText();
+                        GroupCode := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(GroupCode));
                     'code':
                         begin
                             SetNewRecordToInsert();
-                            TempConnections."WSC Code" := JsonKeyValue.AsText();
-                            TempConnections."WSC Previous Code" := JsonKeyValue.AsText();
+                            TempConnections."WSC Code" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempConnections."WSC Code"));
+                            TempConnections."WSC Previous Code" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempConnections."WSC Previous Code"));
                             TempConnections."WSC Group Code" := GroupCode;
                         end;
                     'description':
-                        TempConnections."WSC Description" := JsonKeyValue.AsText();
+                        TempConnections."WSC Description" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempConnections."WSC Description"));
                     'httpMethod':
                         Evaluate(TempConnections."WSC HTTP Method", JsonKeyValue.AsText()); //Valutare se nuove versioni hanno la funzione AsEnum
                     'endpoint':
-                        TempConnections."WSC EndPoint" := JsonKeyValue.AsText();
+                        TempConnections."WSC EndPoint" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempConnections."WSC EndPoint"));
                     'allowBlankResponse':
                         TempConnections."WSC Allow Blank Response" := JsonKeyValue.AsBoolean();
                     'authType':
@@ -134,13 +127,13 @@ codeunit 81003 "WSC Import Export Config."
                     'tokenDataScope':
                         Evaluate(TempConnections."WSC Token DataScope", JsonKeyValue.AsText());
                     'username':
-                        TempConnections."WSC Username" := JsonKeyValue.AsText();
+                        TempConnections."WSC Username" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempConnections."WSC Username"));
                     'password':
                         SecurityManagements.SetToken(TempConnections."WSC Password", JsonKeyValue.AsText(), TempConnections.GetTokenDataScope());
                     'bearerToken':
                         TempConnections."WSC Bearer Connection" := JsonKeyValue.AsBoolean();
                     'bearerConnCode':
-                        TempConnections."WSC Bearer Connection Code" := JsonKeyValue.AsText();
+                        TempConnections."WSC Bearer Connection Code" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempConnections."WSC Bearer Connection Code"));
                     'zipResponse':
                         TempConnections."WSC Zip Response" := JsonKeyValue.AsBoolean();
                     'type':
@@ -153,12 +146,12 @@ codeunit 81003 "WSC Import Export Config."
                     'key':
                         begin
                             SetNewRecordToInsert();
-                            TempParameters."WSC Key" := JsonKeyValue.AsText();
+                            TempParameters."WSC Key" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempParameters."WSC Key"));
                         end;
                     'value':
-                        TempParameters."WSC Value" := JsonKeyValue.AsText();
+                        TempParameters."WSC Value" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempParameters."WSC Value"));
                     'description':
-                        TempParameters."WSC Description" := JsonKeyValue.AsText();
+                        TempParameters."WSC Description" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempParameters."WSC Description"));
                     'isEnabled':
                         TempParameters."WSC Enabled" := JsonKeyValue.AsBoolean();
                 end;
@@ -167,14 +160,14 @@ codeunit 81003 "WSC Import Export Config."
                     'key':
                         begin
                             SetNewRecordToInsert();
-                            TempHeaders."WSC Key" := JsonKeyValue.AsText();
+                            TempHeaders."WSC Key" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempHeaders."WSC Key"));
                         end;
                     'isSecret':
                         TempHeaders."WSC Is Secret" := JsonKeyValue.AsBoolean();
                     'value':
                         TempHeaders.SetValue(JsonKeyValue.AsText());
                     'description':
-                        TempHeaders."WSC Description" := JsonKeyValue.AsText();
+                        TempHeaders."WSC Description" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempHeaders."WSC Description"));
                     'isEnabled':
                         TempHeaders."WSC Enabled" := JsonKeyValue.AsBoolean();
                 end;
@@ -183,21 +176,21 @@ codeunit 81003 "WSC Import Export Config."
                     'key':
                         begin
                             SetNewRecordToInsert();
-                            TempBodies."WSC Key" := JsonKeyValue.AsText();
+                            TempBodies."WSC Key" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempBodies."WSC Key"));
                         end;
                     'isSecret':
                         TempBodies."WSC Is Secret" := JsonKeyValue.AsBoolean();
                     'value':
                         TempBodies.SetValue(JsonKeyValue.AsText());
                     'description':
-                        TempBodies."WSC Description" := JsonKeyValue.AsText();
+                        TempBodies."WSC Description" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempBodies."WSC Description"));
                     'isEnabled':
                         TempBodies."WSC Enabled" := JsonKeyValue.AsBoolean();
                 end;
         end;
     end;
 
-    local procedure SetTableType(JsonArrayName: Text[50])
+    local procedure SetTableType(JsonArrayName: Text)
     begin
         case JsonArrayName of
             'codes', 'generalInfo':
@@ -369,22 +362,19 @@ codeunit 81003 "WSC Import Export Config."
         end;
 
         //Update Parameter
-        foreach Datas in ParameterDatas do begin
+        foreach Datas in ParameterDatas do
             if TempParameters.Get(TempConnections."WSC Previous Code", Datas) then
                 TempParameters.Rename(TempConnections."WSC Code", Datas);
-        end;
 
         //Update Headers
-        foreach Datas in HeaderDatas do begin
+        foreach Datas in HeaderDatas do
             if TempHeaders.Get(TempConnections."WSC Previous Code", Datas) then
                 TempHeaders.Rename(TempConnections."WSC Code", Datas);
-        end;
 
         //Update Bodies
-        foreach Datas in BodyDatas do begin
+        foreach Datas in BodyDatas do
             if TempBodies.Get(TempConnections."WSC Previous Code", Datas) then
                 TempBodies.Rename(TempConnections."WSC Code", Datas);
-        end;
     end;
 
     #endregion Import
@@ -398,8 +388,7 @@ codeunit 81003 "WSC Import Export Config."
         InStr: InStream;
         OutStr: OutStream;
         Text000Lbl: Label '%1_%2.json';
-        IsHandled,
-        ExportGroup : Boolean;
+        IsHandled: Boolean;
         FileJson: JsonObject;
         LocalFileName,
         Result : Text;
@@ -468,9 +457,6 @@ codeunit 81003 "WSC Import Export Config."
 
     local procedure AddArray(var JObjectFatherName: JsonObject; ArrayName: Text; var Connections: Record "WSC Connections")
     var
-        i: Integer;
-        JObjectName: JsonObject;
-        JArrayName: JsonArray;
         IsHandled: Boolean;
     begin
         OnBeforeAddArray(IsHandled, JObjectFatherName, ArrayName, Connections);

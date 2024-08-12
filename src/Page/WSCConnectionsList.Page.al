@@ -155,6 +155,21 @@ page 81001 "WSC Connections List"
                     WebServicesManagement.ExecuteConnections(Rec."WSC Code", true, LogCalls);
                 end;
             }
+            action(SendRequestDecodignVariables)
+            {
+                Caption = 'Send Request Decoding Variables';
+                ToolTip = 'Send the Web Service request decoding variables';
+                ApplicationArea = All;
+                Image = "Invoicing-MDL-Send";
+
+                trigger OnAction()
+                var
+                    LogCalls: Record "WSC Log Calls";
+                    WebServicesManagement: Codeunit "WSC Managements";
+                begin
+                    WebServicesManagement.ExecuteConnectionsEncodingVariables(Rec."WSC Code", true, LogCalls);
+                end;
+            }
             action(ImportWSConfiguration)
             {
                 Caption = 'Import WS Configuration';
@@ -194,6 +209,7 @@ page 81001 "WSC Connections List"
                 actionref(Bodies_Promoted; Bodies) { }
             }
             actionref(SendRequest_Promoted; SendRequest) { }
+            actionref(SendRequestDecodignVariables_Promoted; SendRequestDecodignVariables) { }
             group(Category_Category6)
             {
                 Caption = 'Configuration';

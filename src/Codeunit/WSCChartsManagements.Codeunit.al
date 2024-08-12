@@ -18,8 +18,6 @@ codeunit 81006 "WSC Charts Managements"
     procedure GenerateData(var BusinessChartBuffer: Record "Business Chart Buffer")
     var
         Top5WebServiceCalls: Query "WSC Top 5 Web Service Calls";
-        Connections: Record "WSC Connections";
-        LogCalls: Record "WSC Log Calls";
         Index: Integer;
     begin
         WebServicesChartsSetup.Reset();
@@ -32,6 +30,7 @@ codeunit 81006 "WSC Charts Managements"
         BusinessChartBuffer.SetXAxis('Code', BusinessChartBuffer."Data Type"::String);
 
         Top5WebServiceCalls.Open();
+        Index := 0;
         while Top5WebServiceCalls.Read() do begin
             BusinessChartBuffer.AddColumn(Top5WebServiceCalls.WSCCode);
             BusinessChartBuffer.SetValueByIndex(0, Index, Top5WebServiceCalls.TotalCalls);

@@ -73,10 +73,10 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 1198734174 - NamedType 1745287229" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 1198734174 - NamedType 411164334" size-unit="char" translate="yes" xml:space="preserve">
           <source>Are you sure you want to archive the data? This may affect performance and safety. Continue?</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - NamedType Text000Qst</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table WSC Connections - NamedType Text001Qst</note>
         </trans-unit>
         <trans-unit id="Table 1198734174 - Method 3336331493 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
           <source>Is not possible to change the Group if there is a call that use this Token</source>
@@ -883,10 +883,10 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Managements - Method CheckWSBodiesForToken - NamedType Text000Err</note>
         </trans-unit>
-        <trans-unit id="Codeunit 3364231641 - Method 819718744 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Error: %1</source>
+        <trans-unit id="Codeunit 3364231641 - Method 4121637864 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
+          <source>No custom variables found</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Managements - Method ExecuteFlowRequest - NamedType Text000Err</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Managements - Method ExecuteConnectionsEncodingVariables - NamedType Text000Lbl</note>
         </trans-unit>
         <trans-unit id="Codeunit 3364231641 - Method 819718744 - NamedType 1327832897" size-unit="char" translate="yes" xml:space="preserve">
           <source>Operation Completed</source>
@@ -902,11 +902,6 @@
           <source>Execution Terminated. Check the log to see the result</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Managements - Method ShowViewLogNotification - NamedType Text000Lbl</note>
-        </trans-unit>
-        <trans-unit id="Codeunit 3364231641 - Method 780128753 - NamedType 1196336482" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Open Log?</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit WSC Managements - Method ShowViewLogNotification - NamedType Text001Lbl</note>
         </trans-unit>
         <trans-unit id="Codeunit 3364231641 - Method 2345795677 - NamedType 4204058380" size-unit="char" translate="yes" xml:space="preserve">
           <source>Invalid Access Token Property %1, Value:  %2</source>
@@ -1113,6 +1108,16 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Action SendRequest - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 344691303 - Action 2912933859 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Send the Web Service request decoding variables</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Action SendRequestDecodignVariables - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 344691303 - Action 2912933859 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Send Request Decoding Variables</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connection Card - Action SendRequestDecodignVariables - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 344691303 - Action 2445171190 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>View last Access Token saved</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -1212,6 +1217,16 @@
           <source>Send Request</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connections List - Action SendRequest - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1486331676 - Action 2912933859 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Send the Web Service request decoding variables</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connections List - Action SendRequestDecodignVariables - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1486331676 - Action 2912933859 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Send Request Decoding Variables</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Connections List - Action SendRequestDecodignVariables - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1486331676 - Action 2224783030 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Request Details</source>
@@ -1428,6 +1443,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Import Configuration - Control CurrStatus - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 1470271598 - Control 8005622 - Property 62802879" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Error,Warning,Correct</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Import Configuration - Control CurrStatus - Property OptionCaption</note>
+        </trans-unit>
         <trans-unit id="Page 1470271598 - Control 4126204819 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Code</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -1503,6 +1523,16 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page WSC Parameters Factbox - Control IsVariableValue - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 1943997588 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Set Variables</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Set Variables - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1943997588 - Control 721030586 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Endpoint Variables</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page WSC Set Variables - Control EndpointVariables - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 434019190 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Top Calls</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -1548,10 +1578,10 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report WSC Copy Request Details - Method OnPreReport - NamedType Text001Err</note>
         </trans-unit>
-        <trans-unit id="Report 372373947 - Control 3264825070 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 372373947 - Control 2445037051 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>From WS Code</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report WSC Copy Request Details - Control CopyFromWSCode - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report WSC Copy Request Details - Control CopyFromWSCodes - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 372373947 - Control 2346885236 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Copy</source>
@@ -1563,25 +1593,25 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report WSC Copy Request Details - Control CopyBody - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 372373947 - Control 1067481871 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 372373947 - Control 3366625506 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Credentials</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report WSC Copy Request Details - Control CopyCredentials - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report WSC Copy Request Details - Control CopyCredential - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 372373947 - Control 3707934048 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 372373947 - Control 366490697 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Functions</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report WSC Copy Request Details - Control CopyFunctions - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report WSC Copy Request Details - Control CopyFunction - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 372373947 - Control 3453064646 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Headers</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report WSC Copy Request Details - Control CopyHeader - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 372373947 - Control 2474701608 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 372373947 - Control 3809745572 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Copy Only Enabled</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report WSC Copy Request Details - Control CopyOnlyEnabled - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report WSC Copy Request Details - Control CopyOnlyEnable - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 372373947 - Control 4267750096 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Parameters</source>

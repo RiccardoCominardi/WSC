@@ -71,7 +71,6 @@ page 81009 "WSC Flow Card"
                 Image = "Invoicing-MDL-Send";
                 trigger OnAction()
                 var
-                    LogCalls: Record "WSC Log Calls";
                     WebServicesManagement: Codeunit "WSC Managements";
                 begin
                     WebServicesManagement.ExecuteFlow(Rec."WSC Code");

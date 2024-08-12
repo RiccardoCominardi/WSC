@@ -26,7 +26,7 @@ table 81009 "WSC EndPoint Variables"
         {
             DataClassification = CustomerContent;
             Caption = 'Custom Variables';
-            Editable = false;
+            //Editable = false;
         }
     }
 

@@ -11,8 +11,8 @@ codeunit 81009 "WSC Application Storage" implements "WSC Log Files Handler"
     procedure SaveFile(var LogCalls: Record "WSC Log Calls"; FieldNo: Integer; FileToSave: InStream)
     var
         TempBlob: Codeunit "Temp Blob";
-        OutStr: OutStream;
         RecRef: RecordRef;
+        OutStr: OutStream;
     begin
         RecRef.GetTable(LogCalls);
         TempBlob.CreateOutStream(OutStr);

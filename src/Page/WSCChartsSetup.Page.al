@@ -27,7 +27,7 @@ page 81016 "WSC Charts Setup"
     begin
         if not Rec.Get(UserId()) then begin
             Rec.Init();
-            Rec."WSC User ID" := UserId();
+            Rec."WSC User ID" := CopyStr(UserId(), 1, MaxStrLen(Rec."WSC User ID"));
             Rec.Insert();
         end;
 

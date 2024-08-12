@@ -49,6 +49,7 @@ page 81002 "WSC Connection Card"
                 {
                     ApplicationArea = All;
                 }
+
                 field("WSC EndPoint"; Rec."WSC EndPoint")
                 {
                     ApplicationArea = All;
@@ -61,7 +62,6 @@ page 81002 "WSC Connection Card"
                     ShowCaption = false;
                     StyleExpr = EndPointColor;
                 }
-
                 field("WSC Body Type"; Rec."WSC Body Type")
                 {
                     ApplicationArea = All;
@@ -311,6 +311,23 @@ page 81002 "WSC Connection Card"
                     CurrPage."WSC Top Calls Charts".Page.UpdateAddin();
                 end;
             }
+            action(SendRequestDecodignVariables)
+            {
+                Caption = 'Send Request Decoding Variables';
+                ToolTip = 'Send the Web Service request decoding variables';
+                ApplicationArea = All;
+                Visible = DetailedRecVisibility;
+                Image = "Invoicing-MDL-Send";
+
+                trigger OnAction()
+                var
+                    LogCalls: Record "WSC Log Calls";
+                    WebServicesManagement: Codeunit "WSC Managements";
+                begin
+                    WebServicesManagement.ExecuteConnectionsEncodingVariables(Rec."WSC Code", true, LogCalls);
+                    CurrPage."WSC Top Calls Charts".Page.UpdateAddin();
+                end;
+            }
             action(DownloadWSConfiguration)
             {
                 Caption = 'Download WS Configuration';
@@ -362,6 +379,7 @@ page 81002 "WSC Connection Card"
             actionref(Bodies_Promoted; Bodies) { }
             actionref(CopyRequestDetails_Promoted; CopyRequestDetails) { }
             actionref(SendRequest_Promoted; SendRequest) { }
+            actionref(SendRequestDecodignVariables_Promoted; SendRequestDecodignVariables) { }
             actionref(DownloadWSConfiguration_Promoted; DownloadWSConfiguration) { }
             actionref(ViewLog_Promoted; ViewLog) { }
             actionref(ViewAccessToken_Promoted; ViewAccessToken) { }

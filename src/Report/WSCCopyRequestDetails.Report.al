@@ -21,7 +21,7 @@ report 81001 "WSC Copy Request Details"
                 group(GroupName)
                 {
                     ShowCaption = false;
-                    field(CopyFromWSCode; CopyFromWSCode)
+                    field(CopyFromWSCodes; CopyFromWSCode)
                     {
                         ApplicationArea = All;
                         Caption = 'From WS Code';
@@ -31,12 +31,12 @@ report 81001 "WSC Copy Request Details"
                 group(Options)
                 {
                     Caption = 'Copy';
-                    field(CopyFunctions; CopyFunctions)
+                    field(CopyFunction; CopyFunctions)
                     {
                         Caption = 'Functions';
                         ApplicationArea = All;
                     }
-                    field(CopyCredentials; CopyCredentials)
+                    field(CopyCredential; CopyCredentials)
                     {
                         Caption = 'Credentials';
                         ApplicationArea = All;
@@ -56,7 +56,7 @@ report 81001 "WSC Copy Request Details"
                         Caption = 'Bodies';
                         ApplicationArea = All;
                     }
-                    field(CopyOnlyEnabled; CopyOnlyEnabled)
+                    field(CopyOnlyEnable; CopyOnlyEnabled)
                     {
                         ApplicationArea = All;
                         Caption = 'Copy Only Enabled';
@@ -111,7 +111,6 @@ report 81001 "WSC Copy Request Details"
     var
         FromConnections: Record "WSC Connections";
         Connections: Record "WSC Connections";
-        SecurityManagements: Codeunit "WSC Security Managements";
     begin
         if not CopyCredentials then
             exit;

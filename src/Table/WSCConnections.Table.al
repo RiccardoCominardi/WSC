@@ -159,7 +159,7 @@ table 81001 "WSC Connections"
             trigger OnValidate()
             begin
                 if not xRec."WSC Store Headers Datas" and Rec."WSC Store Headers Datas" then
-                    if not Confirm(Text000Qst, false) then
+                    if not Confirm(Text001Qst, false) then
                         Error('');
             end;
         }
@@ -170,7 +170,7 @@ table 81001 "WSC Connections"
             trigger OnValidate()
             begin
                 if not xRec."WSC Store Body Datas" and Rec."WSC Store Body Datas" then
-                    if not Confirm(Text000Qst, false) then
+                    if not Confirm(Text001Qst, false) then
                         Error('');
             end;
         }
@@ -181,7 +181,7 @@ table 81001 "WSC Connections"
             trigger OnValidate()
             begin
                 if not xRec."WSC Store Parameters Datas" and Rec."WSC Store Parameters Datas" then
-                    if not Confirm(Text000Qst, false) then
+                    if not Confirm(Text001Qst, false) then
                         Error('');
             end;
         }
@@ -233,7 +233,7 @@ table 81001 "WSC Connections"
     }
 
     var
-        Text000Qst: Label 'Are you sure you want to archive the data? This may affect performance and safety. Continue?';
+        Text001Qst: Label 'Are you sure you want to archive the data? This may affect performance and safety. Continue?';
 
     trigger OnInsert()
     begin
@@ -366,12 +366,10 @@ table 81001 "WSC Connections"
                         Error(Text000Err);
                 end;
             "WSC Type"::Call:
-                begin
-                    if Rec."WSC Bearer Connection Code" <> '' then
-                        if Connections.Get(Rec."WSC Bearer Connection Code") then
-                            if Connections."WSC Group Code" <> Rec."WSC Group Code" then
-                                Error(Text001Err);
-                end;
+                if Rec."WSC Bearer Connection Code" <> '' then
+                    if Connections.Get(Rec."WSC Bearer Connection Code") then
+                        if Connections."WSC Group Code" <> Rec."WSC Group Code" then
+                            Error(Text001Err);
         end;
     end;
 

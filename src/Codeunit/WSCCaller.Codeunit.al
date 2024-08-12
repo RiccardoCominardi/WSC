@@ -31,9 +31,7 @@ codeunit 81002 "WSC Caller"
 
     local procedure ExecuteRequest()
     var
-        Base64Convert: Codeunit "Base64 Convert";
         TempBlob: Codeunit "Temp Blob";
-        FileInBase64: Text;
         OutStr: OutStream;
         InStr: InStream;
         FileInStream: InStream;
@@ -116,7 +114,7 @@ codeunit 81002 "WSC Caller"
         CollectHeaders(ContentHeaders);
         OnAfterSetContentHeaders(ContentHeaders, GlobalConnection);
         RequestMessage.Method := Format(GlobalConnection."WSC HTTP Method");
-        NewEndPoint := ParseEndPoint(GlobalConnection."WSC EndPoint", GlobalRecRef);
+        NewEndPoint := ParseEndPoint(GlobalConnection."WSC EndPoint");
         NewEndPoint := AddParameters(NewEndPoint);
         RequestMessage.SetRequestUri(NewEndPoint);
 
@@ -155,7 +153,6 @@ codeunit 81002 "WSC Caller"
     var
         ResponseText: Text;
         IsHandled: Boolean;
-        JsonObjectReader: JsonObject;
     begin
         OnBeforeEvaluateResponse(IsHandled, ResponseMessage, CallExecution, LastMessageText, HttpStatusCode);
         if IsHandled then
@@ -269,11 +266,11 @@ codeunit 81002 "WSC Caller"
         NewString := NewString.TrimEnd('&');
     end;
 
-    local procedure ParseEndPoint(EndPointUrl: Text; RecRef: RecordRef): Text
+    local procedure ParseEndPoint(EndPointUrl: Text): Text
     var
         EndPointVariables: Record "WSC EndPoint Variables";
-        AzureADTenant: Codeunit "Azure AD Tenant";
         Company: Record Company;
+        AzureADTenant: Codeunit "Azure AD Tenant";
         NewString: Text;
     begin
         EndPointVariables.Reset();
@@ -287,21 +284,25 @@ codeunit 81002 "WSC Caller"
             case EndPointVariables."WSC Variable Name" of
                 '[@CompanyName]':
                     if NewString.Contains('[@CompanyName]') then
-                        NewString := EndPointUrl.Replace('[@CompanyName]', CompanyName());
+                        NewString := NewString.Replace('[@CompanyName]', CompanyName());
                 '[@CompanyID]':
                     if NewString.Contains('[@CompanyID]') then begin
                         Company.Get(CompanyName());
-                        NewString := EndPointUrl.Replace('[@CompanyID]', DelChr(Company.Id, '=', '{}'));
+                        NewString := NewString.Replace('[@CompanyID]', LowerCase(DelChr(Company.Id, '=', '{}')));
                     end;
                 '[@UserID]':
                     if NewString.Contains('[@UserID]') then
-                        NewString := EndPointUrl.Replace('[@UserID]', UserId());
+                        NewString := NewString.Replace('[@UserID]', UserId());
                 '[@CurrTenantId]':
                     if NewString.Contains('[@CurrTenantId]') then
-                        NewString := EndPointUrl.Replace('[@CurrTenantId]', AzureADTenant.GetAadTenantId());
+                        NewString := NewString.Replace('[@CurrTenantId]', AzureADTenant.GetAadTenantId());
+                else
+                    if EndpointCustomVariableValues.ContainsKey(EndPointVariables."WSC Variable Name") then
+                        if NewString.Contains(EndPointVariables."WSC Variable Name") then
+                            NewString := NewString.Replace(EndPointVariables."WSC Variable Name", EndpointCustomVariableValues.Get(EndPointVariables."WSC Variable Name"));
             end;
-            OnParseEndpoint(EndPointUrl, NewString, EndPointVariables, GlobalConnection, GlobalRecRef);
         until EndPointVariables.Next() = 0;
+        OnAfterParseEndpoint(EndPointUrl, NewString, EndPointVariables, GlobalConnection, EndpointCustomVariableValues);
         exit(NewString);
     end;
 
@@ -310,19 +311,7 @@ codeunit 81002 "WSC Caller"
         GlobalConnection.Get(WSCCode);
     end;
 
-    /// <summary>
-    /// RetrieveGlobalVariables.
-    /// </summary>
-    /// <param name="ParBodyInStream">VAR InStream.</param>
-    /// <param name="ParResponseInStream">VAR InStream.</param>
-    /// <param name="ParCallExecution">VAR Boolean.</param>
-    /// <param name="ParHttpStatusCode">VAR Integer.</param>
-    /// <param name="ParLastMessageText">VAR Text.</param>
-    /// <param name="ParNewEndPoint">VAR Text.</param>
-    /// <param name="ParBodyFileTypes">VAR Enum "WSC File Types".</param>
-    /// <param name="ParResponseFileTypes">VAR Enum "WSC Response File Types".</param>
-    /// <param name="ParExecutionTime">VAR Duration.</param>
-    procedure RetrieveGlobalVariables(var ParBodyInStream: InStream; var ParResponseInStream: InStream; var ParCallExecution: Boolean; var ParHttpStatusCode: Integer; var ParLastMessageText: Text; var ParNewEndPoint: Text; var ParBodyFileTypes: Enum "WSC File Types"; var ParResponseFileTypes: Enum "WSC File Types"; var ParExecutionTime: Duration)
+    internal procedure RetrieveGlobalVariables(var ParBodyInStream: InStream; var ParResponseInStream: InStream; var ParCallExecution: Boolean; var ParHttpStatusCode: Integer; var ParLastMessageText: Text; var ParNewEndPoint: Text; var ParBodyFileTypes: Enum "WSC File Types"; var ParResponseFileTypes: Enum "WSC File Types"; var ParExecutionTime: Duration)
     begin
         ParBodyInStream := BodyInStream;
         ParResponseInStream := ResponseInStream;
@@ -375,8 +364,6 @@ codeunit 81002 "WSC Caller"
     var
         BearerConnection: Record "WSC Connections";
         SecurityManagements: Codeunit "WSC Security Managements";
-        Bearer: Text;
-        InStr: InStream;
         Text001Txt: Label 'Bearer must have a value in this type of call';
         Text002Txt: Label 'Bearer %1';
     begin
@@ -448,8 +435,8 @@ codeunit 81002 "WSC Caller"
     local procedure ImportWithFilter(var TempBlob: Codeunit "Temp Blob"; var FileName: Text)
     var
         FileManagement: Codeunit "File Management";
-        IsHandled: Boolean;
         FromRecRef: RecordRef;
+        IsHandled: Boolean;
         FileDialogTxt: Label 'Attachments (%1)|%1', Comment = '%1=file types, such as *.txt or *.docx';
         FilterTxt: Label '*.jpg;*.jpeg;*.bmp;*.png;*.gif;*.tiff;*.tif;*.pdf;*.docx;*.doc;*.xlsx;*.xls;*.pptx;*.ppt;*.msg;*.xml;*.json;*.*', Locked = true;
         ImportTxt: Label 'Attach a document.';
@@ -467,9 +454,10 @@ codeunit 81002 "WSC Caller"
             Error(FileMissingErr);
     end;
 
-    procedure GetRecordReference(RecRef: RecordRef)
+    internal procedure GetEndpointCustomVariableValues(VariableValues: Dictionary of [Text, Text])
     begin
-        GlobalRecRef := RecRef;
+        Clear(EndpointCustomVariableValues);
+        EndpointCustomVariableValues := VariableValues;
     end;
 
     #endregion GeneralFunctions
@@ -530,7 +518,7 @@ codeunit 81002 "WSC Caller"
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnParseEndpoint(OldEndPointString: Text; var NewEndPointString: Text; EndPointVariables: Record "WSC EndPoint Variables"; Connections: Record "WSC Connections"; RecRef: RecordRef)
+    local procedure OnAfterParseEndpoint(OldEndPointString: Text; var NewEndPointString: Text; EndPointVariables: Record "WSC EndPoint Variables"; Connections: Record "WSC Connections"; CustomVariableValues: Dictionary of [Text, Text])
     begin
     end;
 
@@ -551,8 +539,8 @@ codeunit 81002 "WSC Caller"
 
     #endregion IntegrationEvents
     var
-        GlobalRecRef: RecordRef;
         GlobalConnection: Record "WSC Connections";
+        EndpointCustomVariableValues: Dictionary of [Text, Text];
         NewEndPoint: Text;
         LastMessageText: Text;
         BodyInStream: InStream;

@@ -41,6 +41,7 @@ page 81012 "WSC Import Configuration"
                 field(CurrStatus; CurrStatus)
                 {
                     ApplicationArea = All;
+                    OptionCaption = 'Error,Warning,Correct';
                     Caption = 'Status';
                     Editable = false;
                     StyleExpr = LineColor;

@@ -8,9 +8,6 @@ page 81011 "WSC EndPoint Variables List"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "WSC EndPoint Variables";
-    Editable = false;
-    InsertAllowed = false;
-    DeleteAllowed = false;
     layout
     {
         area(Content)
@@ -32,4 +29,8 @@ page 81011 "WSC EndPoint Variables List"
             }
         }
     }
+    trigger OnNewRecord(BelowxRec: Boolean)
+    begin
+        Rec."WSC Custom Var" := true;
+    end;
 }
