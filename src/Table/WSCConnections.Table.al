@@ -106,11 +106,6 @@ table 81001 "WSC Connections"
             DataClassification = CustomerContent;
             Caption = 'Body Type';
         }
-        field(15; "WSC Body Message"; Blob)
-        {
-            DataClassification = CustomerContent;
-            Caption = 'Body Message';
-        }
         field(17; "WSC Allow Blank Response"; Boolean)
         {
             DataClassification = CustomerContent;

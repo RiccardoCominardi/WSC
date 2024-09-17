@@ -100,92 +100,104 @@ codeunit 81003 "WSC Import Export Config."
     begin
         case TableType of
             TableType::Default:
-                case JsonFieldName of
-                    'groupCode':
-                        GroupCode := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(GroupCode));
-                    'code':
-                        begin
-                            SetNewRecordToInsert();
-                            TempConnections."WSC Code" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempConnections."WSC Code"));
-                            TempConnections."WSC Previous Code" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempConnections."WSC Previous Code"));
-                            TempConnections."WSC Group Code" := GroupCode;
-                        end;
-                    'description':
-                        TempConnections."WSC Description" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempConnections."WSC Description"));
-                    'httpMethod':
-                        Evaluate(TempConnections."WSC HTTP Method", JsonKeyValue.AsText()); //Valutare se nuove versioni hanno la funzione AsEnum
-                    'endpoint':
-                        TempConnections."WSC EndPoint" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempConnections."WSC EndPoint"));
-                    'allowBlankResponse':
-                        TempConnections."WSC Allow Blank Response" := JsonKeyValue.AsBoolean();
-                    'authType':
-                        Evaluate(TempConnections."WSC Auth. Type", JsonKeyValue.AsText());
-                    'bodyType':
-                        Evaluate(TempConnections."WSC Body Type", JsonKeyValue.AsText());
-                    'bodyMethod':
-                        Evaluate(TempConnections."WSC Body Method", JsonKeyValue.AsText());
-                    'tokenDataScope':
-                        Evaluate(TempConnections."WSC Token DataScope", JsonKeyValue.AsText());
-                    'username':
-                        TempConnections."WSC Username" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempConnections."WSC Username"));
-                    'password':
-                        SecurityManagements.SetToken(TempConnections."WSC Password", JsonKeyValue.AsText(), TempConnections.GetTokenDataScope());
-                    'bearerToken':
-                        TempConnections."WSC Bearer Connection" := JsonKeyValue.AsBoolean();
-                    'bearerConnCode':
-                        TempConnections."WSC Bearer Connection Code" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempConnections."WSC Bearer Connection Code"));
-                    'zipResponse':
-                        TempConnections."WSC Zip Response" := JsonKeyValue.AsBoolean();
-                    'type':
-                        Evaluate(TempConnections."WSC Type", JsonKeyValue.AsText());
-                    'indentation':
-                        TempConnections."WSC Indentation" := JsonKeyValue.AsInteger();
+                begin
+                    case JsonFieldName of
+                        'groupCode':
+                            GroupCode := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(GroupCode));
+                        'code':
+                            begin
+                                SetNewRecordToInsert();
+                                TempConnections."WSC Code" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempConnections."WSC Code"));
+                                TempConnections."WSC Previous Code" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempConnections."WSC Previous Code"));
+                                TempConnections."WSC Group Code" := GroupCode;
+                            end;
+                        'description':
+                            TempConnections."WSC Description" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempConnections."WSC Description"));
+                        'httpMethod':
+                            Evaluate(TempConnections."WSC HTTP Method", JsonKeyValue.AsText()); //Valutare se nuove versioni hanno la funzione AsEnum
+                        'endpoint':
+                            TempConnections."WSC EndPoint" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempConnections."WSC EndPoint"));
+                        'allowBlankResponse':
+                            TempConnections."WSC Allow Blank Response" := JsonKeyValue.AsBoolean();
+                        'authType':
+                            Evaluate(TempConnections."WSC Auth. Type", JsonKeyValue.AsText());
+                        'bodyType':
+                            Evaluate(TempConnections."WSC Body Type", JsonKeyValue.AsText());
+                        'bodyMethod':
+                            Evaluate(TempConnections."WSC Body Method", JsonKeyValue.AsText());
+                        'tokenDataScope':
+                            Evaluate(TempConnections."WSC Token DataScope", JsonKeyValue.AsText());
+                        'username':
+                            TempConnections."WSC Username" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempConnections."WSC Username"));
+                        'password':
+                            SecurityManagements.SetToken(TempConnections."WSC Password", JsonKeyValue.AsText(), TempConnections.GetTokenDataScope());
+                        'bearerToken':
+                            TempConnections."WSC Bearer Connection" := JsonKeyValue.AsBoolean();
+                        'bearerConnCode':
+                            TempConnections."WSC Bearer Connection Code" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempConnections."WSC Bearer Connection Code"));
+                        'zipResponse':
+                            TempConnections."WSC Zip Response" := JsonKeyValue.AsBoolean();
+                        'type':
+                            Evaluate(TempConnections."WSC Type", JsonKeyValue.AsText());
+                        'indentation':
+                            TempConnections."WSC Indentation" := JsonKeyValue.AsInteger();
+                    end;
+                    OnAfterApplyJsonValueToFieldDefault(TempConnections, JsonKeyValue, JsonFieldName);
                 end;
             TableType::Parameter:
-                case JsonFieldName of
-                    'key':
-                        begin
-                            SetNewRecordToInsert();
-                            TempParameters."WSC Key" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempParameters."WSC Key"));
-                        end;
-                    'value':
-                        TempParameters."WSC Value" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempParameters."WSC Value"));
-                    'description':
-                        TempParameters."WSC Description" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempParameters."WSC Description"));
-                    'isEnabled':
-                        TempParameters."WSC Enabled" := JsonKeyValue.AsBoolean();
+                begin
+                    case JsonFieldName of
+                        'key':
+                            begin
+                                SetNewRecordToInsert();
+                                TempParameters."WSC Key" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempParameters."WSC Key"));
+                            end;
+                        'value':
+                            TempParameters."WSC Value" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempParameters."WSC Value"));
+                        'description':
+                            TempParameters."WSC Description" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempParameters."WSC Description"));
+                        'isEnabled':
+                            TempParameters."WSC Enabled" := JsonKeyValue.AsBoolean();
+                    end;
+                    OnAfterApplyJsonValueToFieldParameters(TempParameters, JsonKeyValue, JsonFieldName);
                 end;
             TableType::Header:
-                case JsonFieldName of
-                    'key':
-                        begin
-                            SetNewRecordToInsert();
-                            TempHeaders."WSC Key" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempHeaders."WSC Key"));
-                        end;
-                    'isSecret':
-                        TempHeaders."WSC Is Secret" := JsonKeyValue.AsBoolean();
-                    'value':
-                        TempHeaders.SetValue(JsonKeyValue.AsText());
-                    'description':
-                        TempHeaders."WSC Description" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempHeaders."WSC Description"));
-                    'isEnabled':
-                        TempHeaders."WSC Enabled" := JsonKeyValue.AsBoolean();
+                begin
+                    case JsonFieldName of
+                        'key':
+                            begin
+                                SetNewRecordToInsert();
+                                TempHeaders."WSC Key" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempHeaders."WSC Key"));
+                            end;
+                        'isSecret':
+                            TempHeaders."WSC Is Secret" := JsonKeyValue.AsBoolean();
+                        'value':
+                            TempHeaders.SetValue(JsonKeyValue.AsText());
+                        'description':
+                            TempHeaders."WSC Description" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempHeaders."WSC Description"));
+                        'isEnabled':
+                            TempHeaders."WSC Enabled" := JsonKeyValue.AsBoolean();
+                    end;
+                    OnAfterApplyJsonValueToFieldHeaders(TempHeaders, JsonKeyValue, JsonFieldName);
                 end;
             TableType::Body:
-                case JsonFieldName of
-                    'key':
-                        begin
-                            SetNewRecordToInsert();
-                            TempBodies."WSC Key" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempBodies."WSC Key"));
-                        end;
-                    'isSecret':
-                        TempBodies."WSC Is Secret" := JsonKeyValue.AsBoolean();
-                    'value':
-                        TempBodies.SetValue(JsonKeyValue.AsText());
-                    'description':
-                        TempBodies."WSC Description" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempBodies."WSC Description"));
-                    'isEnabled':
-                        TempBodies."WSC Enabled" := JsonKeyValue.AsBoolean();
+                begin
+                    case JsonFieldName of
+                        'key':
+                            begin
+                                SetNewRecordToInsert();
+                                TempBodies."WSC Key" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempBodies."WSC Key"));
+                            end;
+                        'isSecret':
+                            TempBodies."WSC Is Secret" := JsonKeyValue.AsBoolean();
+                        'value':
+                            TempBodies.SetValue(JsonKeyValue.AsText());
+                        'description':
+                            TempBodies."WSC Description" := CopyStr(JsonKeyValue.AsText(), 1, MaxStrLen(TempBodies."WSC Description"));
+                        'isEnabled':
+                            TempBodies."WSC Enabled" := JsonKeyValue.AsBoolean();
+                    end;
+                    OnAfterApplyJsonValueToFieldBodies(TempBodies, JsonKeyValue, JsonFieldName);
                 end;
         end;
     end;
@@ -641,5 +653,24 @@ codeunit 81003 "WSC Import Export Config."
     begin
     end;
 
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterApplyJsonValueToFieldDefault(var TempConnections: Record "WSC Connections" temporary; JsonKeyValue: JsonValue; JsonFieldName: Text[50])
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterApplyJsonValueToFieldParameters(var TempParameters: Record "WSC Parameters" temporary; JsonKeyValue: JsonValue; JsonFieldName: Text[50])
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterApplyJsonValueToFieldHeaders(var TempHeaders: Record "WSC Headers" temporary; JsonKeyValue: JsonValue; JsonFieldName: Text[50])
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterApplyJsonValueToFieldBodies(var TempBodies: Record "WSC Bodies" temporary; JsonKeyValue: JsonValue; JsonFieldName: Text[50])
+    begin
+    end;
     #endregion IntegrationEvents
 }

@@ -95,17 +95,21 @@ codeunit 82000 "WSC Examples"
 
     //Add a fixed body for a WebService call. For complex body use the SetCustomBody procedure in Codeunit "WSC Managements";
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"WSC Caller", 'OnSetFixBodyMessage', '', false, false)]
-    local procedure OnSetFixBodyMessage(var Connections: Record "WSC Connections");
+    local procedure OnSetFixBodyMessage(Connections: Record "WSC Connections"; var BodyInStream: InStream);
     var
+        TempBlob: Codeunit "Temp Blob";
         OutStr: OutStream;
+        InStr: InStream;
     begin
         //This piece of code is required for WS calls to work properly. Your custom body must not have affect the body of other call
         if Connections."WSC Code" <> 'TEST' then
             exit;
 
-        Connections."WSC Body Message".CreateOutStream(OutStr);
+        TempBlob.CreateOutStream(OutStr);
         OutStr.WriteText('This is a fixed body text. You can put a file, contained in an InStream, in Write function');
-        //No need to modify record.
+        TempBlob.CreateInStream(InStr);
+
+        BodyInStream := InStr;
     end;
 
     //Change the authentication for a WebService call

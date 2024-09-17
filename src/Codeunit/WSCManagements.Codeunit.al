@@ -51,7 +51,7 @@ codeunit 81001 "WSC Managements"
             if not IsSuccessCall then begin
                 Flows."WSC Last Flow Status" := FlowsDetails."WSC Last Flow Status"::Error;
                 FlowsDetails."WSC Last Flow Status" := FlowsDetails."WSC Last Flow Status"::Error;
-                FlowsDetails."WSC Last Message Status" := GetLastErrorText();
+                FlowsDetails."WSC Last Message Status" := CopyStr(GetLastErrorText(), 1, MaxStrLen(FlowsDetails."WSC Last Message Status"));
             end else begin
                 Flows."WSC Last Flow Status" := FlowsDetails."WSC Last Flow Status"::Success;
                 FlowsDetails."WSC Last Flow Status" := FlowsDetails."WSC Last Flow Status"::Success;
@@ -155,7 +155,6 @@ codeunit 81001 "WSC Managements"
             Error('');
 
         CheckWSCodeSetup(Connections);
-        WriteCustomBodyOnWSCRec(Connections);
 
         OnBeforeExecuteDirectConnections(IsHandled, Connections);
         if IsHandled then
@@ -171,6 +170,7 @@ codeunit 81001 "WSC Managements"
                         ExecuteTokenCall(Connections."WSC Code", BearerConnection, TokenEntryNo);
                         LogEntryNo := TokenEntryNo;
                     end else begin
+                        WebServicesCaller.GetCustomBody(CustomBody);
                         WebServicesCaller.GetEndpointCustomVariableValues(EndpointCustomVariableValues);
                         if WebServicesCaller.Run(Connections) then;
                         LogEntryNo := WriteConnectionLog(WSCCode, '', 0);
@@ -182,6 +182,8 @@ codeunit 81001 "WSC Managements"
                     Commit();
                     Clear(WebServicesCaller);
                     ClearLastError();
+
+                    WebServicesCaller.GetCustomBody(CustomBody);
                     WebServicesCaller.GetEndpointCustomVariableValues(EndpointCustomVariableValues);
                     if WebServicesCaller.Run(Connections) then;
                     LogEntryNo := WriteConnectionLog(WSCCode, BearerConnection."WSC Code", TokenEntryNo);
@@ -262,39 +264,23 @@ codeunit 81001 "WSC Managements"
                 end;
         end;
 
-        case Connections."WSC Body Type" of
-            "WSC Body Types"::raw,
-            "WSC Body Types"::binary:
-                Connections.TestField("WSC Body Method");
-        end;
-
         OnAfterCheckWSCCodeSetup(Connections);
     end;
 
     procedure SetCustomBody(var InStr: InStream)
-    begin
-        CustomBodyInStream := InStr;
-        CustomBodyIsSet := true;
-    end;
-
-    local procedure WriteCustomBodyOnWSCRec(var Connections: Record "WSC Connections")
     var
         OutStr: OutStream;
     begin
-        ClearWSCBodyMessage(Connections);
-        if not CustomBodyIsSet then
-            exit;
-        Connections."WSC Body Message".CreateOutStream(OutStr);
-        CopyStream(OutStr, CustomBodyInStream);
-        Connections.Modify();
-        Commit();
+        CustomBody.CreateOutStream(OutStr);
+        CopyStream(OutStr, InStr);
     end;
 
-    local procedure ClearWSCBodyMessage(var Connections: Record "WSC Connections")
+    procedure SetCustomBody(BodyText: Text)
+    var
+        OutStr: OutStream;
     begin
-        Clear(Connections."WSC Body Message");
-        Connections.Modify();
-        Commit();
+        CustomBody.CreateOutStream(OutStr);
+        OutStr.WriteText(BodyText);
     end;
 
     local procedure IsSuccessStatusCode(WSCCode: Code[20]; EntryNo: Integer): Boolean
@@ -353,8 +339,6 @@ codeunit 81001 "WSC Managements"
         Clear(LastMessageText);
         Clear(ResponseText);
         Clear(NewEndPoint);
-        Clear(CustomBodyInStream);
-        Clear(CustomBodyIsSet);
         Clear(BodyFileType);
         Clear(ResponseFileType);
     end;
@@ -743,13 +727,12 @@ codeunit 81001 "WSC Managements"
     #endregion SubscriberEvents
     var
         WebServicesCaller: Codeunit "WSC Caller";
+        CustomBody: Codeunit "Temp Blob";
         EndpointCustomVariableValues: Dictionary of [Text, Text];
         BodyInStream: InStream;
         ResponseInStream: InStream;
-        CustomBodyInStream: InStream;
         ResponseText: Text;
         CallExecution: Boolean;
-        CustomBodyIsSet: Boolean;
         HttpStatusCode: Integer;
         LastMessageText: Text;
         NewEndPoint: Text;

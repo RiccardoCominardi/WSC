@@ -20,6 +20,8 @@ codeunit 81002 "WSC Caller"
         //Initialize Stream Variables
         TempBlob.CreateInStream(BodyInStream);
         TempBlob.CreateInStream(ResponseInStream);
+        if CustomBodySet then
+            BodyInStream := CustomBodyInStream;
 
         OnBeforeCalls(IsHandled, GlobalConnection);
         if IsHandled then
@@ -32,9 +34,7 @@ codeunit 81002 "WSC Caller"
     local procedure ExecuteRequest()
     var
         TempBlob: Codeunit "Temp Blob";
-        OutStr: OutStream;
         InStr: InStream;
-        FileInStream: InStream;
         Text000Err: Label 'Connection not estabilished';
         FileName: Text;
         StartingDateTime,
@@ -83,26 +83,19 @@ codeunit 81002 "WSC Caller"
                 begin
                     case GlobalConnection."WSC Body Method" of
                         "WSC Body Methods"::"fixed file":
-                            OnSetFixBodyMessage(GlobalConnection);
+                            OnSetFixBodyMessage(GlobalConnection, BodyInStream);
                         "WSC Body Methods"::"request file":
                             begin
                                 ImportWithFilter(TempBlob, FileName);
-                                if FileName <> '' then begin
-                                    GlobalConnection."WSC Body Message".CreateOutStream(OutStr);
-                                    TempBlob.CreateInStream(FileInStream);
-                                    CopyStream(OutStr, FileInStream);
-                                end;
+                                TempBlob.CreateInStream(InStr);
+                                BodyInStream := InStr;
                             end;
                         else
-                            HandleCustomBodyMethods(GlobalConnection);
+                            HandleCustomBodyMethods(GlobalConnection, BodyInStream);
                     end;
 
-                    GlobalConnection.CalcFields("WSC Body Message");
-                    if GlobalConnection."WSC Body Message".HasValue() then begin
-                        GlobalConnection."WSC Body Message".CreateInStream(InStr);
-                        BodyInStream := InStr;
-                        RequestContent.WriteFrom(InStr);
-                    end;
+                    if BodyInStream.Length <> 0 then
+                        RequestContent.WriteFrom(BodyInStream);
                 end;
             else
                 HandleCustomBodyTypes(GlobalConnection, RequestContent);
@@ -178,11 +171,10 @@ codeunit 81002 "WSC Caller"
         LocOptions: XmlReadOptions;
         LocXmlDocument: XmlDocument;
     begin
-        GlobalConnection.CalcFields("WSC Body Message");
-        if not GlobalConnection."WSC Body Message".HasValue() then
+        if BodyInStream.Length = 0 then
             exit;
 
-        GlobalConnection."WSC Body Message".CreateInStream(InStr);
+        InStr := BodyInStream;
         InStr.ReadText(BodyAsText);
 
         OnBeforeEvaluateBodyFileType(BodyAsText, BodyFileType, IsHandled);
@@ -460,6 +452,12 @@ codeunit 81002 "WSC Caller"
         EndpointCustomVariableValues := VariableValues;
     end;
 
+    internal procedure GetCustomBody(var CustomBody: Codeunit "Temp Blob")
+    begin
+        CustomBody.CreateInStream(CustomBodyInStream);
+        CustomBodySet := CustomBody.HasValue();
+    end;
+
     #endregion GeneralFunctions
     #region IntegrationEvents
 
@@ -474,13 +472,12 @@ codeunit 81002 "WSC Caller"
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnSetFixBodyMessage(var Connections: Record "WSC Connections")
+    local procedure OnSetFixBodyMessage(Connections: Record "WSC Connections"; var BodyInStream: InStream)
     begin
-        //Modify is not needed
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure HandleCustomBodyMethods(var Connections: Record "WSC Connections")
+    local procedure HandleCustomBodyMethods(Connections: Record "WSC Connections"; var BodyInStream: InStream)
     begin
 
     end;
@@ -541,13 +538,10 @@ codeunit 81002 "WSC Caller"
     var
         GlobalConnection: Record "WSC Connections";
         EndpointCustomVariableValues: Dictionary of [Text, Text];
-        NewEndPoint: Text;
-        LastMessageText: Text;
-        BodyInStream: InStream;
-        ResponseInStream: InStream;
-        CallExecution: Boolean;
+        NewEndPoint, LastMessageText : Text;
+        CustomBodyInStream, BodyInStream, ResponseInStream : InStream;
+        CustomBodySet, CallExecution : Boolean;
         HttpStatusCode: Integer;
-        BodyFileType: Enum "WSC File Types";
-        ResponseFileType: Enum "WSC File Types";
+        BodyFileType, ResponseFileType : Enum "WSC File Types";
         ExecutionTime: Duration;
 }
